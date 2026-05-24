@@ -126,6 +126,7 @@
         top: 1cm;
         z-index: 10;
         pointer-events: none;
+        direction: ltr;
         transform: translateX(-50%);
       }
       .pin-hint-composite {
@@ -275,7 +276,7 @@
   </head>
   <body>
     <div class="welcome-scene">
-    <div id="pin-hint" class="pin-hint" hidden aria-hidden="true">
+    <div id="pin-hint" class="pin-hint" dir="ltr" hidden aria-hidden="true">
       <div class="pin-hint-composite" id="pin-hint-guide">
         <span class="pin-hint-icon pin-hint-icon--arrow" id="pin-hint-arrow"></span>
         <span class="pin-hint-icon pin-hint-icon--pin" id="pin-hint-pin"></span>

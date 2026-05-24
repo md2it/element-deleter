@@ -1,4 +1,4 @@
-import type { Locale } from "./i18n";
+import { isRtlLocale, type Locale } from "./i18n";
 import { createPanelDivider, createPanelHeader } from "./panel-header";
 import type { buildWelcomeData } from "./welcome-data";
 
@@ -13,6 +13,7 @@ type WelcomeData = ReturnType<typeof buildWelcomeData>;
 
 let welcomeHeaderEl: HTMLElement | null = null;
 let welcomeBodyMinPx: number | null = null;
+let welcomePinHintRtl = false;
 
 function stepIcon(iconHtml: string): HTMLSpanElement {
   const span = document.createElement("span");
@@ -212,9 +213,8 @@ function populateWelcomeBody(body: HTMLElement, data: WelcomeData): void {
 
 function renderWelcomeContent(data: WelcomeData): void {
   document.documentElement.lang = data.locale;
-  if (data.dir) {
-    document.documentElement.dir = data.dir;
-  }
+  welcomePinHintRtl = data.dir === "rtl" || isRtlLocale(data.locale);
+  document.documentElement.dir = welcomePinHintRtl ? "rtl" : "ltr";
 
   mountWelcomeHeader(data);
 
@@ -242,6 +242,7 @@ async function switchWelcomeLocale(base: WelcomeData, localeCode: Locale): Promi
   const next = mergeWelcomeLocale(base, localeCode);
   renderWelcomeContent(next);
   syncLangButtons(next);
+  requestAnimationFrame(() => positionPinHint());
 }
 
 function measureWelcomeBodyHeight(base: WelcomeData, localeCode: Locale): number {
@@ -300,10 +301,23 @@ function positionPinHint(): void {
   if (!hint || !welcome || hint.hidden || hint.getAttribute("aria-hidden") === "true") return;
 
   const rect = welcome.getBoundingClientRect();
+  const rtl = welcomePinHintRtl;
+
+  hint.style.direction = "ltr";
+  hint.style.transform = "translateX(-50%)";
+
+  if (rtl) {
+    const gap = Math.max(0, rect.left - PIN_HINT_EDGE);
+    const x = PIN_HINT_EDGE + gap * 0.2;
+    hint.style.left = `${Math.round(x)}px`;
+    hint.style.right = "auto";
+    return;
+  }
+
   const viewportCornerX = window.innerWidth - PIN_HINT_EDGE;
   const x = (rect.right + viewportCornerX) / 2;
-
   hint.style.left = `${Math.round(x)}px`;
+  hint.style.right = "auto";
 }
 
 function bindPinHintPosition(): void {
