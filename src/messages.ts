@@ -1,0 +1,32 @@
+import type { Locale } from "./i18n";
+
+export type BgToContent =
+  | { type: "SET_ACTIVE"; active: boolean }
+  | {
+      type: "SETTINGS_UPDATED";
+      notificationSeconds: number;
+      locale: Locale;
+      elementLabelEnabled: boolean;
+    }
+  | { type: "DELETE_CONTEXT_ELEMENT" };
+
+export type ContentToBg =
+  | { type: "ACTIVE_CHANGED"; active: boolean }
+  | { type: "OPEN_PANEL"; tab: "settings" | "info" }
+  | { type: "TOGGLE_REQUEST" }
+  | { type: "WATCH_PIN_STATUS" };
+
+export type BgToWelcome = { type: "PIN_STATUS_CHANGED"; pinned: boolean };
+
+export const STORAGE_KEY = "notificationSeconds";
+export const LOCALE_STORAGE_KEY = "locale";
+/** Set when the user picks a language in settings; blocks auto re-detection. */
+export const LOCALE_USER_SELECTED_KEY = "localeUserSelected";
+/** Bumped when auto-detect logic changes; triggers one-time re-detect in background. */
+export const LOCALE_DETECT_VERSION_KEY = "localeDetectVersion";
+export const LOCALE_DETECT_VERSION = 4;
+export const START_HOTKEY_ENABLED_KEY = "startHotkeyEnabled";
+export const ESC_HOTKEY_ENABLED_KEY = "escHotkeyEnabled";
+export const UNDO_HOTKEY_ENABLED_KEY = "undoHotkeyEnabled";
+export const ELEMENT_LABEL_ENABLED_KEY = "elementLabelEnabled";
+export const DEFAULT_NOTIFICATION_SECONDS = 4;

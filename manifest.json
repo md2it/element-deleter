@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Element Deleter",
+  "version": "0.1.0",
+  "description": "Remove/restore page elements from the serialized page. No network is used. No data is collected.",
+  "permissions": ["storage", "scripting", "activeTab", "tabs", "contextMenus"],
+  "icons": {
+    "16": "icons/manifest/icon-16.png",
+    "32": "icons/manifest/icon-32.png",
+    "48": "icons/manifest/icon-48.png",
+    "128": "icons/manifest/icon-128.png"
+  },
+  "action": {
+    "default_title": "Element Deleter",
+    "default_icon": {
+      "16": "icons/toolbar/inactive.svg",
+      "32": "icons/toolbar/inactive.svg",
+      "48": "icons/toolbar/inactive.svg",
+      "128": "icons/toolbar/inactive.svg"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "commands": {
+    "toggle-active": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Toggle Element Deleter"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "dom-deleter@alekseyterekhov.local",
+      "strict_min_version": "109.0"
+    }
+  }
+}
