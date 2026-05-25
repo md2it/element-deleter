@@ -19,9 +19,21 @@ function isMacPlatform(ua, platform) {
 }
 
 /** Mirrors SHARED/src/hotkeys/keys.ts */
+function letterToCode(letter) {
+  return `Key${letter.toUpperCase()}`;
+}
+
+function isLetterKeyEvent(e, letter) {
+  const expectedCode = letterToCode(letter);
+  if (typeof e.code === "string" && e.code.length > 0) {
+    return e.code === expectedCode;
+  }
+  return e.key.toLowerCase() === letter.toLowerCase();
+}
+
 function isModifierShiftKeyEvent(e, key, mac) {
   const modifier = mac ? e.metaKey : e.ctrlKey;
-  return modifier && e.shiftKey && e.key.toLowerCase() === key.toLowerCase();
+  return modifier && e.shiftKey && isLetterKeyEvent(e, key);
 }
 
 function isPrefixChordKeyEvent(e, mac) {
@@ -30,7 +42,7 @@ function isPrefixChordKeyEvent(e, mac) {
 
 function isPrefixActionKeyEvent(e, key) {
   if (e.ctrlKey || e.metaKey || e.altKey) return false;
-  return e.key.toLowerCase() === key.toLowerCase();
+  return isLetterKeyEvent(e, key);
 }
 
 function isModifierKeyEvent(e, key, options = {}, mac) {
@@ -41,7 +53,7 @@ function isModifierKeyEvent(e, key, options = {}, mac) {
     modifier &&
     Boolean(e.shiftKey) === shift &&
     Boolean(e.altKey) === alt &&
-    e.key.toLowerCase() === key.toLowerCase()
+    isLetterKeyEvent(e, key)
   );
 }
 
@@ -60,17 +72,27 @@ function shouldSuppressContentToggleAfterToggleCommand(
   return lastAt > 0 && now - lastAt < windowMs;
 }
 
-const ev = (partial) => ({ ...partial, key: partial.key ?? "" });
+const ev = (partial) => ({ ...partial, key: partial.key ?? "", code: partial.code ?? "" });
 
-assert.equal(isPrefixChordKeyEvent(ev({ ctrlKey: true, shiftKey: true, key: "X" }), false), true);
-assert.equal(isPrefixChordKeyEvent(ev({ metaKey: true, shiftKey: true, key: "x" }), true), true);
-assert.equal(isPrefixChordKeyEvent(ev({ ctrlKey: true, shiftKey: false, key: "X" }), false), false);
+assert.equal(isPrefixChordKeyEvent(ev({ ctrlKey: true, shiftKey: true, code: "KeyX", key: "X" }), false), true);
+assert.equal(isPrefixChordKeyEvent(ev({ metaKey: true, shiftKey: true, code: "KeyX", key: "x" }), true), true);
+assert.equal(isPrefixChordKeyEvent(ev({ ctrlKey: true, shiftKey: false, code: "KeyX", key: "X" }), false), false);
+// RU layout: physical X reports key="ч" but code stays "KeyX".
+assert.equal(isPrefixChordKeyEvent(ev({ metaKey: true, shiftKey: true, code: "KeyX", key: "ч" }), true), true);
 
+assert.equal(isPrefixActionKeyEvent(ev({ code: "KeyD", key: "d" }), "D"), true);
+assert.equal(isPrefixActionKeyEvent(ev({ ctrlKey: true, code: "KeyD", key: "d" }), "D"), false);
+// RU layout: physical D reports key="в" but code stays "KeyD" — must match.
+assert.equal(isPrefixActionKeyEvent(ev({ code: "KeyD", key: "в" }), "D"), true);
+// Different physical key with key="d" (theoretical RU layout that maps "d" elsewhere) must not match.
+assert.equal(isPrefixActionKeyEvent(ev({ code: "KeyL", key: "d" }), "D"), false);
+// Fallback: no code (older runtimes) — by key.
 assert.equal(isPrefixActionKeyEvent(ev({ key: "d" }), "D"), true);
-assert.equal(isPrefixActionKeyEvent(ev({ ctrlKey: true, key: "d" }), "D"), false);
 
-assert.equal(isModifierKeyEvent(ev({ ctrlKey: true, key: "z" }), "z", {}, false), true);
-assert.equal(isModifierKeyEvent(ev({ ctrlKey: true, shiftKey: true, key: "z" }), "z", {}, false), false);
+assert.equal(isModifierKeyEvent(ev({ ctrlKey: true, code: "KeyZ", key: "z" }), "z", {}, false), true);
+assert.equal(isModifierKeyEvent(ev({ ctrlKey: true, shiftKey: true, code: "KeyZ", key: "z" }), "z", {}, false), false);
+// RU layout undo: physical Z is "я".
+assert.equal(isModifierKeyEvent(ev({ metaKey: true, code: "KeyZ", key: "я" }), "z", {}, true), true);
 
 assert.equal(isEscapeKeyEvent(ev({ key: "Escape" })), true);
 
@@ -112,6 +134,11 @@ assert.match(deleterKeysSrc, /getStartHotkeyChordLabel/);
 assert.match(deleterKeysSrc, /getStartHotkeyActionLabel/);
 assert.match(deleterKeysSrc, /PREFIX_ACTION_KEY/);
 
+const sharedKeysSrc = readFileSync(join(sharedHotkeys, "keys.ts"), "utf8");
+assert.match(sharedKeysSrc, /letterToCode/);
+assert.match(sharedKeysSrc, /isLetterKeyEvent/);
+assert.match(sharedKeysSrc, /e\.code === expectedCode/);
+
 const prefixBackgroundSrc = readFileSync(
   join(sharedHotkeys, "prefix-background.ts"),
   "utf8",
@@ -121,6 +148,10 @@ assert.match(
   prefixBackgroundSrc,
   /command === EXECUTE_ACTION_COMMAND[\s\S]*stampToggleCommand/,
 );
+assert.doesNotMatch(
+  prefixBackgroundSrc,
+  /shouldSuppressContentToggle/,
+);
 
 const deleterRegistrySrc = readFileSync(join(root, "src/hotkeys/registry.ts"), "utf8");
 assert.match(deleterRegistrySrc, /registerSharedContentHotkey/);
@@ -128,7 +159,7 @@ assert.match(deleterRegistrySrc, /elementDeleter/);
 
 const deleterBackgroundSrc = readFileSync(join(root, "src/hotkeys/background.ts"), "utf8");
 assert.match(deleterBackgroundSrc, /registerPrefixManifestHotkeys/);
-assert.match(deleterBackgroundSrc, /COMMAND_EXECUTE_ACTION/);
+assert.match(deleterBackgroundSrc, /prefixCommands:\s*\[COMMAND_TOGGLE_DELETE\]/);
 assert.match(deleterBackgroundSrc, /DELETER_ACTIVE_COLOR/);
 assert.match(deleterBackgroundSrc, /badgeBackgroundColor/);
 assert.match(deleterBackgroundSrc, /PREFIX_ARM_TOGGLE/);

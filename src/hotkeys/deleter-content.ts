@@ -42,9 +42,9 @@ export function registerDeleterStartHotkey(requestToggle: () => void): void {
   });
 }
 
-/** Arm prefix mode from background (manifest chord). */
+/** Wait for prefix release, then arm (manifest chord). */
 export function armDeleterPrefixToggle(hint = PREFIX_ACTION_KEY): void {
-  prefixController?.arm(hint);
+  prefixController?.prepareAwaitAction(hint);
 }
 
 /** Page `keydown` handlers: Esc off, undo restore. */

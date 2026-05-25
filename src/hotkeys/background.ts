@@ -5,7 +5,6 @@ import {
 } from "../../../SHARED/src/hotkeys";
 import type { BgToContent } from "../messages";
 import {
-  COMMAND_EXECUTE_ACTION,
   COMMAND_TOGGLE_DELETE,
   COMMAND_UNDO,
   DELETER_ACTIVE_COLOR,
@@ -45,7 +44,7 @@ export function registerBackgroundHotkeys(host: BackgroundHotkeysHost): void {
   };
 
   registerPrefixManifestHotkeys({
-    prefixCommands: [COMMAND_TOGGLE_DELETE, COMMAND_EXECUTE_ACTION],
+    prefixCommands: [COMMAND_TOGGLE_DELETE],
     hintLetter: PREFIX_ACTION_KEY,
     badgeBackgroundColor: DELETER_ACTIVE_COLOR,
     undoCommand: COMMAND_UNDO,
