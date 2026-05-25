@@ -402,11 +402,9 @@ async function ensureContextMenu(): Promise<void> {
 async function pushSettingsToActiveTabs(): Promise<void> {
   const settings = await loadAllSettings();
   const message = settingsUpdatedMessage(settings);
-  const tabs = await ext.tabs.query({});
-  for (const tab of tabs) {
-    if (tab.id === undefined) continue;
-    if (!tabActive.get(tab.id)) continue;
-    await sendToTab(tab.id, message);
+  for (const tabId of tabActive.keys()) {
+    if (!tabActive.get(tabId)) continue;
+    await sendToTab(tabId, message);
   }
 }
 
