@@ -1,7 +1,7 @@
-import circlePowerSvg from "../icons/lucide/circle-power.svg";
-import shieldCheckSvg from "../icons/lucide/shield-check.svg";
-import trash2Svg from "../icons/lucide/trash-2.svg";
-import undo2Svg from "../icons/lucide/undo-2.svg";
+import circlePowerSvg from "../icons/circle-power.svg";
+import shieldCheckSvg from "../icons/shield-check.svg";
+import trash2Svg from "../icons/trash-2.svg";
+import undo2Svg from "../icons/undo-2.svg";
 
 export {
   ARROW_UP,

@@ -1,228 +1,34 @@
 import { ext } from "./api";
-import { TOOLBAR_ICON_PATHS, type ToolbarIconMode } from "./icon-paths";
-import { getToolbarIconSets, type ToolbarIconSets } from "./icons";
+import {
+  bootstrapToolbarIcons,
+  forEachActiveTabId,
+  getTabActiveState,
+  onContentActiveChanged,
+  registerExtensionIconStateListeners,
+  setTabActiveState,
+  syncIconForTab,
+} from "./extension-icon-state";
 import { isRtlLocale, t, type Locale } from "./i18n";
 import type { BgToContent, ContentActivationResponse, ContentToBg } from "./messages";
+import { registerBackgroundHotkeys } from "./hotkeys";
 import {
   ensureLocaleInStorage,
   getElementLabelEnabled,
-  getEscHotkeyEnabled,
   getLocale,
   getNotificationSeconds,
-  getStartHotkeyEnabled,
   getUndoHotkeyEnabled,
 } from "./storage";
-import { isActionOnToolbar, onActionToolbarChanged } from "../../SHARED/src/pin";
-import { buildWelcomeData } from "./welcome-data";
+import { openPanelFromSender } from "./panel-popup";
+import {
+  canOperateOnTab,
+  refreshRestrictedNoticeCache,
+  showRestrictedNotice,
+} from "./page-operability";
+import { showWelcome, stopWelcomePinWatcher, watchWelcomePinStatus } from "./welcome";
 
-const tabActive = new Map<number, boolean>();
-const welcomePinWatchers = new Map<number, () => void>();
-const ICON_SYNCED_TAB_IDS_KEY = "iconSyncedTabIds";
 const TOGGLE_DEBOUNCE_MS = 80;
 let lastToggleTabId: number | undefined;
 let lastToggleAt = 0;
-
-const RESTRICTED_NOTICE_POPUP = "blocked-notice.html";
-const WELCOME_POPUP = "welcome.html";
-const PANEL_POPUP_PAGE = "panel-popup-page.html";
-const RESTRICTED_NOTICE_MIN_MS = 4000;
-
-let restrictedNoticeCache: { text: string; dismissMs: number } | null = null;
-
-let toolbarIcons: ToolbarIconSets | null = null;
-let toolbarIconsFailed = false;
-
-function loadToolbarIcons(): ToolbarIconSets | null {
-  if (toolbarIcons) return toolbarIcons;
-  if (toolbarIconsFailed) return null;
-  try {
-    toolbarIcons = getToolbarIconSets();
-    return toolbarIcons;
-  } catch (err) {
-    toolbarIconsFailed = true;
-    console.error("[Element Deleter] dynamic toolbar icons unavailable:", err);
-    return null;
-  }
-}
-
-function resolveToolbarIconMode(tabId: number): ToolbarIconMode {
-  return tabActive.get(tabId) ? "active" : "inactive";
-}
-
-async function applyToolbarIcon(
-  details: { tabId?: number },
-  mode: ToolbarIconMode,
-): Promise<void> {
-  const sets = loadToolbarIcons();
-  const paths = TOOLBAR_ICON_PATHS[mode];
-
-  if (sets) {
-    const imageData = sets[mode];
-    try {
-      await ext.action.setIcon({ ...details, imageData });
-      return;
-    } catch (err) {
-      console.warn("[Element Deleter] setIcon(imageData) failed, using SVG paths:", err);
-    }
-  }
-
-  try {
-    await ext.action.setIcon({ ...details, path: paths });
-  } catch (err) {
-    if (details.tabId !== undefined) {
-      console.warn("[Element Deleter] setIcon(tabId, path) failed:", err);
-      try {
-        await ext.action.setIcon({ path: paths });
-      } catch (err2) {
-        console.error("[Element Deleter] setIcon(path) failed:", err2);
-      }
-      return;
-    }
-    console.error("[Element Deleter] setIcon failed:", err);
-  }
-}
-
-async function getIconSyncedTabIds(): Promise<number[]> {
-  const data = await ext.storage.session.get(ICON_SYNCED_TAB_IDS_KEY);
-  const raw = data[ICON_SYNCED_TAB_IDS_KEY];
-  if (!Array.isArray(raw)) return [];
-  return raw.filter((id): id is number => typeof id === "number");
-}
-
-async function setIconSyncedTabIds(ids: number[]): Promise<void> {
-  await ext.storage.session.set({ [ICON_SYNCED_TAB_IDS_KEY]: ids });
-}
-
-async function rememberIconSyncedTab(tabId: number): Promise<void> {
-  const ids = await getIconSyncedTabIds();
-  if (ids.includes(tabId)) return;
-  await setIconSyncedTabIds([...ids, tabId]);
-}
-
-async function forgetIconSyncedTab(tabId: number): Promise<void> {
-  const ids = await getIconSyncedTabIds();
-  if (!ids.includes(tabId)) return;
-  await setIconSyncedTabIds(ids.filter((id) => id !== tabId));
-}
-
-async function syncTabToolbarIcon(tabId: number): Promise<void> {
-  await applyToolbarIcon({ tabId }, resolveToolbarIconMode(tabId));
-  await rememberIconSyncedTab(tabId);
-}
-
-async function setGlobalToolbarIcon(): Promise<void> {
-  await applyToolbarIcon({}, "inactive");
-}
-
-async function syncAllTabIcons(): Promise<void> {
-  const tabIds = await getIconSyncedTabIds();
-  const alive: number[] = [];
-  for (const tabId of tabIds) {
-    try {
-      await applyToolbarIcon({ tabId }, resolveToolbarIconMode(tabId));
-      alive.push(tabId);
-    } catch {
-      /* tab closed */
-    }
-  }
-  if (alive.length !== tabIds.length) {
-    await setIconSyncedTabIds(alive);
-  }
-}
-
-async function restrictedNoticeDismissMs(): Promise<number> {
-  const seconds = await getNotificationSeconds();
-  if (seconds <= 0) return RESTRICTED_NOTICE_MIN_MS;
-  return seconds * 1000;
-}
-
-async function refreshRestrictedNoticeCache(): Promise<void> {
-  const [locale, dismissMs] = await Promise.all([getLocale(), restrictedNoticeDismissMs()]);
-  restrictedNoticeCache = { text: t(locale).restrictedPageNotice, dismissMs };
-}
-
-async function showRestrictedNotice(
-  tabId: number,
-  windowId?: number,
-): Promise<void> {
-  if (!restrictedNoticeCache) {
-    await refreshRestrictedNoticeCache();
-  }
-  const { text, dismissMs } = restrictedNoticeCache!;
-
-  void ext.storage.session.set({
-    restrictedNotice: { text, dismissMs },
-  });
-
-  const noticeUrl = ext.runtime.getURL(RESTRICTED_NOTICE_POPUP);
-  let winId = windowId;
-
-  if (winId === undefined) {
-    try {
-      const tab = await ext.tabs.get(tabId);
-      winId = tab.windowId;
-    } catch {
-      /* tab may be gone */
-    }
-  }
-
-  try {
-    await ext.action.setPopup({ tabId, popup: RESTRICTED_NOTICE_POPUP });
-    const openPopup = (
-      ext.action as typeof ext.action & {
-        openPopup?: (details: { windowId: number }) => Promise<void>;
-      }
-    ).openPopup;
-    if (openPopup && winId !== undefined) {
-      await openPopup({ windowId: winId });
-      return;
-    }
-    throw new Error("action.openPopup unavailable");
-  } catch (err) {
-    console.warn("[Element Deleter] openPopup notice failed, using tab:", err);
-    try {
-      await ext.tabs.create({
-        url: `${noticeUrl}?mode=tab`,
-        active: true,
-      });
-    } catch (err2) {
-      console.error("[Element Deleter] restricted notice tab failed:", err2);
-    }
-  } finally {
-    await ext.action.setPopup({ tabId, popup: "" });
-  }
-}
-
-/** True when the browser allows programmatic scripting on the visible tab document. */
-async function canOperateOnTab(tabId: number, frameId?: number): Promise<boolean> {
-  try {
-    const target =
-      frameId !== undefined && frameId !== 0
-        ? { tabId, frameIds: [frameId] }
-        : { tabId };
-    const [result] = await ext.scripting.executeScript({
-      target,
-      func: () => {
-        try {
-          const root = document.documentElement ?? document.body;
-          if (!root) return false;
-          const probe = document.createElement("div");
-          probe.style.display = "none";
-          root.appendChild(probe);
-          const ok = probe.isConnected;
-          probe.remove();
-          return ok;
-        } catch {
-          return false;
-        }
-      },
-    });
-    return result?.result === true;
-  } catch {
-    return false;
-  }
-}
-
 
 async function injectContent(tabId: number, frameId?: number): Promise<boolean> {
   try {
@@ -307,8 +113,8 @@ async function setTabActive(
   windowId?: number,
 ): Promise<void> {
   if (active && !(await canOperateOnTab(tabId))) {
-    tabActive.set(tabId, false);
-    await syncTabToolbarIcon(tabId);
+    setTabActiveState(tabId, false);
+    await syncIconForTab(tabId);
     await showRestrictedNotice(tabId, windowId);
     return;
   }
@@ -318,8 +124,8 @@ async function setTabActive(
     : await sendToTab(tabId, { type: "SET_ACTIVE", active: false });
 
   if (active && !reached) {
-    tabActive.set(tabId, false);
-    await syncTabToolbarIcon(tabId);
+    setTabActiveState(tabId, false);
+    await syncIconForTab(tabId);
     await sendToTab(tabId, { type: "SET_ACTIVE", active: false });
     await showRestrictedNotice(tabId, windowId);
     return;
@@ -331,9 +137,9 @@ async function setTabActive(
 }
 
 async function deactivateTab(tabId: number): Promise<void> {
-  if (!tabActive.get(tabId)) return;
-  tabActive.set(tabId, false);
-  await syncTabToolbarIcon(tabId);
+  if (!getTabActiveState(tabId)) return;
+  setTabActiveState(tabId, false);
+  await syncIconForTab(tabId);
   await setTabActive(tabId, false);
 }
 
@@ -353,32 +159,29 @@ async function toggleTab(tabId: number, windowId?: number): Promise<void> {
   lastToggleTabId = tabId;
   lastToggleAt = now;
 
-  const next = !tabActive.get(tabId);
+  const next = !getTabActiveState(tabId);
   if (!next) {
-    tabActive.set(tabId, false);
-    await syncTabToolbarIcon(tabId);
+    setTabActiveState(tabId, false);
+    await syncIconForTab(tabId);
     await setTabActive(tabId, false, windowId);
     return;
   }
 
   if (!(await canOperateOnTab(tabId))) {
-    tabActive.set(tabId, false);
-    await syncTabToolbarIcon(tabId);
+    setTabActiveState(tabId, false);
+    await syncIconForTab(tabId);
     await showRestrictedNotice(tabId, windowId);
     return;
   }
 
-  tabActive.set(tabId, true);
-  await syncTabToolbarIcon(tabId);
+  setTabActiveState(tabId, true);
+  await syncIconForTab(tabId);
   await setTabActive(tabId, true, windowId);
 }
 
 const CONTEXT_MENU_SETTINGS = "dom-deleter-settings";
 const CONTEXT_MENU_ABOUT = "dom-deleter-about";
 const CONTEXT_MENU_DELETE = "dom-deleter-delete-element";
-const COMMAND_EXECUTE_ACTION = "_execute_action";
-const COMMAND_DEACTIVATE = "deactivate";
-const COMMAND_UNDO = "undo-delete";
 
 function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
   return new Promise((resolve) => {
@@ -473,120 +276,13 @@ async function ensureContextMenu(): Promise<void> {
 async function pushSettingsToActiveTabs(): Promise<void> {
   const settings = await loadAllSettings();
   const message = settingsUpdatedMessage(settings);
-  for (const tabId of tabActive.keys()) {
-    if (!tabActive.get(tabId)) continue;
+  const activeTabIds: number[] = [];
+  forEachActiveTabId((tabId) => {
+    activeTabIds.push(tabId);
+  });
+  for (const tabId of activeTabIds) {
     await sendToTab(tabId, message);
   }
-}
-
-function stopWelcomePinWatcher(tabId: number): void {
-  welcomePinWatchers.get(tabId)?.();
-  welcomePinWatchers.delete(tabId);
-}
-
-function notifyWelcomePinned(tabId: number): void {
-  void ext.tabs
-    .sendMessage(tabId, { type: "PIN_STATUS_CHANGED", pinned: true })
-    .catch(() => {
-      /* welcome tab closed */
-    });
-  stopWelcomePinWatcher(tabId);
-}
-
-function watchWelcomePinStatus(tabId: number): void {
-  stopWelcomePinWatcher(tabId);
-
-  void isActionOnToolbar(ext.action).then((pinned) => {
-    if (pinned === true) notifyWelcomePinned(tabId);
-  });
-
-  const stop = onActionToolbarChanged(ext.action, (pinned) => {
-    if (!pinned) return;
-    notifyWelcomePinned(tabId);
-  });
-  welcomePinWatchers.set(tabId, stop);
-}
-
-async function showWelcome(): Promise<void> {
-  const locale = await getLocale();
-  const manifest = ext.runtime.getManifest();
-  const isPinned = await isActionOnToolbar(ext.action);
-
-  await ext.storage.session.set({
-    welcomeData: buildWelcomeData(locale, manifest.name, { isPinned }),
-  });
-
-  try {
-    await ext.tabs.create({
-      url: ext.runtime.getURL(WELCOME_POPUP),
-      active: true,
-    });
-  } catch (err) {
-    console.error("[Element Deleter] welcome tab failed:", err);
-  }
-}
-
-type PanelPopupTarget = {
-  /** Per-tab popup only when the icon is pinned; omit for the extensions menu. */
-  tabId?: number;
-  windowId: number;
-};
-
-function panelPopupPath(panelTab: "settings" | "info", mode?: "tab"): string {
-  const params = new URLSearchParams({ tab: panelTab });
-  if (mode === "tab") params.set("mode", "tab");
-  return `${PANEL_POPUP_PAGE}?${params.toString()}`;
-}
-
-async function openPanelPopupTab(panelTab: "settings" | "info"): Promise<void> {
-  try {
-    await ext.tabs.create({
-      url: ext.runtime.getURL(panelPopupPath(panelTab, "tab")),
-      active: true,
-    });
-  } catch (err) {
-    console.error("[Element Deleter] panel popup tab failed:", err);
-  }
-}
-
-/** Keep async chain short — user gesture from context menu expires after long await. */
-function openPanelInActionPopup(
-  panelTab: "settings" | "info",
-  target: PanelPopupTarget,
-): void {
-  const { tabId, windowId } = target;
-  const popup = panelPopupPath(panelTab);
-  const setPopupDetails =
-    tabId !== undefined ? { tabId, popup } : { popup };
-  const clearPopupDetails = tabId !== undefined ? { tabId, popup: "" } : { popup: "" };
-
-  void (async () => {
-    await ext.action.setPopup(setPopupDetails);
-    try {
-      const openPopup = (
-        ext.action as typeof ext.action & {
-          openPopup?: (details: { windowId: number }) => Promise<void>;
-        }
-      ).openPopup;
-      if (!openPopup) throw new Error("action.openPopup unavailable");
-      await openPopup({ windowId });
-    } catch (err) {
-      console.warn("[Element Deleter] openPopup panel failed, using tab:", err);
-      await openPanelPopupTab(panelTab);
-    } finally {
-      await ext.action.setPopup(clearPopupDetails);
-    }
-  })();
-}
-
-function handleOpenPanel(
-  panelTab: "settings" | "info",
-  senderTab: chrome.tabs.Tab | undefined,
-): void {
-  openPanelInActionPopup(panelTab, {
-    tabId: senderTab?.id,
-    windowId: senderTab?.windowId,
-  });
 }
 
 ext.action.onClicked.addListener(async (tab) => {
@@ -594,33 +290,20 @@ ext.action.onClicked.addListener(async (tab) => {
   await toggleTab(tab.id, tab.windowId);
 });
 
-ext.commands.onCommand.addListener((command) => {
-  void (async () => {
-    if (command === COMMAND_EXECUTE_ACTION) {
-      return;
-    }
-
-    const tab = await getActiveCommandTab();
-    if (tab?.id === undefined) return;
-
-    if (command === COMMAND_DEACTIVATE) {
-      if (!(await getStartHotkeyEnabled())) return;
-      await deactivateTab(tab.id);
-      return;
-    }
-    if (command === COMMAND_UNDO) {
-      await undoOnTab(tab.id);
-    }
-  })();
+registerBackgroundHotkeys({
+  getActiveCommandTab,
+  deactivateTab,
+  undoOnTab,
+  toggleTab,
 });
 
 ext.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === CONTEXT_MENU_SETTINGS) {
-    handleOpenPanel("settings", tab);
+    openPanelFromSender("settings", tab);
     return;
   }
   if (info.menuItemId === CONTEXT_MENU_ABOUT) {
-    handleOpenPanel("info", tab);
+    openPanelFromSender("info", tab);
     return;
   }
   if (info.menuItemId === CONTEXT_MENU_DELETE) {
@@ -640,21 +323,11 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
 
 ext.runtime.onMessage.addListener(
   (message: ContentToBg, sender): boolean | void => {
-    if (message.type === "TOGGLE_REQUEST" && sender.tab?.id !== undefined) {
-      const tabId = sender.tab.id;
-      void (async () => {
-        if (!(await getStartHotkeyEnabled())) return;
-        await toggleTab(tabId, sender.tab?.windowId);
-      })();
-      return;
-    }
     if (message.type === "ACTIVE_CHANGED" && sender.tab?.id !== undefined) {
-      const active = message.active;
-      tabActive.set(sender.tab.id, active);
-      void syncTabToolbarIcon(sender.tab.id);
+      onContentActiveChanged(sender.tab.id, message.active);
     }
     if (message.type === "OPEN_PANEL") {
-      handleOpenPanel(message.tab, sender.tab);
+      openPanelFromSender(message.tab, sender.tab);
     }
     if (message.type === "WATCH_PIN_STATUS" && sender.tab?.id !== undefined) {
       watchWelcomePinStatus(sender.tab.id);
@@ -664,25 +337,9 @@ ext.runtime.onMessage.addListener(
 
 ext.tabs.onRemoved.addListener((tabId) => {
   stopWelcomePinWatcher(tabId);
-  tabActive.delete(tabId);
-  void forgetIconSyncedTab(tabId);
 });
 
-ext.tabs.onActivated.addListener(({ tabId }) => {
-  void syncTabToolbarIcon(tabId);
-});
-
-ext.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.status === "loading" || changeInfo.url !== undefined) {
-    tabActive.set(tabId, false);
-  }
-
-  if (changeInfo.url === undefined && changeInfo.status !== "complete") {
-    return;
-  }
-
-  void syncTabToolbarIcon(tabId);
-});
+registerExtensionIconStateListeners();
 
 ext.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") return;
@@ -707,12 +364,11 @@ ext.storage.onChanged.addListener((changes, area) => {
 const onBootstrap = async (): Promise<void> => {
   await ensureLocaleInStorage();
   await refreshRestrictedNoticeCache();
-  await setGlobalToolbarIcon();
-  await syncAllTabIcons();
+  await bootstrapToolbarIcons();
+  await ensureContextMenu();
 };
 
 void ext.runtime.onInstalled.addListener((details) => {
-  void ensureContextMenu();
   void onBootstrap();
   if (details.reason === "install") {
     void showWelcome();
@@ -720,8 +376,7 @@ void ext.runtime.onInstalled.addListener((details) => {
 });
 
 void ext.runtime.onStartup.addListener(() => {
-  void ensureContextMenu();
   void onBootstrap();
 });
 
-void ensureContextMenu();
+void onBootstrap();

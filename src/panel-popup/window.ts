@@ -1,16 +1,13 @@
-import { aboutItemDomClasses, buildAboutListItems } from "./about";
-import { PANEL_TITLE } from "./brand";
+import { aboutItemDomClasses, buildAboutListItems } from "../about";
+import { PANEL_TITLE } from "../brand";
 import {
-  BUY_ME_COFFEE,
   CHEVRON_LEFT,
   CHEVRON_RIGHT,
   CHEVRONS_LEFT,
   CHEVRONS_RIGHT,
-  LINKEDIN,
-  MD2IT,
-  REVOLUT,
-} from "./icons";
-import { createPanelDivider, createPanelHeader } from "./panel-header";
+} from "../icons";
+import { createPanelFooter } from "../panel-footer";
+import { createPanelDivider, createPanelHeader } from "./header";
 import {
   isRtlLocale,
   LOCALE_BUTTON_LABELS,
@@ -18,8 +15,8 @@ import {
   t,
   type Locale,
   type Strings,
-} from "./i18n";
-import { ESC_HOTKEY_LABEL, getStartHotkeyLabel, getUndoHotkeyLabel } from "./hotkeys";
+} from "../i18n";
+import { ESC_HOTKEY_LABEL, getStartHotkeyLabel, getUndoHotkeyLabel } from "../hotkeys";
 import {
   setElementLabelEnabled,
   setEscHotkeyEnabled,
@@ -27,10 +24,10 @@ import {
   setNotificationSeconds,
   setStartHotkeyEnabled,
   setUndoHotkeyEnabled,
-} from "./storage";
-import type { ToastSystem } from "./toast";
+} from "../storage";
+import type { ToastSystem } from "../toast";
 
-const HOST_ATTR = "data-dom-deleter-ui";
+import { PANEL_POPUP_HOST_ATTR } from "./constants";
 const PANEL_BODY_MIN_VAR = "--dd-panel-body-min";
 const PANEL_PROBE_WIDTH = "20rem";
 
@@ -109,14 +106,7 @@ export class PanelWindowSystem {
 
     body.append(settingsPanel, infoPanel);
 
-    const footer = document.createElement("div");
-    footer.className = "dd-panel-footer";
-    footer.innerHTML = `
-      <a href="https://www.linkedin.com/in/alex-terekhov/" target="_blank" rel="noopener noreferrer" title="LinkedIn">${LINKEDIN}</a>
-      <a href="https://md2it.com" target="_blank" rel="noopener noreferrer" title="MD2IT">${MD2IT}</a>
-      <a href="https://buymeacoffee.com/md2it" target="_blank" rel="noopener noreferrer" title="Buy Me a Coffee">${BUY_ME_COFFEE}</a>
-      <a href="https://revolut.me/api1" target="_blank" rel="noopener noreferrer" title="Revolut">${REVOLUT}</a>
-    `;
+    const footer = createPanelFooter();
 
     let activeTab: "settings" | "info" = tab;
 
@@ -157,7 +147,7 @@ export class PanelWindowSystem {
       createPanelDivider(),
       footer,
     );
-    panelRoot.setAttribute(HOST_ATTR, "true");
+    panelRoot.setAttribute(PANEL_POPUP_HOST_ATTR, "true");
     this.host.shadow.appendChild(panelRoot);
     this.applyPanelBodyMinHeight(body);
     this.attachPanelEscapeKeyHandler();

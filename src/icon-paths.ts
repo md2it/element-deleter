@@ -1,6 +1,6 @@
 /** Static toolbar SVGs (manifest + setIcon path fallback). */
-const INACTIVE = "icons/toolbar/inactive.svg";
-const ACTIVE = "icons/toolbar/active.svg";
+const INACTIVE = "icons/toolbar-inactive.svg";
+const ACTIVE = "icons/toolbar-active.svg";
 
 export const TOOLBAR_ICON_PATHS = {
   inactive: {

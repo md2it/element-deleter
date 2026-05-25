@@ -6,6 +6,10 @@
     "icons:manifest": "node scripts/generate-manifest-icons.mjs",
     "build": "node scripts/build.mjs",
     "watch": "node scripts/build.mjs --watch",
-    "typecheck": "node ../SHARED/node_modules/typescript/bin/tsc --noEmit -p tsconfig.json"
+    "typecheck": "node ../SHARED/node_modules/typescript/bin/tsc --noEmit -p tsconfig.json",
+    "smoke:hotkeys": "node scripts/smoke-hotkeys.mjs",
+    "smoke:operability": "node scripts/smoke-page-operability.mjs",
+    "smoke:icon-state": "node scripts/smoke-extension-icon-state.mjs",
+    "smoke": "npm run smoke:hotkeys && npm run smoke:operability && npm run smoke:icon-state"
   }
 }

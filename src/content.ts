@@ -1,22 +1,14 @@
 import { ext } from "./api";
-import {
-  isEditableKeyboardTarget,
-  isEscHotkeyEvent,
-  isStartHotkeyEvent,
-  isUndoHotkeyEvent,
-} from "./hotkeys";
+import { registerDeleterContentHotkeys, registerDeleterStartHotkey } from "./hotkeys";
 import type { BgToContent, ContentActivationResponse, ContentToBg } from "./messages";
-import {
-  getEscHotkeyEnabled,
-  getStartHotkeyEnabled,
-  getUndoHotkeyEnabled,
-} from "./storage";
+import { getUndoHotkeyEnabled } from "./storage";
 import {
   resolveUndoEntryParent,
   type UndoStackAccess,
 } from "./restore";
 import { DeleterUI } from "./ui";
-import { mountPanelPopup } from "./panel-ui";
+import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup";
+import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
 
 type ContentState = {
   active: boolean;
@@ -31,10 +23,8 @@ declare global {
     __domDeleterMessageHandler?: (
       message: BgToContent,
       sender: chrome.runtime.MessageSender,
-    ) => void;
-    __domDeleterEscHotkeyHandler?: (e: KeyboardEvent) => void;
-    __domDeleterStartHotkeyHandler?: (e: KeyboardEvent) => void;
-    __domDeleterUndoHotkeyHandler?: (e: KeyboardEvent) => void;
+      sendResponse: (response: ContentActivationResponse) => void,
+    ) => boolean | void;
     __domDeleterContextMenuHandler?: (e: MouseEvent) => void;
     __domDeleterState?: ContentState;
     __domDeleterContextMenuTarget?: Element | null;
@@ -234,81 +224,16 @@ function attachMessageHandler(state: ContentState): void {
 
   window.__domDeleterMessageHandler = handler;
   ext.runtime.onMessage.addListener(handler);
-  attachEscHotkeyListener(state, deactivate);
-  attachUndoHotkeyListener(state, ensureUi);
-}
-
-function attachStartHotkeyListener(): void {
-  const prev = window.__domDeleterStartHotkeyHandler;
-  if (prev) {
-    window.removeEventListener("keydown", prev, true);
-  }
-
-  const handler = (e: KeyboardEvent): void => {
-    if (!isStartHotkeyEvent(e)) return;
-    if (isEditableKeyboardTarget(e.target)) return;
-    e.preventDefault();
-    e.stopPropagation();
-    void (async () => {
-      if (!(await getStartHotkeyEnabled())) return;
-      requestToggle();
-    })();
-  };
-
-  window.__domDeleterStartHotkeyHandler = handler;
-  window.addEventListener("keydown", handler, true);
-}
-
-function attachUndoHotkeyListener(
-  state: ContentState,
-  ensureUi: () => Promise<DeleterUI>,
-): void {
-  const prev = window.__domDeleterUndoHotkeyHandler;
-  if (prev) {
-    window.removeEventListener("keydown", prev, true);
-  }
-
-  const handler = (e: KeyboardEvent): void => {
-    if (!isUndoHotkeyEvent(e)) return;
-    if (isEditableKeyboardTarget(e.target)) return;
-    if (hasRestorableUndo(state)) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    void (async () => {
-      if (!(await getUndoHotkeyEnabled())) return;
-      const ui = await ensureUi();
-      if (!ui.canUndo()) return;
-      await ui.undoLast();
-    })();
-  };
-
-  window.__domDeleterUndoHotkeyHandler = handler;
-  window.addEventListener("keydown", handler, true);
-}
-
-function attachEscHotkeyListener(
-  state: ContentState,
-  deactivate: () => void,
-): void {
-  const prev = window.__domDeleterEscHotkeyHandler;
-  if (prev) {
-    window.removeEventListener("keydown", prev, true);
-  }
-
-  const handler = (e: KeyboardEvent): void => {
-    if (!isEscHotkeyEvent(e)) return;
-    void (async () => {
-      if (!(await getEscHotkeyEnabled())) return;
-      if (!state.active) return;
-      e.preventDefault();
-      e.stopPropagation();
-      deactivate();
-    })();
-  };
-
-  window.__domDeleterEscHotkeyHandler = handler;
-  window.addEventListener("keydown", handler, true);
+  registerDeleterContentHotkeys(
+    {
+      isActive: () => state.active,
+      deactivate,
+      requestToggle,
+      hasRestorableUndo: () => hasRestorableUndo(state),
+      ensureUi,
+    },
+    ["esc", "undo"],
+  );
 }
 
 const state = getState();
@@ -324,18 +249,7 @@ if (
 window.__domDeleterRuntimeId = runtimeId;
 attachContextMenuTargetListener();
 attachMessageHandler(state);
-attachStartHotkeyListener();
+registerDeleterStartHotkey(requestToggle);
 
-// Action popup page: settings / about panel under the extension icon.
-const PANEL_POPUP_SESSION_KEY = "panelPopupTab";
-const PANEL_PAGE_URL = ext.runtime.getURL("panel-popup-page.html");
-if (location.href.startsWith(PANEL_PAGE_URL)) {
-  void (async () => {
-    const { panelPopupTab } = await ext.storage.session.get(PANEL_POPUP_SESSION_KEY);
-    await ext.storage.session.remove(PANEL_POPUP_SESSION_KEY);
-    const tabParam = new URLSearchParams(location.search).get("tab");
-    const tab =
-      panelPopupTab === "info" || tabParam === "info" ? "info" : "settings";
-    await mountPanelPopup(tab);
-  })();
-}
+void bootstrapPanelTabPageIfNeeded();
+void bootstrapPanelPopupPageIfNeeded();

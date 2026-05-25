@@ -13,11 +13,10 @@ const watch = process.argv.includes("--watch");
 
 const stylesDir = join(root, "styles");
 const panelHeaderCss = readFileSync(join(stylesDir, "panel-header.css"), "utf8");
-const contentCss = readFileSync(join(stylesDir, "content.css"), "utf8").replace(
-  /^@import\s+["']\.\/panel-header\.css["'];\s*\n?/,
-  "",
-);
-const css = `${panelHeaderCss}\n${contentCss}`;
+const panelFooterCss = readFileSync(join(stylesDir, "panel-footer.css"), "utf8");
+const panelCss = readFileSync(join(stylesDir, "panel-popup.css"), "utf8");
+const contentCss = readFileSync(join(stylesDir, "content.css"), "utf8");
+const css = `${panelHeaderCss}\n${panelFooterCss}\n${panelCss}\n${contentCss}`;
 
 const define = {
   "process.env.CSS_CONTENT": JSON.stringify(css),
@@ -39,7 +38,7 @@ const ctx = await esbuild.context({
   entryPoints: {
     background: join(root, "src/background.ts"),
     content: join(root, "src/content.ts"),
-    welcome: join(root, "src/welcome.ts"),
+    welcome: join(root, "src/welcome/welcome.ts"),
   },
   outdir: root,
 });

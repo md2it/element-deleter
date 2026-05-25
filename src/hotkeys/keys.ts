@@ -1,9 +1,4 @@
-function isMacPlatform(): boolean {
-  return (
-    /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ||
-    navigator.platform.toUpperCase().includes("MAC")
-  );
-}
+import { isMacPlatform } from "./platform";
 
 /** Display label for the start shortcut (README: Mac vs Win/Linux/unknown). */
 export function getStartHotkeyLabel(): string {

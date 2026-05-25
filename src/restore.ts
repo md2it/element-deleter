@@ -1,4 +1,4 @@
-import { ensurePageHighlightStyles } from "./highlight";
+import { ensurePageHighlightStyles } from "./highlight-visual";
 
 const ELEMENT_ANIM_MS = 200;
 

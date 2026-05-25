@@ -1,5 +1,5 @@
-import { buildAboutListItems } from "./about";
-import { PANEL_TITLE } from "./brand";
+import { buildAboutListItems } from "../about";
+import { PANEL_TITLE } from "../brand";
 import {
   ARROW_UP,
   COG,
@@ -10,14 +10,14 @@ import {
   extensionMarkSvg,
   toolbarWelcomeIconSvg,
   welcomeStepIcon,
-} from "./icons";
+} from "../icons";
 import {
   isRtlLocale,
   LOCALE_BUTTON_LABELS,
   LOCALES,
   t,
   type Locale,
-} from "./i18n";
+} from "../i18n";
 
 function buildWelcomeLocalePayload(locale: Locale, extensionName: string) {
   const strings = t(locale);
@@ -83,3 +83,5 @@ export function buildWelcomeData(
     perLocale,
   };
 }
+
+export type WelcomeData = ReturnType<typeof buildWelcomeData>;

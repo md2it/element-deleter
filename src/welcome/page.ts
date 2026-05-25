@@ -1,6 +1,6 @@
-import { isRtlLocale, type Locale } from "./i18n";
-import { createPanelDivider, createPanelHeader } from "./panel-header";
-import type { buildWelcomeData } from "./welcome-data";
+import { isRtlLocale, type Locale } from "../i18n";
+import { createPanelDivider, createPanelHeader } from "../panel-popup";
+import type { WelcomeData } from "./data";
 
 const ext: typeof chrome = typeof browser !== "undefined" ? browser : chrome;
 
@@ -8,8 +8,6 @@ const LOCALE_STORAGE_KEY = "locale";
 const LOCALE_USER_SELECTED_KEY = "localeUserSelected";
 const WELCOME_BODY_MIN_VAR = "--welcome-body-min";
 const WELCOME_PROBE_WIDTH = "360px";
-
-type WelcomeData = ReturnType<typeof buildWelcomeData>;
 
 let welcomeHeaderEl: HTMLElement | null = null;
 let welcomeBodyMinPx: number | null = null;

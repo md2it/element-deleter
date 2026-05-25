@@ -1,5 +1,9 @@
+import {
+  findIframeAtPoint,
+  isPointInElement,
+} from "./element-under-cursor";
 import { formatElementLabel } from "./element-label";
-import { ensurePageHighlightStyles, HighlightSystem } from "./highlight";
+import { ensurePageHighlightStyles, HighlightSystem } from "./highlight-selector";
 import { isRtlLocale, t, type Locale } from "./i18n";
 import {
   RestoreSystem,
@@ -175,7 +179,12 @@ export class DeleterUI {
   }
 
   private async handleClick(e: MouseEvent): Promise<void> {
-    const iframeAtPoint = this.highlight.findIframeAtPoint(e.clientX, e.clientY);
+    const pickOptions = { isOurNode: (node: Node | null) => this.isOurNode(node) };
+    const iframeAtPoint = findIframeAtPoint(
+      e.clientX,
+      e.clientY,
+      pickOptions,
+    );
     const toRemove = iframeAtPoint ?? this.highlight.getHighlighted();
     if (!toRemove) return;
 
@@ -185,7 +194,7 @@ export class DeleterUI {
     const onTarget =
       hit === toRemove ||
       (hit instanceof Element && toRemove.contains(hit)) ||
-      this.highlight.isPointInElement(toRemove, e.clientX, e.clientY);
+      isPointInElement(toRemove, e.clientX, e.clientY);
 
     if (!onTarget) return;
 

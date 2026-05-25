@@ -41,7 +41,7 @@ try {
   });
 
   const { getInactiveManifestRasters } = await import(pathToFileURL(outfile).href);
-  const outDir = join(root, "icons/manifest");
+  const outDir = join(root, "icons");
   mkdirSync(outDir, { recursive: true });
 
   for (const { size, data } of getInactiveManifestRasters()) {

@@ -1,4 +1,4 @@
-import { extensionMarkSvg } from "./icons";
+import { extensionMarkSvg } from "../icons";
 
 export type PanelHeaderOptions = {
   title: string;
