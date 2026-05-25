@@ -1,3 +1,4 @@
+import { mountPanelShadowHost } from "../../../SHARED/src/panel-shell";
 import { isRtlLocale, t, type Locale } from "../i18n";
 import {
   getElementLabelEnabled,
@@ -26,19 +27,15 @@ export async function mountPanelSurface(
   let startHotkeyEnabled = true;
   let escHotkeyEnabled = true;
   let undoHotkeyEnabled = true;
-  let elementLabelEnabled = true;
+  let elementLabelEnabled = false;
 
-  const host = document.createElement("div");
-  host.id = PANEL_POPUP_ROOT_ID;
-  host.className = "dd-panel-popup";
-  host.setAttribute(PANEL_POPUP_HOST_ATTR, "true");
-  host.style.cssText = hostStyle;
-  document.body.appendChild(host);
-
-  const shadow = host.attachShadow({ mode: "open" });
-  const style = document.createElement("style");
-  style.textContent = process.env.CSS_CONTENT ?? "";
-  shadow.appendChild(style);
+  const { shadow } = mountPanelShadowHost({
+    rootId: PANEL_POPUP_ROOT_ID,
+    hostClassName: "dd-panel-popup",
+    hostAttr: PANEL_POPUP_HOST_ATTR,
+    hostStyle,
+    cssContent: process.env.CSS_CONTENT ?? "",
+  });
 
   [
     notificationSeconds,

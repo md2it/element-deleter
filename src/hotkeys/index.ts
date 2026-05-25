@@ -15,7 +15,6 @@ export {
   isStartHotkeyEvent,
   isUndoHotkeyEvent,
 } from "./keys";
-export { isMacPlatform } from "./platform";
 export { registerContentHotkey, type ContentHotkeySlot } from "./registry";
 export {
   getEscHotkeyEnabled,

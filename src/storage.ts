@@ -77,14 +77,9 @@ export async function setLocale(locale: Locale): Promise<void> {
   });
 }
 
-function readBooleanSetting(data: Record<string, unknown>, key: string): boolean {
-  const raw = data[key];
-  return raw !== false;
-}
-
 export async function getElementLabelEnabled(): Promise<boolean> {
   const data = await ext.storage.local.get(ELEMENT_LABEL_ENABLED_KEY);
-  return readBooleanSetting(data, ELEMENT_LABEL_ENABLED_KEY);
+  return data[ELEMENT_LABEL_ENABLED_KEY] === true;
 }
 
 export async function setElementLabelEnabled(value: boolean): Promise<void> {

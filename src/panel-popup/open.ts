@@ -1,46 +1,28 @@
-import { ext } from "../api";
-import { openPanelInTab } from "../panel-tab/open";
-import { PANEL_POPUP_PAGE, type PanelPopupTab } from "./constants";
+import {
+  openPanelInActionPopup as openSharedPanelInActionPopup,
+  panelPagePath,
+  type PanelPageOpenTarget,
+} from "../../../SHARED/src/panel-popup";
+import { openPanelInTab } from "../panel-tab";
+import { PANEL_PAGE_CONFIG, type PanelPopupTab } from "./constants";
 
-export type PanelPopupOpenTarget = {
-  /** Per-tab popup only when the icon is pinned; omit for the extensions menu. */
-  tabId?: number;
-  windowId?: number;
-};
+export type { PanelPageOpenTarget as PanelPopupOpenTarget };
 
 export function panelPopupPath(panelTab: PanelPopupTab): string {
-  const params = new URLSearchParams({ tab: panelTab });
-  return `${PANEL_POPUP_PAGE}?${params.toString()}`;
+  return panelPagePath(PANEL_PAGE_CONFIG.pageHtml, panelTab);
 }
 
 /** Keep async chain short — user gesture from context menu expires after long await. */
 export function openPanelInActionPopup(
   panelTab: PanelPopupTab,
-  target: PanelPopupOpenTarget,
+  target: PanelPageOpenTarget,
 ): void {
-  const { tabId, windowId } = target;
-  const popup = panelPopupPath(panelTab);
-  const setPopupDetails =
-    tabId !== undefined ? { tabId, popup } : { popup };
-  const clearPopupDetails = tabId !== undefined ? { tabId, popup: "" } : { popup: "" };
-
-  void (async () => {
-    await ext.action.setPopup(setPopupDetails);
-    try {
-      const openPopup = (
-        ext.action as typeof ext.action & {
-          openPopup?: (details: { windowId: number }) => Promise<void>;
-        }
-      ).openPopup;
-      if (!openPopup) throw new Error("action.openPopup unavailable");
-      await openPopup({ windowId });
-    } catch (err) {
-      console.warn("[Element Deleter] openPopup panel failed, using tab:", err);
-      await openPanelInTab(panelTab);
-    } finally {
-      await ext.action.setPopup(clearPopupDetails);
-    }
-  })();
+  openSharedPanelInActionPopup(
+    PANEL_PAGE_CONFIG,
+    panelTab,
+    target,
+    openPanelInTab,
+  );
 }
 
 export function openPanelFromSender(

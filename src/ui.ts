@@ -37,7 +37,7 @@ export class DeleterUI {
   private readonly shadow: ShadowRoot;
   private notificationSeconds = 4;
   private locale: Locale = "en";
-  private elementLabelEnabled = true;
+  private elementLabelEnabled = false;
   private elementActionInFlight = false;
 
   private readonly onDeactivate: DeactivateFn;

@@ -1,33 +1,31 @@
-import { ext } from "../api";
-import { isPanelTabMode } from "../panel-tab/mode";
 import {
+  getPanelPageUrl,
+  isPanelPage,
+  resolvePanelPageInitialTab as resolveSharedPanelPageInitialTab,
+} from "../../../SHARED/src/panel-popup";
+import { isPanelTabMode } from "../panel-tab";
+import {
+  PANEL_PAGE_CONFIG,
   PANEL_POPUP_PAGE,
-  PANEL_POPUP_SESSION_TAB_KEY,
+  PANEL_POPUP_TABS,
   type PanelPopupTab,
 } from "./constants";
 import { mountPanelPopup } from "./mount";
 
 export function getPanelPopupPageUrl(): string {
-  return ext.runtime.getURL(PANEL_POPUP_PAGE);
+  return getPanelPageUrl(PANEL_POPUP_PAGE);
 }
 
 export function isPanelPopupPage(href: string): boolean {
-  return href.startsWith(getPanelPopupPageUrl());
-}
-
-function resolveInitialTab(
-  sessionTab: unknown,
-  queryTab: string | null,
-): PanelPopupTab {
-  if (sessionTab === "info" || queryTab === "info") return "info";
-  return "settings";
+  return isPanelPage(href, PANEL_POPUP_PAGE);
 }
 
 export async function resolvePanelPageInitialTab(): Promise<PanelPopupTab> {
-  const { panelPopupTab } = await ext.storage.session.get(PANEL_POPUP_SESSION_TAB_KEY);
-  await ext.storage.session.remove(PANEL_POPUP_SESSION_TAB_KEY);
-  const tabParam = new URLSearchParams(location.search).get("tab");
-  return resolveInitialTab(panelPopupTab, tabParam);
+  return resolveSharedPanelPageInitialTab({
+    sessionTabKey: PANEL_PAGE_CONFIG.sessionTabKey,
+    defaultTab: "settings",
+    validTabs: PANEL_POPUP_TABS,
+  });
 }
 
 /** Mount settings/about UI when `panel-popup-page.html` is the action popup document. */

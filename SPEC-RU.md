@@ -77,7 +77,8 @@
 - Toggler: "Выкл Esc" ("Esc" monospace)
 - Toggler: "Отменить удаление HOTKEY" (HOTKEY = "Ctrl + Z" или "⌘ + Z" в зависимости от ОС. Monospace)
 - Toggler: "tag#id / tag.class" (подстроки "tag#id" и "tag.class" monospace)
-- По умолчанию все тогглеры включены
+- По умолчанию все хоткеи включены
+- По умолчанию "tag#id / tag.class" выключено
 
 **ABOUT**
 - Boolean список:

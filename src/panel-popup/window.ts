@@ -5,6 +5,7 @@ import {
   CHEVRON_RIGHT,
   CHEVRONS_LEFT,
   CHEVRONS_RIGHT,
+  extensionMarkSvg,
 } from "../icons";
 import { createPanelFooter } from "../../../SHARED/src/panel-footer";
 import { PANEL_FOOTER_CONFIG } from "../ui-config";
@@ -77,6 +78,7 @@ export class PanelWindowSystem {
     const header = createPanelHeader({
       title: PANEL_TITLE,
       subtitle: s.panelSubtitle,
+      logoSvg: extensionMarkSvg({ variant: "panel" }),
     });
     const subtitle = header.querySelector<HTMLElement>(".dd-panel-subtitle")!;
 

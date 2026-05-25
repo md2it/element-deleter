@@ -181,8 +181,3 @@ export function toolbarWelcomeIconSvg(bg = INACTIVE_BG, size = 16): string {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${TOOLBAR_VIEWBOX} ${TOOLBAR_VIEWBOX}" aria-hidden="true"><rect width="${TOOLBAR_VIEWBOX}" height="${TOOLBAR_VIEWBOX}" rx="${r}" fill="${bg}"/><g fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(${pad} ${pad}) scale(${scale})">${trash2Inner}</g></svg>`;
 }
-
-/** Lucide icon for welcome pin steps (puzzle / pin). */
-export function welcomeStepIcon(raw: string, size = 14): string {
-  return raw.replace("<svg ", `<svg width="${size}" height="${size}" `);
-}

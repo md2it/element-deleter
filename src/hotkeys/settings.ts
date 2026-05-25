@@ -1,14 +1,10 @@
 import { ext } from "../api";
+import { readBooleanSetting } from "../../../SHARED/src/hotkeys";
 import {
   ESC_HOTKEY_ENABLED_KEY,
   START_HOTKEY_ENABLED_KEY,
   UNDO_HOTKEY_ENABLED_KEY,
 } from "../messages";
-
-function readBooleanSetting(data: Record<string, unknown>, key: string): boolean {
-  const raw = data[key];
-  return raw !== false;
-}
 
 export async function getStartHotkeyEnabled(): Promise<boolean> {
   const data = await ext.storage.local.get(START_HOTKEY_ENABLED_KEY);

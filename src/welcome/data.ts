@@ -1,3 +1,4 @@
+import { welcomeStepIcon, type WelcomeData } from "../../../SHARED/src/welcome";
 import { buildAboutListItems } from "../about";
 import { PANEL_TITLE } from "../brand";
 import {
@@ -8,7 +9,6 @@ import {
   PUZZLE,
   extensionMarkSvg,
   toolbarWelcomeIconSvg,
-  welcomeStepIcon,
 } from "../icons";
 import {
   isRtlLocale,
@@ -40,7 +40,7 @@ export function buildWelcomeData(
   locale: Locale,
   extensionName: string,
   options?: { isPinned?: boolean | null },
-) {
+): WelcomeData {
   const isPinned = options?.isPinned === true;
   const perLocale = Object.fromEntries(
     LOCALES.map((code) => [code, buildWelcomeLocalePayload(code, extensionName)]),
@@ -80,4 +80,4 @@ export function buildWelcomeData(
   };
 }
 
-export type WelcomeData = ReturnType<typeof buildWelcomeData>;
+export type { WelcomeData };

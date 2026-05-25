@@ -1,3 +1,5 @@
+import type { PanelPageConfig } from "../../../SHARED/src/panel-popup";
+
 /** Extension page loaded under the toolbar action popup (not a content-script overlay). */
 export const PANEL_POPUP_PAGE = "panel-popup-page.html";
 
@@ -7,3 +9,11 @@ export const PANEL_POPUP_HOST_ATTR = "data-dom-deleter-ui";
 export const PANEL_POPUP_SESSION_TAB_KEY = "panelPopupTab";
 
 export type PanelPopupTab = "settings" | "info";
+
+export const PANEL_POPUP_TABS: readonly PanelPopupTab[] = ["settings", "info"];
+
+export const PANEL_PAGE_CONFIG: PanelPageConfig = {
+  pageHtml: PANEL_POPUP_PAGE,
+  sessionTabKey: PANEL_POPUP_SESSION_TAB_KEY,
+  logLabel: "Element Deleter",
+};

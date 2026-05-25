@@ -1,6 +1,7 @@
-/** Query flag: panel opens as a full browser tab (not action popup). */
-export const PANEL_TAB_MODE_PARAM = "mode";
-export const PANEL_TAB_MODE_VALUE = "tab";
+export {
+  PANEL_TAB_MODE_PARAM,
+  PANEL_TAB_MODE_VALUE,
+} from "../../../SHARED/src/panel-tab";
 
 /** Applied to `document.documentElement` — pairs with inline rules in `panel-popup-page.html`. */
 export const PANEL_TAB_PAGE_CLASS = "dd-panel-page--tab";
