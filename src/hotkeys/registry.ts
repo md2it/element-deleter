@@ -1,6 +1,6 @@
 import { registerContentHotkey as registerSharedContentHotkey } from "../../../SHARED/src/hotkeys";
 
-const HOTKEY_NAMESPACE = "domDeleter";
+const HOTKEY_NAMESPACE = "elementDeleter";
 
 export type ContentHotkeySlot = "start" | "esc" | "undo";
 

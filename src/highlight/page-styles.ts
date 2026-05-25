@@ -6,7 +6,7 @@ import {
 } from "../../../SHARED/src/highlight";
 import { DELETER_HIGHLIGHT_PAGE_CSS } from "./deleter-page-styles";
 
-export const HIGHLIGHT_STYLE_ID = "dom-deleter-highlight-style";
+export const HIGHLIGHT_STYLE_ID = "element-deleter-highlight-style";
 
 export const HIGHLIGHT_UI = createHighlightUiClasses("dd");
 

@@ -86,7 +86,7 @@ assert.match(deleterKeysSrc, /formatModifierShiftKeyLabel\("X"\)/);
 
 const deleterRegistrySrc = readFileSync(join(root, "src/hotkeys/registry.ts"), "utf8");
 assert.match(deleterRegistrySrc, /registerSharedContentHotkey/);
-assert.match(deleterRegistrySrc, /domDeleter/);
+assert.match(deleterRegistrySrc, /elementDeleter/);
 
 const deleterBackgroundSrc = readFileSync(join(root, "src/hotkeys/background.ts"), "utf8");
 assert.match(deleterBackgroundSrc, /registerManifestCommandHotkeys/);

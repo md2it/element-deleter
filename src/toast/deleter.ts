@@ -9,7 +9,7 @@ export type ToastHost = ToastStackHost & {
   undoById: (id: number) => Promise<boolean>;
 };
 
-/** DOM-deleter delete/restore toasts (strings, undo, panel shortcuts). */
+/** Element-deleter delete/restore toasts (strings, undo, panel shortcuts). */
 export class ToastSystem {
   private readonly stack: ToastStack;
 

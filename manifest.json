@@ -55,7 +55,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "dom-deleter@md2it.local",
+      "id": "element-deleter@md2it.local",
       "strict_min_version": "109.0"
     }
   }

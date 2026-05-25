@@ -22,8 +22,8 @@ import {
 } from "./storage";
 import { ToastSystem } from "./toast";
 
-const ROOT_ID = "dom-deleter-root";
-const HOST_ATTR = "data-dom-deleter-ui";
+const ROOT_ID = "element-deleter-root";
+const HOST_ATTR = "data-element-deleter-ui";
 
 type DeactivateFn = () => void;
 

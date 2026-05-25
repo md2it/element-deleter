@@ -19,28 +19,28 @@ type ContentState = {
 
 declare global {
   interface Window {
-    __domDeleterRuntimeId?: string;
-    __domDeleterMessageHandler?: (
+    __elementDeleterRuntimeId?: string;
+    __elementDeleterMessageHandler?: (
       message: BgToContent,
       sender: chrome.runtime.MessageSender,
       sendResponse: (response: ContentActivationResponse) => void,
     ) => boolean | void;
-    __domDeleterContextMenuHandler?: (e: MouseEvent) => void;
-    __domDeleterState?: ContentState;
-    __domDeleterContextMenuTarget?: Element | null;
+    __elementDeleterContextMenuHandler?: (e: MouseEvent) => void;
+    __elementDeleterState?: ContentState;
+    __elementDeleterContextMenuTarget?: Element | null;
   }
 }
 
 function getState(): ContentState {
-  if (!window.__domDeleterState) {
-    window.__domDeleterState = {
+  if (!window.__elementDeleterState) {
+    window.__elementDeleterState = {
       active: false,
       ui: null,
       undoStack: [],
       nextUndoId: 0,
     };
   }
-  const state = window.__domDeleterState;
+  const state = window.__elementDeleterState;
   state.undoStack ??= [];
   state.nextUndoId ??= 0;
   return state;
@@ -65,12 +65,12 @@ function resetState(state: ContentState): void {
   state.ui = null;
   state.undoStack.length = 0;
   state.nextUndoId = 0;
-  document.getElementById("dom-deleter-root")?.remove();
+  document.getElementById("element-deleter-root")?.remove();
 }
 
 function isExtensionNode(node: Node | null): boolean {
   if (!node) return true;
-  if (node instanceof Element && node.closest?.('[data-dom-deleter-ui]')) {
+  if (node instanceof Element && node.closest?.('[data-element-deleter-ui]')) {
     return true;
   }
   return false;
@@ -84,16 +84,16 @@ function resolveContextMenuTarget(raw: EventTarget | null): Element | null {
 }
 
 function attachContextMenuTargetListener(): void {
-  const prev = window.__domDeleterContextMenuHandler;
+  const prev = window.__elementDeleterContextMenuHandler;
   if (prev) {
     document.removeEventListener("contextmenu", prev, true);
   }
 
   const handler = (e: MouseEvent): void => {
-    window.__domDeleterContextMenuTarget = resolveContextMenuTarget(e.target);
+    window.__elementDeleterContextMenuTarget = resolveContextMenuTarget(e.target);
   };
 
-  window.__domDeleterContextMenuHandler = handler;
+  window.__elementDeleterContextMenuHandler = handler;
   document.addEventListener("contextmenu", handler, true);
 }
 
@@ -119,7 +119,7 @@ function requestToggle(): void {
 }
 
 function attachMessageHandler(state: ContentState): void {
-  const prev = window.__domDeleterMessageHandler;
+  const prev = window.__elementDeleterMessageHandler;
   if (prev) {
     try {
       ext.runtime.onMessage.removeListener(prev);
@@ -168,7 +168,7 @@ function attachMessageHandler(state: ContentState): void {
       const ui = await ensureUi();
       state.active = true;
       ui.activate();
-      const ok = document.getElementById("dom-deleter-root")?.isConnected === true;
+      const ok = document.getElementById("element-deleter-root")?.isConnected === true;
       if (!ok) {
         deactivate();
         return false;
@@ -202,8 +202,8 @@ function attachMessageHandler(state: ContentState): void {
     }
     if (message.type === "DELETE_CONTEXT_ELEMENT") {
       void (async () => {
-        const target = window.__domDeleterContextMenuTarget;
-        window.__domDeleterContextMenuTarget = null;
+        const target = window.__elementDeleterContextMenuTarget;
+        window.__elementDeleterContextMenuTarget = null;
         if (!target?.isConnected || isExtensionNode(target)) return;
 
         const ui = await ensureUi();
@@ -222,7 +222,7 @@ function attachMessageHandler(state: ContentState): void {
     }
   };
 
-  window.__domDeleterMessageHandler = handler;
+  window.__elementDeleterMessageHandler = handler;
   ext.runtime.onMessage.addListener(handler);
   registerDeleterContentHotkeys(
     {
@@ -240,13 +240,13 @@ const state = getState();
 const runtimeId = ext.runtime.id;
 
 if (
-  window.__domDeleterRuntimeId !== undefined &&
-  window.__domDeleterRuntimeId !== runtimeId
+  window.__elementDeleterRuntimeId !== undefined &&
+  window.__elementDeleterRuntimeId !== runtimeId
 ) {
   resetState(state);
 }
 
-window.__domDeleterRuntimeId = runtimeId;
+window.__elementDeleterRuntimeId = runtimeId;
 attachContextMenuTargetListener();
 attachMessageHandler(state);
 registerDeleterStartHotkey(requestToggle);

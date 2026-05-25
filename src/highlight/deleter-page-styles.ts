@@ -1,4 +1,4 @@
-/** DOM-deleter–specific page rules for highlighted targets (AdSense, etc.). */
+/** Element-deleter–specific page rules for highlighted targets (AdSense, etc.). */
 export const DELETER_HIGHLIGHT_PAGE_CSS = `
 ins.adsbygoogle.dd-highlight,
 [id^="aswift_"][id$="_host"].dd-highlight {

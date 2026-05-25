@@ -175,9 +175,9 @@ async function toggleTab(tabId: number, windowId?: number): Promise<void> {
   await setTabActive(tabId, true, windowId);
 }
 
-const CONTEXT_MENU_SETTINGS = "dom-deleter-settings";
-const CONTEXT_MENU_ABOUT = "dom-deleter-about";
-const CONTEXT_MENU_DELETE = "dom-deleter-delete-element";
+const CONTEXT_MENU_SETTINGS = "element-deleter-settings";
+const CONTEXT_MENU_ABOUT = "element-deleter-about";
+const CONTEXT_MENU_DELETE = "element-deleter-delete-element";
 
 function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
   return new Promise((resolve) => {

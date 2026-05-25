@@ -1,13 +1,13 @@
 import { createToastUiClasses } from "../../SHARED/src/toast";
 
-export const UI_HOST_ATTR = "data-dom-deleter-ui";
+export const UI_HOST_ATTR = "data-element-deleter-ui";
 export const UI_CLASS_PREFIX = "dd";
 
 export const TOAST_STACK_ID = "dd-toast-stack";
 
 const toastStructureClasses = createToastUiClasses(UI_CLASS_PREFIX);
 
-/** DOM-deleter toast classes (variants + action buttons). */
+/** Element-deleter toast classes (variants + action buttons). */
 export const TOAST_UI = {
   ...toastStructureClasses,
   toastDeleted: toastStructureClasses.toast,

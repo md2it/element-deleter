@@ -1,4 +1,4 @@
-export const DELETE_RESTORE_STYLE_ID = "dom-deleter-delete-restore-style";
+export const DELETE_RESTORE_STYLE_ID = "element-deleter-delete-restore-style";
 
 const DELETE_RESTORE_PAGE_CSS = `
 .dd-delete-anim,

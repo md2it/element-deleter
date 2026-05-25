@@ -24,7 +24,7 @@ globalThis.OffscreenCanvas = class OffscreenCanvas {
   }
 };
 
-const tmp = mkdtempSync(join(tmpdir(), "dom-deleter-icons-"));
+const tmp = mkdtempSync(join(tmpdir(), "element-deleter-icons-"));
 const outfile = join(tmp, "run.mjs");
 
 try {
