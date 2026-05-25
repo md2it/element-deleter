@@ -16,11 +16,14 @@ const stylesDir = join(root, "styles");
 const panelHeaderCss = readFileSync(join(stylesDir, "panel-header.css"), "utf8");
 const panelFooterCss = readFileSync(join(stylesDir, "panel-footer.css"), "utf8");
 const panelCss = readFileSync(join(stylesDir, "panel-popup.css"), "utf8");
+const toastCss = readFileSync(join(stylesDir, "toast.css"), "utf8");
 const contentCss = readFileSync(join(stylesDir, "content.css"), "utf8");
-const css = `${panelHeaderCss}\n${panelFooterCss}\n${panelCss}\n${contentCss}`;
+const panelSurfaceCss = `${panelHeaderCss}\n${panelFooterCss}\n${panelCss}\n${toastCss}`;
+const css = `${panelSurfaceCss}\n${contentCss}`;
 
 const define = {
   "process.env.CSS_CONTENT": JSON.stringify(css),
+  "process.env.PANEL_CSS_CONTENT": JSON.stringify(panelSurfaceCss),
   "process.env.PANEL_HEADER_CSS": JSON.stringify(panelHeaderCss),
 };
 

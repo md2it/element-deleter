@@ -1,3 +1,7 @@
+import {
+  applyAllElementsPageStyles,
+  removeAllElementsPageStyles,
+} from "./all-elements-page";
 import { ext } from "./api";
 import {
   armDeleterPrefixToggle,
@@ -5,7 +9,11 @@ import {
   registerDeleterStartHotkey,
 } from "./hotkeys";
 import type { BgToContent, ContentActivationResponse, ContentToBg } from "./messages";
-import { getUndoHotkeyEnabled } from "./storage";
+import {
+  getAllElementsFillEnabled,
+  getAllElementsOutlineEnabled,
+  getUndoHotkeyEnabled,
+} from "./storage";
 import {
   resolveUndoEntryParent,
   type UndoStackAccess,
@@ -64,6 +72,7 @@ function hasRestorableUndo(state: ContentState): boolean {
 function resetState(state: ContentState): void {
   if (state.active) {
     state.ui?.deactivate();
+    removeAllElementsPageStyles();
   }
   state.active = false;
   state.ui = null;
@@ -136,6 +145,7 @@ function attachMessageHandler(state: ContentState): void {
     if (!state.active) return;
     state.active = false;
     state.ui?.deactivate();
+    removeAllElementsPageStyles();
     notifyBackgroundActive(false);
   };
 
@@ -198,10 +208,18 @@ function attachMessageHandler(state: ContentState): void {
       deactivate();
       return;
     }
-    if (message.type === "SETTINGS_UPDATED" && state.ui) {
-      state.ui.setNotificationSeconds(message.notificationSeconds);
-      state.ui.setLocale(message.locale);
-      state.ui.setElementLabelEnabled(message.elementLabelEnabled);
+    if (message.type === "SETTINGS_UPDATED") {
+      if (state.active) {
+        applyAllElementsPageStyles({
+          outline: message.allElementsOutlineEnabled,
+          fill: message.allElementsFillEnabled,
+        });
+      }
+      if (state.ui) {
+        state.ui.setNotificationSeconds(message.notificationSeconds);
+        state.ui.setLocale(message.locale);
+        state.ui.setElementLabelEnabled(message.elementLabelEnabled);
+      }
       return;
     }
     if (message.type === "DELETE_CONTEXT_ELEMENT") {
@@ -261,3 +279,22 @@ registerDeleterStartHotkey(requestToggle);
 
 void bootstrapPanelTabPageIfNeeded();
 void bootstrapPanelPopupPageIfNeeded();
+
+async function syncAllElementsPageStylesFromStorage(
+  state: ContentState,
+): Promise<void> {
+  if (!state.active) return;
+  const [outline, fill] = await Promise.all([
+    getAllElementsOutlineEnabled(),
+    getAllElementsFillEnabled(),
+  ]);
+  applyAllElementsPageStyles({ outline, fill });
+}
+
+ext.storage.onChanged.addListener((changes, area) => {
+  if (area !== "local") return;
+  if (!changes.allElementsOutlineEnabled && !changes.allElementsFillEnabled) {
+    return;
+  }
+  void syncAllElementsPageStylesFromStorage(state);
+});

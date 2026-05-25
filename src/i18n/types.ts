@@ -30,6 +30,8 @@ export type Strings = {
   startHotkeyToggleLabel: string;
   escHotkeyToggleLabel: string;
   undoHotkeyToggleLabel: string;
+  allElementsOutlineToggleLabel: string;
+  allElementsFillToggleLabel: string;
   toastDeleted: string;
   toastRestored: string;
   btnRestore: string;

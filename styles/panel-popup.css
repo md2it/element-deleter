@@ -6,6 +6,27 @@
   height: auto;
   pointer-events: auto;
   z-index: 1;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #1f2937;
+}
+
+:host(.dd-panel-popup) *,
+:host(.dd-panel-popup) *::before,
+:host(.dd-panel-popup) *::after {
+  box-sizing: border-box;
+}
+
+:host(.dd-panel-popup) button:focus:not(:focus-visible),
+:host(.dd-panel-popup) a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:host(.dd-panel-popup) button:focus-visible,
+:host(.dd-panel-popup) a:focus-visible,
+:host(.dd-panel-popup) input:focus-visible {
+  outline: 2px solid #b91c1c;
 }
 
 .dd-panel {

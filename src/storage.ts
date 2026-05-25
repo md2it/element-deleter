@@ -6,6 +6,8 @@ import {
 } from "./i18n";
 import {
   DEFAULT_NOTIFICATION_SECONDS,
+  ALL_ELEMENTS_FILL_ENABLED_KEY,
+  ALL_ELEMENTS_OUTLINE_ENABLED_KEY,
   ELEMENT_LABEL_ENABLED_KEY,
   LOCALE_DETECT_VERSION,
   LOCALE_DETECT_VERSION_KEY,
@@ -84,4 +86,22 @@ export async function getElementLabelEnabled(): Promise<boolean> {
 
 export async function setElementLabelEnabled(value: boolean): Promise<void> {
   await ext.storage.local.set({ [ELEMENT_LABEL_ENABLED_KEY]: value });
+}
+
+export async function getAllElementsOutlineEnabled(): Promise<boolean> {
+  const data = await ext.storage.local.get(ALL_ELEMENTS_OUTLINE_ENABLED_KEY);
+  return data[ALL_ELEMENTS_OUTLINE_ENABLED_KEY] === true;
+}
+
+export async function setAllElementsOutlineEnabled(value: boolean): Promise<void> {
+  await ext.storage.local.set({ [ALL_ELEMENTS_OUTLINE_ENABLED_KEY]: value });
+}
+
+export async function getAllElementsFillEnabled(): Promise<boolean> {
+  const data = await ext.storage.local.get(ALL_ELEMENTS_FILL_ENABLED_KEY);
+  return data[ALL_ELEMENTS_FILL_ENABLED_KEY] === true;
+}
+
+export async function setAllElementsFillEnabled(value: boolean): Promise<void> {
+  await ext.storage.local.set({ [ALL_ELEMENTS_FILL_ENABLED_KEY]: value });
 }

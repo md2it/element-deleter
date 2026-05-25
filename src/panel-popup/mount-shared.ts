@@ -1,6 +1,8 @@
 import { mountPanelShadowHost } from "../../../SHARED/src/panel-shell";
 import { isRtlLocale, t, type Locale } from "../i18n";
 import {
+  getAllElementsFillEnabled,
+  getAllElementsOutlineEnabled,
   getElementLabelEnabled,
   getEscHotkeyEnabled,
   getLocale,
@@ -28,13 +30,15 @@ export async function mountPanelSurface(
   let escHotkeyEnabled = true;
   let undoHotkeyEnabled = true;
   let elementLabelEnabled = false;
+  let allElementsOutlineEnabled = false;
+  let allElementsFillEnabled = false;
 
   const { shadow } = mountPanelShadowHost({
     rootId: PANEL_POPUP_ROOT_ID,
     hostClassName: "dd-panel-popup",
     hostAttr: PANEL_POPUP_HOST_ATTR,
     hostStyle,
-    cssContent: process.env.CSS_CONTENT ?? "",
+    cssContent: process.env.PANEL_CSS_CONTENT ?? "",
   });
 
   [
@@ -44,6 +48,8 @@ export async function mountPanelSurface(
     escHotkeyEnabled,
     undoHotkeyEnabled,
     elementLabelEnabled,
+    allElementsOutlineEnabled,
+    allElementsFillEnabled,
   ] = await Promise.all([
     getNotificationSeconds(),
     getLocale(),
@@ -51,6 +57,8 @@ export async function mountPanelSurface(
     getEscHotkeyEnabled(),
     getUndoHotkeyEnabled(),
     getElementLabelEnabled(),
+    getAllElementsOutlineEnabled(),
+    getAllElementsFillEnabled(),
   ]);
 
   let panelWindow!: PanelWindowSystem;
@@ -91,6 +99,14 @@ export async function mountPanelSurface(
     getElementLabelEnabled: () => elementLabelEnabled,
     setElementLabelEnabled: (enabled) => {
       elementLabelEnabled = enabled;
+    },
+    getAllElementsOutlineEnabled: () => allElementsOutlineEnabled,
+    setAllElementsOutlineEnabled: (enabled) => {
+      allElementsOutlineEnabled = enabled;
+    },
+    getAllElementsFillEnabled: () => allElementsFillEnabled,
+    setAllElementsFillEnabled: (enabled) => {
+      allElementsFillEnabled = enabled;
     },
     getStrings: () => t(locale),
     isRtl: () => isRtlLocale(locale),

@@ -26,6 +26,8 @@ import {
   getUndoHotkeyLabel,
 } from "../hotkeys";
 import {
+  setAllElementsFillEnabled,
+  setAllElementsOutlineEnabled,
   setElementLabelEnabled,
   setEscHotkeyEnabled,
   setLocale,
@@ -57,6 +59,10 @@ export type PanelWindowHost = {
   setUndoHotkeyEnabled: (enabled: boolean) => void;
   getElementLabelEnabled: () => boolean;
   setElementLabelEnabled: (enabled: boolean) => void;
+  getAllElementsOutlineEnabled: () => boolean;
+  setAllElementsOutlineEnabled: (enabled: boolean) => void;
+  getAllElementsFillEnabled: () => boolean;
+  setAllElementsFillEnabled: (enabled: boolean) => void;
   getStrings: () => Strings;
   isRtl: () => boolean;
   toast: ToastSystem;
@@ -278,6 +284,28 @@ export class PanelWindowSystem {
       },
     );
 
+    const allElementsOutlineRow = this.createToggleRow(
+      copy.allElementsOutlineToggleLabel,
+      this.host.getAllElementsOutlineEnabled(),
+      (next) => {
+        void (async () => {
+          this.host.setAllElementsOutlineEnabled(next);
+          await setAllElementsOutlineEnabled(next);
+        })();
+      },
+    );
+
+    const allElementsFillRow = this.createToggleRow(
+      copy.allElementsFillToggleLabel,
+      this.host.getAllElementsFillEnabled(),
+      (next) => {
+        void (async () => {
+          this.host.setAllElementsFillEnabled(next);
+          await setAllElementsFillEnabled(next);
+        })();
+      },
+    );
+
     const notificationRow = document.createElement("div");
     notificationRow.className = "dd-toggle-row dd-toggle-row--notification";
 
@@ -398,6 +426,8 @@ export class PanelWindowSystem {
       escHotkeyRow,
       undoHotkeyRow,
       elementLabelRow,
+      allElementsOutlineRow,
+      allElementsFillRow,
     );
   }
 
@@ -427,6 +457,15 @@ export class PanelWindowSystem {
     this.syncPrefixStartHotkeyToggleRow(toggles[0], copy.startHotkeyToggleLabel);
     this.syncHotkeyToggleRow(toggles[1], copy.escHotkeyToggleLabel, ESC_HOTKEY_LABEL);
     this.syncHotkeyToggleRow(toggles[2], copy.undoHotkeyToggleLabel, getUndoHotkeyLabel());
+    const labelRows = panel.querySelectorAll<HTMLElement>(".dd-toggle-label");
+    if (labelRows[4]) labelRows[4].textContent = copy.allElementsOutlineToggleLabel;
+    if (labelRows[5]) labelRows[5].textContent = copy.allElementsFillToggleLabel;
+    toggles[4]
+      ?.querySelector<HTMLButtonElement>(".dd-toggle")
+      ?.setAttribute("aria-label", copy.allElementsOutlineToggleLabel);
+    toggles[5]
+      ?.querySelector<HTMLButtonElement>(".dd-toggle")
+      ?.setAttribute("aria-label", copy.allElementsFillToggleLabel);
   }
 
   private syncPrefixStartHotkeyToggleRow(

@@ -16,6 +16,8 @@ import {
 } from "./hotkeys/background";
 import {
   ensureLocaleInStorage,
+  getAllElementsFillEnabled,
+  getAllElementsOutlineEnabled,
   getElementLabelEnabled,
   getLocale,
   getNotificationSeconds,
@@ -81,18 +83,30 @@ type ContentSettings = {
   notificationSeconds: number;
   locale: Locale;
   elementLabelEnabled: boolean;
+  allElementsOutlineEnabled: boolean;
+  allElementsFillEnabled: boolean;
 };
 
 async function loadAllSettings(): Promise<ContentSettings> {
-  const [notificationSeconds, locale, elementLabelEnabled] = await Promise.all([
+  const [
+    notificationSeconds,
+    locale,
+    elementLabelEnabled,
+    allElementsOutlineEnabled,
+    allElementsFillEnabled,
+  ] = await Promise.all([
     getNotificationSeconds(),
     getLocale(),
     getElementLabelEnabled(),
+    getAllElementsOutlineEnabled(),
+    getAllElementsFillEnabled(),
   ]);
   return {
     notificationSeconds,
     locale,
     elementLabelEnabled,
+    allElementsOutlineEnabled,
+    allElementsFillEnabled,
   };
 }
 
@@ -343,7 +357,15 @@ ext.storage.onChanged.addListener((changes, area) => {
   const secondsChange = changes.notificationSeconds;
   const localeChange = changes.locale;
   const elementLabelChange = changes.elementLabelEnabled;
-  if (!secondsChange && !localeChange && !elementLabelChange) {
+  const outlineChange = changes.allElementsOutlineEnabled;
+  const fillChange = changes.allElementsFillEnabled;
+  if (
+    !secondsChange &&
+    !localeChange &&
+    !elementLabelChange &&
+    !outlineChange &&
+    !fillChange
+  ) {
     return;
   }
 
