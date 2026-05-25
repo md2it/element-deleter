@@ -395,11 +395,6 @@ function getActiveCommandTab(): Promise<chrome.tabs.Tab | undefined> {
   });
 }
 
-async function handleCommandToggle(tabId: number, windowId?: number): Promise<void> {
-  if (!(await getStartHotkeyEnabled())) return;
-  await toggleTab(tabId, windowId);
-}
-
 /** Chrome `all` includes `action`; page delete must not appear on the toolbar icon menu. */
 const PAGE_CONTEXT_MENU_CONTEXTS = [
   "page",
@@ -609,7 +604,8 @@ ext.commands.onCommand.addListener((command) => {
     if (tab?.id === undefined) return;
 
     if (command === COMMAND_DEACTIVATE) {
-      await handleCommandToggle(tab.id, tab.windowId);
+      if (!(await getStartHotkeyEnabled())) return;
+      await deactivateTab(tab.id);
       return;
     }
     if (command === COMMAND_UNDO) {

@@ -39,7 +39,11 @@
       }
     },
     "deactivate": {
-      "description": "__MSG_commandDeactivate__"
+      "description": "__MSG_commandDeactivate__",
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      }
     },
     "undo-delete": {
       "description": "__MSG_commandUndoDelete__",
