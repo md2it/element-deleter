@@ -21,6 +21,7 @@ const css = `${panelHeaderCss}\n${panelFooterCss}\n${panelCss}\n${contentCss}`;
 
 const define = {
   "process.env.CSS_CONTENT": JSON.stringify(css),
+  "process.env.PANEL_HEADER_CSS": JSON.stringify(panelHeaderCss),
 };
 
 const common = {
