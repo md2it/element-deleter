@@ -5,7 +5,7 @@ import {
   isStartHotkeyEvent,
   isUndoHotkeyEvent,
 } from "./hotkeys";
-import type { BgToContent, ContentToBg } from "./messages";
+import type { BgToContent, ContentActivationResponse, ContentToBg } from "./messages";
 import {
   getEscHotkeyEnabled,
   getStartHotkeyEnabled,
@@ -165,21 +165,36 @@ function attachMessageHandler(state: ContentState): void {
     }
   };
 
-  const activate = async (): Promise<void> => {
-    const ui = await ensureUi();
-    if (state.active) return;
-    state.active = true;
-    ui.activate();
-    notifyBackgroundActive(true);
+  const activate = async (): Promise<boolean> => {
+    if (state.active) return true;
+    try {
+      const ui = await ensureUi();
+      state.active = true;
+      ui.activate();
+      const ok = document.getElementById("dom-deleter-root")?.isConnected === true;
+      if (!ok) {
+        deactivate();
+        return false;
+      }
+      notifyBackgroundActive(true);
+      return true;
+    } catch {
+      deactivate();
+      return false;
+    }
   };
 
-  const handler = (message: BgToContent, _sender: chrome.runtime.MessageSender): void => {
+  const handler = (
+    message: BgToContent,
+    _sender: chrome.runtime.MessageSender,
+    sendResponse: (response: ContentActivationResponse) => void,
+  ): boolean | void => {
     if (message.type === "SET_ACTIVE") {
       if (message.active) {
-        void activate();
-      } else {
-        deactivate();
+        void activate().then((ok) => sendResponse({ ok }));
+        return true;
       }
+      deactivate();
       return;
     }
     if (message.type === "SETTINGS_UPDATED" && state.ui) {

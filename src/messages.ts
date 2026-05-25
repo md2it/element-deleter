@@ -16,6 +16,9 @@ export type ContentToBg =
   | { type: "TOGGLE_REQUEST" }
   | { type: "WATCH_PIN_STATUS" };
 
+/** Content script response when background tries to activate on a tab. */
+export type ContentActivationResponse = { ok: boolean };
+
 export type BgToWelcome = { type: "PIN_STATUS_CHANGED"; pinned: boolean };
 
 export const STORAGE_KEY = "notificationSeconds";

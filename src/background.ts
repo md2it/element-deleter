@@ -2,7 +2,7 @@ import { ext } from "./api";
 import { TOOLBAR_ICON_PATHS, type ToolbarIconMode } from "./icon-paths";
 import { getToolbarIconSets, type ToolbarIconSets } from "./icons";
 import { isRtlLocale, t, type Locale } from "./i18n";
-import type { BgToContent, ContentToBg } from "./messages";
+import type { BgToContent, ContentActivationResponse, ContentToBg } from "./messages";
 import {
   ensureLocaleInStorage,
   getElementLabelEnabled,
@@ -22,6 +22,8 @@ const RESTRICTED_NOTICE_POPUP = "blocked-notice.html";
 const WELCOME_POPUP = "welcome.html";
 const PANEL_POPUP_PAGE = "panel-popup-page.html";
 const RESTRICTED_NOTICE_MIN_MS = 4000;
+
+let restrictedNoticeCache: { text: string; dismissMs: number } | null = null;
 
 let toolbarIcons: ToolbarIconSets | null = null;
 let toolbarIconsFailed = false;
@@ -98,16 +100,30 @@ async function restrictedNoticeDismissMs(): Promise<number> {
   return seconds * 1000;
 }
 
-async function showRestrictedNotice(tabId: number): Promise<void> {
+async function refreshRestrictedNoticeCache(): Promise<void> {
   const [locale, dismissMs] = await Promise.all([getLocale(), restrictedNoticeDismissMs()]);
-  const text = t(locale).restrictedPageNotice;
+  restrictedNoticeCache = { text: t(locale).restrictedPageNotice, dismissMs };
+}
 
-  await ext.storage.session.set({
+async function showRestrictedNotice(tabId: number): Promise<void> {
+  if (!restrictedNoticeCache) {
+    await refreshRestrictedNoticeCache();
+  }
+  const { text, dismissMs } = restrictedNoticeCache!;
+
+  void ext.storage.session.set({
     restrictedNotice: { text, dismissMs },
   });
 
-  const tab = await ext.tabs.get(tabId);
   const noticeUrl = ext.runtime.getURL(RESTRICTED_NOTICE_POPUP);
+  let windowId: number | undefined;
+
+  try {
+    const tab = await ext.tabs.get(tabId);
+    windowId = tab.windowId;
+  } catch {
+    /* tab may be gone */
+  }
 
   try {
     await ext.action.setPopup({ tabId, popup: RESTRICTED_NOTICE_POPUP });
@@ -116,8 +132,8 @@ async function showRestrictedNotice(tabId: number): Promise<void> {
         openPopup?: (details: { windowId: number }) => Promise<void>;
       }
     ).openPopup;
-    if (openPopup && tab.windowId !== undefined) {
-      await openPopup({ windowId: tab.windowId });
+    if (openPopup && windowId !== undefined) {
+      await openPopup({ windowId });
       return;
     }
     throw new Error("action.openPopup unavailable");
@@ -133,6 +149,36 @@ async function showRestrictedNotice(tabId: number): Promise<void> {
     }
   } finally {
     await ext.action.setPopup({ tabId, popup: "" });
+  }
+}
+
+/** True when the browser allows programmatic scripting on the visible tab document. */
+async function canOperateOnTab(tabId: number, frameId?: number): Promise<boolean> {
+  try {
+    const target =
+      frameId !== undefined && frameId !== 0
+        ? { tabId, frameIds: [frameId] }
+        : { tabId };
+    const [result] = await ext.scripting.executeScript({
+      target,
+      func: () => {
+        try {
+          const root = document.documentElement ?? document.body;
+          if (!root) return false;
+          const probe = document.createElement("div");
+          probe.style.display = "none";
+          root.appendChild(probe);
+          const ok = probe.isConnected;
+          probe.remove();
+          return ok;
+        } catch {
+          return false;
+        }
+      },
+    });
+    return result?.result === true;
+  } catch {
+    return false;
   }
 }
 
@@ -154,18 +200,27 @@ async function injectContent(tabId: number, frameId?: number): Promise<boolean> 
   }
 }
 
+function isActivationSuccess(
+  message: BgToContent,
+  response: unknown,
+): boolean {
+  if (message.type === "SET_ACTIVE" && message.active) {
+    return (response as ContentActivationResponse | undefined)?.ok === true;
+  }
+  return true;
+}
+
 async function sendToTab(
   tabId: number,
   message: BgToContent,
   frameId?: number,
 ): Promise<boolean> {
   try {
-    if (frameId !== undefined && frameId !== 0) {
-      await ext.tabs.sendMessage(tabId, message, { frameId });
-    } else {
-      await ext.tabs.sendMessage(tabId, message);
-    }
-    return true;
+    const response =
+      frameId !== undefined && frameId !== 0
+        ? await ext.tabs.sendMessage(tabId, message, { frameId })
+        : await ext.tabs.sendMessage(tabId, message);
+    return isActivationSuccess(message, response);
   } catch (err) {
     console.warn("[Element Deleter] sendToTab failed:", err);
     return false;
@@ -206,6 +261,13 @@ async function sendWithInject(
 }
 
 async function setTabActive(tabId: number, active: boolean): Promise<void> {
+  if (active && !(await canOperateOnTab(tabId))) {
+    tabActive.set(tabId, false);
+    await syncTabToolbarIcon(tabId);
+    await showRestrictedNotice(tabId);
+    return;
+  }
+
   const reached = active
     ? await sendWithInject(tabId, { type: "SET_ACTIVE", active: true })
     : await sendToTab(tabId, { type: "SET_ACTIVE", active: false });
@@ -213,6 +275,7 @@ async function setTabActive(tabId: number, active: boolean): Promise<void> {
   if (active && !reached) {
     tabActive.set(tabId, false);
     await syncTabToolbarIcon(tabId);
+    await sendToTab(tabId, { type: "SET_ACTIVE", active: false });
     await showRestrictedNotice(tabId);
     return;
   }
@@ -224,9 +287,23 @@ async function setTabActive(tabId: number, active: boolean): Promise<void> {
 
 async function toggleTab(tabId: number): Promise<void> {
   const next = !tabActive.get(tabId);
-  tabActive.set(tabId, next);
+  if (!next) {
+    tabActive.set(tabId, false);
+    await syncTabToolbarIcon(tabId);
+    await setTabActive(tabId, false);
+    return;
+  }
+
+  if (!(await canOperateOnTab(tabId))) {
+    tabActive.set(tabId, false);
+    await syncTabToolbarIcon(tabId);
+    await showRestrictedNotice(tabId);
+    return;
+  }
+
+  tabActive.set(tabId, true);
   await syncTabToolbarIcon(tabId);
-  await setTabActive(tabId, next);
+  await setTabActive(tabId, true);
 }
 
 const CONTEXT_MENU_SETTINGS = "dom-deleter-settings";
@@ -458,6 +535,10 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
       const tabId = tab?.id;
       if (tabId === undefined) return;
       const frameId = info.frameId ?? 0;
+      if (!(await canOperateOnTab(tabId, frameId))) {
+        await showRestrictedNotice(tabId);
+        return;
+      }
       const ok = await sendWithInject(tabId, { type: "DELETE_CONTEXT_ELEMENT" }, frameId);
       if (!ok) await showRestrictedNotice(tabId);
     })();
@@ -518,6 +599,10 @@ ext.storage.onChanged.addListener((changes, area) => {
     return;
   }
 
+  if (secondsChange || localeChange) {
+    void refreshRestrictedNoticeCache();
+  }
+
   if (localeChange) {
     void ensureContextMenu();
   }
@@ -527,6 +612,7 @@ ext.storage.onChanged.addListener((changes, area) => {
 
 const onBootstrap = async (): Promise<void> => {
   await ensureLocaleInStorage();
+  await refreshRestrictedNoticeCache();
   await setGlobalToolbarIcon();
   await syncAllTabIcons();
 };
