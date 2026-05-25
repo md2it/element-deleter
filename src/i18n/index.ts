@@ -14,4 +14,4 @@ export {
   LOCALES,
   type Locale,
   type Strings,
-} from "../../../SHARED/src/i18n/types";
+} from "./types";

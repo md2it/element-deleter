@@ -1,5 +1,5 @@
 import { detectLocale as detectLocaleBase } from "../../../SHARED/src/i18n/detect";
-import type { Locale } from "../../../SHARED/src/i18n/types";
+import type { Locale } from "./types";
 
 export { getAcceptLanguageTags } from "../../../SHARED/src/i18n/detect";
 

@@ -1,6 +1,6 @@
 import { extensionMarkSvg, COG, INFO, UNDO_2 } from "../icons";
 import { type Strings } from "../i18n";
-import { TOAST_STACK_CONFIG } from "../ui-config";
+import { TOAST_STACK_CONFIG, TOAST_UI } from "../ui-config";
 import { ToastStack, type ToastStackHost } from "../../../SHARED/src/toast";
 
 export type ToastHost = ToastStackHost & {
@@ -14,21 +14,14 @@ export class ToastSystem {
   private readonly stack: ToastStack;
 
   constructor(private readonly host: ToastHost) {
-    this.stack = new ToastStack(
-      {
-        shadow: host.shadow,
-        getNotificationSeconds: () => host.getNotificationSeconds(),
-        isRtl: () => host.isRtl(),
-      },
-      TOAST_STACK_CONFIG,
-    );
+    this.stack = new ToastStack(host, TOAST_STACK_CONFIG);
   }
 
   showDeletedToast(elementLabel: string, undoId: number): void {
     const s = this.host.getStrings();
     const markInnerHtml = extensionMarkSvg({ variant: "toast" });
     this.stack.append({
-      variant: "deleted",
+      className: TOAST_UI.toastDeleted,
       markInnerHtml,
       fill: ({ toast, leading, actions }) => {
         leading.append(
@@ -37,7 +30,7 @@ export class ToastSystem {
 
         const btnRestore = document.createElement("button");
         btnRestore.type = "button";
-        btnRestore.className = "dd-icon-btn";
+        btnRestore.className = TOAST_UI.iconBtn;
         btnRestore.title = s.btnRestore;
         btnRestore.setAttribute("aria-label", s.btnRestore);
         btnRestore.innerHTML = UNDO_2;
@@ -63,7 +56,7 @@ export class ToastSystem {
     const s = this.host.getStrings();
     const markInnerHtml = extensionMarkSvg({ variant: "toast" });
     this.stack.append({
-      variant: "restored",
+      className: TOAST_UI.toastRestored,
       markInnerHtml,
       fill: ({ leading, actions }) => {
         leading.append(
@@ -93,7 +86,7 @@ export class ToastSystem {
   ): HTMLButtonElement {
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "dd-icon-btn";
+    btn.className = TOAST_UI.iconBtn;
     btn.title = title;
     btn.innerHTML = icon;
     btn.addEventListener("click", (e) => {

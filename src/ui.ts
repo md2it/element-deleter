@@ -3,7 +3,11 @@ import {
   isPointInElement,
 } from "../../SHARED/src/element-under-cursor";
 import { formatElementLabel } from "./element-label";
-import { HighlightSystem } from "./highlight-selector";
+import {
+  HighlightSystem,
+  HIGHLIGHT_UI,
+  DELETER_HIGHLIGHT_PAGE_STYLE,
+} from "./highlight-selector";
 import { isRtlLocale, t, type Locale } from "./i18n";
 import {
   RestoreSystem,
@@ -90,9 +94,15 @@ export class DeleterUI {
     );
 
     this.highlight = new HighlightSystem({
-      shadow: this.shadow,
-      isOurNode: (node) => this.isOurNode(node),
-      getElementLabelEnabled: () => this.elementLabelEnabled,
+      host: {
+        shadow: this.shadow,
+        isOurNode: (node) => this.isOurNode(node),
+        getElementLabelEnabled: () => this.elementLabelEnabled,
+        formatElementLabel,
+        hostAttr: HOST_ATTR,
+        classes: HIGHLIGHT_UI,
+      },
+      pageStyles: DELETER_HIGHLIGHT_PAGE_STYLE,
     });
     this.highlight.bindExistingElements(
       existingLabel instanceof HTMLElement ? existingLabel : null,
