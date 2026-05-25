@@ -18,7 +18,13 @@ import {
   type Locale,
   type Strings,
 } from "../i18n";
-import { ESC_HOTKEY_LABEL, getStartHotkeyLabel, getUndoHotkeyLabel } from "../hotkeys";
+import {
+  ESC_HOTKEY_LABEL,
+  getStartHotkeyActionLabel,
+  getStartHotkeyAriaLabel,
+  getStartHotkeyChordLabel,
+  getUndoHotkeyLabel,
+} from "../hotkeys";
 import {
   setElementLabelEnabled,
   setEscHotkeyEnabled,
@@ -227,9 +233,8 @@ export class PanelWindowSystem {
     }
     langField.appendChild(langRow);
 
-    const startHotkeyRow = this.createHotkeyToggleRow(
+    const startHotkeyRow = this.createPrefixStartHotkeyToggleRow(
       copy.startHotkeyToggleLabel,
-      getStartHotkeyLabel(),
       this.host.getStartHotkeyEnabled(),
       (next) => {
         void (async () => {
@@ -419,9 +424,22 @@ export class PanelWindowSystem {
     const toggles = panel.querySelectorAll<HTMLElement>(
       ".dd-toggle-row:not(.dd-toggle-row--notification)",
     );
-    this.syncHotkeyToggleRow(toggles[0], copy.startHotkeyToggleLabel, getStartHotkeyLabel());
+    this.syncPrefixStartHotkeyToggleRow(toggles[0], copy.startHotkeyToggleLabel);
     this.syncHotkeyToggleRow(toggles[1], copy.escHotkeyToggleLabel, ESC_HOTKEY_LABEL);
     this.syncHotkeyToggleRow(toggles[2], copy.undoHotkeyToggleLabel, getUndoHotkeyLabel());
+  }
+
+  private syncPrefixStartHotkeyToggleRow(
+    row: Element | undefined,
+    labelText: string,
+  ): void {
+    if (!row) return;
+    const label = row.querySelector(".dd-toggle-label");
+    const toggle = row.querySelector<HTMLButtonElement>(".dd-toggle");
+    if (!label) return;
+    label.replaceChildren(document.createTextNode(labelText));
+    this.appendPrefixStartHotkeyMarkup(label);
+    toggle?.setAttribute("aria-label", `${labelText} ${getStartHotkeyAriaLabel()}`);
   }
 
   private syncHotkeyToggleRow(
@@ -531,6 +549,32 @@ export class PanelWindowSystem {
     const toggle = row.querySelector(".dd-toggle");
     if (toggle instanceof HTMLButtonElement) {
       toggle.setAttribute("aria-label", PanelWindowSystem.ELEMENT_LABEL_TOGGLE_ARIA);
+    }
+    return row;
+  }
+
+  private appendPrefixStartHotkeyMarkup(label: Element): void {
+    label.append(document.createTextNode(" "));
+    const chord = document.createElement("kbd");
+    chord.textContent = getStartHotkeyChordLabel();
+    const action = document.createElement("kbd");
+    action.textContent = getStartHotkeyActionLabel();
+    label.append(chord, document.createTextNode(" → "), action);
+  }
+
+  private createPrefixStartHotkeyToggleRow(
+    labelText: string,
+    enabled: boolean,
+    onChange: (next: boolean) => void,
+  ): HTMLElement {
+    const row = this.createToggleRow(labelText, enabled, onChange);
+    const label = row.querySelector(".dd-toggle-label");
+    if (label) {
+      this.appendPrefixStartHotkeyMarkup(label);
+    }
+    const toggle = row.querySelector(".dd-toggle");
+    if (toggle instanceof HTMLButtonElement) {
+      toggle.setAttribute("aria-label", `${labelText} ${getStartHotkeyAriaLabel()}`);
     }
     return row;
   }

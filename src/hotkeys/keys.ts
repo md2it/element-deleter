@@ -1,7 +1,7 @@
 import {
   ESCAPE_KEY_LABEL,
   formatModifierKeyLabel,
-  formatPrefixHotkeyLabel,
+  formatPrefixChordLabel,
   isEditableKeyboardTarget,
   isEscapeKeyEvent,
   isPrefixChordKeyEvent,
@@ -11,9 +11,19 @@ import { PREFIX_ACTION_KEY } from "./commands";
 
 export const ESC_HOTKEY_LABEL = ESCAPE_KEY_LABEL;
 
-/** Display label for prefix toggle (README / settings). */
-export function getStartHotkeyLabel(): string {
-  return formatPrefixHotkeyLabel(PREFIX_ACTION_KEY);
+/** Prefix chord for settings (`kbd` before `→`). */
+export function getStartHotkeyChordLabel(): string {
+  return formatPrefixChordLabel();
+}
+
+/** Action letter for settings (`kbd` after `→`). */
+export function getStartHotkeyActionLabel(): string {
+  return PREFIX_ACTION_KEY.toUpperCase();
+}
+
+/** Full label for aria (chord + arrow + letter, no markup). */
+export function getStartHotkeyAriaLabel(): string {
+  return `${getStartHotkeyChordLabel()} → ${getStartHotkeyActionLabel()}`;
 }
 
 /** Ctrl/Cmd+Shift+X — prefix chord (page fallback). */

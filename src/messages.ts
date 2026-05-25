@@ -1,4 +1,5 @@
 import type { Locale } from "./i18n";
+import type { PrefixHintContentToBg } from "../../SHARED/src/hotkeys/prefix-hint-messages";
 
 export type BgToContent =
   | { type: "SET_ACTIVE"; active: boolean }
@@ -16,7 +17,8 @@ export type ContentToBg =
   | { type: "ACTIVE_CHANGED"; active: boolean }
   | { type: "OPEN_PANEL"; tab: "settings" | "info" }
   | { type: "TOGGLE_REQUEST" }
-  | { type: "WATCH_PIN_STATUS" };
+  | { type: "WATCH_PIN_STATUS" }
+  | PrefixHintContentToBg;
 
 /** Content script response when background tries to activate on a tab. */
 export type ContentActivationResponse = { ok: boolean };

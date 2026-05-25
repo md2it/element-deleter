@@ -5,3 +5,6 @@ export const COMMAND_UNDO = "undo-delete";
 
 /** Second key in catalog prefix mode for Element Deleter. */
 export const PREFIX_ACTION_KEY = "D";
+
+/** Active toolbar / prefix-badge color (RULES + SPEC). */
+export const DELETER_ACTIVE_COLOR = "#b91c1c";

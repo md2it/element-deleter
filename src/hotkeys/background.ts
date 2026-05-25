@@ -8,6 +8,7 @@ import {
   COMMAND_EXECUTE_ACTION,
   COMMAND_TOGGLE_DELETE,
   COMMAND_UNDO,
+  DELETER_ACTIVE_COLOR,
   PREFIX_ACTION_KEY,
 } from "./commands";
 import { getStartHotkeyEnabled } from "./settings";
@@ -46,6 +47,7 @@ export function registerBackgroundHotkeys(host: BackgroundHotkeysHost): void {
   registerPrefixManifestHotkeys({
     prefixCommands: [COMMAND_TOGGLE_DELETE, COMMAND_EXECUTE_ACTION],
     hintLetter: PREFIX_ACTION_KEY,
+    badgeBackgroundColor: DELETER_ACTIVE_COLOR,
     undoCommand: COMMAND_UNDO,
     isPrefixEnabled: getStartHotkeyEnabled,
     isToggleEnabled: getStartHotkeyEnabled,

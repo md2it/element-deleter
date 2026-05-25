@@ -14,7 +14,9 @@ export {
 } from "./deleter-content";
 export {
   ESC_HOTKEY_LABEL,
-  getStartHotkeyLabel,
+  getStartHotkeyActionLabel,
+  getStartHotkeyAriaLabel,
+  getStartHotkeyChordLabel,
   getUndoHotkeyLabel,
   isEditableKeyboardTarget,
   isEscHotkeyEvent,
