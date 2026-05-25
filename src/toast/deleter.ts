@@ -1,4 +1,4 @@
-import { extensionMarkSvg, COG, INFO, UNDO_2 } from "../icons";
+import { extensionMarkSvg, INFO, UNDO_2 } from "../icons";
 import { type Strings } from "../i18n";
 import { TOAST_STACK_CONFIG, TOAST_UI } from "../ui-config";
 import { ToastStack, type ToastStackHost } from "../../../SHARED/src/toast";
@@ -40,14 +40,9 @@ export class ToastSystem {
           void this.host.undoById(undoId);
         });
 
-        const btnSettings = this.panelTriggerButton(
-          "settings",
-          COG,
-          s.titleSettings,
-        );
         const btnInfo = this.panelTriggerButton("info", INFO, s.titleAbout);
 
-        actions.append(btnRestore, btnSettings, btnInfo);
+        actions.append(btnRestore, btnInfo);
       },
     });
   }
@@ -63,14 +58,9 @@ export class ToastSystem {
           this.stack.createStatusLabel(s.toastRestored, elementLabel),
         );
 
-        const btnSettings = this.panelTriggerButton(
-          "settings",
-          COG,
-          s.titleSettings,
-        );
         const btnInfo = this.panelTriggerButton("info", INFO, s.titleAbout);
 
-        actions.append(btnSettings, btnInfo);
+        actions.append(btnInfo);
       },
     });
   }

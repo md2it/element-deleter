@@ -183,7 +183,7 @@ function populateWelcomeBody(body: HTMLElement, data: WelcomeData): void {
     nodes.push(aboutSep, aboutHeading, aboutList);
   }
 
-  if (data.hasAbout && data.hasSettings) {
+  if (data.hasSettings) {
     const actionsSep = document.createElement("hr");
     actionsSep.className = "welcome-sep";
     actionsSep.id = "actions-sep";
@@ -197,12 +197,7 @@ function populateWelcomeBody(body: HTMLElement, data: WelcomeData): void {
     settingsBtn.id = "btn-settings";
     fillActionButton(settingsBtn, data.settingsLabel, data.settingsIcon);
 
-    const aboutBtn = document.createElement("button");
-    aboutBtn.type = "button";
-    aboutBtn.id = "btn-about";
-    fillActionButton(aboutBtn, data.aboutLabel, data.aboutIcon);
-
-    actions.append(settingsBtn, aboutBtn);
+    actions.append(settingsBtn);
     nodes.push(actionsSep, actions);
   }
 
@@ -282,11 +277,6 @@ function bindActionButtons(): void {
 
     if (target.closest("#btn-settings")) {
       void ext.runtime.sendMessage({ type: "OPEN_PANEL", tab: "settings" });
-      return;
-    }
-
-    if (target.closest("#btn-about")) {
-      void ext.runtime.sendMessage({ type: "OPEN_PANEL", tab: "info" });
     }
   });
 }

@@ -4,7 +4,6 @@ import {
   ARROW_UP,
   COG,
   HEART,
-  INFO,
   PIN,
   PUZZLE,
   extensionMarkSvg,
@@ -33,7 +32,6 @@ function buildWelcomeLocalePayload(locale: Locale, extensionName: string) {
     aboutHeading: strings.tabAbout,
     aboutItems: buildAboutListItems(strings),
     settingsLabel: strings.titleSettings,
-    aboutLabel: strings.titleAbout,
     langAriaLabel: strings.tabSettings,
   };
 }
@@ -71,9 +69,7 @@ export function buildWelcomeData(
     aboutHeading: current.aboutHeading,
     aboutItems: current.aboutItems,
     settingsLabel: current.settingsLabel,
-    aboutLabel: current.aboutLabel,
     settingsIcon: welcomeStepIcon(COG),
-    aboutIcon: welcomeStepIcon(INFO),
     hasAbout: true,
     hasSettings: true,
     hasLocales: true,
