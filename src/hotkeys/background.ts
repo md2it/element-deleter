@@ -1,35 +1,23 @@
 import { ext } from "../api";
 import type { ContentToBg } from "../messages";
-import {
-  COMMAND_DEACTIVATE,
-  COMMAND_EXECUTE_ACTION,
-  COMMAND_UNDO,
-} from "./commands";
+import { COMMAND_TOGGLE_DELETE, COMMAND_UNDO } from "./commands";
 import { getStartHotkeyEnabled } from "./settings";
 
-/** Ignore paired hotkeys shortly after manifest `_execute_action` (same key as `deactivate`). */
-export const EXECUTE_ACTION_TOGGLE_SUPPRESS_MS = 300;
+/** Ignore content `TOGGLE_REQUEST` shortly after manifest toggle command. */
+export const TOGGLE_COMMAND_SUPPRESS_MS = 300;
 
-let lastExecuteActionAt = 0;
+let lastToggleCommandAt = 0;
 
-export function shouldSuppressContentToggleAfterExecuteAction(
+export function shouldSuppressContentToggleAfterToggleCommand(
   lastAt: number,
   now: number,
-  windowMs = EXECUTE_ACTION_TOGGLE_SUPPRESS_MS,
+  windowMs = TOGGLE_COMMAND_SUPPRESS_MS,
 ): boolean {
   return lastAt > 0 && now - lastAt < windowMs;
 }
 
-/** Paired `action.onClicked` after manifest `_execute_action` (incl. when hotkey is off). */
-export function shouldSuppressToolbarClickAfterHotkeyCommand(
-  now = Date.now(),
-): boolean {
-  return shouldSuppressContentToggleAfterExecuteAction(lastExecuteActionAt, now);
-}
-
 export type BackgroundHotkeysHost = {
   getActiveCommandTab: () => Promise<chrome.tabs.Tab | undefined>;
-  deactivateTab: (tabId: number) => Promise<void>;
   undoOnTab: (tabId: number) => Promise<void>;
   toggleTab: (tabId: number, windowId?: number) => Promise<void>;
 };
@@ -41,27 +29,13 @@ export function registerBackgroundHotkeys(host: BackgroundHotkeysHost): void {
       const tab = await host.getActiveCommandTab();
       if (tab?.id === undefined) return;
 
-      if (command === COMMAND_EXECUTE_ACTION) {
-        // Always stamp: Chrome still fires `action.onClicked` for this command.
-        lastExecuteActionAt = Date.now();
+      if (command === COMMAND_TOGGLE_DELETE) {
         if (!(await getStartHotkeyEnabled())) return;
+        lastToggleCommandAt = Date.now();
         await host.toggleTab(tab.id, tab.windowId);
         return;
       }
 
-      if (command === COMMAND_DEACTIVATE) {
-        if (!(await getStartHotkeyEnabled())) return;
-        if (
-          shouldSuppressContentToggleAfterExecuteAction(
-            lastExecuteActionAt,
-            Date.now(),
-          )
-        ) {
-          return;
-        }
-        await host.deactivateTab(tab.id);
-        return;
-      }
       if (command === COMMAND_UNDO) {
         await host.undoOnTab(tab.id);
       }
@@ -76,8 +50,8 @@ export function registerBackgroundHotkeys(host: BackgroundHotkeysHost): void {
     void (async () => {
       if (!(await getStartHotkeyEnabled())) return;
       if (
-        shouldSuppressContentToggleAfterExecuteAction(
-          lastExecuteActionAt,
+        shouldSuppressContentToggleAfterToggleCommand(
+          lastToggleCommandAt,
           Date.now(),
         )
       ) {

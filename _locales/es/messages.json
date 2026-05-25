@@ -2,8 +2,8 @@
   "extDescription": {
     "message": "Elimina y restaura elementos en páginas web. Sin red. No recopila datos."
   },
-  "commandDeactivate": {
-    "message": "Apagar"
+  "commandToggleDelete": {
+    "message": "Activar/desactivar"
   },
   "commandUndoDelete": {
     "message": "Deshacer eliminación"

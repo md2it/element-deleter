@@ -2,8 +2,8 @@
   "extDescription": {
     "message": "Remove and restore elements on web pages. No network. No data collection."
   },
-  "commandDeactivate": {
-    "message": "Turn off"
+  "commandToggleDelete": {
+    "message": "On/Off"
   },
   "commandUndoDelete": {
     "message": "Undo delete"

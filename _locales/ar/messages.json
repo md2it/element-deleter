@@ -2,8 +2,8 @@
   "extDescription": {
     "message": "حذف عناصر الصفحة واستعادتها. بدون شبكة. لا يجمع بيانات."
   },
-  "commandDeactivate": {
-    "message": "إيقاف"
+  "commandToggleDelete": {
+    "message": "تشغيل/إيقاف"
   },
   "commandUndoDelete": {
     "message": "تراجع عن الحذف"

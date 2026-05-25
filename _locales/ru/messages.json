@@ -2,8 +2,8 @@
   "extDescription": {
     "message": "Удаление и восстановление элементов веб страницы. Без сети. Данные не собираются."
   },
-  "commandDeactivate": {
-    "message": "Выключение"
+  "commandToggleDelete": {
+    "message": "Вкл/выкл"
   },
   "commandUndoDelete": {
     "message": "Отменить удаление"

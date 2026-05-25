@@ -2,8 +2,8 @@
   "extDescription": {
     "message": "Elemente auf Webseiten entfernen und wiederherstellen. Kein Netzwerk. Keine Datenerfassung."
   },
-  "commandDeactivate": {
-    "message": "Ausschalten"
+  "commandToggleDelete": {
+    "message": "Ein/Aus"
   },
   "commandUndoDelete": {
     "message": "Löschen rückgängig"

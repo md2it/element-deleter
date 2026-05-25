@@ -1,8 +1,4 @@
-export {
-  COMMAND_DEACTIVATE,
-  COMMAND_EXECUTE_ACTION,
-  COMMAND_UNDO,
-} from "./commands";
+export { COMMAND_TOGGLE_DELETE, COMMAND_UNDO } from "./commands";
 export { registerBackgroundHotkeys, type BackgroundHotkeysHost } from "./background";
 export {
   registerDeleterContentHotkeys,
