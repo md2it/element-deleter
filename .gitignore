@@ -9,4 +9,4 @@ out/
 .env
 .env.*
 .cursor/
-../amo-source/
+PUBLICATION/amo-source/
