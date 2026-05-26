@@ -1,5 +1,5 @@
 import { ABOUT_BULLET_ICONS, toolbarIconSvg } from "./icons";
-import type { Strings } from "./i18n";
+import type { Strings } from "./i18n/types";
 
 export type AboutListItem = {
   iconHtml: string;

@@ -33,7 +33,7 @@ export const LOCALE_STORAGE_KEY = "locale";
 export const LOCALE_USER_SELECTED_KEY = "localeUserSelected";
 /** Bumped when auto-detect logic changes; triggers one-time re-detect in background. */
 export const LOCALE_DETECT_VERSION_KEY = "localeDetectVersion";
-export const LOCALE_DETECT_VERSION = 4;
+export const LOCALE_DETECT_VERSION = 5;
 export const START_HOTKEY_ENABLED_KEY = "startHotkeyEnabled";
 export const ESC_HOTKEY_ENABLED_KEY = "escHotkeyEnabled";
 export const UNDO_HOTKEY_ENABLED_KEY = "undoHotkeyEnabled";

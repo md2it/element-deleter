@@ -1,3 +1,4 @@
+import { normalizeLocaleCode } from "../../SHARED/src/i18n/locale-code";
 import { ext } from "./api";
 import {
   detectLocale,
@@ -41,7 +42,15 @@ export async function setNotificationSeconds(value: number): Promise<void> {
 export async function getLocale(): Promise<Locale> {
   const data = await ext.storage.local.get(LOCALE_STORAGE_KEY);
   const raw = data[LOCALE_STORAGE_KEY];
-  if (isLocale(raw)) return raw;
+  if (typeof raw === "string") {
+    const normalized = normalizeLocaleCode(raw);
+    if (isLocale(normalized)) {
+      if (normalized !== raw) {
+        await ext.storage.local.set({ [LOCALE_STORAGE_KEY]: normalized });
+      }
+      return normalized;
+    }
+  }
   return await detectLocale();
 }
 

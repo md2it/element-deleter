@@ -1,4 +1,4 @@
-export type Locale = "en" | "es" | "fr" | "de" | "ru" | "zh" | "ar";
+export type Locale = "en" | "es" | "fr" | "de" | "ru" | "zh_CN" | "ar";
 
 export const LOCALES: readonly Locale[] = [
   "en",
@@ -6,7 +6,7 @@ export const LOCALES: readonly Locale[] = [
   "fr",
   "de",
   "ru",
-  "zh",
+  "zh_CN",
   "ar",
 ] as const;
 
@@ -17,7 +17,7 @@ export const LOCALE_BUTTON_LABELS: Record<Locale, string> = {
   fr: "FR",
   de: "DE",
   ru: "RU",
-  zh: "中文",
+  zh_CN: "中文",
   ar: "عربي",
 };
 

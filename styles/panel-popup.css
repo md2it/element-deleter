@@ -116,7 +116,7 @@
   text-align: center;
 }
 
-.dd-panel:lang(zh) .dd-tab {
+.dd-panel:lang(zh-CN) .dd-tab {
   letter-spacing: normal;
 }
 
@@ -424,9 +424,9 @@
 .dd-number-value input {
   box-sizing: content-box;
   flex: 0 0 auto;
-  width: 2ch;
-  min-width: 2ch;
-  max-width: 2ch;
+  width: 2.5ch;
+  min-width: 2.5ch;
+  max-width: 2.5ch;
   margin: 0;
   padding: 0.35rem 0.1rem;
   border: none;

@@ -1,6 +1,7 @@
-import { welcomeStepIcon, type WelcomeData } from "../../../SHARED/src/welcome";
-import { buildAboutListItems } from "../about";
-import { PANEL_TITLE } from "../brand";
+import { welcomeStepIcon } from "../../../SHARED/src/welcome/step-icon";
+import type { WelcomeData } from "../../../SHARED/src/welcome/types";
+import { buildAboutListItems } from "../../src/about";
+import { PANEL_TITLE } from "../../src/brand";
 import {
   ARROW_UP,
   COG,
@@ -8,14 +9,13 @@ import {
   PIN,
   PUZZLE,
   toolbarWelcomeIconSvg,
-} from "../icons";
+} from "../../src/icons";
 import { isRtlLocale } from "../../../SHARED/src/i18n/rtl";
-import { t } from "../i18n/strings";
-import { LOCALE_BUTTON_LABELS, LOCALES, type Locale } from "../i18n/types";
+import { t } from "../../src/i18n/strings";
+import { LOCALE_BUTTON_LABELS, LOCALES, type Locale } from "../../src/i18n/types";
 
-function buildWelcomeLocalePayload(locale: Locale, extensionName: string) {
+function buildWelcomeLocalePayload(locale: Locale) {
   const strings = t(locale);
-
   return {
     locale,
     dir: isRtlLocale(locale) ? ("rtl" as const) : ("ltr" as const),
@@ -31,18 +31,16 @@ function buildWelcomeLocalePayload(locale: Locale, extensionName: string) {
   };
 }
 
-export function buildWelcomeData(
+function buildWelcomeData(
   locale: Locale,
   extensionName: string,
   options?: { isPinned?: boolean | null },
 ): WelcomeData {
   const isPinned = options?.isPinned === true;
   const perLocale = Object.fromEntries(
-    LOCALES.map((code) => [code, buildWelcomeLocalePayload(code, extensionName)]),
+    LOCALES.map((code) => [code, buildWelcomeLocalePayload(code)]),
   ) as Record<Locale, ReturnType<typeof buildWelcomeLocalePayload>>;
-
   const current = perLocale[locale];
-
   return {
     extensionName,
     locale,
@@ -75,4 +73,6 @@ export function buildWelcomeData(
   };
 }
 
-export type { WelcomeData };
+const locale = (process.argv[2] ?? "ru") as Locale;
+const data = buildWelcomeData(locale, "Element Deleter", { isPinned: false });
+process.stdout.write(JSON.stringify(data));

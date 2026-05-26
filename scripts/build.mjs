@@ -31,6 +31,7 @@ const common = {
   bundle: true,
   platform: "browser",
   target: "es2022",
+  charset: "utf8",
   define,
   logLevel: "info",
   loader: {

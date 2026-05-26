@@ -185,7 +185,7 @@ const MESSAGES: Record<Locale, Strings> = {
       active: "Расширение запущено.",
     },
   },
-  zh: {
+  zh_CN: {
     tabSettings: "设置",
     tabAbout: "关于",
     notificationPeriodPrefix: "通知 ",

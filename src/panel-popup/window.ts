@@ -8,6 +8,7 @@ import {
   toolbarWelcomeIconSvg,
 } from "../icons";
 import { createPanelFooter } from "../../../SHARED/src/panel-footer";
+import { localeToHtmlLang } from "../../../SHARED/src/i18n/locale-code";
 import { PANEL_FOOTER_CONFIG } from "../ui-config";
 import { createPanelDivider, createPanelHeader } from "./header";
 import {
@@ -82,7 +83,7 @@ export class PanelWindowSystem {
     if (this.host.surface === "popup") {
       panelRoot.classList.add("dd-panel--surface-popup");
     }
-    panelRoot.lang = this.host.getLocale();
+    panelRoot.lang = localeToHtmlLang(this.host.getLocale());
     panelRoot.dir = this.host.isRtl() ? "rtl" : "ltr";
 
     const s = this.host.getStrings();
@@ -142,7 +143,7 @@ export class PanelWindowSystem {
     };
 
     const refreshPanels = (): void => {
-      panelRoot.lang = this.host.getLocale();
+      panelRoot.lang = localeToHtmlLang(this.host.getLocale());
       subtitle.textContent = this.host.getStrings().panelSubtitle;
       this.populateSettingsPanel(settingsPanel, panelRoot, refreshPanels);
       this.populateInfoPanel(infoPanel);
@@ -230,7 +231,7 @@ export class PanelWindowSystem {
         void (async () => {
           this.host.setLocale(code);
           await setLocale(code);
-          panelRoot.lang = code;
+          panelRoot.lang = localeToHtmlLang(code);
           panelRoot.dir = isRtlLocale(code) ? "rtl" : "ltr";
           refreshPanels();
         })();
