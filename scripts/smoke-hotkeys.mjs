@@ -19,7 +19,7 @@ assert.match(deleterKeysSrc, /getStartHotkeyActionLabel/);
 assert.match(deleterKeysSrc, /PREFIX_ACTION_KEY/);
 
 const deleterRegistrySrc = readFileSync(join(root, "src/hotkeys/registry.ts"), "utf8");
-assert.match(deleterRegistrySrc, /registerSharedContentHotkey/);
+assert.match(deleterRegistrySrc, /registerLibContentHotkey/);
 assert.match(deleterRegistrySrc, /elementDeleter/);
 
 const deleterBackgroundSrc = readFileSync(join(root, "src/hotkeys/background.ts"), "utf8");

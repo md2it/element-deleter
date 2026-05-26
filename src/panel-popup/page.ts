@@ -1,7 +1,7 @@
 import {
   getPanelPageUrl,
   isPanelPage,
-  resolvePanelPageInitialTab as resolveSharedPanelPageInitialTab,
+  resolvePanelPageInitialTab as resolveLibPanelPageInitialTab,
 } from "../../../lib/src/panel-popup";
 import { isPanelTabMode } from "../panel-tab";
 import {
@@ -21,7 +21,7 @@ export function isPanelPopupPage(href: string): boolean {
 }
 
 export async function resolvePanelPageInitialTab(): Promise<PanelPopupTab> {
-  return resolveSharedPanelPageInitialTab({
+  return resolveLibPanelPageInitialTab({
     sessionTabKey: PANEL_PAGE_CONFIG.sessionTabKey,
     defaultTab: "settings",
     validTabs: PANEL_POPUP_TABS,

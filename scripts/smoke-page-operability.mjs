@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 import { runSmokePageOperabilityCore } from "../../lib/scripts/smoke-page-operability-core.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const sharedOperability = join(root, "../lib/src/page-operability");
+const libOperability = join(root, "../lib/src/page-operability");
 
 runSmokePageOperabilityCore();
 
@@ -51,10 +51,10 @@ assert.match(noticeJs, /pagehide/);
 assert.match(bgSrc, /isBlockedNoticeDismissedMessage/);
 assert.match(bgSrc, /onBlockedNoticeDismissed/);
 
-const sharedPageJs = readFileSync(
-  join(sharedOperability, "blocked-notice-page.js"),
+const libPageJs = readFileSync(
+  join(libOperability, "blocked-notice-page.js"),
   "utf8",
 );
-assert.equal(noticeJs, sharedPageJs);
+assert.equal(noticeJs, libPageJs);
 
 console.log("smoke-page-operability: ok");

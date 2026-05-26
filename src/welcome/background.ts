@@ -1,8 +1,8 @@
 import { isActionOnToolbar } from "../../../lib/src/pin";
 import {
   openWelcomeTab,
-  stopWelcomePinWatcher as stopSharedWelcomePinWatcher,
-  watchWelcomePinStatus as watchSharedWelcomePinStatus,
+  stopWelcomePinWatcher as stopLibWelcomePinWatcher,
+  watchWelcomePinStatus as watchLibWelcomePinStatus,
 } from "../../../lib/src/welcome";
 import { ext } from "../api";
 import { getLocale } from "../storage";
@@ -13,11 +13,11 @@ import {
 import { buildWelcomeData } from "./data";
 
 export function stopWelcomePinWatcher(tabId: number): void {
-  stopSharedWelcomePinWatcher(tabId);
+  stopLibWelcomePinWatcher(tabId);
 }
 
 export function watchWelcomePinStatus(tabId: number): void {
-  watchSharedWelcomePinStatus(tabId, WELCOME_PIN_WATCH_CONFIG);
+  watchLibWelcomePinStatus(tabId, WELCOME_PIN_WATCH_CONFIG);
 }
 
 export async function showWelcome(): Promise<void> {

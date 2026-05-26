@@ -9,7 +9,7 @@ const esbuild = require(
 );
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const sharedSrc = join(root, "../lib/src");
+const libSrc = join(root, "../lib/src");
 const watch = process.argv.includes("--watch");
 
 const stylesDir = join(root, "styles");
@@ -38,7 +38,7 @@ const common = {
     ".svg": "text",
   },
   alias: {
-    "@lib": sharedSrc,
+    "@lib": libSrc,
   },
 };
 

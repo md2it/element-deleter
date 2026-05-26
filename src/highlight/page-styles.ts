@@ -1,8 +1,8 @@
 import {
   buildGenericHighlightPageCss,
   createHighlightUiClasses,
-  ensurePageHighlightStyles as ensureSharedPageHighlightStyles,
-  removePageHighlightStyles as removeSharedPageHighlightStyles,
+  ensurePageHighlightStyles as ensureLibPageHighlightStyles,
+  removePageHighlightStyles as removeLibPageHighlightStyles,
 } from "../../../lib/src/highlight";
 import { DELETER_HIGHLIGHT_PAGE_CSS } from "./deleter-page-styles";
 
@@ -19,9 +19,9 @@ export const DELETER_HIGHLIGHT_PAGE_STYLE = {
 } as const;
 
 export function ensurePageHighlightStyles(): void {
-  ensureSharedPageHighlightStyles(DELETER_HIGHLIGHT_PAGE_STYLE);
+  ensureLibPageHighlightStyles(DELETER_HIGHLIGHT_PAGE_STYLE);
 }
 
 export function removePageHighlightStyles(): void {
-  removeSharedPageHighlightStyles(HIGHLIGHT_STYLE_ID);
+  removeLibPageHighlightStyles(HIGHLIGHT_STYLE_ID);
 }

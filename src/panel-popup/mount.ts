@@ -1,4 +1,4 @@
-import { mountPanelSurface } from "./mount-shared";
+import { mountPanelSurface } from "./mount-panel-surface";
 
 const PANEL_POPUP_HOST_STYLE =
   "display:block;width:360px;min-height:520px;position:relative;pointer-events:auto;";

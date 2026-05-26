@@ -1,4 +1,4 @@
-import { registerContentHotkey as registerSharedContentHotkey } from "../../../lib/src/hotkeys";
+import { registerContentHotkey as registerLibContentHotkey } from "../../../lib/src/hotkeys";
 
 const HOTKEY_NAMESPACE = "elementDeleter";
 
@@ -9,5 +9,5 @@ export function registerContentHotkey(
   slot: ContentHotkeySlot,
   handler: (e: KeyboardEvent) => void,
 ): void {
-  registerSharedContentHotkey(HOTKEY_NAMESPACE, slot, handler);
+  registerLibContentHotkey(HOTKEY_NAMESPACE, slot, handler);
 }

@@ -1,5 +1,5 @@
 import type { PanelPopupTab } from "../panel-popup/constants";
-import { mountPanelSurface } from "../panel-popup/mount-shared";
+import { mountPanelSurface } from "../panel-popup/mount-panel-surface";
 import { PANEL_TAB_HOST_STYLE } from "./constants";
 import { applyPanelTabPageLayout } from "./layout";
 

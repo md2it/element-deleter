@@ -1,5 +1,5 @@
 import {
-  openPanelInActionPopup as openSharedPanelInActionPopup,
+  openPanelInActionPopup as openLibPanelInActionPopup,
   panelPagePath,
   type PanelPageOpenTarget,
 } from "../../../lib/src/panel-popup";
@@ -17,7 +17,7 @@ export function openPanelInActionPopup(
   panelTab: PanelPopupTab,
   target: PanelPageOpenTarget,
 ): void {
-  openSharedPanelInActionPopup(
+  openLibPanelInActionPopup(
     PANEL_PAGE_CONFIG,
     panelTab,
     target,
