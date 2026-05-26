@@ -1,4 +1,7 @@
-# README RU: ELEMENT DELETER
+# SPEC BIZ: ELEMENT DELETER
+
+> [!NOTE]
+> Dev-only, Russian. Not the project README.
 
 ---
 
@@ -113,16 +116,6 @@ E = Extension
 - **Смена языка в popup окне не влияет на язык в приветственном окне**:
    - Редкий сценарий
    - В приветственном окне есть своя настройка языков
-
----
-
-## РАЗРАБОТКА, СБОРКА
-
-- Node.js 18+ (LTS)
-- В корне репозитория: `npm install`
-- `npm run build` — JS из TypeScript
-- Chrome: «Распакованное» → папка репо
-- `npm run watch` — пересборка при правках
 
 ---
 
