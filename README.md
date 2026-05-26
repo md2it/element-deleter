@@ -19,7 +19,7 @@ Browser extension (Chrome, Firefox) to remove page elements locally and restore 
 
 ## Developers
 
-**License:** [MIT](LICENSE)
+**License:** [BSD 2-Clause "Simplified" License](LICENSE)
 
 **Author:** [Aleksei Terekhov](https://www.linkedin.com/in/alex-terekhov/) — [md2it.com](https://md2it.com)
 
