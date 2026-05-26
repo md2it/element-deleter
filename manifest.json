@@ -21,7 +21,8 @@
     }
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
   },
   "content_scripts": [
     {
@@ -51,7 +52,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "element-deleter@md2it.local",
-      "strict_min_version": "109.0"
+      "strict_min_version": "121.0"
     }
   }
 }
