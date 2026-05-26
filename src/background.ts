@@ -260,6 +260,7 @@ async function setTabActive(
 
 async function undoOnTab(tabId: number): Promise<void> {
   if (!(await getUndoHotkeyEnabled())) return;
+  if (!getTabActiveState(tabId)) return;
   await sendWithInject(tabId, { type: "UNDO_LAST" });
 }
 
@@ -412,6 +413,7 @@ ext.action.onClicked.addListener(async (tab) => {
 
 registerBackgroundHotkeys({
   getActiveCommandTab,
+  isTabActive: getTabActiveState,
   undoOnTab,
   toggleTab,
   sendToTab: (tabId, message) => sendWithInject(tabId, message),

@@ -56,6 +56,7 @@ export function registerDeleterContentHotkeys(
     registerContentHotkey("undo", (e) => {
       if (!isUndoHotkeyEvent(e)) return;
       if (isEditableKeyboardTarget(e.target)) return;
+      if (!host.isActive()) return;
       if (host.hasRestorableUndo()) {
         e.preventDefault();
         e.stopPropagation();

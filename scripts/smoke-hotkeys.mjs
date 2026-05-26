@@ -29,7 +29,18 @@ assert.match(deleterBackgroundSrc, /DELETER_ACTIVE_COLOR/);
 assert.match(deleterBackgroundSrc, /badgeBackgroundColor/);
 assert.match(deleterBackgroundSrc, /PREFIX_ARM_TOGGLE/);
 assert.match(deleterBackgroundSrc, /TOGGLE_REQUEST/);
+assert.match(deleterBackgroundSrc, /isUndoCommandEnabled/);
+assert.match(deleterBackgroundSrc, /isTabActive/);
 assert.doesNotMatch(deleterBackgroundSrc, /registerManifestCommandHotkeys/);
+
+const prefixBackgroundSrc = readFileSync(
+  join(root, "../lib/src/hotkeys/prefix-background.ts"),
+  "utf8",
+);
+assert.match(prefixBackgroundSrc, /isUndoCommandEnabled/);
+
+const deleterContentSrc = readFileSync(join(root, "src/hotkeys/deleter-content.ts"), "utf8");
+assert.match(deleterContentSrc, /if \(!host\.isActive\(\)\) return/);
 
 const commandsSrc = readFileSync(join(root, "src/hotkeys/commands.ts"), "utf8");
 assert.match(commandsSrc, /toggle-delete-mode/);
