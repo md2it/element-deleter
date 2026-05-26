@@ -31,7 +31,8 @@ export const CHEVRONS_LEFT = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0
 export const CHEVRONS_RIGHT = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg>`;
 
 const INACTIVE_BG = "#012292";
-const ACTIVE_BG = "#b91c1c";
+// Spec: toolbar icon uses single active style; badge carries state.
+const ACTIVE_BG = INACTIVE_BG;
 const TOOLBAR_VIEWBOX = 24;
 const TOOLBAR_RADIUS_RATIO = 0.18;
 const TOOLBAR_PAD_RATIO = 0.1;

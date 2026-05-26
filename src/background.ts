@@ -1,4 +1,5 @@
 import { ext } from "./api";
+import { registerPrefixHintBadgeListeners } from "../../SHARED/src/hotkeys";
 import {
   bootstrapToolbarIcons,
   forEachActiveTabId,
@@ -14,6 +15,7 @@ import {
   registerBackgroundHotkeys,
   shouldSuppressToolbarClickAfterHotkeyCommand,
 } from "./hotkeys/background";
+import { DELETER_ACTIVE_COLOR } from "./hotkeys/commands";
 import {
   ensureLocaleInStorage,
   getAllElementsFillEnabled,
@@ -26,6 +28,8 @@ import {
 import { openPanelFromSender } from "./panel-popup";
 import {
   canOperateOnTab,
+  getRestrictedNoticeDismissMs,
+  isBlockedNoticeDismissedMessage,
   refreshRestrictedNoticeCache,
   showRestrictedNotice,
 } from "./page-operability";
@@ -34,6 +38,100 @@ import { showWelcome, stopWelcomePinWatcher, watchWelcomePinStatus } from "./wel
 const TOGGLE_DEBOUNCE_MS = 80;
 let lastToggleTabId: number | undefined;
 let lastToggleAt = 0;
+
+const BADGE_TEXT_COLOR = "#ffffff";
+const BADGE_RUNNING_TEXT = "✓";
+const BADGE_BLOCKED_TEXT = "✕";
+
+/**
+ * Badge state priority (catalog):
+ * 1) prefix letter (handled by SHARED prefix badge; we only suppress/restore)
+ * 2) cannot operate on page => X
+ * 3) running => ON
+ * 4) off => no badge
+ */
+const tabBlockedBadge = new Map<number, boolean>();
+const tabPrefixBadgeShown = new Map<number, boolean>();
+const blockedBadgeClearTimers = new Map<number, ReturnType<typeof setTimeout>>();
+
+function clearBlockedBadgeTimer(tabId: number): void {
+  const timer = blockedBadgeClearTimers.get(tabId);
+  if (timer === undefined) return;
+  clearTimeout(timer);
+  blockedBadgeClearTimers.delete(tabId);
+}
+
+function clearBlockedBadgeState(tabId: number): void {
+  clearBlockedBadgeTimer(tabId);
+  tabBlockedBadge.set(tabId, false);
+}
+
+function onBlockedNoticeDismissed(tabId: number): void {
+  if (!tabBlockedBadge.get(tabId)) return;
+  clearBlockedBadgeState(tabId);
+  void syncToolbarBadge(tabId);
+}
+
+function scheduleClearBlockedBadge(tabId: number, dismissMs: number): void {
+  clearBlockedBadgeTimer(tabId);
+  blockedBadgeClearTimers.set(
+    tabId,
+    setTimeout(() => {
+      blockedBadgeClearTimers.delete(tabId);
+      if (!tabBlockedBadge.get(tabId)) return;
+      clearBlockedBadgeState(tabId);
+      void syncToolbarBadge(tabId);
+    }, dismissMs),
+  );
+}
+
+async function showBlockedPageFeedback(
+  tabId: number,
+  windowId?: number,
+): Promise<void> {
+  tabBlockedBadge.set(tabId, true);
+  await syncToolbarBadge(tabId);
+  const dismissMs = await getRestrictedNoticeDismissMs();
+  await showRestrictedNotice(tabId, windowId);
+  scheduleClearBlockedBadge(tabId, dismissMs);
+}
+
+async function setToolbarBadge(
+  tabId: number,
+  text: string,
+): Promise<void> {
+  try {
+    if (text) {
+      await ext.action.setBadgeBackgroundColor({ tabId, color: DELETER_ACTIVE_COLOR });
+      const setBadgeTextColor = (
+        ext.action as typeof ext.action & {
+          setBadgeTextColor?: (details: { tabId: number; color: string }) => Promise<void>;
+        }
+      ).setBadgeTextColor;
+      await setBadgeTextColor?.({ tabId, color: BADGE_TEXT_COLOR });
+    }
+    await ext.action.setBadgeText({ tabId, text });
+  } catch (err) {
+    console.warn("[Element Deleter] setBadgeText failed:", err);
+  }
+}
+
+async function syncToolbarBadge(tabId: number): Promise<void> {
+  // Prefix letter overrides everything while armed.
+  if (tabPrefixBadgeShown.get(tabId)) return;
+
+  if (tabBlockedBadge.get(tabId)) {
+    await setToolbarBadge(tabId, BADGE_BLOCKED_TEXT);
+    return;
+  }
+
+  if (getTabActiveState(tabId)) {
+    await setToolbarBadge(tabId, BADGE_RUNNING_TEXT);
+    return;
+  }
+
+  await setToolbarBadge(tabId, "");
+}
 
 async function injectContent(tabId: number, frameId?: number): Promise<boolean> {
   try {
@@ -132,7 +230,7 @@ async function setTabActive(
   if (active && !(await canOperateOnTab(tabId))) {
     setTabActiveState(tabId, false);
     await syncIconForTab(tabId);
-    await showRestrictedNotice(tabId, windowId);
+    await showBlockedPageFeedback(tabId, windowId);
     return;
   }
 
@@ -144,13 +242,20 @@ async function setTabActive(
     setTabActiveState(tabId, false);
     await syncIconForTab(tabId);
     await sendToTab(tabId, { type: "SET_ACTIVE", active: false });
-    await showRestrictedNotice(tabId, windowId);
+    await showBlockedPageFeedback(tabId, windowId);
     return;
   }
 
   if (active && reached) {
+    clearBlockedBadgeState(tabId);
     await sendToTab(tabId, settingsUpdatedMessage(await loadAllSettings()));
   }
+
+  if (!active) {
+    clearBlockedBadgeState(tabId);
+  }
+
+  await syncToolbarBadge(tabId);
 }
 
 async function undoOnTab(tabId: number): Promise<void> {
@@ -172,7 +277,9 @@ async function toggleTab(tabId: number, windowId?: number): Promise<void> {
   const next = !getTabActiveState(tabId);
   if (!next) {
     setTabActiveState(tabId, false);
+    clearBlockedBadgeState(tabId);
     await syncIconForTab(tabId);
+    await syncToolbarBadge(tabId);
     await setTabActive(tabId, false, windowId);
     return;
   }
@@ -180,12 +287,14 @@ async function toggleTab(tabId: number, windowId?: number): Promise<void> {
   if (!(await canOperateOnTab(tabId))) {
     setTabActiveState(tabId, false);
     await syncIconForTab(tabId);
-    await showRestrictedNotice(tabId, windowId);
+    await showBlockedPageFeedback(tabId, windowId);
     return;
   }
 
   setTabActiveState(tabId, true);
+  clearBlockedBadgeState(tabId);
   await syncIconForTab(tabId);
+  await syncToolbarBadge(tabId);
   await setTabActive(tabId, true, windowId);
 }
 
@@ -323,24 +432,36 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
       if (tabId === undefined) return;
       const frameId = info.frameId ?? 0;
       if (!(await canOperateOnTab(tabId, frameId))) {
-        await showRestrictedNotice(tabId, tab?.windowId);
+        await showBlockedPageFeedback(tabId, tab?.windowId);
         return;
       }
       const ok = await sendWithInject(tabId, { type: "DELETE_CONTEXT_ELEMENT" }, frameId);
-      if (!ok) await showRestrictedNotice(tabId, tab?.windowId);
+      if (!ok) {
+        await showBlockedPageFeedback(tabId, tab?.windowId);
+      }
     })();
   }
 });
 
 ext.runtime.onMessage.addListener(
-  (message: ContentToBg, sender): boolean | void => {
-    if (message.type === "ACTIVE_CHANGED" && sender.tab?.id !== undefined) {
-      onContentActiveChanged(sender.tab.id, message.active);
+  (message: ContentToBg | unknown, sender): boolean | void => {
+    if (isBlockedNoticeDismissedMessage(message)) {
+      onBlockedNoticeDismissed(message.tabId);
+      return;
     }
-    if (message.type === "OPEN_PANEL") {
-      openPanelFromSender(message.tab, sender.tab);
+    const contentMessage = message as ContentToBg;
+    if (contentMessage.type === "ACTIVE_CHANGED" && sender.tab?.id !== undefined) {
+      const tabId = sender.tab.id;
+      onContentActiveChanged(tabId, contentMessage.active);
+      if (!contentMessage.active) {
+        clearBlockedBadgeState(tabId);
+      }
+      void syncToolbarBadge(tabId);
     }
-    if (message.type === "WATCH_PIN_STATUS" && sender.tab?.id !== undefined) {
+    if (contentMessage.type === "OPEN_PANEL") {
+      openPanelFromSender(contentMessage.tab, sender.tab);
+    }
+    if (contentMessage.type === "WATCH_PIN_STATUS" && sender.tab?.id !== undefined) {
       watchWelcomePinStatus(sender.tab.id);
     }
   },
@@ -348,6 +469,22 @@ ext.runtime.onMessage.addListener(
 
 ext.tabs.onRemoved.addListener((tabId) => {
   stopWelcomePinWatcher(tabId);
+  clearBlockedBadgeTimer(tabId);
+  tabBlockedBadge.delete(tabId);
+  tabPrefixBadgeShown.delete(tabId);
+});
+
+registerPrefixHintBadgeListeners({
+  badgeBackgroundColor: DELETER_ACTIVE_COLOR,
+  onShow: (tabId) => {
+    if (tabId === undefined) return;
+    tabPrefixBadgeShown.set(tabId, true);
+  },
+  onHide: (tabId) => {
+    if (tabId === undefined) return;
+    tabPrefixBadgeShown.set(tabId, false);
+    void syncToolbarBadge(tabId);
+  },
 });
 
 registerExtensionIconStateListeners();

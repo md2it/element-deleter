@@ -6,12 +6,8 @@ const INACTIVE = {
   128: "icons/icon-128.png",
 } as const;
 
-const ACTIVE = {
-  16: "icons/toolbar-active-16.png",
-  32: "icons/toolbar-active-32.png",
-  48: "icons/toolbar-active-48.png",
-  128: "icons/toolbar-active-128.png",
-} as const;
+// Spec: toolbar icon is single-style; badge carries state (ON / X / prefix).
+const ACTIVE = INACTIVE;
 
 export const TOOLBAR_ICON_PATHS = {
   inactive: INACTIVE,

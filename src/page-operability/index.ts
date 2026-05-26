@@ -6,12 +6,14 @@ export {
 } from "./constants";
 export {
   canOperateOnTab,
+  isBlockedNoticeDismissedMessage,
   probeDocumentOperability,
   showBlockedNotice,
   type BlockedNoticeConfig,
   type BlockedNoticePayload,
 } from "../../../SHARED/src/page-operability";
 export {
+  getRestrictedNoticeDismissMs,
   refreshRestrictedNoticeCache,
   showRestrictedNotice,
   type RestrictedNoticePayload,

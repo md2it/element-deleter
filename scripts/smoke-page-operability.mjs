@@ -45,6 +45,11 @@ assert.match(noticeHtml, /data-notice-session-key="restrictedNotice"/);
 const noticeJs = readFileSync(join(root, "blocked-notice.js"), "utf8");
 assert.match(noticeJs, /noticeSessionKey/);
 assert.match(noticeJs, /restrictedNotice/);
+assert.match(noticeJs, /BLOCKED_NOTICE_DISMISSED/);
+assert.match(noticeJs, /pagehide/);
+
+assert.match(bgSrc, /isBlockedNoticeDismissedMessage/);
+assert.match(bgSrc, /onBlockedNoticeDismissed/);
 
 const sharedPageJs = readFileSync(
   join(sharedOperability, "blocked-notice-page.js"),

@@ -19,6 +19,11 @@ async function restrictedNoticeDismissMs(): Promise<number> {
   return seconds * 1000;
 }
 
+/** Same duration as the blocked-page notice popup auto-close. */
+export async function getRestrictedNoticeDismissMs(): Promise<number> {
+  return restrictedNoticeDismissMs();
+}
+
 export async function refreshRestrictedNoticeCache(): Promise<void> {
   const [locale, dismissMs] = await Promise.all([
     getLocale(),
