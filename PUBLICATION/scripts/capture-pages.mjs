@@ -4,7 +4,7 @@
  * Usage: node PUBLICATION/scripts/capture-pages.mjs ru
  */
 import { createRequire } from "node:module";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -13,13 +13,6 @@ const require = createRequire(import.meta.url);
 const esbuild = require(
   join(dirname(fileURLToPath(import.meta.url)), "../../../SHARED/node_modules/esbuild"),
 );
-const { createCanvas, loadImage } = require(
-  join(dirname(fileURLToPath(import.meta.url)), "../../../SHARED/node_modules/@napi-rs/canvas"),
-);
-const { PNG } = require(
-  join(dirname(fileURLToPath(import.meta.url)), "../../../SHARED/node_modules/pngjs"),
-);
-
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const publicationDir = join(scriptDir, "..");
 const projectRoot = join(publicationDir, "..");
@@ -28,6 +21,8 @@ const sharedRoot = join(projectRoot, "../SHARED");
 const CANVAS_W = 1280;
 const CANVAS_H = 800;
 const BG = "#f3f4f6";
+/** CSS width of panel in tab layout (matches panel-popup-page.html). */
+const PANEL_CSS_W = 360;
 
 const LOCALE_STORAGE_KEY = "locale";
 const LOCALE_USER_SELECTED_KEY = "localeUserSelected";
@@ -128,54 +123,47 @@ async function seedStorage(context, extensionId, welcomeData) {
   );
 }
 
-function layoutRow(images) {
-  const widths = images.map((img) => img.width);
-  const maxH = Math.max(...images.map((img) => img.height));
-  const totalW = widths.reduce((a, b) => a + b, 0);
-  const gap = (CANVAS_W - totalW) / (images.length + 1);
-  const y0 = Math.round((CANVAS_H - maxH) / 2);
-  let x = gap;
-  const placements = [];
-  for (let i = 0; i < images.length; i++) {
-    placements.push({
-      img: images[i],
-      x: Math.round(x),
-      y: y0 + Math.round((maxH - images[i].height) / 2),
-    });
-    x += widths[i] + gap;
+async function compositeInBrowser(page, panelPaths) {
+  const [welcomeB64, settingsB64, aboutB64] = await Promise.all(
+    panelPaths.map(async (p) => (await readFile(p)).toString("base64")),
+  );
+  const html = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: ${CANVAS_W}px; height: ${CANVAS_H}px; overflow: hidden; }
+  body {
+    background: ${BG};
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0;
   }
-  return placements;
-}
-
-async function composite(placements) {
-  const canvas = createCanvas(CANVAS_W, CANVAS_H);
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = BG;
-  ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
-  for (const { img, x, y } of placements) {
-    ctx.drawImage(img, x, y);
+  img {
+    width: ${PANEL_CSS_W}px;
+    height: auto;
+    display: block;
+    flex: 0 0 auto;
+    image-rendering: auto;
   }
-  await writeFile(outPath, canvas.toBuffer("image/png"));
-  await stripPngAlpha(outPath);
-}
-
-/** 24-bit RGB PNG (no alpha), per store TZ. */
-async function stripPngAlpha(filePath) {
-  const { readFile, writeFile: write } = await import("node:fs/promises");
-  const src = PNG.sync.read(await readFile(filePath));
-  const dst = new PNG({ width: src.width, height: src.height, colorType: 2 });
-  for (let y = 0; y < src.height; y++) {
-    for (let x = 0; x < src.width; x++) {
-      const si = (src.width * y + x) << 2;
-      const di = (dst.width * y + x) * 3;
-      const a = src.data[si + 3] / 255;
-      const bg = [243, 244, 246];
-      dst.data[di] = Math.round(src.data[si] * a + bg[0] * (1 - a));
-      dst.data[di + 1] = Math.round(src.data[si + 1] * a + bg[1] * (1 - a));
-      dst.data[di + 2] = Math.round(src.data[si + 2] * a + bg[2] * (1 - a));
-    }
-  }
-  await write(filePath, PNG.sync.write(dst));
+</style>
+</head>
+<body>
+  <img src="data:image/png;base64,${welcomeB64}" alt="" />
+  <img src="data:image/png;base64,${settingsB64}" alt="" />
+  <img src="data:image/png;base64,${aboutB64}" alt="" />
+</body>
+</html>`;
+  await page.setViewportSize({ width: CANVAS_W, height: CANVAS_H });
+  await page.setContent(html, { waitUntil: "load" });
+  await page.screenshot({
+    path: outPath,
+    type: "png",
+    clip: { x: 0, y: 0, width: CANVAS_W, height: CANVAS_H },
+    scale: "css",
+  });
 }
 
 async function main() {
@@ -195,6 +183,7 @@ async function main() {
     context = await chromium.launchPersistentContext(userDataDir, {
       headless: false,
       viewport: { width: 1280, height: 800 },
+      deviceScaleFactor: 2,
       args: [
         `--disable-extensions-except=${projectRoot}`,
         `--load-extension=${projectRoot}`,
@@ -231,7 +220,7 @@ async function main() {
       }
     });
     const welcomePath = join(shotsDir, "welcome.png");
-    await page.locator(".welcome").screenshot({ path: welcomePath });
+    await page.locator(".welcome").screenshot({ path: welcomePath, type: "png" });
 
     // Settings
     await seedStorage(context, extensionId, welcomeData);
@@ -245,7 +234,7 @@ async function main() {
       .filter({ hasText: /НАСТРОЙКИ|SETTINGS/ })
       .waitFor({ timeout: 10_000 });
     const settingsPath = join(shotsDir, "settings.png");
-    await page.locator("#element-deleter-root").screenshot({ path: settingsPath });
+    await page.locator("#element-deleter-root").screenshot({ path: settingsPath, type: "png" });
 
     // About
     await seedStorage(context, extensionId, welcomeData);
@@ -259,14 +248,10 @@ async function main() {
       .filter({ hasText: /РАСШИРЕНИИ|ABOUT/i })
       .waitFor({ timeout: 10_000 });
     const aboutPath = join(shotsDir, "about.png");
-    await page.locator("#element-deleter-root").screenshot({ path: aboutPath });
+    await page.locator("#element-deleter-root").screenshot({ path: aboutPath, type: "png" });
 
-    const images = await Promise.all(
-      [welcomePath, settingsPath, aboutPath].map((p) => loadImage(p)),
-    );
-    const placements = layoutRow(images);
     await mkdir(publicationDir, { recursive: true });
-    await composite(placements);
+    await compositeInBrowser(page, [welcomePath, settingsPath, aboutPath]);
     console.log(`Wrote ${outPath}`);
   } finally {
     if (context) await context.close();
