@@ -23,7 +23,6 @@ import {
   getElementLabelEnabled,
   getLocale,
   getNotificationSeconds,
-  getUndoHotkeyEnabled,
 } from "./storage";
 import { openPanelFromSender } from "./panel-popup";
 import {
@@ -407,7 +406,6 @@ ext.action.onClicked.addListener(async (tab) => {
 
 registerBackgroundHotkeys({
   getActiveCommandTab,
-  isTabActive: getTabActiveState,
   toggleTab,
   sendToTab: (tabId, message) => sendWithInject(tabId, message),
 });

@@ -14,7 +14,6 @@ import {
   getAllElementsFillEnabled,
   getAllElementsOutlineEnabled,
   getElementLabelEnabled,
-  getUndoHotkeyEnabled,
 } from "./storage";
 import {
   resolveUndoEntryParent,
@@ -243,16 +242,6 @@ function attachMessageHandler(state: ContentState): void {
 
         const ui = await ensureUi();
         await ui.deleteContextElement(target);
-      })();
-      return;
-    }
-    if (message.type === "UNDO_LAST") {
-      void (async () => {
-        if (!(await getUndoHotkeyEnabled())) return;
-        if (!state.active) return;
-        const ui = await ensureUi();
-        if (!ui.canUndo()) return;
-        await ui.undoLast();
       })();
       return;
     }

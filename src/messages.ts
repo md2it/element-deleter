@@ -12,7 +12,6 @@ export type BgToContent =
       allElementsFillEnabled: boolean;
     }
   | { type: "DELETE_CONTEXT_ELEMENT" }
-  | { type: "UNDO_LAST" }
   | { type: "PREFIX_ARM_TOGGLE"; hint: string };
 
 export type ContentToBg =

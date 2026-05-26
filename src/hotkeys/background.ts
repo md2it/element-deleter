@@ -22,7 +22,6 @@ export function shouldSuppressToolbarClickAfterHotkeyCommand(
 
 export type BackgroundHotkeysHost = {
   getActiveCommandTab: () => Promise<chrome.tabs.Tab | undefined>;
-  isTabActive: (tabId: number) => boolean;
   toggleTab: (tabId: number, windowId?: number) => Promise<void>;
   sendToTab: (tabId: number, message: BgToContent) => Promise<boolean>;
 };
