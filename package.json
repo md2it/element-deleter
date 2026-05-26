@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "icons:manifest": "node scripts/generate-manifest-icons.mjs",
+    "icons:manifest": "node ../SHARED/scripts/generate-manifest-icons.mjs",
     "build": "node scripts/build.mjs",
     "watch": "node scripts/build.mjs --watch",
     "typecheck": "node ../SHARED/node_modules/typescript/bin/tsc --noEmit -p tsconfig.json",

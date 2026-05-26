@@ -21,3 +21,9 @@ export function getInactiveManifestRasters(): ManifestIconRaster[] {
 export function getActiveManifestRasters(): ManifestIconRaster[] {
   return toolbarRasters("active");
 }
+
+/** Output plan for SHARED/scripts/generate-manifest-icons.mjs */
+export const manifestIconOutputs = [
+  { prefix: "icon", getRasters: getInactiveManifestRasters },
+  { prefix: "toolbar-active", getRasters: getActiveManifestRasters },
+] as const;

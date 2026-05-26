@@ -1,39 +1,16 @@
 /**
- * Smoke: extension toolbar icon state (SHARED generic + deleter wiring).
+ * Smoke: SHARED extension icon state + element-deleter wiring.
  * Run: node scripts/smoke-extension-icon-state.mjs
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { runSmokeExtensionIconStateCore } from "../../SHARED/scripts/smoke-extension-icon-state-core.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const sharedRoot = join(root, "../SHARED");
 
-const sharedIndexSrc = readFileSync(
-  join(sharedRoot, "src/extension-icon-state/index.ts"),
-  "utf8",
-);
-assert.match(sharedIndexSrc, /createExtensionIconState/);
-assert.match(sharedIndexSrc, /getTabActiveState/);
-assert.match(sharedIndexSrc, /createIconSync/);
-assert.match(sharedIndexSrc, /registerExtensionIconStateListeners/);
-
-const sharedIconSyncSrc = readFileSync(
-  join(sharedRoot, "src/extension-icon-state/icon-sync.ts"),
-  "utf8",
-);
-assert.match(sharedIconSyncSrc, /syncedTabIdsStorageKey/);
-assert.match(sharedIconSyncSrc, /ext\.action\.setIcon/);
-assert.doesNotMatch(sharedIconSyncSrc, /TOOLBAR_ICON_PATHS/);
-
-const sharedListenersSrc = readFileSync(
-  join(sharedRoot, "src/extension-icon-state/listeners.ts"),
-  "utf8",
-);
-assert.match(sharedListenersSrc, /onActivated/);
-assert.match(sharedListenersSrc, /onUpdated/);
-assert.match(sharedListenersSrc, /onRemoved/);
+runSmokeExtensionIconStateCore();
 
 const deleterIndexSrc = readFileSync(
   join(root, "src/extension-icon-state/index.ts"),
