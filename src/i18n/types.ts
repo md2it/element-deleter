@@ -45,10 +45,6 @@ export type Strings = {
   welcomePinStep2: string;
   welcomePinStep3: string;
   aboutBullets: readonly string[];
-  aboutIconLegend: {
-    inactive: string;
-    active: string;
-  };
 };
 
 export function isLocale(value: unknown): value is Locale {

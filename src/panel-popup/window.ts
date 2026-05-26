@@ -1,4 +1,4 @@
-import { aboutItemDomClasses, buildAboutListItems } from "../about";
+import { buildAboutListItems } from "../about";
 import { PANEL_TITLE } from "../brand";
 import {
   CHEVRON_LEFT,
@@ -531,7 +531,7 @@ export class PanelWindowSystem {
         const el = existing[index];
         const text = el?.querySelector(".dd-about-text");
         if (text) text.textContent = item.text;
-        const mark = el?.querySelector<HTMLElement>(".dd-about-bool, .dd-about-toolbar-icon");
+        const mark = el?.querySelector<HTMLElement>(".dd-about-bool");
         if (mark) mark.innerHTML = item.iconHtml;
       });
       return;
@@ -543,18 +543,17 @@ export class PanelWindowSystem {
     list.setAttribute("aria-label", copy.tabAbout);
 
     for (const item of items) {
-      const { itemCls, iconCls } = aboutItemDomClasses(item.iconKind);
-      list.appendChild(this.createAboutItem(item.iconHtml, itemCls, iconCls, item.text));
+      list.appendChild(this.createAboutItem(item.iconHtml, item.text));
     }
     panel.append(list);
   }
 
-  private createAboutItem(iconHtml: string, itemCls: string, iconCls: string, text: string): HTMLLIElement {
+  private createAboutItem(iconHtml: string, text: string): HTMLLIElement {
     const li = document.createElement("li");
-    li.className = `dd-about-item ${itemCls}`;
+    li.className = "dd-about-item dd-about-item--bool";
 
     const mark = document.createElement("span");
-    mark.className = iconCls;
+    mark.className = "dd-about-bool";
     mark.setAttribute("aria-hidden", "true");
     mark.innerHTML = iconHtml;
 

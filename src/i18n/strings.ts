@@ -30,12 +30,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "You can restore an element,",
       "Reloading the page restores everything,",
       "Doesn't use the network,",
-      "Doesn't collect data,",
+      "Doesn't collect data.",
     ],
-    aboutIconLegend: {
-      inactive: "Extension is off,",
-      active: "Extension is running.",
-    },
   },
   es: {
     tabSettings: "AJUSTES",
@@ -67,12 +63,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "Se puede restaurar un elemento,",
       "Al recargar la página se restaura todo,",
       "No usa la red,",
-      "No recopila datos,",
+      "No recopila datos.",
     ],
-    aboutIconLegend: {
-      inactive: "Extensión desactivada,",
-      active: "Extensión en ejecución.",
-    },
   },
   fr: {
     tabSettings: "PARAMÈTRES",
@@ -104,12 +96,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "Un élément peut être restauré,",
       "Le rechargement de la page restaure tout,",
       "N'utilise pas le réseau,",
-      "Ne collecte pas de données,",
+      "Ne collecte pas de données.",
     ],
-    aboutIconLegend: {
-      inactive: "Extension désactivée,",
-      active: "Extension en cours d'exécution.",
-    },
   },
   de: {
     tabSettings: "EINSTELLUNGEN",
@@ -141,12 +129,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "Elemente können wiederhergestellt werden,",
       "Beim Neuladen der Seite wird alles wiederhergestellt,",
       "Nutzt kein Netzwerk,",
-      "Sammelt keine Daten,",
+      "Sammelt keine Daten.",
     ],
-    aboutIconLegend: {
-      inactive: "Erweiterung aus,",
-      active: "Erweiterung aktiv.",
-    },
   },
   ru: {
     tabSettings: "НАСТРОЙКИ",
@@ -178,12 +162,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "Можно восстановить элемент,",
       "Перезагрузка страницы восстановит всё,",
       "Не использует сеть,",
-      "Не собирает данные,",
+      "Не собирает данные.",
     ],
-    aboutIconLegend: {
-      inactive: "Расширение выключено,",
-      active: "Расширение запущено.",
-    },
   },
   zh_CN: {
     tabSettings: "设置",
@@ -214,12 +194,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "可恢复元素，",
       "重新加载页面可恢复一切，",
       "不使用网络，",
-      "不收集数据，",
+      "不收集数据。",
     ],
-    aboutIconLegend: {
-      inactive: "扩展已关闭，",
-      active: "扩展已启动。",
-    },
   },
   ar: {
     tabSettings: "الإعدادات",
@@ -250,12 +226,8 @@ const MESSAGES: Record<Locale, Strings> = {
       "يمكن استعادة العنصر،",
       "إعادة تحميل الصفحة تستعيد كل شيء،",
       "لا تستخدم الشبكة،",
-      "لا تجمع البيانات،",
+      "لا تجمع البيانات.",
     ],
-    aboutIconLegend: {
-      inactive: "الإضافة متوقفة،",
-      active: "الإضافة قيد التشغيل.",
-    },
   },
 };
 

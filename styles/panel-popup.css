@@ -208,18 +208,7 @@
   color: #6b7280;
 }
 
-.dd-about-toolbar-icon {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1rem;
-  height: 1rem;
-  line-height: 0;
-}
-
-.dd-about-bool svg,
-.dd-about-toolbar-icon svg {
+.dd-about-bool svg {
   display: block;
   width: 1rem;
   height: 1rem;
