@@ -6,6 +6,9 @@
     "message": "Activer\u00A0/\u00A0désactiver: 1.\u00A0Ctrl+Shift+X\u00A0/\u00A0⇧⌘X 2.\u00A0puis\u00A0appuyez\u00A0sur\u00A0D"
   },
   "commandUndoDelete": {
-    "message": "Annuler la suppression"
+    "message": "Annuler\u00A0la\u00A0suppression: Ctrl+Z\u00A0/\u00A0⌘Z"
+  },
+  "commandDeactivateDelete": {
+    "message": "Désactiver: Esc"
   }
 }

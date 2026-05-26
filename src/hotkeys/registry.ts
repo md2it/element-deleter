@@ -1,4 +1,7 @@
-import { registerContentHotkey as registerLibContentHotkey } from "../../../lib/src/hotkeys";
+import {
+  registerContentHotkey as registerLibContentHotkey,
+  unregisterContentHotkey as unregisterLibContentHotkey,
+} from "../../../lib/src/hotkeys";
 
 const HOTKEY_NAMESPACE = "elementDeleter";
 
@@ -10,4 +13,8 @@ export function registerContentHotkey(
   handler: (e: KeyboardEvent) => void,
 ): void {
   registerLibContentHotkey(HOTKEY_NAMESPACE, slot, handler);
+}
+
+export function unregisterContentHotkey(slot: ContentHotkeySlot): void {
+  unregisterLibContentHotkey(HOTKEY_NAMESPACE, slot);
 }

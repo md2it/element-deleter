@@ -5,8 +5,9 @@ import {
 import { ext } from "./api";
 import {
   armDeleterPrefixToggle,
-  registerDeleterContentHotkeys,
+  mountDeleterContentHotkeys,
   registerDeleterStartHotkey,
+  unmountDeleterContentHotkeys,
 } from "./hotkeys";
 import type { BgToContent, ContentActivationResponse, ContentToBg } from "./messages";
 import {
@@ -75,6 +76,7 @@ function resetState(state: ContentState): void {
     state.ui?.deactivate();
     removeAllElementsPageStyles();
   }
+  unmountDeleterContentHotkeys();
   state.active = false;
   state.ui = null;
   state.undoStack.length = 0;
@@ -145,6 +147,7 @@ function attachMessageHandler(state: ContentState): void {
   const deactivate = (): void => {
     if (!state.active) return;
     state.active = false;
+    unmountDeleterContentHotkeys();
     state.ui?.deactivate();
     removeAllElementsPageStyles();
     notifyBackgroundActive(false);
@@ -177,11 +180,20 @@ function attachMessageHandler(state: ContentState): void {
     }
   };
 
+  const hotkeysHost = {
+    isActive: () => state.active,
+    deactivate,
+    requestToggle,
+    hasRestorableUndo: () => hasRestorableUndo(state),
+    ensureUi,
+  };
+
   const activate = async (): Promise<boolean> => {
     if (state.active) return true;
     try {
       const ui = await ensureUi();
       state.active = true;
+      mountDeleterContentHotkeys(hotkeysHost);
       ui.activate();
       const ok = document.getElementById("element-deleter-root")?.isConnected === true;
       if (!ok) {
@@ -251,16 +263,6 @@ function attachMessageHandler(state: ContentState): void {
 
   window.__elementDeleterMessageHandler = handler;
   ext.runtime.onMessage.addListener(handler);
-  registerDeleterContentHotkeys(
-    {
-      isActive: () => state.active,
-      deactivate,
-      requestToggle,
-      hasRestorableUndo: () => hasRestorableUndo(state),
-      ensureUi,
-    },
-    ["esc", "undo"],
-  );
 }
 
 const state = getState();

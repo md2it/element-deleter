@@ -6,6 +6,9 @@
     "message": "Activar\u00A0/\u00A0desactivar: 1.\u00A0Ctrl+Shift+X\u00A0/\u00A0⇧⌘X 2.\u00A0luego\u00A0pulsa\u00A0D"
   },
   "commandUndoDelete": {
-    "message": "Deshacer eliminación"
+    "message": "Deshacer\u00A0eliminación: Ctrl+Z\u00A0/\u00A0⌘Z"
+  },
+  "commandDeactivateDelete": {
+    "message": "Desactivar: Esc"
   }
 }

@@ -20,7 +20,14 @@ assert.match(deleterKeysSrc, /PREFIX_ACTION_KEY/);
 
 const deleterRegistrySrc = readFileSync(join(root, "src/hotkeys/registry.ts"), "utf8");
 assert.match(deleterRegistrySrc, /registerLibContentHotkey/);
+assert.match(deleterRegistrySrc, /unregisterLibContentHotkey/);
 assert.match(deleterRegistrySrc, /elementDeleter/);
+
+const libRegistrySrc = readFileSync(
+  join(root, "../lib/src/hotkeys/registry.ts"),
+  "utf8",
+);
+assert.match(libRegistrySrc, /unregisterContentHotkey/);
 
 const deleterBackgroundSrc = readFileSync(join(root, "src/hotkeys/background.ts"), "utf8");
 assert.match(deleterBackgroundSrc, /registerPrefixManifestHotkeys/);
@@ -29,8 +36,8 @@ assert.match(deleterBackgroundSrc, /DELETER_ACTIVE_COLOR/);
 assert.match(deleterBackgroundSrc, /badgeBackgroundColor/);
 assert.match(deleterBackgroundSrc, /PREFIX_ARM_TOGGLE/);
 assert.match(deleterBackgroundSrc, /TOGGLE_REQUEST/);
-assert.match(deleterBackgroundSrc, /isUndoCommandEnabled/);
-assert.match(deleterBackgroundSrc, /isTabActive/);
+assert.doesNotMatch(deleterBackgroundSrc, /undoCommand/);
+assert.doesNotMatch(deleterBackgroundSrc, /isUndoCommandEnabled/);
 assert.doesNotMatch(deleterBackgroundSrc, /registerManifestCommandHotkeys/);
 
 const prefixBackgroundSrc = readFileSync(
@@ -41,15 +48,29 @@ assert.match(prefixBackgroundSrc, /isUndoCommandEnabled/);
 
 const deleterContentSrc = readFileSync(join(root, "src/hotkeys/deleter-content.ts"), "utf8");
 assert.match(deleterContentSrc, /if \(!host\.isActive\(\)\) return/);
+assert.match(deleterContentSrc, /mountDeleterContentHotkeys/);
+assert.match(deleterContentSrc, /unmountDeleterContentHotkeys/);
+assert.match(deleterContentSrc, /window\.top !== window/);
+
+const contentSrc = readFileSync(join(root, "src/content.ts"), "utf8");
+assert.match(contentSrc, /mountDeleterContentHotkeys/);
+assert.match(contentSrc, /unmountDeleterContentHotkeys/);
 
 const commandsSrc = readFileSync(join(root, "src/hotkeys/commands.ts"), "utf8");
 assert.match(commandsSrc, /toggle-delete-mode/);
 assert.match(commandsSrc, /_execute_action/);
-assert.match(commandsSrc, /undo-delete/);
+assert.doesNotMatch(commandsSrc, /undo-delete/);
 
 const manifestSrc = readFileSync(join(root, "manifest.json"), "utf8");
 assert.match(manifestSrc, /"_execute_action"/);
 assert.match(manifestSrc, /"toggle-delete-mode"/);
 assert.match(manifestSrc, /Ctrl\+Shift\+X/);
+assert.match(manifestSrc, /"undo-delete"/);
+assert.match(manifestSrc, /__MSG_commandUndoDelete__/);
+const undoDeleteBlock = manifestSrc.match(/"undo-delete"\s*:\s*\{([^}]*)\}/);
+assert.ok(undoDeleteBlock, "undo-delete command block");
+assert.doesNotMatch(undoDeleteBlock[1], /suggested_key/);
+assert.doesNotMatch(manifestSrc, /Ctrl\+Z/);
+assert.doesNotMatch(manifestSrc, /Command\+Z/);
 
 console.log("smoke-hotkeys: ok");

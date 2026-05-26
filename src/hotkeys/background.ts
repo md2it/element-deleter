@@ -6,11 +6,10 @@ import {
 import type { BgToContent } from "../messages";
 import {
   COMMAND_TOGGLE_DELETE,
-  COMMAND_UNDO,
   DELETER_ACTIVE_COLOR,
   PREFIX_ACTION_KEY,
 } from "./commands";
-import { getStartHotkeyEnabled, getUndoHotkeyEnabled } from "./settings";
+import { getStartHotkeyEnabled } from "./settings";
 
 const toggleCommandSuppress = createToggleCommandSuppressTracker();
 
@@ -24,7 +23,6 @@ export function shouldSuppressToolbarClickAfterHotkeyCommand(
 export type BackgroundHotkeysHost = {
   getActiveCommandTab: () => Promise<chrome.tabs.Tab | undefined>;
   isTabActive: (tabId: number) => boolean;
-  undoOnTab: (tabId: number) => Promise<void>;
   toggleTab: (tabId: number, windowId?: number) => Promise<void>;
   sendToTab: (tabId: number, message: BgToContent) => Promise<boolean>;
 };
@@ -39,21 +37,12 @@ export function registerBackgroundHotkeys(host: BackgroundHotkeysHost): void {
         hint: hintLetter,
       });
     },
-    onUndoCommand: async (tab) => {
-      await host.undoOnTab(tab.id!);
-    },
   };
 
   registerPrefixManifestHotkeys({
     prefixCommands: [COMMAND_TOGGLE_DELETE],
     hintLetter: PREFIX_ACTION_KEY,
     badgeBackgroundColor: DELETER_ACTIVE_COLOR,
-    undoCommand: COMMAND_UNDO,
-    isUndoCommandEnabled: async (tab) => {
-      if (tab.id === undefined) return false;
-      if (!(await getUndoHotkeyEnabled())) return false;
-      return host.isTabActive(tab.id);
-    },
     isPrefixEnabled: getStartHotkeyEnabled,
     isToggleEnabled: getStartHotkeyEnabled,
     toggleRequestMessageType: "TOGGLE_REQUEST",

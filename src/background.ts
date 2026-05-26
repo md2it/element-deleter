@@ -258,12 +258,6 @@ async function setTabActive(
   await syncToolbarBadge(tabId);
 }
 
-async function undoOnTab(tabId: number): Promise<void> {
-  if (!(await getUndoHotkeyEnabled())) return;
-  if (!getTabActiveState(tabId)) return;
-  await sendWithInject(tabId, { type: "UNDO_LAST" });
-}
-
 async function toggleTab(tabId: number, windowId?: number): Promise<void> {
   const now = Date.now();
   if (
@@ -414,7 +408,6 @@ ext.action.onClicked.addListener(async (tab) => {
 registerBackgroundHotkeys({
   getActiveCommandTab,
   isTabActive: getTabActiveState,
-  undoOnTab,
   toggleTab,
   sendToTab: (tabId, message) => sendWithInject(tabId, message),
 });

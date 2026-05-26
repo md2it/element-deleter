@@ -42,11 +42,10 @@
       }
     },
     "undo-delete": {
-      "description": "__MSG_commandUndoDelete__",
-      "suggested_key": {
-        "default": "Ctrl+Z",
-        "mac": "Command+Z"
-      }
+      "description": "__MSG_commandUndoDelete__"
+    },
+    "deactivate-delete-mode": {
+      "description": "__MSG_commandDeactivateDelete__"
     }
   },
   "browser_specific_settings": {

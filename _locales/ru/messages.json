@@ -6,6 +6,9 @@
     "message": "Вкл\u00A0/\u00A0выкл: 1.\u00A0Ctrl+Shift+X\u00A0/\u00A0⇧⌘X 2.\u00A0затем\u00A0нажмите\u00A0D"
   },
   "commandUndoDelete": {
-    "message": "Отменить удаление"
+    "message": "Отменить\u00A0удаление: Ctrl+Z\u00A0/\u00A0⌘Z"
+  },
+  "commandDeactivateDelete": {
+    "message": "Выключить: Esc"
   }
 }

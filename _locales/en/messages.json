@@ -6,6 +6,9 @@
     "message": "On\u00A0/\u00A0Off: 1.\u00A0Ctrl+Shift+X\u00A0/\u00A0⇧⌘X 2.\u00A0then\u00A0press\u00A0D"
   },
   "commandUndoDelete": {
-    "message": "Undo delete"
+    "message": "Undo\u00A0delete: Ctrl+Z\u00A0/\u00A0⌘Z"
+  },
+  "commandDeactivateDelete": {
+    "message": "Turn\u00A0off: Esc"
   }
 }

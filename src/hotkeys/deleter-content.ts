@@ -8,7 +8,11 @@ import {
   isUndoHotkeyEvent,
 } from "./keys";
 import { PREFIX_ACTION_KEY } from "./commands";
-import { registerContentHotkey, type ContentHotkeySlot } from "./registry";
+import {
+  registerContentHotkey,
+  unregisterContentHotkey,
+  type ContentHotkeySlot,
+} from "./registry";
 import {
   getEscHotkeyEnabled,
   getStartHotkeyEnabled,
@@ -31,6 +35,7 @@ export type DeleterContentHotkeysHost = {
 const HOTKEY_NAMESPACE = "elementDeleter";
 
 let prefixController: PrefixModeController | undefined;
+let contentHotkeysMounted = false;
 
 /** Ctrl/Cmd+Shift+X → D page fallback (top frame only). */
 export function registerDeleterStartHotkey(requestToggle: () => void): void {
@@ -47,11 +52,15 @@ export function armDeleterPrefixToggle(hint = PREFIX_ACTION_KEY): void {
   prefixController?.prepareAwaitAction(hint);
 }
 
-/** Page `keydown` handlers: Esc off, undo restore. */
-export function registerDeleterContentHotkeys(
+/** Page `keydown` handlers: Esc off, undo restore (top frame, only while active). */
+export function mountDeleterContentHotkeys(
   host: DeleterContentHotkeysHost,
   slots: readonly ContentHotkeySlot[] = ["esc", "undo"],
 ): void {
+  if (typeof window !== "undefined" && window.top !== window) return;
+  if (contentHotkeysMounted) return;
+  contentHotkeysMounted = true;
+
   if (slots.includes("undo")) {
     registerContentHotkey("undo", (e) => {
       if (!isUndoHotkeyEvent(e)) return;
@@ -73,13 +82,23 @@ export function registerDeleterContentHotkeys(
   if (slots.includes("esc")) {
     registerContentHotkey("esc", (e) => {
       if (!isEscHotkeyEvent(e)) return;
+      if (!host.isActive()) return;
       void (async () => {
         if (!(await getEscHotkeyEnabled())) return;
-        if (!host.isActive()) return;
         e.preventDefault();
         e.stopPropagation();
         host.deactivate();
       })();
     });
+  }
+}
+
+export function unmountDeleterContentHotkeys(
+  slots: readonly ContentHotkeySlot[] = ["esc", "undo"],
+): void {
+  if (!contentHotkeysMounted) return;
+  contentHotkeysMounted = false;
+  for (const slot of slots) {
+    unregisterContentHotkey(slot);
   }
 }

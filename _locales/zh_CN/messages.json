@@ -6,6 +6,9 @@
     "message": "开启\u00A0/\u00A0关闭模式： 1.\u00A0Ctrl+Shift+X\u00A0/\u00A0⇧⌘X 2.\u00A0然\u2060后\u00A0按\u2060下\u00A0D"
   },
   "commandUndoDelete": {
-    "message": "撤销删除"
+    "message": "撤销\u00A0删除: Ctrl+Z\u00A0/\u00A0⌘Z"
+  },
+  "commandDeactivateDelete": {
+    "message": "关闭: Esc"
   }
 }
