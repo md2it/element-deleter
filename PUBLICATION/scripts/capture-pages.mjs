@@ -2,6 +2,7 @@
 /**
  * Store screenshot: welcome + settings + about on 1280×800 canvas.
  * Usage: node PUBLICATION/scripts/capture-pages.mjs ru
+ * Output: PUBLICATION/{LANG}/{lang}-pages.png
  */
 import { createRequire } from "node:module";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
@@ -28,24 +29,38 @@ const LOCALE_STORAGE_KEY = "locale";
 const LOCALE_USER_SELECTED_KEY = "localeUserSelected";
 const WELCOME_SESSION_DATA_KEY = "welcomeData";
 
-const localeArg = process.argv[2];
-if (!localeArg) {
+/** CLI code → store listing folder (same as crop-live-screenshots.mjs). */
+const LANG_DIRS = {
+  ru: "RU",
+  en: "EN",
+  es: "ES",
+  fr: "FR",
+  de: "DE",
+  zn: "ZN",
+  ar: "AR",
+};
+
+const localeArg = process.argv[2]?.toLowerCase();
+if (!localeArg || !LANG_DIRS[localeArg]) {
   console.error("Usage: node capture-pages.mjs <lang>");
+  console.error("Languages:", Object.keys(LANG_DIRS).join(", "));
   process.exit(1);
 }
 
+const langDir = LANG_DIRS[localeArg];
 const localeMap = {
   ru: "ru",
   en: "en",
   es: "es",
   fr: "fr",
   de: "de",
+  zn: "zh_CN",
   zh: "zh_CN",
   ar: "ar",
 };
 const locale = localeMap[localeArg] ?? localeArg;
 const outName = `${localeArg}-pages.png`;
-const outPath = join(publicationDir, outName);
+const outPath = join(publicationDir, langDir, outName);
 
 async function seedWelcomeJson() {
   const tmp = await mkdtemp(join(tmpdir(), "ed-seed-"));
@@ -250,7 +265,7 @@ async function main() {
     const aboutPath = join(shotsDir, "about.png");
     await page.locator("#element-deleter-root").screenshot({ path: aboutPath, type: "png" });
 
-    await mkdir(publicationDir, { recursive: true });
+    await mkdir(join(publicationDir, langDir), { recursive: true });
     await compositeInBrowser(page, [welcomePath, settingsPath, aboutPath]);
     console.log(`Wrote ${outPath}`);
   } finally {
