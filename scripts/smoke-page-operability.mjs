@@ -32,6 +32,9 @@ assert.match(indexSrc, /showRestrictedNotice/);
 assert.match(indexSrc, /probeDocumentOperability/);
 assert.match(indexSrc, /showBlockedNotice/);
 
+const contentSrc = readFileSync(join(root, "src/content.ts"), "utf8");
+assert.match(contentSrc, /registerDocumentOperabilityProbeListener/);
+
 const bgSrc = readFileSync(join(root, "src/background.ts"), "utf8");
 assert.match(bgSrc, /from "\.\/page-operability"/);
 assert.doesNotMatch(bgSrc, /function canOperateOnTab/);

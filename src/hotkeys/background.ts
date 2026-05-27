@@ -1,19 +1,13 @@
 import {
   createToggleCommandSuppressTracker,
-  registerPrefixManifestHotkeys,
-  type PrefixManifestHotkeysHost,
+  registerPrefixBackgroundHotkeys,
 } from "../../../lib/src/hotkeys";
-import type { BgToContent } from "../messages";
-import {
-  COMMAND_ACTIVATE_DEACTIVATE,
-  DELETER_ACTIVE_COLOR,
-  PREFIX_ACTION_KEY,
-} from "./commands";
+import { DELETER_ACTIVE_COLOR } from "./commands";
 import { getStartHotkeyEnabled } from "./settings";
 
 const toggleCommandSuppress = createToggleCommandSuppressTracker();
 
-/** Paired `action.onClicked` after manifest `_execute_action` (same key as prefix). */
+/** Paired `action.onClicked` after manifest `_execute_action`. */
 export function shouldSuppressToolbarClickAfterHotkeyCommand(
   now = Date.now(),
 ): boolean {
@@ -23,30 +17,16 @@ export function shouldSuppressToolbarClickAfterHotkeyCommand(
 export type BackgroundHotkeysHost = {
   getActiveCommandTab: () => Promise<chrome.tabs.Tab | undefined>;
   toggleTab: (tabId: number, windowId?: number) => Promise<void>;
-  sendToTab: (tabId: number, message: BgToContent) => Promise<boolean>;
 };
 
-/** Manifest prefix chord + action letter + content fallback (`TOGGLE_REQUEST`). */
+/** Content prefix chord + `TOGGLE_REQUEST` after action letter. */
 export function registerBackgroundHotkeys(host: BackgroundHotkeysHost): void {
-  const manifestHost: PrefixManifestHotkeysHost = {
-    getActiveCommandTab: host.getActiveCommandTab,
-    armPrefixOnTab: async (tab, hintLetter) => {
-      await host.sendToTab(tab.id!, {
-        type: "PREFIX_ARM_TOGGLE",
-        hint: hintLetter,
-      });
-    },
-  };
-
-  registerPrefixManifestHotkeys({
-    prefixCommands: [COMMAND_ACTIVATE_DEACTIVATE],
-    hintLetter: PREFIX_ACTION_KEY,
+  registerPrefixBackgroundHotkeys({
     badgeBackgroundColor: DELETER_ACTIVE_COLOR,
-    isPrefixEnabled: getStartHotkeyEnabled,
+    getActiveCommandTab: host.getActiveCommandTab,
     isToggleEnabled: getStartHotkeyEnabled,
     toggleRequestMessageType: "TOGGLE_REQUEST",
     onToggleRequest: (tabId, windowId) => host.toggleTab(tabId, windowId),
-    host: manifestHost,
     suppress: toggleCommandSuppress,
   });
 }

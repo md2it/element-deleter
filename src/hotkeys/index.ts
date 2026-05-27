@@ -5,7 +5,6 @@ export {
 } from "./commands";
 export { registerBackgroundHotkeys, type BackgroundHotkeysHost } from "./background";
 export {
-  armDeleterPrefixToggle,
   mountDeleterContentHotkeys,
   registerDeleterStartHotkey,
   unmountDeleterContentHotkeys,

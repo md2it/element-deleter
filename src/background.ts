@@ -1,5 +1,8 @@
 import { ext } from "./api";
-import { registerPrefixHintBadgeListeners } from "../../lib/src/hotkeys";
+import {
+  registerPrefixHintBadgeListeners,
+  registerPrefixHintOperabilityListeners,
+} from "../../lib/src/hotkeys";
 import {
   bootstrapToolbarIcons,
   forEachActiveTabId,
@@ -407,7 +410,11 @@ ext.action.onClicked.addListener(async (tab) => {
 registerBackgroundHotkeys({
   getActiveCommandTab,
   toggleTab,
-  sendToTab: (tabId, message) => sendWithInject(tabId, message),
+});
+
+registerPrefixHintOperabilityListeners({
+  canOperateOnTab,
+  onBlockedOnTab: showBlockedPageFeedback,
 });
 
 ext.contextMenus.onClicked.addListener((info, tab) => {
@@ -469,6 +476,7 @@ ext.tabs.onRemoved.addListener((tabId) => {
 
 registerPrefixHintBadgeListeners({
   badgeBackgroundColor: DELETER_ACTIVE_COLOR,
+  canShowPrefixBadgeOnTab: canOperateOnTab,
   onShow: (tabId) => {
     if (tabId === undefined) return;
     tabPrefixBadgeShown.set(tabId, true);

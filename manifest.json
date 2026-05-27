@@ -35,11 +35,7 @@
   "commands": {
     "_execute_action": {},
     "activate-deactivate": {
-      "description": "__MSG_commandToggleDelete__",
-      "suggested_key": {
-        "default": "Ctrl+Shift+X",
-        "mac": "Command+Shift+X"
-      }
+      "description": "__MSG_commandToggleDelete__"
     },
     "undo-delete": {
       "description": "__MSG_commandUndoDelete__"

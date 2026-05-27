@@ -1,6 +1,7 @@
 import {
+  notifyPrefixHintBlockedOnBackground,
+  queryPrefixHintCanShowInContent,
   registerPrefixStartHotkey,
-  type PrefixModeController,
 } from "../../../lib/src/hotkeys";
 import {
   isEditableKeyboardTarget,
@@ -34,22 +35,18 @@ export type DeleterContentHotkeysHost = {
 
 const HOTKEY_NAMESPACE = "elementDeleter";
 
-let prefixController: PrefixModeController | undefined;
 let contentHotkeysMounted = false;
 
-/** Ctrl/Cmd+Shift+X → D page fallback (top frame only). */
+/** Ctrl/Cmd+Shift+X → D (top frame; no manifest suggested_key). */
 export function registerDeleterStartHotkey(requestToggle: () => void): void {
-  prefixController = registerPrefixStartHotkey({
+  registerPrefixStartHotkey({
     namespace: HOTKEY_NAMESPACE,
     hintLetter: PREFIX_ACTION_KEY,
     isEnabled: getStartHotkeyEnabled,
+    canShowPrefixHint: queryPrefixHintCanShowInContent,
+    onPrefixHintBlocked: notifyPrefixHintBlockedOnBackground,
     onAction: requestToggle,
   });
-}
-
-/** Wait for prefix release, then arm (manifest chord). */
-export function armDeleterPrefixToggle(hint = PREFIX_ACTION_KEY): void {
-  prefixController?.prepareAwaitAction(hint);
 }
 
 /** Page `keydown` handlers: Esc off, undo restore (top frame, only while active). */

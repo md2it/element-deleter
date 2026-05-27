@@ -4,7 +4,6 @@ import {
 } from "./all-elements-page";
 import { ext } from "./api";
 import {
-  armDeleterPrefixToggle,
   mountDeleterContentHotkeys,
   registerDeleterStartHotkey,
   unmountDeleterContentHotkeys,
@@ -20,6 +19,7 @@ import {
   type UndoStackAccess,
 } from "./restore";
 import { DeleterUI } from "./ui";
+import { registerDocumentOperabilityProbeListener } from "../../lib/src/page-operability";
 import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup";
 import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
 
@@ -245,9 +245,6 @@ function attachMessageHandler(state: ContentState): void {
       })();
       return;
     }
-    if (message.type === "PREFIX_ARM_TOGGLE") {
-      armDeleterPrefixToggle(message.hint);
-    }
   };
 
   window.__elementDeleterMessageHandler = handler;
@@ -265,6 +262,7 @@ if (
 }
 
 window.__elementDeleterRuntimeId = runtimeId;
+registerDocumentOperabilityProbeListener();
 attachContextMenuTargetListener();
 attachMessageHandler(state);
 registerDeleterStartHotkey(requestToggle);
