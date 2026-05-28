@@ -46,6 +46,9 @@
 ### 1.0.6
 - Redesign of UI windows
 
+### 1.0.7
+- Removed extra buttons from the "Welcome" screen
+
 ---
 
 ## NOT RELEASED LIST
