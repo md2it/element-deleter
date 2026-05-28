@@ -49,6 +49,9 @@
 ### 1.0.7
 - Removed extra buttons from the "Welcome" screen
 
+### 1.0.8
+- Context menu for Firefox
+
 ---
 
 ## NOT RELEASED LIST

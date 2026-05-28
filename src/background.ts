@@ -462,21 +462,14 @@ type ContextMenuCreateProps = chrome.contextMenus.CreateProperties;
 
 let ensureContextMenuChain: Promise<void> = Promise.resolve();
 
-function logContextMenuError(action: string, detail?: unknown): void {
-  const err = ext.runtime.lastError;
-  if (!err) return;
-  console.error(`[Element Deleter] contextMenus.${action} failed:`, err.message, detail);
-}
-
 async function createContextMenuItem(
   props: ContextMenuCreateProps,
 ): Promise<void> {
-  await new Promise<void>((resolve) => {
-    ext.contextMenus.create(props, () => {
-      logContextMenuError("create", props);
-      resolve();
-    });
-  });
+  try {
+    await ext.contextMenus.create(props);
+  } catch (err) {
+    console.error("[Element Deleter] contextMenus.create failed:", err, props);
+  }
 }
 
 function actionMenuTitle(title: string, emoji: string, locale: Locale): string {
@@ -489,17 +482,16 @@ async function ensureContextMenu(): Promise<void> {
     const locale = await getLocale();
     const strings = t(locale);
 
-    await new Promise<void>((resolve) => {
-      ext.contextMenus.removeAll(() => {
-        logContextMenuError("removeAll");
-        resolve();
-      });
-    });
+    try {
+      await ext.contextMenus.removeAll();
+    } catch (err) {
+      console.error("[Element Deleter] contextMenus.removeAll failed:", err);
+    }
 
     await createContextMenuItem({
       id: CONTEXT_MENU_SETTINGS,
       title: actionMenuTitle(strings.titleSettings, ACTION_MENU_EMOJI.settings, locale),
-      contexts: ["action", "browser_action"],
+      contexts: ["action"],
     });
     await createContextMenuItem({
       id: CONTEXT_MENU_SHORTCUTS,
@@ -508,12 +500,12 @@ async function ensureContextMenu(): Promise<void> {
         ACTION_MENU_EMOJI.shortcuts,
         locale,
       ),
-      contexts: ["action", "browser_action"],
+      contexts: ["action"],
     });
     await createContextMenuItem({
       id: CONTEXT_MENU_ABOUT,
       title: actionMenuTitle(strings.titleAbout, ACTION_MENU_EMOJI.about, locale),
-      contexts: ["action", "browser_action"],
+      contexts: ["action"],
     });
     await createContextMenuItem({
       id: CONTEXT_MENU_DELETE,
@@ -672,9 +664,9 @@ ext.storage.onChanged.addListener((changes, area) => {
 
 const onBootstrap = async (): Promise<void> => {
   await ensureLocaleInStorage();
+  await ensureContextMenu();
   await refreshRestrictedNoticeCache();
   await bootstrapToolbarIcons();
-  await ensureContextMenu();
 };
 
 void ext.runtime.onInstalled.addListener((details) => {
