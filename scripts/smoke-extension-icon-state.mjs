@@ -37,15 +37,4 @@ assert.doesNotMatch(bgSrc, /TOOLBAR_ICON_PATHS/);
 assert.match(bgSrc, /registerExtensionIconStateListeners/);
 assert.match(bgSrc, /bootstrapToolbarIcons/);
 
-const toolbarInactive = readFileSync(
-  join(root, "icons/toolbar-inactive.svg"),
-  "utf8",
-);
-const toolbarActive = readFileSync(
-  join(root, "icons/toolbar-active.svg"),
-  "utf8",
-);
-assert.match(toolbarInactive, /<svg/);
-assert.match(toolbarActive, /<svg/);
-
 console.log("smoke-extension-icon-state: ok");

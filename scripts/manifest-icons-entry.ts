@@ -5,25 +5,16 @@ export type ManifestIconRaster = {
   data: Buffer;
 };
 
-function toolbarRasters(mode: "inactive" | "active"): ManifestIconRaster[] {
-  const sets = getToolbarIconSets()[mode];
+/** Canvas-drawn toolbar icon for manifest / setIcon(path) fallback. */
+export function getInactiveManifestRasters(): ManifestIconRaster[] {
+  const sets = getToolbarIconSets().inactive;
   return ([16, 32, 48, 128] as const).map((size) => ({
     size,
     data: Buffer.from(sets[String(size)].data),
   }));
 }
 
-/** Same pixels as toolbar inactive icon (canvas draw, not SVG rasterize). */
-export function getInactiveManifestRasters(): ManifestIconRaster[] {
-  return toolbarRasters("inactive");
-}
-
-export function getActiveManifestRasters(): ManifestIconRaster[] {
-  return toolbarRasters("active");
-}
-
 /** Output plan for lib/scripts/generate-manifest-icons.mjs */
 export const manifestIconOutputs = [
   { prefix: "icon", getRasters: getInactiveManifestRasters },
-  { prefix: "toolbar-active", getRasters: getActiveManifestRasters },
 ] as const;
