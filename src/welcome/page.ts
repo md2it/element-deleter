@@ -8,6 +8,5 @@ void bootstrapWelcomePage({
   localeUserSelectedKey: "localeUserSelected",
   pinStatusChangedMessageType: "PIN_STATUS_CHANGED",
   watchPinStatusMessageType: "WATCH_PIN_STATUS",
-  openSettingsMessage: { type: "OPEN_PANEL", tab: "settings" },
   isRtlLocale,
 });

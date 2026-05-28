@@ -4,7 +4,6 @@ import { buildAboutListItems } from "../../src/about";
 import { PANEL_TITLE } from "../../src/brand";
 import {
   ARROW_UP,
-  COG,
   HEART,
   PIN,
   PUZZLE,
@@ -26,7 +25,6 @@ function buildWelcomeLocalePayload(locale: Locale) {
     pinStep3: strings.welcomePinStep3,
     aboutHeading: strings.tabAbout,
     aboutItems: buildAboutListItems(strings),
-    settingsLabel: strings.titleSettings,
     langAriaLabel: strings.tabSettings,
   };
 }
@@ -61,10 +59,7 @@ function buildWelcomeData(
     isPinned,
     aboutHeading: current.aboutHeading,
     aboutItems: current.aboutItems,
-    settingsLabel: current.settingsLabel,
-    settingsIcon: welcomeStepIcon(COG),
     hasAbout: true,
-    hasSettings: true,
     hasLocales: true,
     locales: [...LOCALES],
     localeLabels: LOCALE_BUTTON_LABELS,
