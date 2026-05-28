@@ -483,7 +483,7 @@ export function measureGermanSettingsBodyHeight(
   const probeBody = document.createElement("div");
   probeBody.className = "dd-panel-body";
   probeBody.style.cssText =
-    "position:fixed;left:-9999px;width:20rem;visibility:hidden;pointer-events:none;";
+    "position:fixed;left:-9999px;width:21rem;visibility:hidden;pointer-events:none;";
   const probePanel = document.createElement("div");
   probePanel.className = "dd-panel-page dd-panel-page--settings";
   probeBody.appendChild(probePanel);

@@ -152,7 +152,7 @@
 ### Вертикальное меню
 - Вёрстка:
    - Прямоугольник чуть темнее фона
-   - Слева
+   - Слева (даже при RTL)
    - Заполянет материнский элементе по высоте
    - Слева, сверху и снизу отступ 2 мм
 - Пункты меню:
@@ -185,9 +185,9 @@
    - N это редактируемое число
    - Редактирование должно быть возможно при клике на "Уведомления N сек"
    - Тултип "Установите 0 для выключения уведомлений"
-- Toggler: "Вкл/выкл `Ctrl+Shift+X` → `D`" или "Вкл/выкл `Cmd+Shift+X` → `D`" (стрелка вне бэктиков, пробелы вокруг →; строка зависит от ОС)
+- Toggler: "Вкл/выкл `Ctrl+Shift+X` → `D`" или "Вкл/выкл `⌘+Shift+X` → `D`" (стрелка вне бэктиков, пробелы вокруг →; строка зависит от ОС)
 - Toggler: "Выкл `Esc`"
-- Toggler: "Отменить удаление `Ctrl + Z`", "Отменить удаление `Ctrl + Z`" (строка и настройка зависит от ОС)
+- Toggler: "Отменить удаление `Ctrl + Z`", "Отменить удаление `⌘Z`" (строка и настройка зависит от ОС)
 - Toggler: "`tag#id` / `tag.class`"
 - Toggler: "Контуры всех элементов"
 - Toggler: "Подкраска всех элементов"
@@ -204,28 +204,33 @@
 - To run / stop the extension: // bold line
    - 1. Press:  `Ctrl+Shift+X`
         On Mac: `Cmd+Shift+X`
-   - 2. Release the keys
+   - 2. Release the keys // "Release" semi-bold
    - 3. Then press `D`
-- Undo delete: `Ctrl+Z`  // bold line
-       On Mac: `⌘Z`
+   - <небольшой отступ>
+   - "The 3-step shortcut is not obvious." // серый
+   - "But it is safer and avoids conflicts with other apps." // серый
+- <разделительная черта>
+- Undo delete: // bold line
+  Win / Linux: `Ctrl+Z`  
+  On Mac:      `⌘Z`
+- <разделительная черта>
 - To stop: `Esc` // bold line
 - <разделительная черта>
-- The 3-step shortcut is not obvious.
-- But it is safer and avoids conflicts with other apps.
+
 
 **ABOUT**
 - Boolean список:
    - <trash-2> Удаляет элемент страницы,
    - <circle-power> Вкл/выкл в один клик,
    - <undo-2> Можно восстановить элемент,
-   - <undo-2> Перезагрузка страницы восстановит всё,
+   - <rotate-cw> Перезагрузка страницы восстановит всё,
    - <shield-check> Не использует сеть,
    - <shield-check> Не собирает данные.
-   - Внизу по центру подпись:
+   - Минифутер внизу:
       - <разделительная черта>
       - "Element-Deleter"
-      - "© Alex T" -- ссылка на https://www.linkedin.com/in/alex-terekhov/ , underline
-      - Всё серое, одного цвета, центрировано
+      - "© Alex T" // "Alex T" = ссылка на https://www.linkedin.com/in/alex-terekhov/ , underline
+      - Текст, включая ссылку серый, центрирован
 
 ### Анимации
 - Рамка выделения анимированная, чтобы человек лучше видел

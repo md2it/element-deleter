@@ -23,9 +23,13 @@ export const SHORTCUTS_UNDO_WIN_DISPLAY = "Ctrl+Z";
 /** SHORTCUTS panel: undo on Mac. */
 export const SHORTCUTS_UNDO_MAC_DISPLAY = "⌘Z";
 
+function compactHotkeyLabel(label: string): string {
+  return label.replace(/\s*\+\s*/g, "+");
+}
+
 /** Prefix chord for settings (`kbd` before `→`). */
 export function getStartHotkeyChordLabel(): string {
-  return formatPrefixChordLabel();
+  return compactHotkeyLabel(formatPrefixChordLabel());
 }
 
 /** Action letter for settings (`kbd` after `→`). */
@@ -50,7 +54,8 @@ export function isEscHotkeyEvent(e: KeyboardEvent): boolean {
 
 /** Display label for undo restore (README: Mac vs Win/Linux). */
 export function getUndoHotkeyLabel(): string {
-  return formatModifierKeyLabel("Z");
+  const label = formatModifierKeyLabel("Z");
+  return label.startsWith("⌘") ? "⌘Z" : label;
 }
 
 /** Ctrl/Cmd+Z — restore last deleted element (README: undo hotkey). */

@@ -421,6 +421,7 @@ async function toggleTab(tabId: number, windowId?: number): Promise<void> {
 }
 
 const CONTEXT_MENU_SETTINGS = "element-deleter-settings";
+const CONTEXT_MENU_SHORTCUTS = "element-deleter-shortcuts";
 const CONTEXT_MENU_ABOUT = "element-deleter-about";
 const CONTEXT_MENU_DELETE = "element-deleter-delete-element";
 
@@ -453,6 +454,7 @@ const PAGE_CONTEXT_MENU_CONTEXTS = [
 
 const ACTION_MENU_EMOJI = {
   settings: "⚙️",
+  shortcuts: "⌨️",
   about: "ℹ️",
 } as const;
 
@@ -497,6 +499,15 @@ async function ensureContextMenu(): Promise<void> {
     await createContextMenuItem({
       id: CONTEXT_MENU_SETTINGS,
       title: actionMenuTitle(strings.titleSettings, ACTION_MENU_EMOJI.settings, locale),
+      contexts: ["action", "browser_action"],
+    });
+    await createContextMenuItem({
+      id: CONTEXT_MENU_SHORTCUTS,
+      title: actionMenuTitle(
+        strings.titleShortcuts,
+        ACTION_MENU_EMOJI.shortcuts,
+        locale,
+      ),
       contexts: ["action", "browser_action"],
     });
     await createContextMenuItem({
@@ -545,6 +556,10 @@ registerPrefixHintOperabilityListeners({
 ext.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === CONTEXT_MENU_SETTINGS) {
     openPanelFromSender("settings", tab);
+    return;
+  }
+  if (info.menuItemId === CONTEXT_MENU_SHORTCUTS) {
+    openPanelFromSender("shortcuts", tab);
     return;
   }
   if (info.menuItemId === CONTEXT_MENU_ABOUT) {

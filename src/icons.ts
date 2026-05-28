@@ -3,6 +3,20 @@ import shieldCheckSvg from "../icons/shield-check.svg";
 import trash2Svg from "../icons/trash-2.svg";
 import undo2Svg from "../icons/undo-2.svg";
 
+import {
+  ARROW_UP,
+  COG,
+  HEART,
+  INFO,
+  KEYBOARD,
+  LINKEDIN,
+  MD2IT,
+  PIN,
+  PUZZLE,
+  ROTATE_CW,
+  SETTINGS,
+} from "../../lib/src/icons";
+
 export {
   ARROW_UP,
   COG,
@@ -13,8 +27,9 @@ export {
   MD2IT,
   PIN,
   PUZZLE,
+  ROTATE_CW,
   SETTINGS,
-} from "../../lib/src/icons";
+};
 
 function stripComment(svg: string): string {
   return svg.replace(/<!--[\s\S]*?-->\s*/g, "").trim();
@@ -115,7 +130,7 @@ export const ABOUT_BULLET_ICONS: readonly string[] = [
   lucideUiIcon(trash2Svg),
   lucideUiIcon(circlePowerSvg),
   lucideUiIcon(undo2Svg),
-  lucideUiIcon(undo2Svg),
+  ROTATE_CW,
   lucideUiIcon(shieldCheckSvg),
   lucideUiIcon(shieldCheckSvg),
 ];

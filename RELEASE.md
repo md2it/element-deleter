@@ -38,10 +38,13 @@
 - Clarifying UI texts
 
 ### 1.0.4
-- Hotkeys work better from input fields
+- Shortcuts don't conflict with input fields anymore
 
 ### 1.0.5
 - More badge variants, including animated
+
+### 1.0.6
+- Redesign of UI windows
 
 ---
 

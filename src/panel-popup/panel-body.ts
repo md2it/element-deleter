@@ -29,6 +29,12 @@ function createKbd(text: string): HTMLElement {
   return kbd;
 }
 
+function createSectionDivider(): HTMLDivElement {
+  const divider = document.createElement("div");
+  divider.className = "dd-panel-divider dd-shortcuts-divider";
+  return divider;
+}
+
 function createAboutIcon(iconHtml: string): HTMLSpanElement {
   const mark = document.createElement("span");
   mark.className = "dd-about-icon";
@@ -67,7 +73,10 @@ function buildShortcutsSteps(strings: Strings): HTMLOListElement {
   step1.append(pressGrid);
 
   const step2 = document.createElement("li");
-  step2.textContent = strings.shortcutsStepRelease;
+  const releaseBold = document.createElement("strong");
+  releaseBold.className = "dd-shortcuts-step-release-bold";
+  releaseBold.textContent = strings.shortcutsStepReleaseBold;
+  step2.append(releaseBold, document.createTextNode(strings.shortcutsStepReleaseRest));
 
   const step3 = document.createElement("li");
   step3.append(
@@ -85,25 +94,40 @@ function buildUndoShortcutBlock(strings: Strings): HTMLElement {
 
   const heading = document.createElement("p");
   heading.className = "dd-shortcuts-heading";
-  heading.append(
-    document.createTextNode(`${strings.shortcutsUndoHeading} `),
+  heading.textContent = strings.shortcutsUndoHeading;
+
+  const winRow = document.createElement("p");
+  winRow.className = "dd-shortcuts-undo-row";
+  winRow.append(
+    document.createTextNode(`${strings.shortcutsUndoWinLinux} `),
     createKbd(SHORTCUTS_UNDO_WIN_DISPLAY),
   );
 
   const macRow = document.createElement("p");
-  macRow.className = "dd-shortcuts-undo-mac";
+  macRow.className = "dd-shortcuts-undo-row";
   macRow.append(
     document.createTextNode(`${strings.shortcutsStepOnMac} `),
     createKbd(SHORTCUTS_UNDO_MAC_DISPLAY),
   );
 
-  block.append(heading, macRow);
+  block.append(heading, winRow, macRow);
   return block;
 }
 
-function createAboutCredit(strings: Strings): HTMLParagraphElement {
-  const credit = document.createElement("p");
+function createAboutCredit(strings: Strings): HTMLDivElement {
+  const credit = document.createElement("div");
   credit.className = "dd-about-credit";
+
+  const divider = document.createElement("div");
+  divider.className = "dd-panel-divider dd-about-credit-divider";
+  divider.setAttribute("aria-hidden", "true");
+
+  const productLine = document.createElement("p");
+  productLine.className = "dd-about-credit-line";
+  productLine.textContent = strings.aboutProductName;
+
+  const copyrightLine = document.createElement("p");
+  copyrightLine.className = "dd-about-credit-line";
 
   const link = document.createElement("a");
   link.href = PANEL_FOOTER_LINKEDIN_URL;
@@ -114,7 +138,8 @@ function createAboutCredit(strings: Strings): HTMLParagraphElement {
     e.stopPropagation();
   });
 
-  credit.append(strings.aboutCreditPrefix, link);
+  copyrightLine.append("© ", link);
+  credit.append(divider, productLine, copyrightLine);
   return credit;
 }
 
@@ -128,15 +153,8 @@ export function buildShortcutsPanelBody(body: HTMLDivElement, strings: Strings):
   runStopHeading.className = "dd-shortcuts-heading";
   runStopHeading.textContent = strings.shortcutsRunStopHeading;
 
-  const stopHeading = document.createElement("p");
-  stopHeading.className = "dd-shortcuts-heading";
-  stopHeading.append(
-    document.createTextNode(`${strings.shortcutsStopHeading} `),
-    createKbd("Esc"),
-  );
-
-  const divider = document.createElement("div");
-  divider.className = "dd-panel-divider dd-shortcuts-divider";
+  const safety = document.createElement("div");
+  safety.className = "dd-shortcuts-safety";
 
   const safetyLine1 = document.createElement("p");
   safetyLine1.className = "dd-shortcuts-note";
@@ -146,16 +164,26 @@ export function buildShortcutsPanelBody(body: HTMLDivElement, strings: Strings):
   safetyLine2.className = "dd-shortcuts-note";
   safetyLine2.textContent = strings.shortcutsSafetyLine2;
 
+  safety.append(safetyLine1, safetyLine2);
+
+  const stopHeading = document.createElement("p");
+  stopHeading.className = "dd-shortcuts-heading";
+  stopHeading.append(
+    document.createTextNode(`${strings.shortcutsStopHeading} `),
+    createKbd("Esc"),
+  );
+
   page.append(
     createPageTitle(strings.tabShortcuts),
     createPageDivider(),
     runStopHeading,
     buildShortcutsSteps(strings),
+    safety,
+    createSectionDivider(),
     buildUndoShortcutBlock(strings),
+    createSectionDivider(),
     stopHeading,
-    divider,
-    safetyLine1,
-    safetyLine2,
+    createSectionDivider(),
   );
   body.append(page);
 }
@@ -207,15 +235,19 @@ export function syncAboutPanelBody(body: HTMLDivElement, strings: Strings): void
   const title = body.querySelector<HTMLElement>(".dd-panel-page-title");
   if (title) title.textContent = strings.tabAbout;
 
-  const credit = body.querySelector<HTMLParagraphElement>(".dd-about-credit");
+  const credit = body.querySelector<HTMLDivElement>(".dd-about-credit");
   if (credit) {
-    const link = credit.querySelector("a");
-    credit.replaceChildren(strings.aboutCreditPrefix);
+    const line = credit.querySelector<HTMLElement>(".dd-about-credit-line:last-child");
+    const link = line?.querySelector("a") ?? credit.querySelector("a");
     if (link) {
       link.textContent = strings.aboutCreditAuthor;
-      credit.append(link);
+      const productLine = credit.querySelector<HTMLElement>(".dd-about-credit-line");
+      if (productLine) {
+        productLine.textContent = strings.aboutProductName;
+      }
     } else {
-      credit.append(createAboutCredit(strings).querySelector("a")!);
+      const next = createAboutCredit(strings);
+      credit.replaceChildren(...Array.from(next.children));
     }
   }
 }

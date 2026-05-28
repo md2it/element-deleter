@@ -29,12 +29,14 @@ export type Strings = {
   shortcutsUndoHeading: string;
   shortcutsStepPress: string;
   shortcutsStepOnMac: string;
-  shortcutsStepRelease: string;
+  shortcutsStepReleaseBold: string;
+  shortcutsStepReleaseRest: string;
   shortcutsStepThenPress: string;
+  shortcutsUndoWinLinux: string;
   shortcutsStopHeading: string;
   shortcutsSafetyLine1: string;
   shortcutsSafetyLine2: string;
-  aboutCreditPrefix: string;
+  aboutProductName: string;
   aboutCreditAuthor: string;
   notificationPeriodPrefix: string;
   notificationPeriodSuffix: string;
@@ -49,6 +51,7 @@ export type Strings = {
   btnRestore: string;
   panelSubtitle: string;
   titleSettings: string;
+  titleShortcuts: string;
   titleAbout: string;
   contextMenuDeleteElement: string;
   restrictedPageNotice: string;

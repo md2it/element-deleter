@@ -4,7 +4,7 @@
   position: relative;
   inset: auto;
   width: 100%;
-  min-height: 520px;
+  min-height: 500px;
   height: auto;
   pointer-events: auto;
   z-index: 1;
@@ -34,7 +34,7 @@
 .dd-panel {
   display: flex;
   flex-direction: column;
-  width: min(20rem, calc(100vw - 2rem));
+  width: min(21rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   overflow: hidden;
   color: #1f2937;
@@ -51,7 +51,7 @@
 .dd-panel--surface-popup {
   flex: 1 1 auto;
   width: 100%;
-  min-height: 520px;
+  min-height: 500px;
   max-height: none;
   border-radius: 0;
   border: none;
@@ -67,6 +67,7 @@
 
 .dd-panel--surface-popup > .dd-panel-main {
   align-items: stretch;
+  direction: ltr;
 }
 
 .dd-panel-menu {
@@ -108,6 +109,10 @@
 .dd-panel--surface-popup .dd-panel-content {
   flex: 1 1 0;
   min-width: 0;
+}
+
+.dd-panel[dir="rtl"] .dd-panel-content {
+  direction: rtl;
 }
 
 .dd-panel-menu-btn {
@@ -203,7 +208,7 @@
   text-align: center;
 }
 
-.dd-panel--surface-popup .dd-panel-body:has(.dd-panel-page--about) {
+.dd-panel--surface-popup > .dd-panel-main > .dd-panel-content > .dd-panel-body:has(.dd-panel-page--about) {
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -224,21 +229,25 @@
 }
 
 .dd-about-credit {
-  margin: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
   padding-top: 0.75rem;
   text-align: center;
   font-size: 0.75rem;
-  color: #999;
+  color: #9ca3af;
 }
 
-.dd-about-credit a {
-  color: inherit;
-  text-decoration: underline;
+.dd-about-credit-divider {
+  width: 100%;
+  margin: 0 0 0.5rem;
 }
 
-.dd-about-credit a:hover,
-.dd-about-credit a:focus-visible {
-  color: #999;
+.dd-about-credit-line {
+  margin: 0;
+  line-height: 1.35;
 }
 
 .dd-panel-page--shortcuts {
@@ -254,8 +263,12 @@
   text-align: left;
 }
 
-.dd-shortcuts-undo-mac {
-  margin: 0.15rem 0 0;
+.dd-shortcuts-undo-block {
+  margin: 0;
+}
+
+.dd-shortcuts-undo-row {
+  margin: 0.12rem 0 0;
   padding-left: 1.15rem;
   font-size: 0.84rem;
   line-height: 1.45;
@@ -263,12 +276,23 @@
   text-align: left;
 }
 
+.dd-shortcuts-safety {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  margin-top: 0.85rem;
+}
+
 .dd-shortcuts-note {
-  margin: 0.2rem 0 0;
+  margin: 0;
   font-size: 0.84rem;
-  line-height: 1.45;
-  color: #374151;
+  line-height: 1.2;
+  color: #6b7280;
   text-align: left;
+}
+
+.dd-shortcuts-step-release-bold {
+  font-weight: 600;
 }
 
 .dd-shortcuts-divider {
@@ -276,7 +300,7 @@
 }
 
 .dd-shortcuts-steps {
-  margin: 0.2rem 0 0;
+  margin: 0.2rem 0 0.35rem;
   padding-left: 1.15rem;
   font-size: 0.84rem;
   line-height: 1.45;
@@ -537,6 +561,36 @@
 
 .dd-panel-body a:focus-visible {
   outline: none;
+}
+
+/* ABOUT credit: beats .dd-panel-body p / a on <p> and <a> inside credit */
+.dd-panel-body .dd-about-credit {
+  margin-top: auto;
+  margin-inline: 0;
+  margin-bottom: 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.dd-panel-body .dd-about-credit .dd-about-credit-line {
+  margin: 0;
+  font-size: inherit;
+  line-height: 1.35;
+  color: inherit;
+  text-align: center;
+}
+
+.dd-panel-body .dd-about-credit a:any-link {
+  color: #9ca3af;
+  text-decoration: underline;
+}
+
+.dd-panel-body .dd-about-credit a:hover,
+.dd-panel-body .dd-about-credit a:focus-visible {
+  color: #9ca3af;
+  text-decoration: underline;
 }
 
 .dd-field {
