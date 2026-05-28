@@ -2,10 +2,10 @@ import chevronLeftSvg from "../../lib/icons/lucide/chevron-left.svg";
 import chevronRightSvg from "../../lib/icons/lucide/chevron-right.svg";
 import chevronsLeftSvg from "../../lib/icons/lucide/chevrons-left.svg";
 import chevronsRightSvg from "../../lib/icons/lucide/chevrons-right.svg";
-import circlePowerSvg from "../icons/circle-power.svg";
-import shieldCheckSvg from "../icons/shield-check.svg";
-import trash2Svg from "../icons/trash-2.svg";
-import undo2Svg from "../icons/undo-2.svg";
+import circlePowerSvg from "../../lib/icons/lucide/circle-power.svg";
+import shieldCheckSvg from "../../lib/icons/lucide/shield-check.svg";
+import trash2Svg from "../../lib/icons/lucide/trash-2.svg";
+import undo2Svg from "../../lib/icons/lucide/undo-2.svg";
 
 import {
   ARROW_UP,
