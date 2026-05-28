@@ -8,9 +8,17 @@ export const PANEL_POPUP_HOST_ATTR = "data-element-deleter-ui";
 
 export const PANEL_POPUP_SESSION_TAB_KEY = "panelPopupTab";
 
-export type PanelPopupTab = "settings" | "info";
+export type PanelPopupTab = "settings" | "shortcuts" | "info";
 
-export const PANEL_POPUP_TABS: readonly PanelPopupTab[] = ["settings", "info"];
+export type PanelMenuTab = PanelPopupTab;
+
+export const PANEL_POPUP_TABS: readonly PanelPopupTab[] = [
+  "settings",
+  "shortcuts",
+  "info",
+];
+
+export const PANEL_MENU_TABS: readonly PanelMenuTab[] = PANEL_POPUP_TABS;
 
 export const PANEL_PAGE_CONFIG: PanelPageConfig = {
   pageHtml: PANEL_POPUP_PAGE,

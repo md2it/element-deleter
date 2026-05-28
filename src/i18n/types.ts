@@ -23,7 +23,19 @@ export const LOCALE_BUTTON_LABELS: Record<Locale, string> = {
 
 export type Strings = {
   tabSettings: string;
+  tabShortcuts: string;
   tabAbout: string;
+  shortcutsRunStopHeading: string;
+  shortcutsUndoHeading: string;
+  shortcutsStepPress: string;
+  shortcutsStepOnMac: string;
+  shortcutsStepRelease: string;
+  shortcutsStepThenPress: string;
+  shortcutsStopHeading: string;
+  shortcutsSafetyLine1: string;
+  shortcutsSafetyLine2: string;
+  aboutCreditPrefix: string;
+  aboutCreditAuthor: string;
   notificationPeriodPrefix: string;
   notificationPeriodSuffix: string;
   notificationPeriodHint: string;

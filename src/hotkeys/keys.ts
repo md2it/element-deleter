@@ -11,6 +11,18 @@ import { PREFIX_ACTION_KEY } from "./commands";
 
 export const ESC_HOTKEY_LABEL = ESCAPE_KEY_LABEL;
 
+/** SHORTCUTS panel: Windows/Linux chord (always shown). */
+export const SHORTCUTS_PREFIX_CHORD_WIN_DISPLAY = "Ctrl+Shift+X";
+
+/** SHORTCUTS panel: Mac chord (always shown). */
+export const SHORTCUTS_PREFIX_CHORD_MAC_DISPLAY = "Cmd+Shift+X";
+
+/** SHORTCUTS panel: undo on Windows/Linux. */
+export const SHORTCUTS_UNDO_WIN_DISPLAY = "Ctrl+Z";
+
+/** SHORTCUTS panel: undo on Mac. */
+export const SHORTCUTS_UNDO_MAC_DISPLAY = "⌘Z";
+
 /** Prefix chord for settings (`kbd` before `→`). */
 export function getStartHotkeyChordLabel(): string {
   return formatPrefixChordLabel();

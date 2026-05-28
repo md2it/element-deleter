@@ -8,10 +8,12 @@ export {
   COG,
   HEART,
   INFO,
+  KEYBOARD,
   LINKEDIN,
   MD2IT,
   PIN,
   PUZZLE,
+  SETTINGS,
 } from "../../lib/src/icons";
 
 function stripComment(svg: string): string {

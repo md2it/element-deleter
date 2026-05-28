@@ -28,7 +28,7 @@ const HOST_ATTR = "data-element-deleter-ui";
 type DeactivateFn = () => void;
 
 type DeleterUIOptions = {
-  openPanel: (tab: "settings" | "info") => void;
+  openPanel: (tab: "settings" | "shortcuts" | "info") => void;
   undo: UndoStackAccess;
   onElementDeleted?: () => void;
   onElementRestored?: () => void;

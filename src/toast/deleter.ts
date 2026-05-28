@@ -5,7 +5,7 @@ import { ToastStack, type ToastStackHost } from "../../../lib/src/toast";
 
 export type ToastHost = ToastStackHost & {
   getStrings: () => Strings;
-  openPanel: (tab: "settings" | "info") => void;
+  openPanel: (tab: "settings" | "shortcuts" | "info") => void;
   undoById: (id: number) => Promise<boolean>;
 };
 
@@ -80,7 +80,7 @@ export class ToastSystem {
   }
 
   private panelTriggerButton(
-    tab: "settings" | "info",
+    tab: "settings" | "shortcuts" | "info",
     icon: string,
     title: string,
   ): HTMLButtonElement {

@@ -16,7 +16,7 @@ export type BgToContent =
 export type ContentToBg =
   | { type: "ACTIVE_CHANGED"; active: boolean }
   | { type: "BADGE_FLASH"; variant: "deleted" | "restored" }
-  | { type: "OPEN_PANEL"; tab: "settings" | "info" }
+  | { type: "OPEN_PANEL"; tab: "settings" | "shortcuts" | "info" }
   | { type: "TOGGLE_REQUEST" }
   | { type: "WATCH_PIN_STATUS" }
   | PrefixHintContentToBg;

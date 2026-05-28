@@ -119,7 +119,7 @@ function notifyBackgroundActive(isActive: boolean): void {
   });
 }
 
-function requestOpenPanel(tab: "settings" | "info"): void {
+function requestOpenPanel(tab: "settings" | "shortcuts" | "info"): void {
   const msg: ContentToBg = { type: "OPEN_PANEL", tab };
   void ext.runtime.sendMessage(msg).catch(() => {
     /* extension reloaded */
@@ -159,7 +159,7 @@ function attachMessageHandler(state: ContentState): void {
     notifyBackgroundActive(false);
   };
 
-  const openPanel = (tab: "settings" | "info"): void => {
+  const openPanel = (tab: "settings" | "shortcuts" | "info"): void => {
     requestOpenPanel(tab);
   };
 

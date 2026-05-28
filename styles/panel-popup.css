@@ -1,4 +1,6 @@
 :host(.dd-panel-popup) {
+  display: flex;
+  flex-direction: column;
   position: relative;
   inset: auto;
   width: 100%;
@@ -47,12 +49,312 @@
 }
 
 .dd-panel--surface-popup {
+  flex: 1 1 auto;
   width: 100%;
   min-height: 520px;
   max-height: none;
   border-radius: 0;
   border: none;
   box-shadow: none;
+}
+
+.dd-panel-main {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+}
+
+.dd-panel--surface-popup > .dd-panel-main {
+  align-items: stretch;
+}
+
+.dd-panel-menu {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0.75rem 0.75rem;
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+  background: rgba(185, 28, 28, 0.06);
+}
+
+.dd-panel--surface-popup .dd-panel-menu {
+  --dd-menu-gap: 0.3rem;
+  flex: 0 0 2.85rem;
+  width: 2.85rem;
+  align-self: stretch;
+  justify-content: flex-start;
+  gap: var(--dd-menu-gap);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-inline-start: 0.5rem;
+  margin-inline-end: 0.3rem;
+  padding-block-start: var(--dd-menu-gap);
+  padding-inline-end: var(--dd-menu-gap);
+  padding-block-end: var(--dd-menu-gap);
+  padding-inline-start: var(--dd-menu-gap);
+}
+
+.dd-panel-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.dd-panel--surface-popup .dd-panel-content {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.dd-panel-menu-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.dd-panel-menu-btn svg {
+  display: block;
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.dd-panel-menu-btn:hover,
+.dd-panel-menu-btn:focus-visible {
+  color: #b91c1c;
+  background: rgba(185, 28, 28, 0.08);
+}
+
+.dd-panel-menu-btn--active {
+  color: #b91c1c;
+  background: rgba(185, 28, 28, 0.14);
+}
+
+.dd-panel-menu-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 0.45rem);
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  padding: 0.28rem 0.5rem;
+  border-radius: 0.35rem;
+  background: #111827;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0s ease,
+    visibility 0s linear 0s;
+}
+
+.dd-panel-menu-btn:hover::after,
+.dd-panel-menu-btn:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dd-panel-page {
+  margin: 0;
+}
+
+.dd-panel-page-title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #111827;
+}
+
+.dd-panel--surface-popup .dd-panel-page-title {
+  text-align: center;
+}
+
+.dd-panel-page-divider {
+  width: 100%;
+  margin: 0 0 0.5rem;
+}
+
+.dd-panel--surface-popup .dd-panel-body {
+  flex: 1 1 auto;
+  overflow: visible;
+  padding: 1rem 0.95rem;
+}
+
+.dd-panel--surface-popup .dd-panel-page--settings {
+  text-align: center;
+}
+
+.dd-panel--surface-popup .dd-panel-body:has(.dd-panel-page--about) {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.dd-panel-page--about {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+
+.dd-panel-page--about .dd-panel-page-title {
+  width: 100%;
+  text-align: center;
+}
+
+.dd-about-credit {
+  margin: auto 0 0;
+  padding-top: 0.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.dd-about-credit a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.dd-about-credit a:hover,
+.dd-about-credit a:focus-visible {
+  color: #999;
+}
+
+.dd-panel-page--shortcuts {
+  width: 100%;
+}
+
+.dd-shortcuts-heading {
+  margin: 0.5rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  font-weight: 700;
+  color: #374151;
+  text-align: left;
+}
+
+.dd-shortcuts-undo-mac {
+  margin: 0.15rem 0 0;
+  padding-left: 1.15rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #374151;
+  text-align: left;
+}
+
+.dd-shortcuts-note {
+  margin: 0.2rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #374151;
+  text-align: left;
+}
+
+.dd-shortcuts-divider {
+  margin: 0.55rem 0 0.35rem;
+}
+
+.dd-shortcuts-steps {
+  margin: 0.2rem 0 0;
+  padding-left: 1.15rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: #374151;
+  text-align: left;
+}
+
+.dd-shortcuts-steps li {
+  margin-bottom: 0.2rem;
+}
+
+.dd-shortcuts-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.dd-shortcuts-step-press-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.35em;
+  align-items: start;
+}
+
+.dd-shortcuts-step-press-label {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.dd-shortcuts-step-press-chords {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.dd-shortcuts-step-press-mac-label {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.dd-shortcuts-step-press-mac-chords {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+}
+
+.dd-about-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  line-height: 0;
+  color: #6b7280;
+}
+
+.dd-about-icon svg {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+}
+
+.dd-about-kbd {
+  display: inline-block;
+  padding: 0.08rem 0.35rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  background: #f9fafb;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #111827;
+}
+
+.dd-panel--surface-popup .dd-about-list {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 0.85rem;
 }
 
 .dd-panel-tabs {
@@ -138,6 +440,15 @@
   min-height: var(--dd-panel-body-min, 0);
   overflow-y: auto;
   padding: 0 1.125rem;
+}
+
+.dd-panel:not(.dd-panel--surface-popup) .dd-panel-body {
+  display: grid;
+}
+
+.dd-panel--surface-popup > .dd-panel-main > .dd-panel-content > .dd-panel-body {
+  display: block;
+  min-height: var(--dd-panel-body-min, 0);
 }
 
 .dd-tab-panel {
