@@ -1,7 +1,7 @@
 # План публикации
 
 Для публикации в https://chrome.google.com/webstore/ нужно подготовить Single purpose, Permission justification, скриншоты, описания.
-Документ связан с [lib/PUBLICATION.md](../../lib/PUBLICATION.md)
+Документ связан с [lib/SPEC/publication/PUBLICATION.md](../../lib/SPEC/publication/PUBLICATION.md)
 
 ---
 
