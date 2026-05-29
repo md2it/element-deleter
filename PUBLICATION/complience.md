@@ -2,8 +2,6 @@
 
 
 ## Single purpose
-An extension must have a single purpose that is narrow and easy-to-understand
-
 Element Deleter lets you manually remove selected elements on the current page and restore them with undo—without reloading. It is aimed mainly at developers and QA (layout checks, UI states, unblocking test flows), and the same tool helps any user hide a specific ad, cookie banner, modal, or other blocking overlay when they choose the element themselves. Changes stay in the open tab only; this is not a network ad blocker and no data is collected or sent to any server.
 
 ## Permission justification

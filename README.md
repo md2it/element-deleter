@@ -2,6 +2,10 @@
 
 Browser extension (Chrome, Firefox) to remove page elements locally and restore them. No network, no data collection — changes apply only to your tab until you reload.
 
+## Install
+
+- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
+
 ## Features
 
 - Click the toolbar icon or `Ctrl+Shift+X` → `D` (`Cmd+Shift+X` → `D` on Mac) to enter delete mode
@@ -23,7 +27,7 @@ Browser extension (Chrome, Firefox) to remove page elements locally and restore 
 
 **Author:** [Aleksei Terekhov](https://www.linkedin.com/in/alex-terekhov/) — [md2it.com](https://md2it.com)
 
-### Install (built extension)
+### Install (unpacked, development)
 
 1. Open `chrome://extensions` (or Firefox equivalent).
 2. Enable developer mode.

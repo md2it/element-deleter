@@ -32,7 +32,7 @@
 - Amendments for AMO compliance
 
 ### 1.0.2
-- Reducing the impact of hotkeys between applications
+- Reduced the impact of hotkeys between applications
 
 ### 1.0.3
 - Clarifying UI texts
