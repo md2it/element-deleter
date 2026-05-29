@@ -1,8 +1,5 @@
 # SPEC BIZ: ELEMENT DELETER
 
-> [!NOTE]
-> Dev-only, Russian. Not the project README.
-
 ---
 
 ## ОПИСАНИЕ
