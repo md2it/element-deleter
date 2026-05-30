@@ -52,6 +52,9 @@
 ### 1.0.8
 - Context menu for Firefox
 
+### 1.0.9
+- Minified production code
+
 ---
 
 ## NOT RELEASED LIST
