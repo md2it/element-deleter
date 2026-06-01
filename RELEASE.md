@@ -55,6 +55,9 @@
 ### 1.0.9
 - Minified production code
 
+### 1.1.0
+- New setting "On the frame"
+
 ---
 
 ## NOT RELEASED LIST
