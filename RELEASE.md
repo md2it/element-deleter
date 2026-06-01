@@ -56,7 +56,7 @@
 - Minified production code
 
 ### 1.1.0
-- New setting "On the frame"
+- New setting "Frame title"
 
 ### 1.1.1
 - Updated notifications
