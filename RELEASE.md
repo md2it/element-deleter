@@ -55,10 +55,10 @@
 ### 1.0.9
 - Minified production code
 
-### 1.0.10
+### 1.1.0
 - New setting "On the frame"
 
-### 1.0.11
+### 1.1.1
 - Updated notifications
 
 ---
