@@ -3,7 +3,6 @@ import { isRtlLocale, t, type Locale } from "../i18n";
 import {
   getAllElementsFillEnabled,
   getAllElementsOutlineEnabled,
-  getElementLabelEnabled,
   getEscHotkeyEnabled,
   getLocale,
   getNotificationSeconds,
@@ -31,7 +30,6 @@ export async function mountPanelSurface(
   let startHotkeyEnabled = true;
   let escHotkeyEnabled = true;
   let undoHotkeyEnabled = true;
-  let elementLabelEnabled = false;
   let selectionCaptionStyle: SelectionCaptionStyle = "click-to-delete";
   let allElementsOutlineEnabled = false;
   let allElementsFillEnabled = false;
@@ -50,7 +48,6 @@ export async function mountPanelSurface(
     startHotkeyEnabled,
     escHotkeyEnabled,
     undoHotkeyEnabled,
-    elementLabelEnabled,
     selectionCaptionStyle,
     allElementsOutlineEnabled,
     allElementsFillEnabled,
@@ -60,7 +57,6 @@ export async function mountPanelSurface(
     getStartHotkeyEnabled(),
     getEscHotkeyEnabled(),
     getUndoHotkeyEnabled(),
-    getElementLabelEnabled(),
     getSelectionCaptionStyle(),
     getAllElementsOutlineEnabled(),
     getAllElementsFillEnabled(),
@@ -100,10 +96,6 @@ export async function mountPanelSurface(
     getUndoHotkeyEnabled: () => undoHotkeyEnabled,
     setUndoHotkeyEnabled: (enabled) => {
       undoHotkeyEnabled = enabled;
-    },
-    getElementLabelEnabled: () => elementLabelEnabled,
-    setElementLabelEnabled: (enabled) => {
-      elementLabelEnabled = enabled;
     },
     getSelectionCaptionStyle: () => selectionCaptionStyle,
     setSelectionCaptionStyle: (style) => {

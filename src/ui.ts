@@ -21,7 +21,6 @@ import {
   type UndoStackAccess,
 } from "./restore";
 import {
-  getElementLabelEnabled,
   getLocale,
   getNotificationSeconds,
   getSelectionCaptionStyle,
@@ -45,7 +44,6 @@ export class DeleterUI {
   private readonly shadow: ShadowRoot;
   private notificationSeconds = 4;
   private locale: Locale = "en";
-  private elementLabelEnabled = false;
   private selectionCaptionStyle: SelectionCaptionStyle = "click-to-delete";
   private elementActionInFlight = false;
 
@@ -116,10 +114,7 @@ export class DeleterUI {
         shadow: this.shadow,
         isOurNode: (node) => this.isOurNode(node),
         getElementLabelEnabled: () =>
-          shouldShowSelectionCaption(
-            this.elementLabelEnabled,
-            this.selectionCaptionStyle,
-          ),
+          shouldShowSelectionCaption(this.selectionCaptionStyle),
         formatElementLabel: (target) => this.formatSelectionCaptionText(target),
         hostAttr: HOST_ATTR,
         classes: HIGHLIGHT_UI,
@@ -139,22 +134,14 @@ export class DeleterUI {
   }
 
   async loadSettings(): Promise<void> {
-    const [seconds, locale, elementLabelEnabled, selectionCaptionStyle] =
-      await Promise.all([
-        getNotificationSeconds(),
-        getLocale(),
-        getElementLabelEnabled(),
-        getSelectionCaptionStyle(),
-      ]);
+    const [seconds, locale, selectionCaptionStyle] = await Promise.all([
+      getNotificationSeconds(),
+      getLocale(),
+      getSelectionCaptionStyle(),
+    ]);
     this.notificationSeconds = seconds;
     this.locale = locale;
-    this.elementLabelEnabled = elementLabelEnabled;
     this.selectionCaptionStyle = selectionCaptionStyle;
-  }
-
-  setElementLabelEnabled(enabled: boolean): void {
-    this.elementLabelEnabled = enabled;
-    this.highlight.syncElementLabel();
   }
 
   setSelectionCaptionStyle(style: SelectionCaptionStyle): void {
@@ -164,7 +151,6 @@ export class DeleterUI {
 
   private formatSelectionCaptionText(target: Element): string {
     return resolveElementDescriptor(target, {
-      elementLabelEnabled: this.elementLabelEnabled,
       selectionCaptionStyle: this.selectionCaptionStyle,
       clickToDeleteLabel: this.strings().selectionCaptionClickToDelete,
     });
@@ -174,7 +160,6 @@ export class DeleterUI {
     const s = this.strings();
     return formatToastDescriptor(target, {
       variant: "deleted",
-      elementLabelEnabled: this.elementLabelEnabled,
       selectionCaptionStyle: this.selectionCaptionStyle,
       deletedCanBeRestored: s.toastDeletedCanBeRestored,
     });
@@ -184,7 +169,6 @@ export class DeleterUI {
     const s = this.strings();
     return formatToastDescriptor(target, {
       variant: "restored",
-      elementLabelEnabled: this.elementLabelEnabled,
       selectionCaptionStyle: this.selectionCaptionStyle,
       deletedCanBeRestored: s.toastDeletedCanBeRestored,
     });

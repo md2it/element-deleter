@@ -12,7 +12,6 @@ import type { BgToContent, ContentActivationResponse, ContentToBg } from "./mess
 import {
   getAllElementsFillEnabled,
   getAllElementsOutlineEnabled,
-  getElementLabelEnabled,
   getSelectionCaptionStyle,
 } from "./storage";
 import {
@@ -240,7 +239,6 @@ function attachMessageHandler(state: ContentState): void {
       if (state.ui) {
         state.ui.setNotificationSeconds(message.notificationSeconds);
         state.ui.setLocale(message.locale);
-        state.ui.setElementLabelEnabled(message.elementLabelEnabled);
         state.ui.setSelectionCaptionStyle(message.selectionCaptionStyle);
       }
       return;
@@ -294,11 +292,7 @@ async function syncAllElementsPageStylesFromStorage(
 
 async function syncSelectionCaptionFromStorage(state: ContentState): Promise<void> {
   if (!state.ui) return;
-  const [elementLabelEnabled, selectionCaptionStyle] = await Promise.all([
-    getElementLabelEnabled(),
-    getSelectionCaptionStyle(),
-  ]);
-  state.ui.setElementLabelEnabled(elementLabelEnabled);
+  const selectionCaptionStyle = await getSelectionCaptionStyle();
   state.ui.setSelectionCaptionStyle(selectionCaptionStyle);
 }
 
@@ -306,15 +300,13 @@ ext.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") return;
   const outlineOrFillChanged =
     changes.allElementsOutlineEnabled || changes.allElementsFillEnabled;
-  const selectionCaptionChanged =
-    changes.elementLabelEnabled || changes.selectionCaptionStyle;
-  if (!outlineOrFillChanged && !selectionCaptionChanged) {
+  if (!outlineOrFillChanged && !changes.selectionCaptionStyle) {
     return;
   }
   if (outlineOrFillChanged) {
     void syncAllElementsPageStylesFromStorage(state);
   }
-  if (selectionCaptionChanged) {
+  if (changes.selectionCaptionStyle) {
     void syncSelectionCaptionFromStorage(state);
   }
 });

@@ -1,6 +1,5 @@
 import { getCssSelector } from "../../lib/src/copy/selector";
 import { getFullXPath } from "../../lib/src/copy/xpath";
-import { formatElementLabel } from "./element-label";
 import type { SelectionCaptionStyle } from "./settings/selection-caption-style";
 
 /** Short label: tag + id or up to three classes. */
@@ -37,23 +36,18 @@ export function formatSelectionCaption(
 }
 
 export function shouldShowSelectionCaption(
-  elementLabelEnabled: boolean,
   selectionCaptionStyle: SelectionCaptionStyle,
 ): boolean {
-  return elementLabelEnabled || selectionCaptionStyle !== "none";
+  return selectionCaptionStyle !== "none";
 }
 
 export function resolveElementDescriptor(
   el: Element,
   options: {
-    elementLabelEnabled: boolean;
     selectionCaptionStyle: SelectionCaptionStyle;
     clickToDeleteLabel: string;
   },
 ): string {
-  if (options.elementLabelEnabled) {
-    return formatElementLabel(el);
-  }
   return formatSelectionCaption(
     el,
     options.selectionCaptionStyle,
@@ -70,14 +64,10 @@ export function formatToastDescriptor(
   el: Element,
   options: {
     variant: ToastDescriptorVariant;
-    elementLabelEnabled: boolean;
     selectionCaptionStyle: SelectionCaptionStyle;
     deletedCanBeRestored: string;
   },
 ): string {
-  if (options.elementLabelEnabled) {
-    return formatElementLabel(el);
-  }
   switch (options.selectionCaptionStyle) {
     case "none":
     case "click-to-delete":

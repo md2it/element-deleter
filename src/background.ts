@@ -24,7 +24,6 @@ import {
   ensureLocaleInStorage,
   getAllElementsFillEnabled,
   getAllElementsOutlineEnabled,
-  getElementLabelEnabled,
   getLocale,
   getNotificationSeconds,
   getSelectionCaptionStyle,
@@ -305,7 +304,6 @@ async function sendToTab(
 type ContentSettings = {
   notificationSeconds: number;
   locale: Locale;
-  elementLabelEnabled: boolean;
   selectionCaptionStyle: SelectionCaptionStyle;
   allElementsOutlineEnabled: boolean;
   allElementsFillEnabled: boolean;
@@ -315,14 +313,12 @@ async function loadAllSettings(): Promise<ContentSettings> {
   const [
     notificationSeconds,
     locale,
-    elementLabelEnabled,
     selectionCaptionStyle,
     allElementsOutlineEnabled,
     allElementsFillEnabled,
   ] = await Promise.all([
     getNotificationSeconds(),
     getLocale(),
-    getElementLabelEnabled(),
     getSelectionCaptionStyle(),
     getAllElementsOutlineEnabled(),
     getAllElementsFillEnabled(),
@@ -330,7 +326,6 @@ async function loadAllSettings(): Promise<ContentSettings> {
   return {
     notificationSeconds,
     locale,
-    elementLabelEnabled,
     selectionCaptionStyle,
     allElementsOutlineEnabled,
     allElementsFillEnabled,
@@ -644,14 +639,12 @@ ext.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") return;
   const secondsChange = changes.notificationSeconds;
   const localeChange = changes.locale;
-  const elementLabelChange = changes.elementLabelEnabled;
   const selectionCaptionChange = changes.selectionCaptionStyle;
   const outlineChange = changes.allElementsOutlineEnabled;
   const fillChange = changes.allElementsFillEnabled;
   if (
     !secondsChange &&
     !localeChange &&
-    !elementLabelChange &&
     !selectionCaptionChange &&
     !outlineChange &&
     !fillChange

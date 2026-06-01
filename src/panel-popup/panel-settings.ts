@@ -26,7 +26,6 @@ import {
 import {
   setAllElementsFillEnabled,
   setAllElementsOutlineEnabled,
-  setElementLabelEnabled,
   setEscHotkeyEnabled,
   setLocale,
   setNotificationSeconds,
@@ -46,8 +45,6 @@ export type PanelSettingsHost = {
   setEscHotkeyEnabled: (enabled: boolean) => void;
   getUndoHotkeyEnabled: () => boolean;
   setUndoHotkeyEnabled: (enabled: boolean) => void;
-  getElementLabelEnabled: () => boolean;
-  setElementLabelEnabled: (enabled: boolean) => void;
   getSelectionCaptionStyle: () => SelectionCaptionStyle;
   setSelectionCaptionStyle: (style: SelectionCaptionStyle) => void;
   getAllElementsOutlineEnabled: () => boolean;
@@ -57,7 +54,6 @@ export type PanelSettingsHost = {
   getStrings: () => Strings;
 };
 
-const ELEMENT_LABEL_TOGGLE_ARIA = "tag#id / tag.class";
 const SELECTION_CAPTION_SELECT_ID = "dd-selection-caption-style";
 
 function selectionCaptionOptionLabel(
@@ -182,27 +178,6 @@ function createToggleRow(
   return row;
 }
 
-function createElementLabelToggleRow(
-  enabled: boolean,
-  onChange: (next: boolean) => void,
-): HTMLElement {
-  const row = createToggleRow(ELEMENT_LABEL_TOGGLE_ARIA, enabled, onChange);
-  const label = row.querySelector(".dd-toggle-label");
-  if (label) {
-    label.replaceChildren();
-    const tagId = document.createElement("kbd");
-    tagId.textContent = "tag#id";
-    const tagClass = document.createElement("kbd");
-    tagClass.textContent = "tag.class";
-    label.append(tagId, document.createTextNode(" / "), tagClass);
-  }
-  const toggle = row.querySelector(".dd-toggle");
-  if (toggle instanceof HTMLButtonElement) {
-    toggle.setAttribute("aria-label", ELEMENT_LABEL_TOGGLE_ARIA);
-  }
-  return row;
-}
-
 function createPrefixStartHotkeyToggleRow(
   labelText: string,
   enabled: boolean,
@@ -292,12 +267,12 @@ function syncSettingsPanelCopy(host: PanelSettingsHost, panel: HTMLElement): voi
   syncHotkeyToggleRow(toggles[1], copy.escHotkeyToggleLabel, ESC_HOTKEY_LABEL);
   syncHotkeyToggleRow(toggles[2], copy.undoHotkeyToggleLabel, getUndoHotkeyLabel());
   const labelRows = panel.querySelectorAll<HTMLElement>(".dd-toggle-label");
-  if (labelRows[4]) labelRows[4].textContent = copy.allElementsOutlineToggleLabel;
-  if (labelRows[5]) labelRows[5].textContent = copy.allElementsFillToggleLabel;
-  toggles[4]
+  if (labelRows[3]) labelRows[3].textContent = copy.allElementsOutlineToggleLabel;
+  if (labelRows[4]) labelRows[4].textContent = copy.allElementsFillToggleLabel;
+  toggles[3]
     ?.querySelector<HTMLButtonElement>(".dd-toggle")
     ?.setAttribute("aria-label", copy.allElementsOutlineToggleLabel);
-  toggles[5]
+  toggles[4]
     ?.querySelector<HTMLButtonElement>(".dd-toggle")
     ?.setAttribute("aria-label", copy.allElementsFillToggleLabel);
   const title = panel.closest(".dd-panel-page")?.querySelector(".dd-panel-page-title");
@@ -382,16 +357,6 @@ export function populateSettingsPanel(
       void (async () => {
         host.setUndoHotkeyEnabled(next);
         await setUndoHotkeyEnabled(next);
-      })();
-    },
-  );
-
-  const elementLabelRow = createElementLabelToggleRow(
-    host.getElementLabelEnabled(),
-    (next) => {
-      void (async () => {
-        host.setElementLabelEnabled(next);
-        await setElementLabelEnabled(next);
       })();
     },
   );
@@ -541,7 +506,6 @@ export function populateSettingsPanel(
     startHotkeyRow,
     escHotkeyRow,
     undoHotkeyRow,
-    elementLabelRow,
     allElementsOutlineRow,
     allElementsFillRow,
   );

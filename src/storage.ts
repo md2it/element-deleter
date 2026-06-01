@@ -9,7 +9,6 @@ import {
   DEFAULT_NOTIFICATION_SECONDS,
   ALL_ELEMENTS_FILL_ENABLED_KEY,
   ALL_ELEMENTS_OUTLINE_ENABLED_KEY,
-  ELEMENT_LABEL_ENABLED_KEY,
   LOCALE_DETECT_VERSION,
   LOCALE_DETECT_VERSION_KEY,
   LOCALE_STORAGE_KEY,
@@ -86,15 +85,6 @@ export async function setLocale(locale: Locale): Promise<void> {
     [LOCALE_STORAGE_KEY]: locale,
     [LOCALE_USER_SELECTED_KEY]: true,
   });
-}
-
-export async function getElementLabelEnabled(): Promise<boolean> {
-  const data = await ext.storage.local.get(ELEMENT_LABEL_ENABLED_KEY);
-  return data[ELEMENT_LABEL_ENABLED_KEY] === true;
-}
-
-export async function setElementLabelEnabled(value: boolean): Promise<void> {
-  await ext.storage.local.set({ [ELEMENT_LABEL_ENABLED_KEY]: value });
 }
 
 export {
