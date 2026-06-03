@@ -1,11 +1,11 @@
-import chevronLeftSvg from "../../lib/vendor/icons/lucide/chevron-left.svg";
-import chevronRightSvg from "../../lib/vendor/icons/lucide/chevron-right.svg";
-import chevronsLeftSvg from "../../lib/vendor/icons/lucide/chevrons-left.svg";
-import chevronsRightSvg from "../../lib/vendor/icons/lucide/chevrons-right.svg";
-import circlePowerSvg from "../../lib/vendor/icons/lucide/circle-power.svg";
-import shieldCheckSvg from "../../lib/vendor/icons/lucide/shield-check.svg";
-import trash2Svg from "../../lib/vendor/icons/lucide/trash-2.svg";
-import undo2Svg from "../../lib/vendor/icons/lucide/undo-2.svg";
+import chevronLeftSvg from "../../lib/icons/lucide/chevron-left.svg";
+import chevronRightSvg from "../../lib/icons/lucide/chevron-right.svg";
+import chevronsLeftSvg from "../../lib/icons/lucide/chevrons-left.svg";
+import chevronsRightSvg from "../../lib/icons/lucide/chevrons-right.svg";
+import circlePowerSvg from "../../lib/icons/lucide/circle-power.svg";
+import shieldCheckSvg from "../../lib/icons/lucide/shield-check.svg";
+import trash2Svg from "../../lib/icons/lucide/trash-2.svg";
+import undo2Svg from "../../lib/icons/lucide/undo-2.svg";
 
 import {
   ARROW_UP,
@@ -14,12 +14,12 @@ import {
   INFO,
   KEYBOARD,
   LINKEDIN,
-  MD2IT,
   PIN,
   PUZZLE,
   ROTATE_CW,
   SETTINGS,
-} from "../../lib/our/icons";
+} from "../../lib/icons";
+import md2itSvg from "../../lib/icons/md2it.svg";
 
 export {
   ARROW_UP,
@@ -28,7 +28,6 @@ export {
   INFO,
   KEYBOARD,
   LINKEDIN,
-  MD2IT,
   PIN,
   PUZZLE,
   ROTATE_CW,
@@ -43,6 +42,12 @@ function stripComment(svg: string): string {
 function lucideUiIcon(raw: string): string {
   return stripComment(raw);
 }
+
+function brandIcon(raw: string): string {
+  return stripComment(raw).replace(/fill="#000000"/g, 'fill="currentColor"');
+}
+
+export const MD2IT = brandIcon(md2itSvg);
 
 export const UNDO_2 = lucideUiIcon(undo2Svg);
 

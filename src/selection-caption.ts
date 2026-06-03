@@ -1,5 +1,5 @@
-import { getCssSelector } from "../../lib/our/copy/selector";
-import { getFullXPath } from "../../lib/our/copy/xpath";
+import { getCssSelector } from "@lib/copy/selector";
+import { getFullXPath } from "@lib/copy/xpath";
 import type { SelectionCaptionStyle } from "./settings/selection-caption-style";
 
 /** Short label: tag + id or up to three classes. */

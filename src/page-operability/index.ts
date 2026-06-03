@@ -11,7 +11,7 @@ export {
   showBlockedNotice,
   type BlockedNoticeConfig,
   type BlockedNoticePayload,
-} from "../../../lib/our/page-operability";
+} from "@lib/page-operability";
 export {
   getRestrictedNoticeDismissMs,
   refreshRestrictedNoticeCache,

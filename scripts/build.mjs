@@ -9,6 +9,7 @@ const esbuild = require(
 );
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const libRoot = join(root, "../lib");
 const libSrc = join(root, "../lib/our");
 const extensionDir = join(root, "extension");
 const appDir = join(extensionDir, "app");
@@ -42,6 +43,28 @@ const common = {
   alias: {
     "@lib": libSrc,
   },
+  plugins: [
+    {
+      name: "lib-icons-compat",
+      setup(build) {
+        build.onResolve({ filter: /^\.\/icons\/md2it\.svg$/ }, (args) => {
+          if (args.importer === join(libSrc, "icons.ts")) {
+            return { path: join(libRoot, "icons/md2it.svg") };
+          }
+        });
+        build.onResolve({ filter: /^\.\/brand\/linkedin\.svg$/ }, (args) => {
+          if (args.importer === join(libRoot, "icons/index.ts")) {
+            return { path: join(libRoot, "icons/brands/linkedin.svg") };
+          }
+        });
+        build.onResolve({ filter: /^\.\.\/\.\.\/vendor\/icons$/ }, (args) => {
+          if (args.importer === join(libSrc, "panel-footer/footer.ts")) {
+            return { path: join(libRoot, "icons/index.ts") };
+          }
+        });
+      },
+    },
+  ],
 };
 
 rmSync(appDir, { recursive: true, force: true });

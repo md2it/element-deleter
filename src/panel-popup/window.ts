@@ -1,7 +1,7 @@
 import { buildAboutListItems } from "../about";
 import { PANEL_TITLE } from "../brand";
 import { toolbarWelcomeIconSvg } from "../icons";
-import { createPanelFooter } from "../../../lib/our/panel-footer";
+import { createPanelFooter } from "@lib/panel-footer";
 import { localeToHtmlLang } from "../../../lib/our/i18n/locale-code";
 import { PANEL_FOOTER_CONFIG } from "../ui-config";
 import type { ToastSystem } from "../toast";

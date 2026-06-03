@@ -27,7 +27,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - Copyright (c) Lucide Icons and Contributors
 - see ### lucide-isc below
 
-Icons bundled from `lib/vendor/icons/lucide/`: `arrow-up`, `chevron-left`, `chevron-right`, `chevrons-left`, `chevrons-right`, `circle-power`, `cog`, `heart`, `info`, `keyboard`, `pin`, `puzzle`, `rotate-cw`, `settings`, `shield-check`, `trash-2`, `undo-2`.
+Icons bundled from `lib/icons/lucide/`: `arrow-up`, `chevron-left`, `chevron-right`, `chevrons-left`, `chevrons-right`, `circle-power`, `cog`, `heart`, `info`, `keyboard`, `pin`, `puzzle`, `rotate-cw`, `settings`, `shield-check`, `trash-2`, `undo-2`.
 
 The following bundled Lucide icons are derived from the Feather project (see ### feather-mit below): `arrow-up`, `chevron-left`, `chevron-right`, `chevrons-left`, `chevrons-right`, `info`, `trash-2`.
 

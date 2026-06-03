@@ -1,9 +1,14 @@
 {
   "extends": "../lib/tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "paths": {
+      "@lib/page-operability": ["src/lib-types/page-operability.d.ts"],
+      "@lib/panel-footer": ["src/lib-types/panel-footer.d.ts"],
+      "@lib/panel-footer/constants": ["../lib/our/panel-footer/constants.ts"],
       "@lib/*": ["../lib/our/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/env.d.ts", "../lib/our/**/*.ts"]
+  "include": ["src/**/*.ts", "src/env.d.ts"]
 }

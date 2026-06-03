@@ -1,6 +1,6 @@
 import { buildAboutListItems } from "../about";
 import type { Strings } from "../i18n";
-import { PANEL_FOOTER_LINKEDIN_URL } from "../../../lib/our/panel-footer/constants";
+import { PANEL_FOOTER_LINKEDIN_URL } from "@lib/panel-footer/constants";
 import { PREFIX_ACTION_KEY } from "../hotkeys/commands";
 import {
   SHORTCUTS_PREFIX_CHORD_MAC_DISPLAY,

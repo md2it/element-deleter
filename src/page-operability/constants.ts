@@ -1,4 +1,4 @@
-import type { BlockedNoticeConfig } from "../../../lib/our/page-operability";
+import type { BlockedNoticeConfig } from "@lib/page-operability";
 
 /** Popup HTML shown when the tab cannot run extension scripts. */
 export const RESTRICTED_NOTICE_POPUP = "blocked-notice.html";

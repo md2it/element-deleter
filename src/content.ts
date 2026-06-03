@@ -19,7 +19,7 @@ import {
   type UndoStackAccess,
 } from "./restore";
 import { DeleterUI } from "./ui";
-import { registerDocumentOperabilityProbeListener } from "../../lib/our/page-operability";
+import { registerDocumentOperabilityProbeListener } from "@lib/page-operability";
 import { bootstrapPanelPopupPageIfNeeded } from "./panel-popup";
 import { bootstrapPanelTabPageIfNeeded } from "./panel-tab";
 
