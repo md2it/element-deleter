@@ -3,6 +3,8 @@
 // shared worker scope. Firefox uses manifest background.scripts instead.
 importScripts(
   "lib/our/api.js",
+  "lib/our/safe-extension-api.js",
+  "app/safe-extension-api-rules.js",
   "lib/our/hotkeys/prefix-hint-messages.js",
   "lib/our/hotkeys/prefix-hint-badge.js",
   "lib/our/hotkeys/prefix-background.js",

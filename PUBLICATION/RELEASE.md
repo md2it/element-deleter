@@ -62,8 +62,11 @@
 - Updated notifications
 
 ### 1.1.2
-- Refactoring
 - Upd icon to better quality
+- The grand refactoring: bandles split to chunks, removed dependencies
+
+### 1.1.3
+- Fixed bugs and errors
 
 ---
 

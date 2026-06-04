@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "default_locale": "en",
   "name": "Element Deleter",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "__MSG_extDescription__",
   "permissions": [
     "storage",
@@ -29,6 +29,8 @@
     "service_worker": "sw.js",
     "scripts": [
       "lib/our/api.js",
+      "lib/our/safe-extension-api.js",
+      "app/safe-extension-api-rules.js",
       "lib/our/hotkeys/prefix-hint-messages.js",
       "lib/our/hotkeys/prefix-hint-badge.js",
       "lib/our/hotkeys/prefix-background.js",

@@ -183,7 +183,7 @@ async function injectContent(tabId, frameId) {
       frameId !== void 0 && frameId !== 0
         ? { tabId, frameIds: [frameId] }
         : { tabId, allFrames: true };
-    await ext.scripting.executeScript({
+    const results = await ext.scripting.executeScript({
       target,
       files: [
         "lib/our/all-elements-fill/css.js",
@@ -269,7 +269,7 @@ async function injectContent(tabId, frameId) {
         "app/content.js",
       ],
     });
-    return true;
+    return results.length > 0;
   } catch (err) {
     console.warn("[Element Deleter] injectContent failed:", err);
     return false;
