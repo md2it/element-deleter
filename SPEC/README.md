@@ -1,5 +1,7 @@
 # SPECIFICATION RU: ELEMENT DELETER
 
+> [!INFO] Project specification in Russian. Used during development.
+
 Учитываем общие правила тоже [lib/SPEC/README.md](../../lib/SPEC/README.md).
 
 Спецификация расширения Element Deleter.

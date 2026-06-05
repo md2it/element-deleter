@@ -1,11 +1,9 @@
 # ELEMENT DELETER
 
-> [!INFO] Project specification in Russian. Used during development.
-
 ## STORES
 
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
-- [Addons Mozilla Org](https://addons.mozilla.org/firefox/addon/md2it-element-deleter/) (FireFox)
+- Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
+- Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
 
 ## DESCRIPTION
 
