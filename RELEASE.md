@@ -68,6 +68,9 @@
 ### 1.1.3
 - Fixed bugs and errors
 
+### 1.1.4
+- Removed dead code
+
 ---
 
 ## NOT RELEASED LIST
