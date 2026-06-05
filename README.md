@@ -1,5 +1,7 @@
 # ELEMENT DELETER
 
+> [!INFO] Project specification in Russian. Used during development.
+
 ## STORES
 
 - [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
