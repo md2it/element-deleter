@@ -1,4 +1,4 @@
-# ОТВЕТЫ НА ВОПРОСЫ МОДЕРАТОРОВ
+# RESPONSES TO MODERATOR QUESTIONS
 
 
 ## Single purpose
@@ -19,4 +19,3 @@ Element Deleter lets you manually remove selected elements on the current page a
 
 - host permission (`<all_urls>` in `content_scripts`)
   Users need this on any site they open—localhost and staging for dev/QA, or public pages when removing a chosen ad or blocking UI. The content script only hides or restores elements the user selects in the DOM; it does not block network requests, read credentials, or send page content to external servers.
-
