@@ -2,12 +2,12 @@
 
 ## INSTALLATION
 
-### STORES
+### Stores
 
 - Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
 - Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
 
-### DEVELOPMENT MODE
+### Development mode
 
 Load the entire [`extension`](./extension) directory as an unpacked extension.
 
@@ -38,12 +38,22 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
 - Changes are local to the current page
 - Reloading the page restores the original content
 
+## INTERFACE LANGUAGES
+
+- English
+- Russian
+- Spanish
+- French
+- German
+- Simplified Chinese
+- Arabic
+
 ## USAGE
 
 U = User
 E = Extension
 
-### MAIN FLOW
+### Main flow
 
 1. U performs one of the following:
    - Clicks the extension icon with the left mouse button
@@ -62,25 +72,25 @@ E = Extension
    - Presses `Esc`
 8. E stops
 
-### MULTIPLE DELETIONS
+### Multiple deletions
 
 - Steps 3-6 can be repeated any number of times before the extension is stopped
 
-### RESTORE
+### Restore
 
 7a. U clicks the restore button in the notification
 8a. E restores the related element
 
-### ALTERNATIVE RESTORE
+### Alternative restore
 
 7b. U presses `Cmd+Z` / `Ctrl+Z` (depending on the operating system)
 8b. E restores the related element
 
-### MULTIPLE RESTORES
+### Multiple restores
 
 - Steps 7b-8b can be repeated any number of times before the extension is stopped
 
-### DELETE AN ELEMENT WITH THE RIGHT MOUSE BUTTON
+### Delete an element with the right mouse button
 
 > [!NOTE]
 > Numbering is not related to the flows above.
@@ -90,7 +100,7 @@ E = Extension
 2. U selects the extension from the context menu
 3. E removes the element
 
-### WELCOME WINDOW
+### Welcome window
 
 > [!NOTE]
 > Numbering is not related to the flows above.
@@ -103,7 +113,7 @@ E = Extension
    - Information about its capabilities
 4. U pins the extension to the browser toolbar
 
-### OTHER CAPABILITIES
+### Other capabilities
 
 - Open settings and the "About" section:
    - From a button in the notification
