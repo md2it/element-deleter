@@ -4,13 +4,13 @@
         On Mac: `Cmd+Shift+X`
    - 2. Release the keys // "Release" semi-bold
    - 3. Then press `D`
-   - <небольшой отступ>
-   - "The 3-step shortcut is not obvious." // серый
-   - "But it is safer and avoids conflicts with other apps." // серый
-- [разделительная черта]
+   - <small spacing>
+   - "The 3-step shortcut is not obvious." // gray
+   - "But it is safer and avoids conflicts with other apps." // gray
+- [divider]
 - Undo delete: // bold line
   Win / Linux: `Ctrl+Z`  
   On Mac:      `⌘Z`
-- [разделительная черта]
+- [divider]
 - To stop: `Esc` // bold line
-- [разделительная черта]
+- [divider]

@@ -1,4 +1,4 @@
 # Page context menu
 
-- Кнопка "удалить этот элемент":
-   - Удаляет именно тот элемент, на котором был курсор в момент вызова данного контекстного меню
+- "Delete this element" button:
+   - Deletes the exact element under the cursor when this context menu was opened

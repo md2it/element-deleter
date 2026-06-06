@@ -1,17 +1,17 @@
-# Выделение целевого элемента
+# Highlighting the target element
 
-- Выделяется самый дочерний DOM узел под курсором. Даже если материнский элемент прозрачный и того же размера
-- Ограничения:
-   - Выделение не меняет вёрстку
-   - Не выделяются элементы нашего расширения
-- Рамка выделения повторяет форму элемента, включая сложные формы
-- Информация о теге
-   - Отключаемая опция
-   - Левый нижний угол подписи совпадает с левым верхним углом рамки выделения
-   - Выводит по первому совпадению:
-      1. `tag#id:pseudo-class` если есть ID и pseudo-class
-      2. `tag#id` если есть ID
-      3. `tag.class:pseudo-class` если есть class (все классы) и pseudo-class
-      4. `tag.class` если есть class (все классы)
+- Highlight the deepest DOM node under the cursor, even if the parent element is transparent and the same size
+- Constraints:
+   - Highlighting does not change the layout
+   - Elements of this extension are not highlighted
+- The highlight frame follows the element's shape, including complex shapes
+- Tag information
+   - Disableable option
+   - The bottom-left corner of the label aligns with the top-left corner of the highlight frame
+   - Displays the first matching option:
+      1. `tag#id:pseudo-class` if ID and pseudo-class exist
+      2. `tag#id` if ID exists
+      3. `tag.class:pseudo-class` if class (all classes) and pseudo-class exist
+      4. `tag.class` if class exists (all classes)
       5. `tag`
-- iFrame отдельный обработчик
+- iFrame has a separate handler

@@ -1,2 +1,2 @@
-# Приветственное окно
-Cтандартное
+# Welcome window
+Standard

@@ -1,12 +1,12 @@
-# Хоткеи
+# Keyboard shortcuts
 
-## Хоткей префикс-режим
+## Prefix-mode keyboard shortcut
 
-- Вкл/выкл:
+- On/off:
    - Default `Ctrl+Shift+X` → `D`
    - Mac `Cmd+Shift+X` → `D`
 
-## Хоткей простой
+## Simple keyboard shortcut
 
-- `Esc` — выкл режима удаления
-- `Ctrl+Z` / `⌘+Z` — восстановить
+- `Esc` — turn off deletion mode
+- `Ctrl+Z` / `⌘+Z` — restore

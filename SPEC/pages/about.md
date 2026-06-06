@@ -1,10 +1,10 @@
 # ABOUT
-- Boolean список:
-   - (trash-2) Удаляет элемент страницы
-   - (circle-power) Вкл/выкл в один клик
-   - (undo-2) Можно восстановить элемент
-   - (rotate-cw) Перезагрузка страницы восстановит всё
-   - (shield-check) Не использует сеть
-   - (shield-check) Не собирает данные
-   - (git-fork) Код на GitHub // https://github.com/md2it/browser-extension-element-deleter
-- Стандартный минифутер внизу
+- Boolean list:
+   - (trash-2) Deletes a page element
+   - (circle-power) Turns on/off in one click
+   - (undo-2) An element can be restored
+   - (rotate-cw) Reloading the page restores everything
+   - (shield-check) Does not use the network
+   - (shield-check) Does not collect data
+   - (git-fork) Code on GitHub // https://github.com/md2it/browser-extension-element-deleter
+- Standard mini-footer at the bottom

@@ -1,4 +1,4 @@
-# Открытие окна (popup)
+# Opening the window (popup)
 
-- По кнопке в уведомлении
-- Из контекстного меню расширения
+- By a button in the notification
+- From the extension context menu

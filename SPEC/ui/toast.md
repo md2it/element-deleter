@@ -1,32 +1,32 @@
-# Уведомления
+# Notifications
 
-**Об удалении**
-- Красное
-- Содержит в ряд:
-   - Иконку расширения
-   - Текст "DELETED: <дескриптор>"
-   - Дескриптор:
-      - "No title" --> дескриптор "can be restored"
-      - "click to delete" --> дескриптор "can be restored"
-      - "tag id class" --> дескриптор tag id class
-      - "selector" --> дескриптор selector
-      - "full XPath" --> дескриптор full XPath
-      - Если дескриптор слишком длинный, обрезается
-   - Кнопка восстановления (иконка undo-2)
-   - Кнопка настроек (иконка cog)
-   - Кнопка инфо (иконка info)
+**About deletion**
+- Red
+- Contains in one row:
+   - Extension icon
+   - Text "DELETED: <descriptor>"
+   - Descriptor:
+      - "No title" --> descriptor "can be restored"
+      - "click to delete" --> descriptor "can be restored"
+      - "tag id class" --> descriptor tag id class
+      - "selector" --> descriptor selector
+      - "full XPath" --> descriptor full XPath
+      - If the descriptor is too long, it is truncated
+   - Restore button (undo-2 icon)
+   - Settings button (cog icon)
+   - Info button (info icon)
 
-**О восстановлении**
-- Синее
-- Содержит в ряд:
-   - Иконку расширения
-   - Текст "RESTORED: <дескриптор>"
-   - Дескриптор:
-      - "No title" --> дескриптор "👍"
-      - "click to delete" --> дескриптор "👍"
-      - "tag id class" --> дескриптор tag id class
-      - "selector" --> дескриптор selector
-      - "full XPath" --> дескриптор full XPath
-      - Если дескриптор слишком длинный, обрезается
-   - Кнопка настроек (иконка cog)
-   - Кнопка инфо (иконка info)
+**About restoration**
+- Blue
+- Contains in one row:
+   - Extension icon
+   - Text "RESTORED: <descriptor>"
+   - Descriptor:
+      - "No title" --> descriptor "👍"
+      - "click to delete" --> descriptor "👍"
+      - "tag id class" --> descriptor tag id class
+      - "selector" --> descriptor selector
+      - "full XPath" --> descriptor full XPath
+      - If the descriptor is too long, it is truncated
+   - Settings button (cog icon)
+   - Info button (info icon)

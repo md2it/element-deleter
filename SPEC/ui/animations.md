@@ -1,7 +1,7 @@
-# Анимации
+# Animations
 
-- Рамка выделения анимированная, чтобы человек лучше видел
-- Плавный переход между выделенными элементами
-- Окно расширения (popup) появляется и пропадает плавно
-- Перед полным удалением элемента: становится мелким и прозрачным с красноватым оттенком
-- Восстановление обратное, но с синим оттенком (как тост «Восстановлено»)
+- The highlight frame is animated to improve visibility
+- Smooth transition between highlighted elements
+- The extension window (popup) appears and disappears smoothly
+- Before an element is completely deleted, it becomes small and transparent with a reddish tint
+- Restoration uses the reverse animation, but with a blue tint (like the "Restored" toast)

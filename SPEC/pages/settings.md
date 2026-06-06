@@ -1,35 +1,35 @@
 # SETTINGS
-- Настройка языка:
-   - Язык
-   - Простые кнопки: EN | ES | FR | DE | RU | 中文 | عربي
-   - Блок контента: именно этот список не меняет ориентацию при смене LTR / RTL
-- Настройка времени уведомлений:
-   - Поле со стрелочками (шевронами)
-   - Только целочисленные значения от 0 до 10
-   - Растянуто по ширине
-   - В центре текст "Уведомления N сек"
-   - N это редактируемое число
-   - Редактирование должно быть возможно при клике на "Уведомления N сек"
-   - Тултип "Установите 0 для выключения уведомлений"
-- Стиль подписи выделения
-   - Дропдаун поле слева, 50% ширины, 
-   - Лейбл "Frame title" справа от поля
-   - Варианты:
+- Language settings:
+   - Language
+   - Simple buttons: EN | ES | FR | DE | RU | 中文 | عربي
+   - Content block: this specific list does not change direction when switching between LTR / RTL
+- Notification duration settings:
+   - Field with arrows (chevrons)
+   - Integer values from 0 to 10 only
+   - Stretched to full width
+   - Centered text: "Notifications N sec"
+   - N is an editable number
+   - Editing must be possible by clicking "Notifications N sec"
+   - Tooltip: "Set 0 to turn off notifications"
+- Highlight label style
+   - Dropdown field on the left, 50% width,
+   - "Frame title" label to the right of the field
+   - Options:
       - "No title"
-      - "click to delete" // просто строка, локализованная, значение поля по дефолту
+      - "click to delete" // plain localized string, default field value
       - "tag id class"
       - "selector"
       - "full XPath"
-- Toggler: "Вкл/выкл `Ctrl+Shift+X` → `D`" или "Вкл/выкл `⌘+Shift+X` → `D`" (стрелка вне бэктиков, пробелы вокруг →; строка зависит от ОС)
-- Toggler: "Выкл `Esc`"
-- Toggler: "Отменить удаление `Ctrl + Z`", "Отменить удаление `⌘Z`" (строка и настройка зависит от ОС)
-- Toggler: "Контуры всех элементов"
-- Toggler: "Подкраска всех элементов"
-- По умолчанию:
-   - Язык: пытается угадать настройки пользователя (fallback EN)
-   - Время уведомления = 4
-   - Стиль подписи выделения = "click to delete"
-   - Все хоткеи включены
-   - Выключены:
-      - "Контуры всех элементов"
-      - "Подкраска всех элементов"
+- Toggler: "Turn on/off `Ctrl+Shift+X` → `D`" or "Turn on/off `⌘+Shift+X` → `D`" (arrow outside backticks, spaces around →; string depends on the OS)
+- Toggler: "Turn off `Esc`"
+- Toggler: "Undo deletion `Ctrl + Z`", "Undo deletion `⌘Z`" (string and setting depend on the OS)
+- Toggler: "Outlines of all elements"
+- Toggler: "Coloring of all elements"
+- Defaults:
+   - Language: attempts to detect the user settings (fallback EN)
+   - Notification duration = 4
+   - Highlight label style = "click to delete"
+   - All keyboard shortcuts are enabled
+   - Disabled:
+      - "Outlines of all elements"
+      - "Coloring of all elements"

@@ -1,16 +1,16 @@
-# Вертикальное меню
+# Vertical menu
 
-- Вёрстка:
-   - Прямоугольник чуть темнее фона
-   - Слева (даже при RTL)
-   - Заполянет материнский элементе по высоте
-   - Слева, сверху и снизу отступ 2 мм
-- Пункты меню:
-   - Без подписей, только lucide иконки
-   - Список:
+- Layout:
+   - Rectangle slightly darker than the background
+   - On the left (including RTL)
+   - Fills the parent element's height
+   - 2 mm spacing on the left, top, and bottom
+- Menu items:
+   - No labels, lucide icons only
+   - List:
       - settings // SETTINGS
       - keyboard // SHORTCUTS
       - info // ABOUT
-   - Tooltip на каждом пункте меню без задержек. Текст tooltip совпадает с названием страницы
-   - Отступы между элементами равны
-   - Отступы от гарниц самого элемента меню равны
+   - Each menu item has an immediate tooltip. Tooltip text matches the page name
+   - Spacing between items is equal
+   - Spacing from the menu element's edges is equal

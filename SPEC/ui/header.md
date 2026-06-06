@@ -1,4 +1,4 @@
 # Header
 
-- Стандартный, но адаптирован под данное расширение
-- Используем только в приветственном окне
+- Standard, but adapted for this extension
+- Used only in the welcome window

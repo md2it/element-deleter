@@ -1,25 +1,25 @@
 # Badge
 
-- Варианты текста badge:
+- Badge text variants:
    - D
-      - Ожидает завершения "префикс режим"
-      - Фон белый, цвет синий
+      - Waits for "prefix mode" to complete
+      - White background, blue color
    - ◉
-      - В режиме выделения и копирования
-      - Цвет фона красный
-      - Цвет текст анимирован через состояния:
-         - Опорные цвета: белый, жёлтый, красный
-         - Количество шагов: 40
-         - Время шага: 25ms
+      - In selection and copying mode
+      - Red background
+      - Text color is animated through states:
+         - Reference colors: white, yellow, red
+         - Number of steps: 40
+         - Step duration: 25ms
    - ✓
-      - При удалении элемента
-      - Показывается 1 секунду, потом выставляется релевантный badge (или его отсутствие)
-      - Фон красный, цвет белый
+      - When an element is deleted
+      - Displayed for 1 second, then replaced by the relevant badge (or no badge)
+      - Red background, white color
    - ✓
-      - При восстановлении элемента
-      - Показывается 1 секунду, потом выставляется релевантный badge (или его отсутствие)
-      - Фон синий, цвет белый
+      - When an element is restored
+      - Displayed for 1 second, then replaced by the relevant badge (or no badge)
+      - Blue background, white color
    - ✕
-      - Только пока показывается уведомление о невозможности работы на странице
-      - Фон светло серый, цвет тёмно серый
-- В иных случаях badge нет
+      - Only while a notification indicates that the extension cannot work on the page
+      - Light gray background, dark gray color
+- No badge in other cases

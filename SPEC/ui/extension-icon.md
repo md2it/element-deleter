@@ -1,4 +1,4 @@
-# Иконка расширения
+# Extension icon
 
 - lucide trash
-- Badge логика стандартная
+- Badge logic is standard

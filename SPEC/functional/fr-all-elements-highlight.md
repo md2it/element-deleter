@@ -1,7 +1,7 @@
-# Выделение всех элементов страницы
+# Highlighting all page elements
 
-- Две независимые отключаемые функции:
-   - Контуры всех элементов
-   - Подкраска всех элементов
-- Выделяют все элементы страницы согласно описанию
-- Работают только когда расширение запущено
+- Two independent, disableable functions:
+   - Outlines of all elements
+   - Coloring of all elements
+- Highlight all page elements as described
+- Work only while the extension is running

@@ -1,10 +1,10 @@
-# Включение и выключение
+# Enabling and disabling
 
-**Запуск:**
-- По нажатию на иконку расширения в панели браузера
-- По хоткею (может быть выключено)
-**Завершение:**
-- По повторному нажатию на иконку расширения в панели браузера
-- По хоткею (два варианта хоткеев, они могут быть выключены)
-- По кнопке в уведомлении
-- При открытии окна расширения (popup)
+**Start:**
+- By clicking the extension icon in the browser toolbar
+- By keyboard shortcut (can be disabled)
+**Stop:**
+- By clicking the extension icon in the browser toolbar again
+- By keyboard shortcut (two shortcut variants; they can be disabled)
+- By a button in the notification
+- When the extension window (popup) opens
