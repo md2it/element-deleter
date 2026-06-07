@@ -1,8 +1,5 @@
-Description courte
-
+ELEMENT DELETER
 Supprimez les éléments gênants pour tester, capturer, vérifier un design ou lire au calme.
-
-Description complète
 
 Element Deleter nettoie rapidement une page de ce qui gêne : bannières, popups, en-têtes fixes, widgets, blocs superflus, iframes et autres éléments distrayants.
 
@@ -10,8 +7,7 @@ Utile pour les développeurs frontend, les QA et les designers : vérifier une p
 
 Survolez, cliquez, l'élément disparaît. Une erreur ? Restaurez-le.
 
-Fonctionnalités principales :
-
+FONCTIONNALITÉS
 - Supprimer des éléments de page en quelques clics
 - Restaurer les éléments supprimés
 - Annuler plusieurs suppressions tant que le mode suppression est actif
@@ -21,8 +17,7 @@ Fonctionnalités principales :
 - Léger et simple
 - Paramètres locaux uniquement
 
-Confidentialité :
-
+CONFIDENTIALITÉ
 - Aucune collecte de données
 - Aucun suivi
 - Aucune requête réseau

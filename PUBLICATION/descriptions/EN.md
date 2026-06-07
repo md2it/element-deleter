@@ -1,8 +1,5 @@
-Short description
-
+ELEMENT DELETER
 Remove page clutter for testing, screenshots, design checks, or clean reading.
-
-Full description
 
 Element Deleter quickly clears the page from anything in the way: banners, popups, sticky headers, widgets, extra blocks, iframes, and other distracting elements.
 
@@ -10,8 +7,7 @@ Useful for frontend developers, QA testers, and designers: check a page without 
 
 Hover, click, and the element is gone. Made a mistake? Restore it.
 
-Key features:
-
+FEATURES
 - Remove page elements with a few clicks
 - Restore removed elements
 - Undo multiple deletions while delete mode is active
@@ -21,8 +17,7 @@ Key features:
 - Lightweight and simple
 - Local settings only
 
-Privacy:
-
+PRIVACY
 - No data collection
 - No tracking
 - No network requests

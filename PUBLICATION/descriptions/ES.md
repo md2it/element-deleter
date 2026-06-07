@@ -1,8 +1,5 @@
-Descripción corta
-
+ELEMENT DELETER
 Quita elementos molestos para pruebas, capturas, revisión visual o lectura limpia.
-
-Descripción completa
 
 Element Deleter limpia rápidamente la página de lo que estorba: banners, ventanas emergentes, cabeceras fijas, widgets, bloques extra, iframes y otros elementos que distraen.
 
@@ -10,8 +7,7 @@ Es útil para frontend, QA y diseño: comprobar una página sin ruido visual, pr
 
 Pasa el cursor, haz clic y el elemento desaparece. ¿Te equivocaste? Restáuralo.
 
-Funciones principales:
-
+FUNCIONES
 - Elimina elementos de la página con pocos clics
 - Restaura elementos eliminados
 - Deshace varias eliminaciones mientras el modo de eliminación está activo
@@ -21,8 +17,7 @@ Funciones principales:
 - Ligera y sencilla
 - Solo usa ajustes locales
 
-Privacidad:
-
+PRIVACIDAD
 - No recopila datos
 - Sin seguimiento
 - Sin solicitudes de red

@@ -1,8 +1,5 @@
-Kurzbeschreibung
-
+ELEMENT DELETER
 Entferne störende Elemente für Tests, Screenshots, Designchecks oder ruhiges Lesen.
-
-Vollständige Beschreibung
 
 Element Deleter räumt schnell alles aus dem Weg, was auf einer Webseite stört: Banner, Pop-ups, feste Header, Widgets, zusätzliche Blöcke, iframes und andere ablenkende Elemente.
 
@@ -10,8 +7,7 @@ Nützlich für Frontend, QA und Design: Seiten ohne visuelles Rauschen prüfen, 
 
 Darüberfahren, klicken, weg. Versehentlich gelöscht? Einfach wiederherstellen.
 
-Hauptfunktionen:
-
+HAUPTFUNKTIONEN
 - Seitenelemente mit wenigen Klicks entfernen
 - Entfernte Elemente wiederherstellen
 - Mehrere Löschvorgänge rückgängig machen, solange der Löschmodus aktiv ist
@@ -21,8 +17,7 @@ Hauptfunktionen:
 - Leichtgewichtig und einfach
 - Nur lokale Einstellungen
 
-Datenschutz:
-
+DATENSCHUTZ
 - Keine Datenerfassung
 - Kein Tracking
 - Keine Netzwerkanfragen
