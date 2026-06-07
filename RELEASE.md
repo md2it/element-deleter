@@ -1,13 +1,11 @@
 # RELEASE LIST
 
-- Agent: add to "NOT RELEASED LIST"
-- Human: move from "NOT RELEASED LIST" to a new release section
-- Version logic:
-   - A.B.C
-   - A = changes UX: major updates
-   - B = impacts the UX: new functionality or improvement of old one
-   - C = does not affect the UX: bug fixes, improvements
-   - A | B | C -- \d+
+Version logic:
+- A.B.C
+- A = changes UX: major updates
+- B = impacts the UX: new functionality or improvement of old one
+- C = does not affect the UX: bug fixes, improvements
+- A | B | C -- \d+
 
 ---
 
@@ -70,7 +68,3 @@
 
 ### 1.1.4
 - Removed dead code
-
----
-
-## NOT RELEASED LIST
