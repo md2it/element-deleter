@@ -51,7 +51,7 @@ const LANGS = {
     adTitle:    'Акция — Только сегодня!',
     adLink:     'Нажмите, чтобы узнать больше →',
   },
-  ZN: {
+  ZH: {
     label:      '点击删除',
     rtl:        false,
     headline:   '突发新闻：本地事件',

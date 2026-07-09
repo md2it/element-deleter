@@ -1,6 +1,16 @@
 # ELEMENT DELETER
 
-=-=-=-=-=-=-=-=-= | [DE](./DE.md) | [EN](../README.md) | [ES](./ES.md) | [FR](./FR.md) | [RU](./RU.md) | 中文 | [عربي](./AR.md) | =-=-=-=-=-=-=-=-=
+<p align="center">
+=-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | 中文 | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
+</p>
+
+<p align="center">
+  <a href="../publication/screenshots/ZH-0.png"><img src="../publication/screenshots/ZH-0.png" width="180" alt="Element Deleter screenshot 1"></a>
+  <a href="../publication/screenshots/ZH-1.png"><img src="../publication/screenshots/ZH-1.png" width="180" alt="Element Deleter screenshot 2"></a>
+  <a href="../publication/screenshots/ZH-2.png"><img src="../publication/screenshots/ZH-2.png" width="180" alt="Element Deleter screenshot 3"></a>
+  <a href="../publication/screenshots/ZH-3.png"><img src="../publication/screenshots/ZH-3.png" width="180" alt="Element Deleter screenshot 4"></a>
+  <a href="../publication/screenshots/ZH-4.png"><img src="../publication/screenshots/ZH-4.png" width="180" alt="Element Deleter screenshot 5"></a>
+</p>
 
 ## 安装
 
