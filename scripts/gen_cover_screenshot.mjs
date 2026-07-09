@@ -1,6 +1,6 @@
 /**
  * Generate Chrome Web Store cover screenshots for Element Deleter:
- *   PUBLICATION/screenshots/{LANG}-0.png  — 1280×800
+ *   docs/publication/screenshots/{LANG}-0.png  — 1280×800
  *
  * Cover = promo-style composition at screenshot size.
  * Scene: fake article page with an ad banner highlighted in delete mode.
@@ -13,7 +13,7 @@ import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ICON_PATH = path.resolve(__dirname, '../extension/icons/icon-128.png');
-const OUT_DIR   = path.resolve(__dirname, '../PUBLICATION/screenshots');
+const OUT_DIR   = path.resolve(__dirname, '../docs/publication/screenshots');
 
 const LANGS = {
   EN: {

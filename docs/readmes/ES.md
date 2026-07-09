@@ -72,7 +72,7 @@ E = Extensión
    - Pulsa `Esc`
 8. E se detiene
 
-Consulta [todas las rutas de usuario](../SPEC/user-path.md) para conocer la eliminación repetida, la restauración de elementos, la eliminación desde el menú contextual, la introducción inicial y otras funciones.
+Consulta [todas las rutas de usuario](../spec/user-path.md) para conocer la eliminación repetida, la restauración de elementos, la eliminación desde el menú contextual, la introducción inicial y otras funciones.
 
 ## LIMITACIONES
 

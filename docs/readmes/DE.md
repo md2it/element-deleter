@@ -72,7 +72,7 @@ E = Erweiterung
    - Drückt `Esc`
 8. E stoppt
 
-Weitere Informationen zu wiederholtem Löschen, Wiederherstellen, Löschen über das Kontextmenü, Onboarding und anderen Funktionen finden Sie unter [alle Benutzerpfade](../SPEC/user-path.md).
+Weitere Informationen zu wiederholtem Löschen, Wiederherstellen, Löschen über das Kontextmenü, Onboarding und anderen Funktionen finden Sie unter [alle Benutzerpfade](../spec/user-path.md).
 
 ## EINSCHRÄNKUNGEN
 

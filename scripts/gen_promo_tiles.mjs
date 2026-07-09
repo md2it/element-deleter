@@ -1,7 +1,7 @@
 /**
  * Generate Chrome Web Store promo tiles for Element Deleter:
- *   PUBLICATION/promo-small.png    — 440×280
- *   PUBLICATION/promo-marquee.png  — 1400×560
+ *   docs/publication/promo-small.png    — 440×280
+ *   docs/publication/promo-marquee.png  — 1400×560
  *
  * Scene: a fake article page with an ad banner highlighted in delete mode
  * (red outline + fill + label — exact colors from the real app).
@@ -15,7 +15,7 @@ import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ICON_PATH = path.resolve(__dirname, '../extension/icons/icon-128.png');
-const OUT_DIR   = path.resolve(__dirname, '../PUBLICATION');
+const OUT_DIR   = path.resolve(__dirname, '../docs/publication');
 
 // Brand color (from real app: #b91c1c — red-700)
 const BRAND_RED = '#b91c1c';

@@ -72,7 +72,7 @@ E = Extension
    - Appuie sur `Esc`
 8. E s'arrête
 
-Consultez [tous les parcours utilisateur](../SPEC/user-path.md) pour les suppressions répétées, la restauration, la suppression depuis le menu contextuel, l'accueil initial et les autres fonctions.
+Consultez [tous les parcours utilisateur](../spec/user-path.md) pour les suppressions répétées, la restauration, la suppression depuis le menu contextuel, l'accueil initial et les autres fonctions.
 
 ## LIMITATIONS
 

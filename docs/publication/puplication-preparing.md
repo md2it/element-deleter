@@ -7,4 +7,4 @@ Shared scripts are located in [lib/scripts/](../../lib/scripts/). Run them from 
    - welcome + settings + about
 - Image cropping
    - `npm run screenshots:live` → `crop-live-screenshots.mjs`
-   - The project must provide its own `PUBLICATION/scripts/welcome-seed-entry.ts` (extension-specific welcome page data).
+   - The project must provide its own `docs/publication/scripts/welcome-seed-entry.ts` (extension-specific welcome page data).

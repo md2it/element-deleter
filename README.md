@@ -1,6 +1,6 @@
 # ELEMENT DELETER
 
-=-=-=-=-=-=-=-=-= | [DE](./READMIES/DE.md) | EN | [ES](./READMIES/ES.md) | [FR](./READMIES/FR.md) | [RU](./READMIES/RU.md) | [中文](./READMIES/ZH.md) | [عربي](./READMIES/AR.md) | =-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-= | [DE](./docs/readmes/DE.md) | EN | [ES](./docs/readmes/ES.md) | [FR](./docs/readmes/FR.md) | [RU](./docs/readmes/RU.md) | [中文](./docs/readmes/ZH.md) | [عربي](./docs/readmes/AR.md) | =-=-=-=-=-=-=-=-=
 
 ## INSTALLATION
 
@@ -72,7 +72,7 @@ E = Extension
    - Presses `Esc`
 8. E stops
 
-See [all user paths](./SPEC/user-path.md) for repeated deletion, element restoration, context-menu deletion, onboarding, and other capabilities.
+See [all user paths](./docs/spec/user-path.md) for repeated deletion, element restoration, context-menu deletion, onboarding, and other capabilities.
 
 ## LIMITATIONS
 
