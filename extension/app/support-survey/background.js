@@ -1,10 +1,10 @@
 "use strict";
-async function openSupportSurveyPopup(windowId) {
+async function openSupportSurveyPopup(tabId, windowId) {
   const popup = SUPPORT_SURVEY_PAGE;
   const setPopupDetails =
-    windowId !== void 0 ? { windowId, popup } : { popup };
+    Number.isInteger(tabId) ? { tabId, popup } : { popup };
   const clearPopupDetails =
-    windowId !== void 0 ? { windowId, popup: "" } : { popup: "" };
+    Number.isInteger(tabId) ? { tabId, popup: "" } : { popup: "" };
   await ext.action.setPopup(setPopupDetails);
   try {
     const openPopup = ext.action.openPopup;
@@ -17,28 +17,18 @@ async function openSupportSurveyPopup(windowId) {
     await ext.action.setPopup(clearPopupDetails);
   }
 }
-async function handleSupportSurveyScenarioComplete(windowId, hadDeletions) {
-  if (!hadDeletions) return;
-  let state;
+async function handleSupportSurveyScenarioComplete(tabId, windowId, deletedElementCount) {
+  if (!Number.isInteger(deletedElementCount) || deletedElementCount <= 0) return;
+  let nextState;
   try {
-    state = await readSupportSurveyState();
+    nextState = await recordSupportSurveyActions(deletedElementCount);
   } catch (err) {
-    console.warn("[Element Deleter] support survey read failed:", err);
-    return;
-  }
-  const nextState = {
-    ...state,
-    counter: state.counter + 1,
-  };
-  try {
-    await writeSupportSurveyState(nextState);
-  } catch (err) {
-    console.warn("[Element Deleter] support survey write failed:", err);
+    console.warn("[Element Deleter] support survey action count failed:", err);
     return;
   }
   if (!shouldShowSupportSurvey(nextState)) return;
   try {
-    await openSupportSurveyPopup(windowId);
+    await openSupportSurveyPopup(tabId, windowId);
   } catch {
     return;
   }

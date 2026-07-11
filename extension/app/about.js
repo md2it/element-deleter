@@ -10,3 +10,11 @@ function buildAboutListItems(copy) {
       : undefined,
   }));
 }
+async function getSupportSurveyAboutText(strings) {
+  try {
+    const state = await readSupportSurveyState();
+    return strings.aboutDeletedElements.replace("{count}", String(state.actionCount));
+  } catch {
+    return strings.aboutDeletedElements.replace("{count}", "0");
+  }
+}

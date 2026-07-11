@@ -551,8 +551,9 @@ ext.runtime.onMessage.addListener((message, sender) => {
   }
   if (contentMessage.type === "SCENARIO_COMPLETE") {
     void handleSupportSurveyScenarioComplete(
+      sender.tab?.id,
       sender.tab?.windowId,
-      contentMessage.hadDeletions === true,
+      contentMessage.deletedElementCount,
     );
   }
 });

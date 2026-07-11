@@ -1,4 +1,6 @@
 # ABOUT
+- First line: "Your activity: Deleted elements: {count}"
+- Divider below the activity line
 - Boolean list:
    - (trash-2) Deletes a page element
    - (circle-power) Turns on/off in one click

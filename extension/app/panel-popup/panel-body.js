@@ -168,8 +168,19 @@ function buildAboutPanelBody(body, strings) {
     li.append(createAboutIcon(item.iconHtml), label);
     list.appendChild(li);
   }
+  const statistic = document.createElement("p");
+  statistic.className = "dd-about-item";
+  const statisticLabel = document.createElement("span");
+  statisticLabel.className = "dd-about-text";
+  statisticLabel.textContent = `${strings.aboutYourActivity}: ${strings.aboutDeletedElements.replace("{count}", "0")}`;
+  statistic.append(createAboutIcon(ABOUT_BULLET_ICONS[0]), statisticLabel);
+  void getSupportSurveyAboutText(strings).then((text) => {
+    statisticLabel.textContent = `${strings.aboutYourActivity}: ${text}`;
+  });
   page.append(
     createPageTitle(strings.tabAbout),
+    createPageDivider(),
+    statistic,
     createPageDivider(),
     list,
     createAboutCredit(strings),

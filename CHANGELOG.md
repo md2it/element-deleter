@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.2.0
+- Added optional feedback survey and activity statistics in About
+
 ### 1.1.4
 - Removed dead code
 

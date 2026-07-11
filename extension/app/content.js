@@ -6,13 +6,13 @@ function getState() {
       ui: null,
       undoStack: [],
       nextUndoId: 0,
-      sessionHadDeletion: false,
+      sessionDeletedElementCount: 0,
     };
   }
   const state2 = window.__elementDeleterState;
   state2.undoStack ??= [];
   state2.nextUndoId ??= 0;
-  state2.sessionHadDeletion ??= false;
+  state2.sessionDeletedElementCount ??= 0;
   return state2;
 }
 function createUndoAccess(state2) {
@@ -36,7 +36,7 @@ function resetState(state2) {
   state2.ui = null;
   state2.undoStack.length = 0;
   state2.nextUndoId = 0;
-  state2.sessionHadDeletion = false;
+  state2.sessionDeletedElementCount = 0;
   document.getElementById("element-deleter-root")?.remove();
 }
 function isExtensionNode(node) {
@@ -81,9 +81,9 @@ function requestBadgeFlash(variant) {
   const msg = { type: "BADGE_FLASH", variant };
   void ext.runtime.sendMessage(msg).catch(() => {});
 }
-function notifyScenarioComplete(hadDeletions) {
-  if (!hadDeletions) return;
-  const msg = { type: "SCENARIO_COMPLETE", hadDeletions: true };
+function notifyScenarioComplete(deletedElementCount) {
+  if (!Number.isInteger(deletedElementCount) || deletedElementCount <= 0) return;
+  const msg = { type: "SCENARIO_COMPLETE", deletedElementCount };
   void ext.runtime.sendMessage(msg).catch(() => {});
 }
 function attachMessageHandler(state2) {
@@ -95,14 +95,14 @@ function attachMessageHandler(state2) {
   }
   const deactivate = () => {
     if (!state2.active) return;
-    const hadDeletions = state2.sessionHadDeletion === true;
+    const deletedElementCount = state2.sessionDeletedElementCount;
     state2.active = false;
-    state2.sessionHadDeletion = false;
+    state2.sessionDeletedElementCount = 0;
     unmountDeleterContentHotkeys();
     state2.ui?.deactivate();
     removeAllElementsPageStyles();
     notifyBackgroundActive(false);
-    notifyScenarioComplete(hadDeletions);
+    notifyScenarioComplete(deletedElementCount);
   };
   const openPanel = (tab) => {
     requestOpenPanel(tab);
@@ -117,7 +117,7 @@ function attachMessageHandler(state2) {
           undo: createUndoAccess(state2),
           onElementDeleted: () => {
             if (state2.active) {
-              state2.sessionHadDeletion = true;
+              state2.sessionDeletedElementCount += 1;
             }
             requestBadgeFlash("deleted");
           },

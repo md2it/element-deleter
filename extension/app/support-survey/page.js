@@ -32,6 +32,7 @@ function surveyScreenEl(id, title, buttons) {
   section.dataset.screen = id.replace("survey-", "");
   const heading = document.createElement("h2");
   heading.className = "survey-title";
+  heading.style.whiteSpace = "pre-line";
   heading.textContent = title;
   section.append(heading, surveyActionsRow(buttons));
   return section;
@@ -42,12 +43,11 @@ function setSurveyScreen(root, screen) {
     section.hidden = !active;
   }
 }
-async function markSupportSurveyShown() {
+async function recordSupportSurveyShown() {
   try {
     const state = await readSupportSurveyState();
     await writeSupportSurveyState({
-      ...state,
-      lastShownAt: Date.now(),
+      ...markSupportSurveyShown(state),
     });
   } catch (err) {
     console.warn("[Element Deleter] support survey shown mark failed:", err);
@@ -58,24 +58,21 @@ async function applySupportSurveyAction(action) {
     const state = await readSupportSurveyState();
     if (action === "askLater" || action === "later") {
       await writeSupportSurveyState({
-        ...state,
-        counter: 0,
+        ...deferSupportSurvey(state),
       });
       window.close();
       return;
     }
     if (action === "neverAsk") {
       await writeSupportSurveyState({
-        ...state,
-        neverAsk: true,
+        ...disableSupportSurveyForever(state),
       });
       window.close();
       return;
     }
     if (action === "starGithub") {
       await writeSupportSurveyState({
-        ...state,
-        completedGithub: true,
+        ...markSupportSurveyCompleted(state),
       });
       window.open(SUPPORT_SURVEY_GITHUB_URL, "_blank", "noopener,noreferrer");
       window.close();
@@ -83,8 +80,7 @@ async function applySupportSurveyAction(action) {
     }
     if (action === "rateStore") {
       await writeSupportSurveyState({
-        ...state,
-        completedStore: true,
+        ...markSupportSurveyCompleted(state),
       });
       window.open(getSupportSurveyStoreUrl(), "_blank", "noopener,noreferrer");
       window.close();
@@ -142,7 +138,7 @@ function mountSupportSurveyPage() {
         [
           surveyButton(strings.surveyLater, "later"),
           surveyButton(strings.surveyStarGithub, "starGithub", "primary"),
-          surveyButton(strings.surveyRateStore, "rateStore", "primary"),
+          surveyButton(getSupportSurveyStoreRateLabel(), "rateStore", "primary"),
         ],
       ),
       surveyScreenEl(
@@ -170,7 +166,7 @@ function mountSupportSurveyPage() {
       if (!action) return;
       void applySupportSurveyAction(action);
     });
-    await markSupportSurveyShown();
+    await recordSupportSurveyShown();
   })();
 }
 mountSupportSurveyPage();
