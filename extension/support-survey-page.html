@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Element Deleter</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 372px;
+        min-height: 280px;
+        background: transparent;
+        overflow: hidden;
+      }
+      body {
+        font: 14px/1.35 system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: #111827;
+      }
+      .dd-panel-header {
+        flex: 0 0 auto;
+        padding: 1.125rem 1.125rem 0;
+        padding-inline-end: 2.5rem;
+      }
+      .dd-panel-divider {
+        width: 90%;
+        height: 1px;
+        margin: 0.75rem auto;
+        background: #b91c1c;
+      }
+      .dd-panel-title-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas: "stack";
+        align-items: center;
+      }
+      .dd-panel-logo,
+      .dd-panel-heading {
+        grid-area: stack;
+      }
+      .dd-panel-logo {
+        display: flex;
+        align-items: stretch;
+        justify-self: start;
+        line-height: 0;
+        z-index: 1;
+        color: #b91c1c;
+      }
+      .dd-panel-logo svg {
+        display: block;
+        height: 24px;
+        width: 24px;
+      }
+      .dd-panel-heading {
+        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.12rem;
+        font-size: 0.82rem;
+      }
+      .dd-panel-title {
+        margin: 0;
+        font-size: inherit;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-align: center;
+        text-transform: uppercase;
+        color: #012292;
+      }
+      .dd-panel-subtitle {
+        margin: 0;
+        font-size: 0.68rem;
+        font-weight: 500;
+        text-align: center;
+        color: #666666;
+      }
+      .survey-shell {
+        position: relative;
+        padding: 0 0 1.125rem;
+        background: rgba(249, 250, 251, 0.98);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+      }
+      .survey-close {
+        position: absolute;
+        top: 0.65rem;
+        inset-inline-end: 0.65rem;
+        z-index: 2;
+        width: 1.75rem;
+        height: 1.75rem;
+        border: none;
+        border-radius: 0.4rem;
+        background: transparent;
+        color: #6b7280;
+        font-size: 1.25rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+      .survey-close:hover,
+      .survey-close:focus-visible {
+        color: #b91c1c;
+        outline: none;
+        background: rgba(185, 28, 28, 0.08);
+      }
+      .survey-body {
+        padding: 0 1.125rem;
+      }
+      .survey-title {
+        margin: 0 0 1rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-align: center;
+        color: #111827;
+      }
+      .survey-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .survey-btn {
+        width: 100%;
+        padding: 0.55rem 0.75rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.45rem;
+        background: #fff;
+        color: #1f2937;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04);
+      }
+      .survey-btn:hover,
+      .survey-btn:focus-visible {
+        color: #b91c1c;
+        outline: none;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 0 12px rgba(0, 0, 0, 0.08);
+      }
+      .survey-btn--primary {
+        background: #b91c1c;
+        border-color: #b91c1c;
+        color: #fff;
+        box-shadow: none;
+      }
+      .survey-btn--primary:hover,
+      .survey-btn--primary:focus-visible {
+        color: #fff;
+        background: #991b1b;
+        border-color: #991b1b;
+      }
+      .survey-btn--ghost {
+        background: #f9fafb;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="survey-shell">
+      <button
+        type="button"
+        id="survey-close"
+        class="survey-close"
+        aria-label="Close"
+      >
+        ×
+      </button>
+      <div id="survey-header-mount"></div>
+      <div class="survey-body">
+        <div id="survey-root"></div>
+      </div>
+    </div>
+    <script src="lib/our/api.js"></script>
+    <script src="lib/our/i18n/locale-code.js"></script>
+    <script src="lib/our/i18n/rtl.js"></script>
+    <script src="lib/our/panel-header/header.js"></script>
+    <script src="app/i18n/detect.js"></script>
+    <script src="app/i18n/strings.js"></script>
+    <script src="app/i18n/types.js"></script>
+    <script src="app/storage.js"></script>
+    <script src="app/brand.js"></script>
+    <script src="lib/our/icons/lucide.js"></script>
+    <script src="lib/our/icons/index.js"></script>
+    <script src="app/icons.js"></script>
+    <script src="app/support-survey/constants.js"></script>
+    <script src="app/support-survey/state.js"></script>
+    <script src="app/support-survey/page.js"></script>
+  </body>
+</html>

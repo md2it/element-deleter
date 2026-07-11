@@ -1,0 +1,176 @@
+"use strict";
+var SUPPORT_SURVEY_SCREENS = ["useful", "support", "feedback"];
+function surveyScreenFromQuery() {
+  const screen = new URLSearchParams(location.search).get("screen");
+  return SUPPORT_SURVEY_SCREENS.includes(screen) ? screen : "useful";
+}
+function surveyCloseActsAsLater(screen) {
+  return screen === "support" || screen === "feedback" ? "later" : "askLater";
+}
+function surveyButton(label, action, variant) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = variant
+    ? `survey-btn survey-btn--${variant}`
+    : "survey-btn";
+  btn.textContent = label;
+  btn.dataset.action = action;
+  return btn;
+}
+function surveyActionsRow(buttons) {
+  const row = document.createElement("div");
+  row.className = "survey-actions";
+  for (const btn of buttons) {
+    row.append(btn);
+  }
+  return row;
+}
+function surveyScreenEl(id, title, buttons) {
+  const section = document.createElement("section");
+  section.className = "survey-screen";
+  section.id = id;
+  section.dataset.screen = id.replace("survey-", "");
+  const heading = document.createElement("h2");
+  heading.className = "survey-title";
+  heading.textContent = title;
+  section.append(heading, surveyActionsRow(buttons));
+  return section;
+}
+function setSurveyScreen(root, screen) {
+  for (const section of root.querySelectorAll(".survey-screen")) {
+    const active = section.dataset.screen === screen;
+    section.hidden = !active;
+  }
+}
+async function markSupportSurveyShown() {
+  try {
+    const state = await readSupportSurveyState();
+    await writeSupportSurveyState({
+      ...state,
+      lastShownAt: Date.now(),
+    });
+  } catch (err) {
+    console.warn("[Element Deleter] support survey shown mark failed:", err);
+  }
+}
+async function applySupportSurveyAction(action) {
+  try {
+    const state = await readSupportSurveyState();
+    if (action === "askLater" || action === "later") {
+      await writeSupportSurveyState({
+        ...state,
+        counter: 0,
+      });
+      window.close();
+      return;
+    }
+    if (action === "neverAsk") {
+      await writeSupportSurveyState({
+        ...state,
+        neverAsk: true,
+      });
+      window.close();
+      return;
+    }
+    if (action === "starGithub") {
+      await writeSupportSurveyState({
+        ...state,
+        completedGithub: true,
+      });
+      window.open(SUPPORT_SURVEY_GITHUB_URL, "_blank", "noopener,noreferrer");
+      window.close();
+      return;
+    }
+    if (action === "rateStore") {
+      await writeSupportSurveyState({
+        ...state,
+        completedStore: true,
+      });
+      window.open(getSupportSurveyStoreUrl(), "_blank", "noopener,noreferrer");
+      window.close();
+      return;
+    }
+    if (action === "sendEmail") {
+      window.open(SUPPORT_SURVEY_FEEDBACK_EMAIL, "_blank", "noopener,noreferrer");
+      return;
+    }
+    if (action === "yes") {
+      setSurveyScreen(document.getElementById("survey-root"), "support");
+      return;
+    }
+    if (action === "no") {
+      setSurveyScreen(document.getElementById("survey-root"), "feedback");
+      return;
+    }
+  } catch (err) {
+    console.warn("[Element Deleter] support survey action failed:", err);
+    window.close();
+  }
+}
+function mountSupportSurveyPage() {
+  const root = document.getElementById("survey-root");
+  const headerMount = document.getElementById("survey-header-mount");
+  const closeBtn = document.getElementById("survey-close");
+  if (!root || !headerMount || !closeBtn) return;
+  void (async () => {
+    const locale = await getLocale();
+    const strings = t(locale);
+    document.documentElement.lang = localeToHtmlLang(locale);
+    document.documentElement.dir = isRtlLocale(locale) ? "rtl" : "ltr";
+    headerMount.append(
+      createPanelHeader({
+        title: PANEL_TITLE,
+        subtitle: strings.panelSubtitle,
+        logoSvg: extensionMarkSvg({ variant: "panel" }),
+      }),
+      createPanelDivider(),
+    );
+    root.append(
+      surveyScreenEl(
+        "survey-useful",
+        strings.surveyUsefulTitle,
+        [
+          surveyButton(strings.surveyAskLater, "askLater"),
+          surveyButton(strings.surveyNeverAsk, "neverAsk", "ghost"),
+          surveyButton(strings.surveyNo, "no", "ghost"),
+          surveyButton(strings.surveyYes, "yes", "primary"),
+        ],
+      ),
+      surveyScreenEl(
+        "survey-support",
+        strings.surveySupportTitle,
+        [
+          surveyButton(strings.surveyLater, "later"),
+          surveyButton(strings.surveyStarGithub, "starGithub", "primary"),
+          surveyButton(strings.surveyRateStore, "rateStore", "primary"),
+        ],
+      ),
+      surveyScreenEl(
+        "survey-feedback",
+        strings.surveyFeedbackTitle,
+        [
+          surveyButton(strings.surveySendEmail, "sendEmail", "primary"),
+          surveyButton(strings.surveyLater, "later"),
+          surveyButton(strings.surveyNeverAsk, "neverAsk", "ghost"),
+        ],
+      ),
+    );
+    setSurveyScreen(root, surveyScreenFromQuery());
+    closeBtn.setAttribute("aria-label", strings.surveyCloseLabel);
+    closeBtn.addEventListener("click", () => {
+      const screen = root.querySelector(".survey-screen:not([hidden])")?.dataset
+        .screen;
+      const action = surveyCloseActsAsLater(screen ?? "useful");
+      void applySupportSurveyAction(action);
+    });
+    root.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const action = target.closest("[data-action]")?.dataset.action;
+      if (!action) return;
+      void applySupportSurveyAction(action);
+    });
+    await markSupportSurveyShown();
+  })();
+}
+mountSupportSurveyPage();

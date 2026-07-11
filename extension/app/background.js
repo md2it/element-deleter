@@ -549,6 +549,12 @@ ext.runtime.onMessage.addListener((message, sender) => {
   if (contentMessage.type === "WATCH_PIN_STATUS" && sender.tab?.id !== void 0) {
     watchWelcomePinStatus2(sender.tab.id);
   }
+  if (contentMessage.type === "SCENARIO_COMPLETE") {
+    void handleSupportSurveyScenarioComplete(
+      sender.tab?.windowId,
+      contentMessage.hadDeletions === true,
+    );
+  }
 });
 ext.tabs.onRemoved.addListener((tabId) => {
   stopWelcomePinWatcher2(tabId);

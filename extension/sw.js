@@ -59,5 +59,8 @@ importScripts(
   "app/welcome/constants.js",
   "app/welcome/data.js",
   "app/welcome/background.js",
+  "app/support-survey/constants.js",
+  "app/support-survey/state.js",
+  "app/support-survey/background.js",
   "app/background.js",
 );
