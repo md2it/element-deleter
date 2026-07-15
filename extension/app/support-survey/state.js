@@ -43,13 +43,26 @@ function disableSupportSurveyForever(state) {
 function markSupportSurveyCompleted(state) {
   return supportSurveyLogic.markCompleted(state);
 }
+/** True for Firefox/Gecko extension runtime; not fooled by a `browser` polyfill on Chromium. */
+function isFirefoxExtensionRuntime() {
+  try {
+    const runtime =
+      (typeof chrome !== "undefined" && chrome && chrome.runtime) ||
+      (typeof browser !== "undefined" && browser && browser.runtime) ||
+      null;
+    if (runtime && typeof runtime.getURL === "function") {
+      return String(runtime.getURL("/")).startsWith("moz-extension:");
+    }
+  } catch (_) {}
+  return typeof navigator !== "undefined" && /Firefox\//.test(String(navigator.userAgent || ""));
+}
 function getSupportSurveyStoreUrl() {
-  return typeof browser !== "undefined"
+  return isFirefoxExtensionRuntime()
     ? SUPPORT_SURVEY_FIREFOX_STORE_URL
     : SUPPORT_SURVEY_CHROME_STORE_URL;
 }
 function getSupportSurveyStoreRateLabel() {
-  return typeof browser !== "undefined"
+  return isFirefoxExtensionRuntime()
     ? "Rate in Firefox store"
     : "Rate in Chrome web store";
 }

@@ -74,8 +74,7 @@ You can support the project
 
 - Counter tick:
    - Every element successfully deleted
-   - The user then explicitly closes the extension by extension icon or hotkey
 - Survey window:
    - A separate popup, not part of the main popup
 - Survey trigger:
-   - Immediately after the successful scenario is complete, if the counter reached the threshold
+   - Only when the user explicitly closes the extension by extension icon or hotkey after a successful scenario, if the counter reached the threshold

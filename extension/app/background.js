@@ -244,6 +244,9 @@ async function injectContent(tabId, frameId) {
         "app/panel-popup/constants.js",
         "lib/our/panel-header/header.js",
         "lib/our/panel-shell/shadow-host.js",
+        "lib/our/support-survey/logic.js",
+        "app/support-survey/constants.js",
+        "app/support-survey/state.js",
         "app/about.js",
         "app/brand.js",
         "app/panel-popup/panel-menu.js",
@@ -553,8 +556,10 @@ ext.runtime.onMessage.addListener((message, sender) => {
     void handleSupportSurveyScenarioComplete(
       sender.tab?.id,
       sender.tab?.windowId,
-      contentMessage.deletedElementCount,
     );
+  }
+  if (contentMessage.type === "SUPPORT_SURVEY_ACTION") {
+    void recordSupportSurveyAction();
   }
 });
 ext.tabs.onRemoved.addListener((tabId) => {

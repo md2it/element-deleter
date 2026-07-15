@@ -1,4 +1,5 @@
 "use strict";
+var supportSurveyActionQueue = Promise.resolve();
 async function openSupportSurveyPopup(tabId, windowId) {
   const popup = SUPPORT_SURVEY_PAGE;
   const setPopupDetails =
@@ -17,19 +18,26 @@ async function openSupportSurveyPopup(tabId, windowId) {
     await ext.action.setPopup(clearPopupDetails);
   }
 }
-async function handleSupportSurveyScenarioComplete(tabId, windowId, deletedElementCount) {
-  if (!Number.isInteger(deletedElementCount) || deletedElementCount <= 0) return;
-  let nextState;
+function recordSupportSurveyAction() {
+  supportSurveyActionQueue = supportSurveyActionQueue
+    .catch(() => {})
+    .then(async () => {
+      try {
+        await recordSupportSurveyActions(1);
+      } catch (err) {
+        console.warn("[Element Deleter] support survey action count failed:", err);
+      }
+    });
+  return supportSurveyActionQueue;
+}
+async function handleSupportSurveyScenarioComplete(tabId, windowId) {
   try {
-    nextState = await recordSupportSurveyActions(deletedElementCount);
-  } catch (err) {
-    console.warn("[Element Deleter] support survey action count failed:", err);
-    return;
-  }
-  if (!shouldShowSupportSurvey(nextState)) return;
-  try {
+    await supportSurveyActionQueue;
+    const state = await readSupportSurveyState();
+    if (!shouldShowSupportSurvey(state)) return;
     await openSupportSurveyPopup(tabId, windowId);
-  } catch {
+  } catch (err) {
+    console.warn("[Element Deleter] support survey scenario completion failed:", err);
     return;
   }
 }

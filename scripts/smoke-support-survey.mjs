@@ -139,6 +139,106 @@ assert.ok(readFileSync(join(ext, "support-survey-page.html"), "utf8").includes("
 
 const content = readFileSync(join(ext, "app/content.js"), "utf8");
 assert.match(content, /SCENARIO_COMPLETE/);
-assert.match(content, /sessionDeletedElementCount/);
+assert.match(content, /SUPPORT_SURVEY_ACTION/);
+assert.match(content, /recordSupportSurveyAction/);
+assert.match(content, /notifyScenarioComplete\(hadDeletion\)/);
+
+const background = readFileSync(join(ext, "app/background.js"), "utf8");
+assert.match(background, /SUPPORT_SURVEY_ACTION/);
+assert.match(background, /recordSupportSurveyAction\(\)/);
+assert.match(background, /handleSupportSurveyScenarioComplete\(/);
+assert.match(
+  background,
+  /lib\/our\/support-survey\/logic\.js[\s\S]*app\/support-survey\/constants\.js[\s\S]*app\/support-survey\/state\.js[\s\S]*app\/about\.js/,
+);
+
+const surveyBackground = readFileSync(
+  join(ext, "app/support-survey/background.js"),
+  "utf8",
+);
+assert.match(surveyBackground, /recordSupportSurveyActions\(1\)/);
+assert.match(surveyBackground, /await supportSurveyActionQueue/);
+assert.match(surveyBackground, /shouldShowSupportSurvey\(state\)/);
+
+const panelHtml = readFileSync(join(ext, "panel-popup-page.html"), "utf8");
+assert.match(
+  panelHtml,
+  /lib\/our\/support-survey\/logic\.js[\s\S]*app\/support-survey\/constants\.js[\s\S]*app\/support-survey\/state\.js[\s\S]*app\/about\.js/,
+);
+
+const stateSource = readFileSync(join(ext, "app/support-survey/state.js"), "utf8");
+assert.match(stateSource, /moz-extension:/);
+assert.doesNotMatch(
+  stateSource,
+  /function getSupportSurveyStoreUrl\(\)\s*\{\s*return typeof browser/,
+);
+
+assert.equal(
+  stateCtx.getSupportSurveyStoreUrl(),
+  constants.SUPPORT_SURVEY_CHROME_STORE_URL,
+);
+assert.equal(stateCtx.getSupportSurveyStoreRateLabel(), "Rate in Chrome web store");
+
+const firefoxRuntime = {
+  getURL(path) {
+    return `moz-extension://addon-id${path}`;
+  },
+};
+const firefoxState = loadModule("app/support-survey/state.js", {
+  chrome: { runtime: firefoxRuntime },
+  browser: { runtime: firefoxRuntime },
+  navigator: { userAgent: "Mozilla/5.0 Firefox/128.0" },
+  ext: {
+    storage: {
+      local: {
+        async get() {
+          return {};
+        },
+        async set() {},
+      },
+    },
+  },
+  ...constants,
+  ...logic,
+});
+assert.equal(
+  firefoxState.getSupportSurveyStoreUrl(),
+  constants.SUPPORT_SURVEY_FIREFOX_STORE_URL,
+);
+assert.equal(firefoxState.getSupportSurveyStoreRateLabel(), "Rate in Firefox store");
+
+const chromeWithBrowserPolyfill = loadModule("app/support-survey/state.js", {
+  chrome: {
+    runtime: {
+      getURL(path) {
+        return `chrome-extension://addon-id${path}`;
+      },
+    },
+  },
+  browser: {
+    runtime: {
+      getURL(path) {
+        return `chrome-extension://addon-id${path}`;
+      },
+    },
+  },
+  navigator: { userAgent: "Mozilla/5.0 Chrome/126.0.0.0" },
+  ext: {
+    storage: {
+      local: {
+        async get() {
+          return {};
+        },
+        async set() {},
+      },
+    },
+  },
+  ...constants,
+  ...logic,
+});
+assert.equal(
+  chromeWithBrowserPolyfill.getSupportSurveyStoreUrl(),
+  constants.SUPPORT_SURVEY_CHROME_STORE_URL,
+);
 
 console.log("support-survey smoke: ok");

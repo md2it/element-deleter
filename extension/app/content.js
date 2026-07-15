@@ -6,13 +6,13 @@ function getState() {
       ui: null,
       undoStack: [],
       nextUndoId: 0,
-      sessionDeletedElementCount: 0,
+      sessionHadDeletion: false,
     };
   }
   const state2 = window.__elementDeleterState;
   state2.undoStack ??= [];
   state2.nextUndoId ??= 0;
-  state2.sessionDeletedElementCount ??= 0;
+  state2.sessionHadDeletion ??= false;
   return state2;
 }
 function createUndoAccess(state2) {
@@ -36,7 +36,7 @@ function resetState(state2) {
   state2.ui = null;
   state2.undoStack.length = 0;
   state2.nextUndoId = 0;
-  state2.sessionDeletedElementCount = 0;
+  state2.sessionHadDeletion = false;
   document.getElementById("element-deleter-root")?.remove();
 }
 function isExtensionNode(node) {
@@ -81,9 +81,13 @@ function requestBadgeFlash(variant) {
   const msg = { type: "BADGE_FLASH", variant };
   void ext.runtime.sendMessage(msg).catch(() => {});
 }
-function notifyScenarioComplete(deletedElementCount) {
-  if (!Number.isInteger(deletedElementCount) || deletedElementCount <= 0) return;
-  const msg = { type: "SCENARIO_COMPLETE", deletedElementCount };
+function recordSupportSurveyAction() {
+  const msg = { type: "SUPPORT_SURVEY_ACTION" };
+  void ext.runtime.sendMessage(msg).catch(() => {});
+}
+function notifyScenarioComplete(hadDeletion) {
+  if (!hadDeletion) return;
+  const msg = { type: "SCENARIO_COMPLETE" };
   void ext.runtime.sendMessage(msg).catch(() => {});
 }
 function attachMessageHandler(state2) {
@@ -95,14 +99,14 @@ function attachMessageHandler(state2) {
   }
   const deactivate = () => {
     if (!state2.active) return;
-    const deletedElementCount = state2.sessionDeletedElementCount;
+    const hadDeletion = state2.sessionHadDeletion;
     state2.active = false;
-    state2.sessionDeletedElementCount = 0;
+    state2.sessionHadDeletion = false;
     unmountDeleterContentHotkeys();
     state2.ui?.deactivate();
     removeAllElementsPageStyles();
     notifyBackgroundActive(false);
-    notifyScenarioComplete(deletedElementCount);
+    notifyScenarioComplete(hadDeletion);
   };
   const openPanel = (tab) => {
     requestOpenPanel(tab);
@@ -116,9 +120,8 @@ function attachMessageHandler(state2) {
           openPanel,
           undo: createUndoAccess(state2),
           onElementDeleted: () => {
-            if (state2.active) {
-              state2.sessionDeletedElementCount += 1;
-            }
+            if (state2.active) state2.sessionHadDeletion = true;
+            recordSupportSurveyAction();
             requestBadgeFlash("deleted");
           },
           onElementRestored: () => requestBadgeFlash("restored"),
