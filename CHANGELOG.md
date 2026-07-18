@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.2.2
+- Refined activity statistics in About
+
 ### 1.2.1
 - Fixed support survey activity counter display and increment
 - Fixed store rating link browser detection

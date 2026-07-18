@@ -1,5 +1,5 @@
 # ABOUT
-- First line: "Your activity: Deleted elements: {count}"
+- First line: "Total elements deleted: {count}"
 - Divider below the activity line
 - Boolean list:
    - (trash-2) Deletes a page element

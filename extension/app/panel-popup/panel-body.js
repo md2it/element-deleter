@@ -172,10 +172,10 @@ function buildAboutPanelBody(body, strings) {
   statistic.className = "dd-about-item";
   const statisticLabel = document.createElement("span");
   statisticLabel.className = "dd-about-text";
-  statisticLabel.textContent = `${strings.aboutYourActivity}: ${strings.aboutDeletedElements.replace("{count}", "0")}`;
+  statisticLabel.textContent = strings.aboutDeletedElements.replace("{count}", "0");
   statistic.append(createAboutIcon(ABOUT_BULLET_ICONS[0]), statisticLabel);
   void getSupportSurveyAboutText(strings).then((text) => {
-    statisticLabel.textContent = `${strings.aboutYourActivity}: ${text}`;
+    statisticLabel.textContent = text;
   });
   page.append(
     createPageTitle(strings.tabAbout),
