@@ -6,6 +6,11 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.6
+- Refactored background to a single modular entry (`app/background/main.js`) for Chrome MV3 and Firefox 121+
+- Goal: replace the duplicated long script lists in `manifest.json` and `sw.js` with one import graph
+- Prevents background modules from being registered in only one of the two lists (missed listeners, menus, or Welcome on one browser)
+
 ### 1.2.5
 - Widened Welcome and tightened About overview copy for small screens
 

@@ -1,5 +1,5 @@
 "use strict";
-async function showBlockedNotice(tabId, config, payload, windowId) {
+export async function showBlockedNotice(tabId, config, payload, windowId) {
   const { popupHtml, sessionKey, logLabel } = config;
   void ext.storage.session.set({
     [sessionKey]: { ...payload, tabId },

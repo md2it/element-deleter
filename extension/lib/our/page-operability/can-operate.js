@@ -1,13 +1,13 @@
 "use strict";
-function scriptingTarget(tabId, frameId) {
+export function scriptingTarget(tabId, frameId) {
   return frameId !== void 0 && frameId !== 0
     ? { tabId, frameIds: [frameId] }
     : { tabId };
 }
-function messageOptions(frameId) {
+export function messageOptions(frameId) {
   return frameId !== void 0 && frameId !== 0 ? { frameId } : void 0;
 }
-async function canOperateOnTab(tabId, frameId) {
+export async function canOperateOnTab(tabId, frameId) {
   try {
     const response = await ext.tabs.sendMessage(
       tabId,

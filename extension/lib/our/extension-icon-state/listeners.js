@@ -1,5 +1,11 @@
 "use strict";
-function registerExtensionIconStateListeners(sync) {
+import {
+  deleteTabActiveState,
+  clearTabActiveState,
+  setTabActiveState,
+} from "./tab-active-state.js";
+
+export function registerExtensionIconStateListeners(sync) {
   ext.tabs.onRemoved.addListener((tabId) => {
     deleteTabActiveState(tabId);
     void sync.forgetIconSyncedTab(tabId);
@@ -17,7 +23,7 @@ function registerExtensionIconStateListeners(sync) {
     void sync.syncIconForTab(tabId);
   });
 }
-function onContentActiveChanged(sync, tabId, active) {
+export function onContentActiveChanged(sync, tabId, active) {
   setTabActiveState(tabId, active);
   void sync.syncIconForTab(tabId);
 }

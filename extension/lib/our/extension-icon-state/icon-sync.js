@@ -1,5 +1,7 @@
 "use strict";
-function createIconSync(config) {
+import { getTabActiveState } from "./tab-active-state.js";
+
+export function createIconSync(config) {
   const { paths, syncedTabIdsStorageKey, logLabel, getImageSets } = config;
   let imageSetsFailed = false;
   function loadImageSets() {

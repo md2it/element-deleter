@@ -1,5 +1,5 @@
 "use strict";
-function openPanelInActionPopup(
+export function openPanelInActionPopup(
   config,
   panelTab,
   target,

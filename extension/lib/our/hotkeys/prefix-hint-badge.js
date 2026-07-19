@@ -35,7 +35,7 @@ var badgeTextColor = PREFIX_BADGE_TEXT_COLOR;
 var canShowPrefixBadgeOnTab;
 var onShowCallbacks = [];
 var onHideCallbacks = [];
-function registerPrefixHintBadgeListeners(options = {}) {
+export function registerPrefixHintBadgeListeners(options = {}) {
   if (options.badgeBackgroundColor !== void 0) {
     badgeBackgroundColor = options.badgeBackgroundColor;
   }

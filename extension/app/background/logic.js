@@ -1,4 +1,30 @@
 "use strict";
+import { createBadgeTextColorAnimation } from "../../lib/our/badge/text-color-animation.js";
+import {
+  getTabActiveState,
+  setTabActiveState,
+} from "../../lib/our/extension-icon-state/tab-active-state.js";
+import {
+  getRestrictedNoticeDismissMs,
+  showRestrictedNotice,
+  refreshRestrictedNoticeCache,
+} from "../page-operability/notice.js";
+import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
+import {
+  syncIconForTab,
+  onContentActiveChanged2,
+  registerExtensionIconStateListeners2,
+  bootstrapToolbarIcons,
+} from "../extension-icon-state/index.js";
+import { isBlockedNoticeDismissedMessage } from "../../lib/our/page-operability/messages.js";
+import { watchWelcomePinStatus2, showWelcome } from "../welcome/background.js";
+import {
+  handleSupportSurveyScenarioComplete,
+  recordSupportSurveyAction,
+} from "../support-survey/background.js";
+import { registerPrefixHintBadgeListeners } from "../../lib/our/hotkeys/prefix-hint-badge.js";
+import { openPanelFromSender } from "../panel-popup/open.js";
+
 var TOGGLE_DEBOUNCE_MS = 80;
 var lastToggleTabId;
 var lastToggleAt = 0;

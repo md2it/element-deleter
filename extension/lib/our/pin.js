@@ -1,5 +1,5 @@
 "use strict";
-async function isActionOnToolbar(action) {
+export async function isActionOnToolbar(action) {
   if (typeof action.getUserSettings !== "function") return null;
   try {
     const settings = await action.getUserSettings();
@@ -8,7 +8,7 @@ async function isActionOnToolbar(action) {
     return null;
   }
 }
-function onActionToolbarChanged(action, listener) {
+export function onActionToolbarChanged(action, listener) {
   const handler = (change) => {
     if (typeof change.isOnToolbar === "boolean") {
       listener(change.isOnToolbar);

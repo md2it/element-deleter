@@ -1,5 +1,11 @@
 "use strict";
-function createExtensionIconState(config) {
+import { createIconSync } from "./icon-sync.js";
+import {
+  registerExtensionIconStateListeners,
+  onContentActiveChanged,
+} from "./listeners.js";
+
+export function createExtensionIconState(config) {
   const sync = createIconSync(config);
   return {
     bootstrapToolbarIcons: sync.bootstrapToolbarIcons,

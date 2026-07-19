@@ -1,5 +1,7 @@
 "use strict";
-function buildWelcomeLocalePayload(locale, extensionName) {
+import { welcomeStepIcon } from "../../lib/our/welcome/step-icon.js";
+
+export function buildWelcomeLocalePayload(locale, extensionName) {
   const strings = t(locale);
   return {
     locale,
@@ -14,7 +16,7 @@ function buildWelcomeLocalePayload(locale, extensionName) {
     langAriaLabel: strings.tabSettings,
   };
 }
-function buildWelcomeAboutSections(strings) {
+export function buildWelcomeAboutSections(strings) {
   const items = buildAboutListItems(strings);
   return [
     { heading: strings.aboutOverviewHeading, iconHtml: ABOUT_SECTION_ICONS.overview, items: [{ text: strings.aboutOverview }] },
@@ -24,7 +26,7 @@ function buildWelcomeAboutSections(strings) {
     { heading: strings.aboutStatisticsHeading, iconHtml: ABOUT_SECTION_ICONS.statistics, items: [{ text: strings.aboutDeletedElements.replace("{count}", "0") }] },
   ];
 }
-function buildWelcomeData(locale, extensionName, options) {
+export function buildWelcomeData(locale, extensionName, options) {
   const isPinned = options?.isPinned === true;
   const perLocale = Object.fromEntries(
     LOCALES.map((code) => [

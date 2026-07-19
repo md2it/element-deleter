@@ -25,3 +25,31 @@ var PIN = lucideUiIcon(pin_default);
 var PLAY = lucideUiIcon(play_default);
 var PUZZLE = lucideUiIcon(puzzle_default);
 var ROTATE_CW = lucideUiIcon(rotate_cw_default);
+
+/* background-module-bridge */
+// Exposes this file's top-level bindings on globalThis so other classic-style
+// modules in extension/app/background/main.js's import graph can keep referring
+// to them as bare identifiers, exactly as they could when this file was loaded
+// via a shared classic script / importScripts context. No-op change for the
+// existing classic-script content-script loading of this same file.
+globalThis.stripComment = stripComment;
+globalThis.lucideUiIcon = lucideUiIcon;
+globalThis.ARROW_UP = ARROW_UP;
+globalThis.CIRCLE_POWER = CIRCLE_POWER;
+globalThis.COG = COG;
+globalThis.COPY = COPY;
+globalThis.EXTERNAL_LINK = EXTERNAL_LINK;
+globalThis.FILE_DOWN = FILE_DOWN;
+globalThis.FILES = FILES;
+globalThis.IMAGE_DOWN = IMAGE_DOWN;
+globalThis.IMAGES = IMAGES;
+globalThis.HEART = HEART;
+globalThis.HISTORY = HISTORY;
+globalThis.INFO = INFO;
+globalThis.KEYBOARD = KEYBOARD;
+globalThis.SETTINGS = SETTINGS;
+globalThis.SHIELD_CHECK = SHIELD_CHECK;
+globalThis.PIN = PIN;
+globalThis.PLAY = PLAY;
+globalThis.PUZZLE = PUZZLE;
+globalThis.ROTATE_CW = ROTATE_CW;

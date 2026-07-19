@@ -75,3 +75,32 @@ function toolbarWelcomeIconSvg(bg = INACTIVE_BG, size = 16) {
   const scale = (TOOLBAR_VIEWBOX - pad * 2) / TOOLBAR_VIEWBOX;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${TOOLBAR_VIEWBOX} ${TOOLBAR_VIEWBOX}" aria-hidden="true"><rect width="${TOOLBAR_VIEWBOX}" height="${TOOLBAR_VIEWBOX}" rx="${r}" fill="${bg}"/><g fill="#ffffff" transform="translate(${pad} ${pad}) scale(${scale})">${elementDeleterLogoInner}</g></svg>`;
 }
+
+/* background-module-bridge */
+// Exposes this file's top-level bindings on globalThis so other classic-style
+// modules in extension/app/background/main.js's import graph can keep referring
+// to them as bare identifiers, exactly as they could when this file was loaded
+// via a shared classic script / importScripts context. No-op change for the
+// existing classic-script content-script loading of this same file.
+globalThis.stripComment2 = stripComment2;
+globalThis.lucideUiIcon2 = lucideUiIcon2;
+globalThis.brandIcon2 = brandIcon2;
+globalThis.MD2IT = MD2IT;
+globalThis.UNDO_2 = UNDO_2;
+globalThis.CHEVRON_LEFT = CHEVRON_LEFT;
+globalThis.CHEVRON_RIGHT = CHEVRON_RIGHT;
+globalThis.CHEVRONS_LEFT = CHEVRONS_LEFT;
+globalThis.CHEVRONS_RIGHT = CHEVRONS_RIGHT;
+globalThis.INACTIVE_BG = INACTIVE_BG;
+globalThis.TOOLBAR_VIEWBOX = TOOLBAR_VIEWBOX;
+globalThis.TOOLBAR_RADIUS_RATIO = TOOLBAR_RADIUS_RATIO;
+globalThis.TOOLBAR_PAD_RATIO = TOOLBAR_PAD_RATIO;
+globalThis.elementDeleterLogoInner = elementDeleterLogoInner;
+globalThis.innerSvgMarkup = innerSvgMarkup;
+globalThis.stripFullBackgroundRect = stripFullBackgroundRect;
+globalThis.svgAttr = svgAttr;
+globalThis.trash2Inner = trash2Inner;
+globalThis.trashMarkGroup = trashMarkGroup;
+globalThis.extensionMarkSvg = extensionMarkSvg;
+globalThis.ABOUT_SECTION_ICONS = ABOUT_SECTION_ICONS;
+globalThis.toolbarWelcomeIconSvg = toolbarWelcomeIconSvg;

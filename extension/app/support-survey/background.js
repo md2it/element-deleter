@@ -1,6 +1,6 @@
 "use strict";
 var supportSurveyActionQueue = Promise.resolve();
-async function openSupportSurveyPopup(tabId, windowId) {
+export async function openSupportSurveyPopup(tabId, windowId) {
   const popup = SUPPORT_SURVEY_PAGE;
   const setPopupDetails =
     Number.isInteger(tabId) ? { tabId, popup } : { popup };
@@ -18,7 +18,7 @@ async function openSupportSurveyPopup(tabId, windowId) {
     await ext.action.setPopup(clearPopupDetails);
   }
 }
-function recordSupportSurveyAction() {
+export function recordSupportSurveyAction() {
   supportSurveyActionQueue = supportSurveyActionQueue
     .catch(() => {})
     .then(async () => {
@@ -30,7 +30,7 @@ function recordSupportSurveyAction() {
     });
   return supportSurveyActionQueue;
 }
-async function handleSupportSurveyScenarioComplete(tabId, windowId) {
+export async function handleSupportSurveyScenarioComplete(tabId, windowId) {
   try {
     await supportSurveyActionQueue;
     const state = await readSupportSurveyState();

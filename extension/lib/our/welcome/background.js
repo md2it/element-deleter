@@ -1,16 +1,18 @@
 "use strict";
+import { isActionOnToolbar, onActionToolbarChanged } from "../pin.js";
+
 var welcomePinWatchers = /* @__PURE__ */ new Map();
-function stopWelcomePinWatcher(tabId) {
+export function stopWelcomePinWatcher(tabId) {
   welcomePinWatchers.get(tabId)?.();
   welcomePinWatchers.delete(tabId);
 }
-function notifyWelcomePinned(tabId, messageType) {
+export function notifyWelcomePinned(tabId, messageType) {
   void ext.tabs
     .sendMessage(tabId, { type: messageType, pinned: true })
     .catch(() => {});
   stopWelcomePinWatcher(tabId);
 }
-function watchWelcomePinStatus(tabId, config) {
+export function watchWelcomePinStatus(tabId, config) {
   stopWelcomePinWatcher(tabId);
   void isActionOnToolbar(ext.action).then((pinned) => {
     if (pinned === true)
@@ -22,7 +24,7 @@ function watchWelcomePinStatus(tabId, config) {
   });
   welcomePinWatchers.set(tabId, stop);
 }
-async function openWelcomeTab(config, data) {
+export async function openWelcomeTab(config, data) {
   await ext.storage.session.set({
     [config.sessionDataKey]: data,
   });

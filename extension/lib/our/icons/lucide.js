@@ -102,3 +102,36 @@ var rotate_cw_default =
 // ../lib/icons/lucide/settings.svg
 var settings_default =
   '<svg\n  xmlns="http://www.w3.org/2000/svg"\n  width="24"\n  height="24"\n  viewBox="0 0 24 24"\n  fill="none"\n  stroke="currentColor"\n  stroke-width="2"\n  stroke-linecap="round"\n  stroke-linejoin="round"\n>\n  <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />\n  <circle cx="12" cy="12" r="3" />\n</svg>\n';
+
+/* background-module-bridge */
+// Exposes this file's top-level bindings on globalThis so other classic-style
+// modules in extension/app/background/main.js's import graph can keep referring
+// to them as bare identifiers, exactly as they could when this file was loaded
+// via a shared classic script / importScripts context. No-op change for the
+// existing classic-script content-script loading of this same file.
+globalThis.chevron_left_default = chevron_left_default;
+globalThis.chevron_right_default = chevron_right_default;
+globalThis.chevrons_left_default = chevrons_left_default;
+globalThis.chevrons_right_default = chevrons_right_default;
+globalThis.circle_power_default = circle_power_default;
+globalThis.shield_check_default = shield_check_default;
+globalThis.git_fork_default = git_fork_default;
+globalThis.trash_2_default = trash_2_default;
+globalThis.undo_2_default = undo_2_default;
+globalThis.arrow_up_default = arrow_up_default;
+globalThis.copy_default = copy_default;
+globalThis.external_link_default = external_link_default;
+globalThis.file_down_default = file_down_default;
+globalThis.files_default = files_default;
+globalThis.image_down_default = image_down_default;
+globalThis.images_default = images_default;
+globalThis.heart_default = heart_default;
+globalThis.history_default = history_default;
+globalThis.cog_default = cog_default;
+globalThis.info_default = info_default;
+globalThis.keyboard_default = keyboard_default;
+globalThis.pin_default = pin_default;
+globalThis.play_default = play_default;
+globalThis.puzzle_default = puzzle_default;
+globalThis.rotate_cw_default = rotate_cw_default;
+globalThis.settings_default = settings_default;

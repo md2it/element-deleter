@@ -1,4 +1,4 @@
 "use strict";
-function welcomeStepIcon(raw, size = 14) {
+export function welcomeStepIcon(raw, size = 14) {
   return raw.replace("<svg ", `<svg width="${size}" height="${size}" `);
 }

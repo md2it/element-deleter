@@ -19,7 +19,7 @@ function resolveStep(frame, steps, mode) {
   if (normalizedFrame < steps) return normalizedFrame + 1;
   return totalFrames - normalizedFrame;
 }
-function createBadgeTextColorAnimation(options) {
+export function createBadgeTextColorAnimation(options) {
   const steps = Math.max(2, Math.floor(options.steps));
   const mode = options.mode ?? "ping-pong";
   const totalFrames = mode === "ping-pong" ? steps * 2 : steps;

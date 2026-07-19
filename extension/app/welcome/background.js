@@ -1,11 +1,19 @@
 "use strict";
-function stopWelcomePinWatcher2(tabId) {
+import {
+  stopWelcomePinWatcher,
+  watchWelcomePinStatus,
+  openWelcomeTab,
+} from "../../lib/our/welcome/background.js";
+import { isActionOnToolbar } from "../../lib/our/pin.js";
+import { buildWelcomeData } from "./data.js";
+
+export function stopWelcomePinWatcher2(tabId) {
   stopWelcomePinWatcher(tabId);
 }
-function watchWelcomePinStatus2(tabId) {
+export function watchWelcomePinStatus2(tabId) {
   watchWelcomePinStatus(tabId, WELCOME_PIN_WATCH_CONFIG);
 }
-async function showWelcome() {
+export async function showWelcome() {
   const locale = await getLocale();
   const manifest = ext.runtime.getManifest();
   const isPinned = await isActionOnToolbar(ext.action);

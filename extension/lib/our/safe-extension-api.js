@@ -1,5 +1,5 @@
 "use strict";
-function normalizeSafeExtensionApiIgnoredErrors(sources) {
+export function normalizeSafeExtensionApiIgnoredErrors(sources) {
   const sourceList = Array.isArray(sources) ? sources : [sources];
   const normalized = {};
   for (const source of sourceList) {
@@ -15,13 +15,13 @@ function normalizeSafeExtensionApiIgnoredErrors(sources) {
   }
   return normalized;
 }
-function shouldIgnoreExtensionApiError(ignoredErrors, method, err) {
+export function shouldIgnoreExtensionApiError(ignoredErrors, method, err) {
   const rule = ignoredErrors[method];
   if (!rule) return false;
   const message = String(err instanceof Error ? err.message : err?.message ?? err);
   return rule.messages.some((expected) => message.includes(expected));
 }
-function safeExtensionApiMethod(ignoredErrors, method, target, fn) {
+export function safeExtensionApiMethod(ignoredErrors, method, target, fn) {
   const rule = ignoredErrors[method];
   return function (...args) {
     try {
@@ -41,7 +41,7 @@ function safeExtensionApiMethod(ignoredErrors, method, target, fn) {
     }
   };
 }
-function createSafeExtensionApi(base, ignoredErrors) {
+export function createSafeExtensionApi(base, ignoredErrors) {
   const normalizedIgnoredErrors = normalizeSafeExtensionApiIgnoredErrors(ignoredErrors);
   const namespaceCache = new Map();
   return new Proxy(base, {

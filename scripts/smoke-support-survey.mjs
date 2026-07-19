@@ -129,11 +129,22 @@ assert.equal(
 const manifest = JSON.parse(
   readFileSync(join(ext, "manifest.json"), "utf8"),
 );
-assert.ok(
-  manifest.background.scripts.includes("app/support-survey/background.js"),
+// Background now loads through a single modular entry point (see
+// extension/app/background/main.js) instead of a manually-listed
+// background.scripts array, for both Chrome (service_worker) and Firefox
+// 121+ (scripts fallback). Verify that single entry point still pulls in
+// the support-survey background wiring via ES import.
+assert.equal(manifest.background.service_worker, "app/background/main.js");
+assert.deepEqual(manifest.background.scripts, ["app/background/main.js"]);
+assert.equal(manifest.background.type, "module");
+const backgroundMain = readFileSync(
+  join(ext, "app/background/main.js"),
+  "utf8",
 );
-assert.ok(
-  manifest.background.scripts.includes("lib/our/support-survey/logic.js"),
+assert.match(backgroundMain, /import\s+"\.\.\/support-survey\/background\.js";/);
+assert.match(
+  backgroundMain,
+  /import\s+"\.\.\/\.\.\/lib\/our\/support-survey\/logic\.js";/,
 );
 assert.ok(readFileSync(join(ext, "support-survey-page.html"), "utf8").includes("survey-root"));
 
@@ -143,7 +154,10 @@ assert.match(content, /SUPPORT_SURVEY_ACTION/);
 assert.match(content, /recordSupportSurveyAction/);
 assert.match(content, /notifyScenarioComplete\(hadDeletion\)/);
 
-const background = readFileSync(join(ext, "app/background.js"), "utf8");
+const background = readFileSync(
+  join(ext, "app/background/logic.js"),
+  "utf8",
+);
 assert.match(background, /SUPPORT_SURVEY_ACTION/);
 assert.match(background, /recordSupportSurveyAction\(\)/);
 assert.match(background, /handleSupportSurveyScenarioComplete\(/);
