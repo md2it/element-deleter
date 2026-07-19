@@ -310,7 +310,7 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   flex-direction: column;
   align-items: stretch;
   flex: 1 1 auto;
-  min-height: 0;
+  min-height: 560px;
   width: 100%;
 }
 
@@ -608,19 +608,60 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   padding: 0;
 }
 
-.dd-about-item {
+.dd-about-section {
+  width: 100%;
+  margin: 0 0 0.35rem;
+}
+
+.dd-about-section-title {
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  margin-bottom: 0.35rem;
-  font-size: 0.84rem;
-  line-height: 1.45;
-  color: #374151;
+  margin: 0 0 0.1rem;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  color: #111827;
+}
+
+.dd-about-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.12rem;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  color: #111827;
   text-align: left;
 }
 
 .dd-about-item:last-child {
   margin-bottom: 0;
+}
+
+.dd-panel-page--about .dd-about-section-title,
+.dd-panel-page--about .dd-about-item,
+.dd-panel-page--about .dd-about-icon,
+.dd-panel-page--about .dd-about-text,
+.dd-panel-page--about .dd-about-text:any-link,
+.dd-panel-page--about .dd-panel-page-title,
+.dd-panel-page--about .dd-about-credit,
+.dd-panel-page--about .dd-about-credit a:any-link {
+  color: #111827;
+}
+
+.dd-panel-page--about .dd-about-text:any-link {
+  text-decoration: underline;
+}
+
+.dd-about-item .dd-about-icon,
+.dd-about-item .dd-about-icon svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.dd-about-item .dd-about-icon {
+  align-self: flex-start;
+  margin-top: 0.12rem;
 }
 
 .dd-about-bool {

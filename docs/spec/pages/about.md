@@ -1,12 +1,11 @@
-# ABOUT
-- First line: "Total elements deleted: {count}"
-- Divider below the activity line
-- Boolean list:
-   - (trash-2) Deletes a page element
-   - (circle-power) Turns on/off in one click
-   - (undo-2) An element can be restored
-   - (rotate-cw) Reloading the page restores everything
-   - (shield-check) Does not use the network
-   - (shield-check) Does not collect data
-   - (git-fork) Code on GitHub // https://github.com/md2it/browser-extension-element-deleter
+# ELEMENT DELETER
+
+- Sections, in this order: Overview, Capabilities, Privacy, Code, Statistics
+- Section icons: info, square-check, shield-check, terminal, chart-column-increasing
+- Every content line is prefixed with the Lucide check icon.
+  - Overview: "Remove unwanted elements from a web page."
+  - Capabilities: existing delete, On/Off, restore and reload lines
+  - Privacy: existing network and data-collection lines
+  - Code: GitHub link and Lucide MIT credit
+  - Statistics: "Total elements deleted: {count}"
 - Standard mini-footer at the bottom

@@ -149,10 +149,16 @@ function buildAboutPanelBody(body, strings) {
   body.replaceChildren();
   const page = document.createElement("div");
   page.className = "dd-panel-page dd-panel-page--about";
-  const list = document.createElement("ul");
-  list.className = "dd-about-list";
-  list.setAttribute("aria-label", strings.tabAbout);
-  for (const item of buildAboutListItems(strings)) {
+  const items = buildAboutListItems(strings);
+  function section(heading, iconHtml, entries) {
+    const block = document.createElement("section");
+    block.className = "dd-about-section";
+    const sectionTitle = document.createElement("h3");
+    sectionTitle.className = "dd-about-section-title";
+    sectionTitle.append(createAboutIcon(iconHtml), document.createTextNode(heading));
+    const list = document.createElement("ul");
+    list.className = "dd-about-list";
+    for (const item of entries) {
     const li = document.createElement("li");
     li.className = "dd-about-item";
     const label = document.createElement(item.href ? "a" : "span");
@@ -165,25 +171,25 @@ function buildAboutPanelBody(body, strings) {
       label.style.color = "inherit";
       label.addEventListener("click", (e) => e.stopPropagation());
     }
-    li.append(createAboutIcon(item.iconHtml), label);
+    li.append(createAboutIcon(ABOUT_CHECK_ICON), label);
     list.appendChild(li);
   }
-  const statistic = document.createElement("p");
-  statistic.className = "dd-about-item";
-  const statisticLabel = document.createElement("span");
-  statisticLabel.className = "dd-about-text";
-  statisticLabel.textContent = strings.aboutDeletedElements.replace("{count}", "0");
-  statistic.append(createAboutIcon(ABOUT_BULLET_ICONS[0]), statisticLabel);
-  void getSupportSurveyAboutText(strings).then((text) => {
-    statisticLabel.textContent = text;
-  });
+    block.append(sectionTitle, list);
+    return block;
+  }
   page.append(
-    createPageTitle(strings.tabAbout),
+    createPageTitle(strings.aboutPageTitle ?? "ELEMENT DELETER"),
     createPageDivider(),
-    statistic,
-    createPageDivider(),
-    list,
+    section(strings.aboutOverviewHeading ?? "Overview", ABOUT_SECTION_ICONS.overview, [{ text: strings.aboutOverview ?? "Remove unwanted elements from a web page." }]),
+    section(strings.aboutCapabilitiesHeading ?? "Capabilities", ABOUT_SECTION_ICONS.capabilities, items.slice(0, 4)),
+    section(strings.aboutPrivacyHeading ?? "Privacy", ABOUT_SECTION_ICONS.privacy, items.slice(4, 6)),
+    section(strings.aboutCodeHeading ?? "Code", ABOUT_SECTION_ICONS.code, [...items.slice(6), { text: strings.aboutCredits ?? "Credits (MIT): Lucide" }]),
+    section(strings.aboutStatisticsHeading ?? "Statistics", ABOUT_SECTION_ICONS.statistics, [{ text: strings.aboutDeletedElements.replace("{count}", "0") }]),
     createAboutCredit(strings),
   );
+  const statisticText = page.querySelector(".dd-about-section:last-of-type .dd-about-text");
+  void getSupportSurveyAboutText(strings).then((text) => {
+    if (statisticText) statisticText.textContent = text;
+  });
   body.append(page);
 }
