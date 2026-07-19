@@ -6,7 +6,16 @@ import { t } from "../i18n/strings.js";
 import { extensionMarkSvg } from "../icons.js";
 import { getLocale } from "../storage.js";
 import { SUPPORT_SURVEY_FEEDBACK_EMAIL, SUPPORT_SURVEY_GITHUB_URL } from "./constants.js";
-import { getSupportSurveyStoreRateLabel, getSupportSurveyStoreUrl, readSupportSurveyState, writeSupportSurveyState } from "./state.js";
+import {
+  deferSupportSurvey,
+  disableSupportSurveyForever,
+  getSupportSurveyStoreRateLabel,
+  getSupportSurveyStoreUrl,
+  markSupportSurveyCompleted,
+  markSupportSurveyShown,
+  readSupportSurveyState,
+  writeSupportSurveyState,
+} from "./state.js";
 
 var SUPPORT_SURVEY_SCREENS = ["useful", "support", "feedback"];
 function surveyScreenFromQuery() {

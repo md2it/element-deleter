@@ -8,6 +8,8 @@ Regular SemVer logic.
 
 ### 1.2.10
 - Fixed empty Settings panel (missing hotkey aria-label import)
+- Fixed toolbar icon update failing under MV3 (icon paths resolved from service worker folder)
+- Fixed support survey page runtime errors (missing state imports)
 
 ### 1.2.9
 - Migrated the extension runtime and content entrypoint to ES modules with a shared content loader
