@@ -59,7 +59,7 @@ var MESSAGES = {
     aboutBullets: [
       "Removes a page element",
       "On/Off with one click",
-      "You can restore an element",
+      "Elements can be restored",
       "Reloading the page restores everything",
       "Doesn't use the network",
       "Doesn't collect data",
