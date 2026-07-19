@@ -11,6 +11,9 @@ Version logic:
 
 ## RELEASES
 
+### 1.2.3
+- Refined the About page layout
+
 ### 1.2.2
 - Refined activity statistics in About
 

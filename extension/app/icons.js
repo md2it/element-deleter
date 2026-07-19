@@ -62,16 +62,6 @@ function extensionMarkSvg(options) {
       return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">${trashMarkGroup("currentColor")}</svg>`;
   }
 }
-var ABOUT_BULLET_ICONS = [
-  lucideUiIcon2(trash_2_default),
-  lucideUiIcon2(circle_power_default),
-  lucideUiIcon2(undo_2_default),
-  ROTATE_CW,
-  lucideUiIcon2(shield_check_default),
-  lucideUiIcon2(shield_check_default),
-  lucideUiIcon2(git_fork_default),
-];
-var ABOUT_CHECK_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 var ABOUT_SECTION_ICONS = {
   overview: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
   capabilities: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',

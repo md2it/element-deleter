@@ -171,7 +171,7 @@ function buildAboutPanelBody(body, strings) {
       label.style.color = "inherit";
       label.addEventListener("click", (e) => e.stopPropagation());
     }
-    li.append(createAboutIcon(ABOUT_CHECK_ICON), label);
+    li.append(label);
     list.appendChild(li);
   }
     block.append(sectionTitle, list);

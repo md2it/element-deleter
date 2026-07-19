@@ -627,11 +627,11 @@ var DeleterUI = class {
 }
 
 .dd-about-list {
-  list-style: none;
+  list-style: disc;
   width: fit-content;
   max-width: 100%;
   margin: 0;
-  padding: 0;
+  padding-left: 1.1rem;
 }
 
 .dd-about-section {
@@ -650,9 +650,7 @@ var DeleterUI = class {
 }
 
 .dd-about-item {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
+  display: list-item;
   margin-bottom: 0.12rem;
   font-size: 0.8rem;
   line-height: 1.25;
@@ -679,16 +677,6 @@ var DeleterUI = class {
   text-decoration: underline;
 }
 
-.dd-about-item .dd-about-icon,
-.dd-about-item .dd-about-icon svg {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.dd-about-item .dd-about-icon {
-  align-self: flex-start;
-  margin-top: 0.12rem;
-}
 
 .dd-about-bool {
   flex: 0 0 auto;
