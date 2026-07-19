@@ -58,15 +58,29 @@ function findElementByChildIndexPath(root, path) {
   return node;
 }
 function parseElementForInsertion(outerHTML, parent) {
+  // Page outerHTML must not be assigned via innerHTML. DOMParser does not
+  // execute scripts; importNode then inserts into the page document only.
+  if (typeof outerHTML !== "string" || outerHTML.length === 0) return null;
   const svgNS = "http://www.w3.org/2000/svg";
   if (parent.namespaceURI === svgNS) {
-    const tmp = document.createElementNS(svgNS, "g");
-    tmp.innerHTML = outerHTML;
-    return tmp.firstElementChild;
+    const doc = new DOMParser().parseFromString(
+      `<svg xmlns="${svgNS}">${outerHTML}</svg>`,
+      "image/svg+xml",
+    );
+    const root = doc.documentElement;
+    if (
+      !root ||
+      root.nodeName === "parsererror" ||
+      root.getElementsByTagName("parsererror").length > 0
+    ) {
+      return null;
+    }
+    const el = root.firstElementChild;
+    return el ? document.importNode(el, true) : null;
   }
-  const wrap = document.createElement("div");
-  wrap.innerHTML = outerHTML;
-  return wrap.firstElementChild;
+  const doc = new DOMParser().parseFromString(outerHTML, "text/html");
+  const el = doc.body?.firstElementChild ?? null;
+  return el ? document.importNode(el, true) : null;
 }
 var RestoreSystem = class {
   constructor(host, undo) {
