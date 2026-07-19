@@ -244,8 +244,7 @@ var MESSAGES = {
     aboutPrivacyHeading: "Datenschutz",
     aboutCodeHeading: "Code",
     aboutStatisticsHeading: "Statistiken",
-    aboutOverview:
-      "Entfernt und stellt Elemente einer Webseite mit einem Klick wieder her",
+    aboutOverview: "Elemente per Klick entfernen und wiederherstellen",
     aboutCredits: "Danksagung (MIT): Lucide",
     shortcutsRunStopHeading: "Erweiterung starten / stoppen:",
     shortcutsUndoHeading: "Löschen rückgängig:",
@@ -324,7 +323,7 @@ var MESSAGES = {
     aboutPrivacyHeading: "Приватность",
     aboutCodeHeading: "Код",
     aboutStatisticsHeading: "Статистика",
-    aboutOverview: "Удаляет и восстанавливает элементы веб-страницы в один клик",
+    aboutOverview: "Удаление и восстановление элементов страницы в один клик",
     aboutCredits: "Благодарности (MIT): Lucide",
     shortcutsRunStopHeading: "Запуск / остановка расширения:",
     shortcutsUndoHeading: "Отменить удаление:",

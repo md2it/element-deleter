@@ -1,6 +1,6 @@
 "use strict";
 var WELCOME_BODY_MIN_VAR = "--welcome-body-min";
-var WELCOME_PROBE_WIDTH = "360px";
+var WELCOME_PROBE_WIDTH = "480px";
 var PANEL_HEADER_STYLE_ID = "dd-panel-header-styles";
 function ensurePanelHeaderStyles() {
   if (document.getElementById(PANEL_HEADER_STYLE_ID)) return;
