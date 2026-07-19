@@ -235,8 +235,7 @@ function applyWelcomeBodyMinHeight(base) {
   }
   body.style.setProperty(WELCOME_BODY_MIN_VAR, `${welcomeBodyMinPx}px`);
 }
-var PIN_HINT_EDGE = 24;
-var PIN_HINT_EDGE_RATIO = 0.2;
+var PIN_HINT_EDGE_RATIO = 0.5;
 function positionPinHint() {
   const hint = document.getElementById("pin-hint");
   const welcome = document.querySelector(".welcome");
@@ -249,15 +248,13 @@ function positionPinHint() {
     return;
   const rect = welcome.getBoundingClientRect();
   const rtl = welcomePinHintRtl;
-  const viewportCornerX = rtl
-    ? PIN_HINT_EDGE
-    : window.innerWidth - PIN_HINT_EDGE;
+  const viewportEdgeX = rtl ? 0 : window.innerWidth;
   const gap = rtl
-    ? Math.max(0, rect.left - PIN_HINT_EDGE)
-    : Math.max(0, viewportCornerX - rect.right);
+    ? Math.max(0, rect.left - viewportEdgeX)
+    : Math.max(0, viewportEdgeX - rect.right);
   const x = rtl
-    ? PIN_HINT_EDGE + gap * PIN_HINT_EDGE_RATIO
-    : viewportCornerX - gap * PIN_HINT_EDGE_RATIO;
+    ? viewportEdgeX + gap * PIN_HINT_EDGE_RATIO
+    : viewportEdgeX - gap * PIN_HINT_EDGE_RATIO;
   hint.style.direction = "ltr";
   hint.style.transform = "translateX(-50%)";
   hint.style.left = `${Math.round(x)}px`;
