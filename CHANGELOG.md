@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.11
+- Reduced expected operational logs from warning level to debug level
+
 ### 1.2.10
 - Removed close button from the support survey window
 - Fixed empty Settings panel (missing hotkey aria-label import)

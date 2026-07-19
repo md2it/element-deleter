@@ -150,7 +150,7 @@ async function setToolbarBadge(tabId, visuals) {
     }
     await ext.action.setBadgeText({ tabId, text: visuals.text });
   } catch (err) {
-    console.warn("[Element Deleter] setBadgeText failed:", err);
+    console.debug("[Element Deleter] setBadgeText failed:", err);
   }
 }
 async function syncToolbarBadge(tabId) {
@@ -206,7 +206,7 @@ async function injectContent(tabId, frameId) {
     });
     return true;
   } catch (err) {
-    console.warn("[Element Deleter] injectContent failed:", err);
+    console.debug("[Element Deleter] injectContent failed:", err);
     return false;
   }
 }
@@ -224,7 +224,7 @@ async function sendToTab(tabId, message, frameId) {
         : await ext.tabs.sendMessage(tabId, message);
     return isActivationSuccess(message, response);
   } catch (err) {
-    console.warn("[Element Deleter] sendToTab failed:", err);
+    console.debug("[Element Deleter] sendToTab failed:", err);
     return false;
   }
 }

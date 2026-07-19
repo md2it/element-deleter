@@ -15,7 +15,7 @@ export async function openSupportSurveyPopup(tabId, windowId) {
     if (!openPopup) throw new Error("action.openPopup unavailable");
     await openPopup(windowId !== void 0 ? { windowId } : {});
   } catch (err) {
-    console.warn("[Element Deleter] support survey openPopup failed:", err);
+    console.debug("[Element Deleter] support survey openPopup failed:", err);
     throw err;
   } finally {
     await ext.action.setPopup(clearPopupDetails);
@@ -28,7 +28,7 @@ export function recordSupportSurveyAction() {
       try {
         await recordSupportSurveyActions(1);
       } catch (err) {
-        console.warn("[Element Deleter] support survey action count failed:", err);
+        console.debug("[Element Deleter] support survey action count failed:", err);
       }
     });
   return supportSurveyActionQueue;
@@ -40,7 +40,7 @@ export async function handleSupportSurveyScenarioComplete(tabId, windowId) {
     if (!shouldShowSupportSurvey(state)) return;
     await openSupportSurveyPopup(tabId, windowId);
   } catch (err) {
-    console.warn("[Element Deleter] support survey scenario completion failed:", err);
+    console.debug("[Element Deleter] support survey scenario completion failed:", err);
     return;
   }
 }

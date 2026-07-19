@@ -65,7 +65,7 @@ async function recordSupportSurveyShown() {
       ...markSupportSurveyShown(state),
     });
   } catch (err) {
-    console.warn("[Element Deleter] support survey shown mark failed:", err);
+    console.debug("[Element Deleter] support survey shown mark failed:", err);
   }
 }
 async function applySupportSurveyAction(action) {
@@ -114,7 +114,7 @@ async function applySupportSurveyAction(action) {
       return;
     }
   } catch (err) {
-    console.warn("[Element Deleter] support survey action failed:", err);
+    console.debug("[Element Deleter] support survey action failed:", err);
     window.close();
   }
 }

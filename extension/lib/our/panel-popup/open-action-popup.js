@@ -25,7 +25,7 @@ export function openPanelInActionPopup(
       if (!openPopup) throw new Error("action.openPopup unavailable");
       await openPopup({ windowId });
     } catch (err) {
-      console.warn(
+      console.debug(
         `[${config.logLabel}] openPopup panel failed, using tab:`,
         err,
       );

@@ -26,7 +26,7 @@ export function createIconSync(config) {
         await ext.action.setIcon({ ...details, imageData });
         return;
       } catch (err) {
-        console.warn(
+        console.debug(
           `[${logLabel}] setIcon(imageData) failed, using SVG paths:`,
           err,
         );
@@ -36,7 +36,7 @@ export function createIconSync(config) {
       await ext.action.setIcon({ ...details, path: iconPaths });
     } catch (err) {
       if (details.tabId !== void 0) {
-        console.warn(`[${logLabel}] setIcon(tabId, path) failed:`, err);
+        console.debug(`[${logLabel}] setIcon(tabId, path) failed:`, err);
         try {
           await ext.action.setIcon({ path: iconPaths });
         } catch (err2) {
