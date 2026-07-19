@@ -7,6 +7,7 @@ Regular SemVer logic.
 ## RELEASES
 
 ### 1.2.10
+- Removed close button from the support survey window
 - Fixed empty Settings panel (missing hotkey aria-label import)
 - Fixed toolbar icon update failing under MV3 (icon paths resolved from service worker folder)
 - Fixed support survey page runtime errors (missing state imports)

@@ -75,7 +75,6 @@ var MESSAGES = {
     surveyRateStore: "Rate in store",
     surveyFeedbackTitle: "Sorry to hear that. You can send feedback",
     surveySendEmail: "Send an email",
-    surveyCloseLabel: "Close",
   },
   es: {
     tabSettings: "AJUSTES",
@@ -153,7 +152,6 @@ var MESSAGES = {
     surveyRateStore: "Valorar en la tienda",
     surveyFeedbackTitle: "Lamentamos oír eso. Puedes enviar comentarios",
     surveySendEmail: "Enviar un correo",
-    surveyCloseLabel: "Cerrar",
   },
   fr: {
     tabSettings: "PARAMÈTRES",
@@ -231,7 +229,6 @@ var MESSAGES = {
     surveyRateStore: "Noter dans le store",
     surveyFeedbackTitle: "Désolé de l'apprendre. Vous pouvez envoyer un avis",
     surveySendEmail: "Envoyer un e-mail",
-    surveyCloseLabel: "Fermer",
   },
   de: {
     tabSettings: "EINSTELLUNGEN",
@@ -310,7 +307,6 @@ var MESSAGES = {
     surveyFeedbackTitle:
       "Schade. Sie können uns Feedback per E-Mail senden",
     surveySendEmail: "E-Mail senden",
-    surveyCloseLabel: "Schließen",
   },
   ru: {
     tabSettings: "НАСТРОЙКИ",
@@ -388,7 +384,6 @@ var MESSAGES = {
     surveyRateStore: "Оценить в магазине",
     surveyFeedbackTitle: "Жаль это слышать. Можно отправить отзыв",
     surveySendEmail: "Написать на почту",
-    surveyCloseLabel: "Закрыть",
   },
   zh_CN: {
     tabSettings: "设置",
@@ -465,7 +460,6 @@ var MESSAGES = {
     surveyRateStore: "在商店评分",
     surveyFeedbackTitle: "很遗憾。您可以发送反馈",
     surveySendEmail: "发送邮件",
-    surveyCloseLabel: "关闭",
   },
   ar: {
     tabSettings: "الإعدادات",
@@ -543,7 +537,6 @@ var MESSAGES = {
     surveyRateStore: "قيّم في المتجر",
     surveyFeedbackTitle: "نأسف لسماع ذلك. يمكنك إرسال ملاحظات",
     surveySendEmail: "إرسال بريد",
-    surveyCloseLabel: "إغلاق",
   },
 };
 function t(locale) {

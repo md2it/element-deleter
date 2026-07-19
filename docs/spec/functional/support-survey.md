@@ -45,9 +45,7 @@ You can support the project
 
 ## Window behavior
 
-- Every survey window has a close button
-- The close button works as "Ask me later" or "Later"
-- Survey windows close only by explicit controls
+- Survey windows close only by explicit controls (buttons on the screen)
 - Clicking outside the survey does not close it
 - Record the previous survey display time when the first survey window is shown
 

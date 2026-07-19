@@ -22,9 +22,6 @@ function surveyScreenFromQuery() {
   const screen = new URLSearchParams(location.search).get("screen");
   return SUPPORT_SURVEY_SCREENS.includes(screen) ? screen : "useful";
 }
-function surveyCloseActsAsLater(screen) {
-  return screen === "support" || screen === "feedback" ? "later" : "askLater";
-}
 function surveyButton(label, action, variant) {
   const btn = document.createElement("button");
   btn.type = "button";
@@ -124,8 +121,7 @@ async function applySupportSurveyAction(action) {
 function mountSupportSurveyPage() {
   const root = document.getElementById("survey-root");
   const headerMount = document.getElementById("survey-header-mount");
-  const closeBtn = document.getElementById("survey-close");
-  if (!root || !headerMount || !closeBtn) return;
+  if (!root || !headerMount) return;
   void (async () => {
     const locale = await getLocale();
     const strings = t(locale);
@@ -170,13 +166,6 @@ function mountSupportSurveyPage() {
       ),
     );
     setSurveyScreen(root, surveyScreenFromQuery());
-    closeBtn.setAttribute("aria-label", strings.surveyCloseLabel);
-    closeBtn.addEventListener("click", () => {
-      const screen = root.querySelector(".survey-screen:not([hidden])")?.dataset
-        .screen;
-      const action = surveyCloseActsAsLater(screen ?? "useful");
-      void applySupportSurveyAction(action);
-    });
     root.addEventListener("click", (event) => {
       const target = event.target;
       if (!(target instanceof HTMLElement)) return;
