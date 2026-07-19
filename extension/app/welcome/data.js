@@ -29,7 +29,6 @@ export function buildWelcomeAboutSections(strings) {
     { heading: strings.aboutCapabilitiesHeading, iconHtml: ABOUT_SECTION_ICONS.capabilities, items: items.slice(0, 4) },
     { heading: strings.aboutPrivacyHeading, iconHtml: ABOUT_SECTION_ICONS.privacy, items: items.slice(4, 6) },
     { heading: strings.aboutCodeHeading, iconHtml: ABOUT_SECTION_ICONS.code, items: [...items.slice(6), { text: strings.aboutCredits }] },
-    { heading: strings.aboutStatisticsHeading, iconHtml: ABOUT_SECTION_ICONS.statistics, items: [{ text: strings.aboutDeletedElements.replace("{count}", "0") }] },
   ];
 }
 export function buildWelcomeData(locale, extensionName, options) {
