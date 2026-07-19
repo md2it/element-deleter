@@ -88,7 +88,7 @@ var MESSAGES = {
     aboutPrivacyHeading: "Privacidad",
     aboutCodeHeading: "Código",
     aboutStatisticsHeading: "Estadísticas",
-    aboutOverview: "Elimina elementos no deseados de una página web.",
+    aboutOverview: "Elimina y restaura elementos de la página con un clic",
     aboutCredits: "Créditos (MIT): Lucide",
     shortcutsRunStopHeading: "Para iniciar / detener la extensión:",
     shortcutsUndoHeading: "Deshacer eliminación:",
@@ -166,7 +166,7 @@ var MESSAGES = {
     aboutPrivacyHeading: "Confidentialité",
     aboutCodeHeading: "Code",
     aboutStatisticsHeading: "Statistiques",
-    aboutOverview: "Supprime les éléments indésirables d'une page web.",
+    aboutOverview: "Supprime et restaure les éléments d'une page web en un clic",
     aboutCredits: "Crédits (MIT) : Lucide",
     shortcutsRunStopHeading: "Pour lancer / arrêter l'extension :",
     shortcutsUndoHeading: "Annuler la suppression :",
@@ -244,7 +244,8 @@ var MESSAGES = {
     aboutPrivacyHeading: "Datenschutz",
     aboutCodeHeading: "Code",
     aboutStatisticsHeading: "Statistiken",
-    aboutOverview: "Entfernt unerwünschte Elemente von einer Webseite.",
+    aboutOverview:
+      "Entfernt und stellt Elemente einer Webseite mit einem Klick wieder her",
     aboutCredits: "Danksagung (MIT): Lucide",
     shortcutsRunStopHeading: "Erweiterung starten / stoppen:",
     shortcutsUndoHeading: "Löschen rückgängig:",
@@ -288,7 +289,7 @@ var MESSAGES = {
       "Browser-Erweiterungen funktionieren auf Systemseiten und geschützten Websites nicht. Versuche es auf einer anderen Website.",
     welcomePin: "Damit die Erweiterung immer griffbereit ist:",
     welcomePinStep1: "In der oberen Leiste gibt es eine Erweiterungsliste",
-    welcomePinStep2: "In der Liste finde:",
+    welcomePinStep2: "Finde in der Liste:",
     welcomePinStep3: "Klicke auf die Anheften-Schaltfläche:",
     aboutBullets: [
       "Entfernt das Seitenelement",
@@ -401,8 +402,8 @@ var MESSAGES = {
     aboutPrivacyHeading: "隐私",
     aboutCodeHeading: "代码",
     aboutStatisticsHeading: "统计",
-    aboutOverview: "移除网页中不需要的元素。",
-    aboutCredits: "鸣谢 (MIT)：Lucide",
+    aboutOverview: "一键删除并恢复网页元素",
+    aboutCredits: "鸣谢（MIT）：Lucide",
     shortcutsRunStopHeading: "运行 / 停止扩展：",
     shortcutsUndoHeading: "撤销删除：",
     shortcutsStepPress: "按下：",
@@ -458,13 +459,13 @@ var MESSAGES = {
     surveyUsefulTitle: "您喜欢这个扩展吗？",
     surveyAskLater: "稍后再问",
     surveyNeverAsk: "不再询问",
-    surveyNo: "没有",
-    surveyYes: "有",
+    surveyNo: "否",
+    surveyYes: "是",
     surveySupportTitle: "谢谢！\n您可以支持这个项目",
     surveyLater: "稍后",
     surveyStarGithub: "在 GitHub 标星",
     surveyRateStore: "在商店评分",
-    surveyFeedbackTitle: "很遗憾。你可以发送反馈",
+    surveyFeedbackTitle: "很遗憾。您可以发送反馈",
     surveySendEmail: "发送邮件",
     surveyCloseLabel: "关闭",
   },
@@ -478,7 +479,7 @@ var MESSAGES = {
     aboutPrivacyHeading: "الخصوصية",
     aboutCodeHeading: "الكود",
     aboutStatisticsHeading: "الإحصاءات",
-    aboutOverview: "يزيل العناصر غير المرغوب فيها من صفحة الويب.",
+    aboutOverview: "يحذف عناصر الصفحة ويستعيدها بنقرة واحدة",
     aboutCredits: "شكر وتقدير (MIT): Lucide",
     shortcutsRunStopHeading: "لتشغيل / إيقاف الإضافة:",
     shortcutsUndoHeading: "تراجع عن الحذف:",
@@ -521,9 +522,9 @@ var MESSAGES = {
     restrictedPageNotice:
       "لا تعمل إضافات المتصفح على صفحات النظام والمواقع المحمية. جرّب موقعًا آخر.",
     welcomePin: "لتبقى الإضافة دائمًا في متناول اليد:",
-    welcomePinStep1: "في الشريط العلوي قائمة الإضافات",
+    welcomePinStep1: "يحتوي الشريط العلوي على قائمة الإضافات",
     welcomePinStep2: "في القائمة، ابحث عن:",
-    welcomePinStep3: "انقر زر التثبيت:",
+    welcomePinStep3: "انقر على زر التثبيت:",
     aboutBullets: [
       "يحذف عنصر الصفحة",
       "تشغيل/إيقاف بنقرة واحدة",
@@ -550,3 +551,12 @@ var MESSAGES = {
 function t(locale) {
   return { ...MESSAGES.en, ...(MESSAGES[locale] ?? {}) };
 }
+
+/* background-module-bridge */
+// Exposes this file's top-level bindings on globalThis so other classic-style
+// modules in extension/app/background/main.js's import graph can keep referring
+// to them as bare identifiers, exactly as they could when this file was loaded
+// via a shared classic script / importScripts context. No-op change for the
+// existing classic-script content-script loading of this same file.
+globalThis.MESSAGES = MESSAGES;
+globalThis.t = t;
