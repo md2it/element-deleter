@@ -9,10 +9,20 @@ function buildWelcomeLocalePayload(locale, extensionName) {
     pinStep1: strings.welcomePinStep1,
     pinStep2: strings.welcomePinStep2,
     pinStep3: strings.welcomePinStep3,
-    aboutHeading: strings.tabAbout,
-    aboutItems: buildAboutListItems(strings),
+    aboutSections: buildWelcomeAboutSections(strings),
+    aboutFooter: { productName: strings.aboutProductName, author: strings.aboutCreditAuthor },
     langAriaLabel: strings.tabSettings,
   };
+}
+function buildWelcomeAboutSections(strings) {
+  const items = buildAboutListItems(strings);
+  return [
+    { heading: strings.aboutOverviewHeading, iconHtml: ABOUT_SECTION_ICONS.overview, items: [{ text: strings.aboutOverview }] },
+    { heading: strings.aboutCapabilitiesHeading, iconHtml: ABOUT_SECTION_ICONS.capabilities, items: items.slice(0, 4) },
+    { heading: strings.aboutPrivacyHeading, iconHtml: ABOUT_SECTION_ICONS.privacy, items: items.slice(4, 6) },
+    { heading: strings.aboutCodeHeading, iconHtml: ABOUT_SECTION_ICONS.code, items: [...items.slice(6), { text: strings.aboutCredits }] },
+    { heading: strings.aboutStatisticsHeading, iconHtml: ABOUT_SECTION_ICONS.statistics, items: [{ text: strings.aboutDeletedElements.replace("{count}", "0") }] },
+  ];
 }
 function buildWelcomeData(locale, extensionName, options) {
   const isPinned = options?.isPinned === true;
@@ -41,8 +51,8 @@ function buildWelcomeData(locale, extensionName, options) {
     pinHintIcon: welcomeStepIcon(PIN, 16),
     heartIcon: welcomeStepIcon(HEART, 56),
     isPinned,
-    aboutHeading: current.aboutHeading,
-    aboutItems: current.aboutItems,
+    aboutSections: current.aboutSections,
+    aboutFooter: current.aboutFooter,
     hasAbout: true,
     hasLocales: true,
     locales: [...LOCALES],
