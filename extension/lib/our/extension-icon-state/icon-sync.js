@@ -1,4 +1,4 @@
-"use strict";
+import { ext } from "../api.js";
 import { getTabActiveState } from "./tab-active-state.js";
 
 export function createIconSync(config) {

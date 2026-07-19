@@ -1,4 +1,13 @@
-"use strict";
+import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
+import { createPanelDivider, createPanelHeader } from "../../lib/our/panel-header/header.js";
+import { buildAboutListItems } from "../about.js";
+import { PANEL_TITLE } from "../brand.js";
+import { toolbarWelcomeIconSvg } from "../icons.js";
+import { createPanelSurface } from "./build-panel-surface.js";
+import { PANEL_POPUP_HOST_ATTR } from "./constants.js";
+import { buildAboutPanelBody, buildShortcutsPanelBody } from "./panel-body.js";
+import { measureGermanSettingsBodyHeight, populateSettingsPanel } from "./panel-settings.js";
+
 var PANEL_BODY_MIN_VAR = "--dd-panel-body-min";
 var panelBodyMinPx = null;
 var PanelWindowSystem = class {
@@ -237,3 +246,5 @@ var PanelWindowSystem = class {
     return li;
   }
 };
+
+export { PANEL_BODY_MIN_VAR, panelBodyMinPx, PanelWindowSystem };

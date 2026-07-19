@@ -1,4 +1,3 @@
-"use strict";
 var DELETE_RESTORE_STYLE_ID = "element-deleter-delete-restore-style";
 var DELETE_RESTORE_PAGE_CSS = `
 .dd-delete-anim,
@@ -89,3 +88,5 @@ function runElementTransition(el, out) {
     const timeoutId = window.setTimeout(finish, ELEMENT_ANIM_MS + 75);
   });
 }
+
+export { DELETE_RESTORE_STYLE_ID, DELETE_RESTORE_PAGE_CSS, ensurePageDeleteRestoreStyles, ELEMENT_ANIM_MS, runElementTransition };

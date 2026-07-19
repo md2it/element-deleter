@@ -1,4 +1,3 @@
-"use strict";
 function mountPanelShadowHost(options) {
   const host = document.createElement("div");
   host.id = options.rootId;
@@ -12,3 +11,5 @@ function mountPanelShadowHost(options) {
   shadow.appendChild(style);
   return { host, shadow };
 }
+
+export { mountPanelShadowHost };

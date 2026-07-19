@@ -1,7 +1,4 @@
-"use strict";
-import { createSafeExtensionApi } from "../lib/our/safe-extension-api.js";
-
-export var SAFE_EXTENSION_API_IGNORED_ERRORS = {
+const SAFE_EXTENSION_API_IGNORED_ERRORS = {
   "tabs.sendMessage": {
     messages: [
       "No tab with id",
@@ -37,7 +34,4 @@ export var SAFE_EXTENSION_API_IGNORED_ERRORS = {
   },
 };
 
-globalThis.ext = createSafeExtensionApi(globalThis.ext, [
-  SAFE_EXTENSION_API_IGNORED_ERRORS,
-  globalThis.ELEMENT_DELETER_SAFE_EXTENSION_API_IGNORED_ERRORS,
-]);
+export { SAFE_EXTENSION_API_IGNORED_ERRORS };

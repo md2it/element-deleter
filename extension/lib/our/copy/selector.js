@@ -1,4 +1,3 @@
-"use strict";
 var STABLE_ATTRS = [
   "data-testid",
   "data-test",
@@ -96,3 +95,5 @@ function getCssSelector(element) {
   }
   return parts.join(" > ");
 }
+
+export { STABLE_ATTRS, escapeCssIdent, escapeCssAttrValue, nthChild, siblingDisambiguation, preferredAttribute, matchesOnly, buildCssSegment, getCssSelector };

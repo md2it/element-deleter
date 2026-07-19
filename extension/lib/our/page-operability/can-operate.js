@@ -1,4 +1,7 @@
-"use strict";
+import { ext } from "../api.js";
+import { PROBE_DOCUMENT_OPERABILITY } from "./content-probe.js";
+import { probeDocumentOperability } from "./probe.js";
+
 export function scriptingTarget(tabId, frameId) {
   return frameId !== void 0 && frameId !== 0
     ? { tabId, frameIds: [frameId] }

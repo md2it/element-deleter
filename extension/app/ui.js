@@ -1,4 +1,15 @@
-"use strict";
+import { findIframeAtPoint, isPointInElement } from "../lib/our/element-under-cursor.js";
+import { HighlightSystem } from "../lib/our/highlight/selector.js";
+import { isRtlLocale } from "../lib/our/i18n/rtl.js";
+import { runElementTransition } from "./highlight/delete-restore-visual.js";
+import { DELETER_HIGHLIGHT_PAGE_STYLE, HIGHLIGHT_UI } from "./highlight/page-styles.js";
+import { t } from "./i18n/strings.js";
+import { buildDocumentChildPath, RestoreSystem } from "./restore.js";
+import { formatToastDescriptor, resolveElementDescriptor, shouldShowSelectionCaption } from "./selection-caption.js";
+import { getSelectionCaptionStyle, setSelectionCaptionStyle } from "./settings/selection-caption-style.js";
+import { getLocale, getNotificationSeconds, setLocale, setNotificationSeconds } from "./storage.js";
+import { ToastSystem } from "./toast/deleter.js";
+
 var ROOT_ID = "element-deleter-root";
 var HOST_ATTR = "data-element-deleter-ui";
 var DeleterUI = class {
@@ -1457,3 +1468,5 @@ input:focus-visible {
     }
   }
 };
+
+export { ROOT_ID, HOST_ATTR, DeleterUI };

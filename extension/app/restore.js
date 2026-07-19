@@ -1,4 +1,5 @@
-"use strict";
+import { runElementTransition } from "./highlight/delete-restore-visual.js";
+
 function buildDocumentChildPath(element) {
   const path = [];
   let node = element;
@@ -160,3 +161,5 @@ var RestoreSystem = class {
     }
   }
 };
+
+export { buildDocumentChildPath, findElementByDocumentChildPath, parentMatchesEntry, resolveUndoEntryParent, getChildIndexPath, findElementByChildIndexPath, parseElementForInsertion, RestoreSystem };

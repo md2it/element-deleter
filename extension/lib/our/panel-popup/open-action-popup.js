@@ -1,4 +1,6 @@
-"use strict";
+import { ext } from "../api.js";
+import { panelPagePath } from "./page-path.js";
+
 export function openPanelInActionPopup(
   config,
   panelTab,

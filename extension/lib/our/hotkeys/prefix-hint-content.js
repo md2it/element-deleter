@@ -1,4 +1,6 @@
-"use strict";
+import { ext } from "../api.js";
+import { PREFIX_HINT_HIDE, PREFIX_HINT_SHOW } from "./prefix-hint-messages.js";
+
 function createContentPrefixHintSink() {
   return {
     show(letter) {
@@ -11,3 +13,5 @@ function createContentPrefixHintSink() {
     },
   };
 }
+
+export { createContentPrefixHintSink };

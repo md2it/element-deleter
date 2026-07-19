@@ -1,4 +1,3 @@
-"use strict";
 function handlerPropertyKey(namespace, slot) {
   return `__${namespace}HotkeyHandler_${slot}`;
 }
@@ -20,3 +19,5 @@ function unregisterContentHotkey(namespace, slot) {
   window.removeEventListener("keydown", prev, true);
   win[key] = void 0;
 }
+
+export { handlerPropertyKey, registerContentHotkey, unregisterContentHotkey };

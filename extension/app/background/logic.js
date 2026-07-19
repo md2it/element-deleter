@@ -1,29 +1,21 @@
-"use strict";
+import { ext } from "../../lib/our/api.js";
 import { createBadgeTextColorAnimation } from "../../lib/our/badge/text-color-animation.js";
-import {
-  getTabActiveState,
-  setTabActiveState,
-} from "../../lib/our/extension-icon-state/tab-active-state.js";
-import {
-  getRestrictedNoticeDismissMs,
-  showRestrictedNotice,
-  refreshRestrictedNoticeCache,
-} from "../page-operability/notice.js";
-import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
-import {
-  syncIconForTab,
-  onContentActiveChanged2,
-  registerExtensionIconStateListeners2,
-  bootstrapToolbarIcons,
-} from "../extension-icon-state/index.js";
-import { isBlockedNoticeDismissedMessage } from "../../lib/our/page-operability/messages.js";
-import { watchWelcomePinStatus2, showWelcome } from "../welcome/background.js";
-import {
-  handleSupportSurveyScenarioComplete,
-  recordSupportSurveyAction,
-} from "../support-survey/background.js";
+import { forEachActiveTabId, getTabActiveState, setTabActiveState } from "../../lib/our/extension-icon-state/tab-active-state.js";
 import { registerPrefixHintBadgeListeners } from "../../lib/our/hotkeys/prefix-hint-badge.js";
+import { registerPrefixHintOperabilityListeners } from "../../lib/our/hotkeys/prefix-operability.js";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
+import { isBlockedNoticeDismissedMessage } from "../../lib/our/page-operability/messages.js";
+import { bootstrapToolbarIcons, onContentActiveChanged2, registerExtensionIconStateListeners2, syncIconForTab } from "../extension-icon-state/index.js";
+import { registerBackgroundHotkeys, shouldSuppressToolbarClickAfterHotkeyCommand } from "../hotkeys/background.js";
+import { DELETER_ACTIVE_COLOR } from "../hotkeys/commands.js";
+import { t } from "../i18n/strings.js";
+import { getRestrictedNoticeDismissMs, refreshRestrictedNoticeCache, showRestrictedNotice } from "../page-operability/notice.js";
 import { openPanelFromSender } from "../panel-popup/open.js";
+import { getSelectionCaptionStyle } from "../settings/selection-caption-style.js";
+import { ensureLocaleInStorage, getAllElementsFillEnabled, getAllElementsOutlineEnabled, getLocale, getNotificationSeconds } from "../storage.js";
+import { handleSupportSurveyScenarioComplete, recordSupportSurveyAction } from "../support-survey/background.js";
+import { showWelcome, stopWelcomePinWatcher2, watchWelcomePinStatus2 } from "../welcome/background.js";
 
 var TOGGLE_DEBOUNCE_MS = 80;
 var lastToggleTabId;
@@ -208,92 +200,11 @@ async function injectContent(tabId, frameId) {
       frameId !== void 0 && frameId !== 0
         ? { tabId, frameIds: [frameId] }
         : { tabId, allFrames: true };
-    const results = await ext.scripting.executeScript({
+    await ext.scripting.executeScript({
       target,
-      files: [
-        "lib/our/all-elements-fill/css.js",
-        "lib/our/all-elements-style-inject.js",
-        "lib/our/all-elements-fill/lifecycle.js",
-        "lib/our/all-elements-outline/css.js",
-        "lib/our/all-elements-outline/lifecycle.js",
-        "app/all-elements-page.js",
-        "lib/our/api.js",
-        "app/hotkeys/commands.js",
-        "lib/our/hotkeys/prefix-hint-messages.js",
-        "lib/our/hotkeys/prefix-hint-content.js",
-        "lib/our/hotkeys/platform.js",
-        "lib/our/hotkeys/keys.js",
-        "lib/our/hotkeys/prefix-mode.js",
-        "lib/our/hotkeys/registry.js",
-        "lib/our/hotkeys/prefix-content.js",
-        "lib/our/page-operability/probe.js",
-        "lib/our/hotkeys/prefix-operability.js",
-        "lib/our/hotkeys/suppress.js",
-        "lib/our/hotkeys/settings.js",
-        "app/messages.js",
-        "app/hotkeys/settings.js",
-        "app/hotkeys/background.js",
-        "app/hotkeys/keys.js",
-        "app/hotkeys/registry.js",
-        "app/hotkeys/deleter-content.js",
-        "lib/our/i18n/locale-code.js",
-        "lib/our/i18n/detect.js",
-        "app/i18n/detect.js",
-        "lib/our/i18n/rtl.js",
-        "app/i18n/strings.js",
-        "app/i18n/types.js",
-        "app/settings/selection-caption-style.js",
-        "app/storage.js",
-        "app/highlight/delete-restore-visual.js",
-        "app/restore.js",
-        "lib/our/element-under-cursor.js",
-        "lib/our/copy/selector.js",
-        "lib/our/copy/xpath.js",
-        "app/selection-caption.js",
-        "lib/our/highlight/classes.js",
-        "lib/our/highlight/page-styles.js",
-        "lib/our/highlight/visual.js",
-        "lib/our/highlight/selector.js",
-        "app/highlight/deleter-page-styles.js",
-        "app/highlight/page-styles.js",
-        "lib/our/icons/lucide.js",
-        "lib/our/icons/index.js",
-        "lib/our/icons/md2it.js",
-        "lib/our/icons/extension-logos.js",
-        "app/icons.js",
-        "lib/our/toast/stack.js",
-        "lib/our/toast/index.js",
-        "app/ui-config.js",
-        "app/toast/deleter.js",
-        "app/ui.js",
-        "lib/our/page-operability/content-probe.js",
-        "app/panel-popup/constants.js",
-        "lib/our/panel-header/header.js",
-        "lib/our/panel-shell/shadow-host.js",
-        "lib/our/support-survey/logic.js",
-        "app/support-survey/constants.js",
-        "app/support-survey/state.js",
-        "app/about.js",
-        "app/brand.js",
-        "app/panel-popup/panel-menu.js",
-        "app/panel-popup/build-panel-surface.js",
-        "app/panel-popup/panel-body.js",
-        "app/panel-popup/panel-settings.js",
-        "app/panel-popup/window.js",
-        "app/panel-popup/mount-panel-surface.js",
-        "app/panel-popup/mount.js",
-        "lib/our/panel-popup/page-path.js",
-        "lib/our/panel-popup/resolve-tab.js",
-        "lib/our/panel-tab/index.js",
-        "app/panel-tab/constants.js",
-        "app/panel-popup/page.js",
-        "app/panel-tab/layout.js",
-        "app/panel-tab/mount.js",
-        "app/panel-tab/bootstrap.js",
-        "app/content.js",
-      ],
+      files: ["app/content/loader.js"],
     });
-    return results.length > 0;
+    return true;
   } catch (err) {
     console.warn("[Element Deleter] injectContent failed:", err);
     return false;
@@ -345,7 +256,13 @@ function settingsUpdatedMessage(settings) {
 async function sendWithInject(tabId, message, frameId) {
   if (await sendToTab(tabId, message, frameId)) return true;
   if (!(await injectContent(tabId, frameId))) return false;
-  return sendToTab(tabId, message, frameId);
+  // loader.js starts the real content module with dynamic import(). Script
+  // injection completes before that import necessarily registers its listener.
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    if (await sendToTab(tabId, message, frameId)) return true;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  return false;
 }
 async function setTabActive(tabId, active, windowId) {
   if (active && !(await canOperateOnTab(tabId))) {

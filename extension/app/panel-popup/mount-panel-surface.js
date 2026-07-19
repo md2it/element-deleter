@@ -1,4 +1,13 @@
-"use strict";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { mountPanelShadowHost } from "../../lib/our/panel-shell/shadow-host.js";
+import { getEscHotkeyEnabled, getStartHotkeyEnabled, getUndoHotkeyEnabled, setEscHotkeyEnabled, setStartHotkeyEnabled, setUndoHotkeyEnabled } from "../hotkeys/settings.js";
+import { t } from "../i18n/strings.js";
+import { getSelectionCaptionStyle, setSelectionCaptionStyle } from "../settings/selection-caption-style.js";
+import { getAllElementsFillEnabled, getAllElementsOutlineEnabled, getLocale, getNotificationSeconds, setAllElementsFillEnabled, setAllElementsOutlineEnabled, setLocale, setNotificationSeconds } from "../storage.js";
+import { ToastSystem } from "../toast/deleter.js";
+import { PANEL_POPUP_HOST_ATTR, PANEL_POPUP_ROOT_ID } from "./constants.js";
+import { PanelWindowSystem } from "./window.js";
+
 async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   let locale = "en";
   let notificationSeconds = 4;
@@ -1229,3 +1238,5 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   });
   panelWindow.openPanel(initialTab);
 }
+
+export { mountPanelSurface };

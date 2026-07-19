@@ -1,4 +1,6 @@
-"use strict";
+import { isIframeHitTestable, isSignificantIframe, listIframesWithin } from "../element-under-cursor.js";
+import { ensurePageHighlightStyles, removePageHighlightStyles } from "./page-styles.js";
+
 var HIGHLIGHT_FRAME_INSET = 2;
 var ElementHighlightVisual = class {
   constructor(host, pageStyles) {
@@ -218,3 +220,5 @@ var ElementHighlightVisual = class {
     el.style.left = `${frameLeft}px`;
   }
 };
+
+export { HIGHLIGHT_FRAME_INSET, ElementHighlightVisual };

@@ -1,4 +1,3 @@
-"use strict";
 function createHighlightUiClasses(prefix) {
   return {
     highlightTarget: `${prefix}-highlight`,
@@ -7,3 +6,5 @@ function createHighlightUiClasses(prefix) {
     elementLabel: `${prefix}-element-label`,
   };
 }
+
+export { createHighlightUiClasses };

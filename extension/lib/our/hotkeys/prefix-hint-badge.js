@@ -1,4 +1,6 @@
-"use strict";
+import { ext } from "../api.js";
+import { isPrefixHintHideMessage, isPrefixHintShowMessage } from "./prefix-hint-messages.js";
+
 var PREFIX_BADGE_BACKGROUND_COLOR = "#012292";
 var PREFIX_BADGE_TEXT_COLOR = "#ffffff";
 async function showPrefixBadge(

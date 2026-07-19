@@ -1,4 +1,3 @@
-"use strict";
 function xpathSegment(element) {
   const tag = element.tagName.toLowerCase();
   const parent = element.parentElement;
@@ -24,3 +23,5 @@ function getFullXPath(element) {
   }
   return `/${parts.join("/")}`;
 }
+
+export { xpathSegment, getFullXPath };

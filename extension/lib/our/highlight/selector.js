@@ -1,4 +1,7 @@
-"use strict";
+import { pickElementUnderCursor } from "../element-under-cursor.js";
+import { removePageHighlightStyles } from "./page-styles.js";
+import { ElementHighlightVisual } from "./visual.js";
+
 var HighlightSystem = class {
   highlighted = null;
   visual;
@@ -119,3 +122,5 @@ var HighlightSystem = class {
     });
   }
 };
+
+export { HighlightSystem };

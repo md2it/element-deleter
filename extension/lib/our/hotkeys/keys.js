@@ -1,4 +1,5 @@
-"use strict";
+import { isMacPlatform } from "./platform.js";
+
 var ESCAPE_KEY_LABEL = "Esc";
 var PREFIX_ACTION_TIMEOUT_MS = 3e3;
 var PREFIX_DOUBLE_ACTION_WINDOW_MS = 400;
@@ -60,3 +61,5 @@ function isEditableKeyboardTarget(target) {
   if (target.isContentEditable) return true;
   return !!target.closest('[contenteditable=""], [contenteditable="true"]');
 }
+
+export { ESCAPE_KEY_LABEL, PREFIX_ACTION_TIMEOUT_MS, PREFIX_DOUBLE_ACTION_WINDOW_MS, PREFIX_CHORD_KEY, isEscapeKeyEvent, letterToCode, isLetterKeyEvent, isModifierShiftKeyEvent, isModifierKeyEvent, formatModifierShiftKeyLabel, formatModifierKeyLabel, formatPrefixChordLabel, isPrefixChordKeyEvent, isPrefixChordHeld, isPrefixActionKeyEvent, isEditableKeyboardTarget };

@@ -1,4 +1,6 @@
-"use strict";
+import { ext } from "../../lib/our/api.js";
+import { SELECTION_CAPTION_STYLE_KEY } from "../messages.js";
+
 var DEFAULT_SELECTION_CAPTION_STYLE = "click-to-delete";
 var SELECTION_CAPTION_STYLES = [
   "none",
@@ -21,14 +23,4 @@ async function setSelectionCaptionStyle(style) {
   await ext.storage.local.set({ [SELECTION_CAPTION_STYLE_KEY]: style });
 }
 
-/* background-module-bridge */
-// Exposes this file's top-level bindings on globalThis so other classic-style
-// modules in extension/app/background/main.js's import graph can keep referring
-// to them as bare identifiers, exactly as they could when this file was loaded
-// via a shared classic script / importScripts context. No-op change for the
-// existing classic-script content-script loading of this same file.
-globalThis.DEFAULT_SELECTION_CAPTION_STYLE = DEFAULT_SELECTION_CAPTION_STYLE;
-globalThis.SELECTION_CAPTION_STYLES = SELECTION_CAPTION_STYLES;
-globalThis.normalizeSelectionCaptionStyle = normalizeSelectionCaptionStyle;
-globalThis.getSelectionCaptionStyle = getSelectionCaptionStyle;
-globalThis.setSelectionCaptionStyle = setSelectionCaptionStyle;
+export { DEFAULT_SELECTION_CAPTION_STYLE, SELECTION_CAPTION_STYLES, normalizeSelectionCaptionStyle, getSelectionCaptionStyle, setSelectionCaptionStyle };

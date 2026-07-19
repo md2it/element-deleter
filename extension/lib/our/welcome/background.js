@@ -1,4 +1,4 @@
-"use strict";
+import { ext } from "../api.js";
 import { isActionOnToolbar, onActionToolbarChanged } from "../pin.js";
 
 var welcomePinWatchers = /* @__PURE__ */ new Map();

@@ -1,4 +1,9 @@
-"use strict";
+import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { t } from "../i18n/strings.js";
+import { PANEL_POPUP_HOST_ATTR } from "./constants.js";
+import { createPanelMenu } from "./panel-menu.js";
+
 function createPanelSurface(locale, surface) {
   const panelRoot = document.createElement("div");
   panelRoot.className = "dd-panel";
@@ -25,3 +30,5 @@ function createPanelSurface(locale, surface) {
   panelRoot.setAttribute(PANEL_POPUP_HOST_ATTR, "true");
   return { panelRoot, body, menu };
 }
+
+export { createPanelSurface };

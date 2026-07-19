@@ -1,4 +1,13 @@
-"use strict";
+import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { createPanelDivider, createPanelHeader } from "../../lib/our/panel-header/header.js";
+import { PANEL_TITLE } from "../brand.js";
+import { t } from "../i18n/strings.js";
+import { extensionMarkSvg } from "../icons.js";
+import { getLocale } from "../storage.js";
+import { SUPPORT_SURVEY_FEEDBACK_EMAIL, SUPPORT_SURVEY_GITHUB_URL } from "./constants.js";
+import { getSupportSurveyStoreRateLabel, getSupportSurveyStoreUrl, readSupportSurveyState, writeSupportSurveyState } from "./state.js";
+
 var SUPPORT_SURVEY_SCREENS = ["useful", "support", "feedback"];
 function surveyScreenFromQuery() {
   const screen = new URLSearchParams(location.search).get("screen");

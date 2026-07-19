@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.9
+- Migrated the extension runtime and content entrypoint to ES modules with a shared content loader
+
 ### 1.2.8
 - Unified Lucide UI icons via shared vendor copies (`lib/vendor/icons`)
 

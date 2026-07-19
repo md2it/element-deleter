@@ -1,4 +1,5 @@
-"use strict";
+import { ext } from "../api.js";
+
 function getAcceptLanguageTags() {
   return new Promise((resolve) => {
     const getAccept = ext.i18n?.getAcceptLanguages;
@@ -48,13 +49,4 @@ async function detectLocale(mapLanguageTag2, fallbackLocale) {
   return fallbackLocale;
 }
 
-/* background-module-bridge */
-// Exposes this file's top-level bindings on globalThis so other classic-style
-// modules in extension/app/background/main.js's import graph can keep referring
-// to them as bare identifiers, exactly as they could when this file was loaded
-// via a shared classic script / importScripts context. No-op change for the
-// existing classic-script content-script loading of this same file.
-globalThis.getAcceptLanguageTags = getAcceptLanguageTags;
-globalThis.pickLanguageTags = pickLanguageTags;
-globalThis.fallbackLanguageTags = fallbackLanguageTags;
-globalThis.detectLocale = detectLocale;
+export { getAcceptLanguageTags, pickLanguageTags, fallbackLanguageTags, detectLocale };

@@ -1,4 +1,3 @@
-"use strict";
 function createPanelDivider() {
   const divider = document.createElement("div");
   divider.className = "dd-panel-divider";
@@ -29,3 +28,5 @@ function createPanelHeader(options) {
   header.append(titleRow);
   return header;
 }
+
+export { createPanelDivider, createPanelHeader };

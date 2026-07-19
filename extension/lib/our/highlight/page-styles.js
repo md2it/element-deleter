@@ -1,4 +1,3 @@
-"use strict";
 function buildGenericHighlightPageCss(classes) {
   return `
 .${classes.highlightTarget} {
@@ -24,3 +23,5 @@ function ensurePageHighlightStyles(config) {
 function removePageHighlightStyles(styleId) {
   document.getElementById(styleId)?.remove();
 }
+
+export { buildGenericHighlightPageCss, ensurePageHighlightStyles, removePageHighlightStyles };

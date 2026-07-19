@@ -1,4 +1,5 @@
-"use strict";
+import { ext } from "../api.js";
+
 var PANEL_TAB_MODE_PARAM = "mode";
 var PANEL_TAB_MODE_VALUE = "tab";
 function isPanelTabMode(
@@ -35,15 +36,4 @@ async function openPanelPageInTab(panelTabPathValue, logLabel) {
   }
 }
 
-/* background-module-bridge */
-// Exposes this file's top-level bindings on globalThis so other classic-style
-// modules in extension/app/background/main.js's import graph can keep referring
-// to them as bare identifiers, exactly as they could when this file was loaded
-// via a shared classic script / importScripts context. No-op change for the
-// existing classic-script content-script loading of this same file.
-globalThis.PANEL_TAB_MODE_PARAM = PANEL_TAB_MODE_PARAM;
-globalThis.PANEL_TAB_MODE_VALUE = PANEL_TAB_MODE_VALUE;
-globalThis.isPanelTabMode = isPanelTabMode;
-globalThis.applyPanelTabPageLayout = applyPanelTabPageLayout;
-globalThis.panelTabPath = panelTabPath;
-globalThis.openPanelPageInTab = openPanelPageInTab;
+export { PANEL_TAB_MODE_PARAM, PANEL_TAB_MODE_VALUE, isPanelTabMode, applyPanelTabPageLayout, panelTabPath, openPanelPageInTab };

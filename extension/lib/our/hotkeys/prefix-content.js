@@ -1,4 +1,7 @@
-"use strict";
+import { createContentPrefixHintSink } from "./prefix-hint-content.js";
+import { createPrefixModeController } from "./prefix-mode.js";
+import { registerContentHotkey } from "./registry.js";
+
 function registerPrefixStartHotkey(options) {
   if (typeof window === "undefined" || window.top !== window) return void 0;
   const controller = createPrefixModeController({
@@ -28,3 +31,5 @@ function registerPrefixStartHotkey(options) {
   });
   return controller;
 }
+
+export { registerPrefixStartHotkey };

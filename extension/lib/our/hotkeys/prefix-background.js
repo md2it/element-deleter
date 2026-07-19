@@ -1,4 +1,4 @@
-"use strict";
+import { ext } from "../api.js";
 import { registerPrefixHintBadgeListeners } from "./prefix-hint-badge.js";
 
 var EXECUTE_ACTION_COMMAND = "_execute_action";
@@ -47,8 +47,3 @@ export function registerPrefixBackgroundHotkeys(config) {
     })();
   });
 }
-
-// app/hotkeys/background.js is a shared classic-script file (also loaded as a
-// content script) that still calls this as a bare global identifier, so it
-// needs to keep resolving via globalThis.
-globalThis.registerPrefixBackgroundHotkeys = registerPrefixBackgroundHotkeys;

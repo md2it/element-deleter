@@ -1,4 +1,5 @@
-"use strict";
+import { ext } from "../api.js";
+
 function resolveInitialPanelTab(sessionTab, queryTab, defaultTab, validTabs) {
   if (typeof sessionTab === "string" && validTabs.includes(sessionTab)) {
     return sessionTab;
@@ -23,3 +24,5 @@ async function resolvePanelPageInitialTab(config) {
     config.validTabs,
   );
 }
+
+export { resolveInitialPanelTab, resolvePanelPageInitialTab };

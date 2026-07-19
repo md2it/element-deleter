@@ -1,4 +1,11 @@
-"use strict";
+import { isEditableKeyboardTarget } from "../../lib/our/hotkeys/keys.js";
+import { registerPrefixStartHotkey } from "../../lib/our/hotkeys/prefix-content.js";
+import { notifyPrefixHintBlockedOnBackground, queryPrefixHintCanShowInContent } from "../../lib/our/hotkeys/prefix-operability.js";
+import { PREFIX_ACTION_KEY } from "./commands.js";
+import { isEscHotkeyEvent, isUndoHotkeyEvent } from "./keys.js";
+import { registerContentHotkey2, unregisterContentHotkey2 } from "./registry.js";
+import { getEscHotkeyEnabled, getStartHotkeyEnabled, getUndoHotkeyEnabled } from "./settings.js";
+
 var HOTKEY_NAMESPACE2 = "elementDeleter";
 var contentHotkeysMounted = false;
 function registerDeleterStartHotkey(requestToggle2) {
@@ -52,3 +59,5 @@ function unmountDeleterContentHotkeys(slots = ["esc", "undo"]) {
     unregisterContentHotkey2(slot);
   }
 }
+
+export { HOTKEY_NAMESPACE2, contentHotkeysMounted, registerDeleterStartHotkey, mountDeleterContentHotkeys, unmountDeleterContentHotkeys };

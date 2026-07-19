@@ -1,7 +1,7 @@
-"use strict";
 import { createExtensionIconState } from "../../lib/our/extension-icon-state/create.js";
+import { onContentActiveChanged, registerExtensionIconStateListeners } from "../../lib/our/extension-icon-state/listeners.js";
 import { TOOLBAR_ICON_PATHS } from "../icon-paths.js";
-import { ICON_SYNCED_TAB_IDS_KEY, ICON_STATE_LOG_LABEL } from "./constants.js";
+import { ICON_STATE_LOG_LABEL, ICON_SYNCED_TAB_IDS_KEY } from "./constants.js";
 
 export var iconState = createExtensionIconState({
   paths: TOOLBAR_ICON_PATHS,

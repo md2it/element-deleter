@@ -1,9 +1,5 @@
-"use strict";
-import {
-  deleteTabActiveState,
-  clearTabActiveState,
-  setTabActiveState,
-} from "./tab-active-state.js";
+import { ext } from "../api.js";
+import { clearTabActiveState, deleteTabActiveState, setTabActiveState } from "./tab-active-state.js";
 
 export function registerExtensionIconStateListeners(sync) {
   ext.tabs.onRemoved.addListener((tabId) => {

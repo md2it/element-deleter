@@ -1,4 +1,14 @@
-"use strict";
+import { ext } from "../../lib/our/api.js";
+import { registerDocumentOperabilityProbeListener } from "../../lib/our/page-operability/content-probe.js";
+import { applyAllElementsPageStyles, removeAllElementsPageStyles } from "../all-elements-page.js";
+import { mountDeleterContentHotkeys, registerDeleterStartHotkey, unmountDeleterContentHotkeys } from "../hotkeys/deleter-content.js";
+import { bootstrapPanelPopupPageIfNeeded } from "../panel-popup/page.js";
+import { bootstrapPanelTabPageIfNeeded } from "../panel-tab/bootstrap.js";
+import { resolveUndoEntryParent } from "../restore.js";
+import { getSelectionCaptionStyle } from "../settings/selection-caption-style.js";
+import { getAllElementsFillEnabled, getAllElementsOutlineEnabled } from "../storage.js";
+import { DeleterUI } from "../ui.js";
+
 function getState() {
   if (!window.__elementDeleterState) {
     window.__elementDeleterState = {

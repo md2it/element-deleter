@@ -1,4 +1,6 @@
-"use strict";
+import { disableAllElementsFill, enableAllElementsFill } from "../lib/our/all-elements-fill/lifecycle.js";
+import { disableAllElementsOutline, enableAllElementsOutline } from "../lib/our/all-elements-outline/lifecycle.js";
+
 var ALL_ELEMENTS_OUTLINE_STYLE_ID = "element-deleter-all-elements-outline";
 var ALL_ELEMENTS_FILL_STYLE_ID = "element-deleter-all-elements-fill";
 var OUTLINE_RGBA = "rgba(185, 28, 28, 0.48)";
@@ -23,3 +25,5 @@ function applyAllElementsPageStyles(options) {
     disableAllElementsFill(ALL_ELEMENTS_FILL_STYLE_ID);
   }
 }
+
+export { ALL_ELEMENTS_OUTLINE_STYLE_ID, ALL_ELEMENTS_FILL_STYLE_ID, OUTLINE_RGBA, removeAllElementsPageStyles, applyAllElementsPageStyles };

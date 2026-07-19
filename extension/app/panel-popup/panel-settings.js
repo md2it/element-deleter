@@ -1,4 +1,12 @@
-"use strict";
+import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { ESC_HOTKEY_LABEL, getStartHotkeyActionLabel, getStartHotkeyChordLabel, getUndoHotkeyLabel } from "../hotkeys/keys.js";
+import { setEscHotkeyEnabled, setStartHotkeyEnabled, setUndoHotkeyEnabled } from "../hotkeys/settings.js";
+import { LOCALE_BUTTON_LABELS, LOCALES } from "../i18n/types.js";
+import { CHEVRON_LEFT, CHEVRON_RIGHT, CHEVRONS_LEFT, CHEVRONS_RIGHT } from "../icons.js";
+import { SELECTION_CAPTION_STYLES, setSelectionCaptionStyle } from "../settings/selection-caption-style.js";
+import { setAllElementsFillEnabled, setAllElementsOutlineEnabled, setLocale, setNotificationSeconds } from "../storage.js";
+
 var SELECTION_CAPTION_SELECT_ID = "dd-selection-caption-style";
 function selectionCaptionOptionLabel(style, strings) {
   switch (style) {
@@ -420,3 +428,5 @@ function measureGermanSettingsBodyHeight(host, shadow) {
   probeBody.remove();
   return height;
 }
+
+export { SELECTION_CAPTION_SELECT_ID, selectionCaptionOptionLabel, createSelectionCaptionStyleRow, syncSelectionCaptionStyleRow, createPageDivider2, createPageTitle2, appendPrefixStartHotkeyMarkup, createToggleRow, createPrefixStartHotkeyToggleRow, createHotkeyToggleRow, syncPrefixStartHotkeyToggleRow, syncHotkeyToggleRow, syncSettingsPanelCopy, populateSettingsPanel, measureGermanSettingsBodyHeight };

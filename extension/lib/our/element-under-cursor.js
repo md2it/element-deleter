@@ -1,4 +1,3 @@
-"use strict";
 var MIN_IFRAME_PICK_PX = 4;
 function isPointInElement(el, x, y) {
   const rect = el.getBoundingClientRect();
@@ -71,3 +70,5 @@ function pickElementUnderCursor(x, y, options) {
   }
   return null;
 }
+
+export { MIN_IFRAME_PICK_PX, isPointInElement, listIframesWithin, isIframeHitTestable, isSignificantIframe, iframeContainsPoint, findIframeAtPoint, pickElementUnderCursor };

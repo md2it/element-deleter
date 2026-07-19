@@ -1,4 +1,8 @@
-"use strict";
+import { ABOUT_AUTHOR_URL, buildAboutListItems, getSupportSurveyAboutText } from "../about.js";
+import { PREFIX_ACTION_KEY } from "../hotkeys/commands.js";
+import { SHORTCUTS_PREFIX_CHORD_MAC_DISPLAY, SHORTCUTS_PREFIX_CHORD_WIN_DISPLAY, SHORTCUTS_UNDO_MAC_DISPLAY, SHORTCUTS_UNDO_WIN_DISPLAY } from "../hotkeys/keys.js";
+import { ABOUT_SECTION_ICONS } from "../icons.js";
+
 function createPageDivider() {
   const divider = document.createElement("div");
   divider.className = "dd-panel-divider dd-panel-page-divider";
@@ -193,3 +197,5 @@ function buildAboutPanelBody(body, strings) {
   });
   body.append(page);
 }
+
+export { createPageDivider, createPageTitle, createKbd, createSectionDivider, createAboutIcon, buildShortcutsSteps, buildUndoShortcutBlock, createAboutCredit, buildShortcutsPanelBody, buildAboutPanelBody };

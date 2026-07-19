@@ -1,4 +1,7 @@
-"use strict";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { bootstrapWelcomePage } from "../../lib/our/welcome/page.js";
+import { WELCOME_SESSION_DATA_KEY } from "./constants.js";
+
 void bootstrapWelcomePage({
   sessionDataKey: WELCOME_SESSION_DATA_KEY,
   localeStorageKey: "locale",

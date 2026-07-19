@@ -1,4 +1,9 @@
-"use strict";
+import { ext } from "../lib/our/api.js";
+import { normalizeLocaleCode } from "../lib/our/i18n/locale-code.js";
+import { detectLocale2 } from "./i18n/detect.js";
+import { isLocale } from "./i18n/types.js";
+import { ALL_ELEMENTS_FILL_ENABLED_KEY, ALL_ELEMENTS_OUTLINE_ENABLED_KEY, DEFAULT_NOTIFICATION_SECONDS, LOCALE_DETECT_VERSION, LOCALE_DETECT_VERSION_KEY, LOCALE_STORAGE_KEY, LOCALE_USER_SELECTED_KEY, STORAGE_KEY } from "./messages.js";
+
 async function getNotificationSeconds() {
   const data = await ext.storage.local.get(STORAGE_KEY);
   const raw = data[STORAGE_KEY];
@@ -70,18 +75,4 @@ async function ensureLocaleInStorage() {
   });
 }
 
-/* background-module-bridge */
-// Exposes this file's top-level bindings on globalThis so other classic-style
-// modules in extension/app/background/main.js's import graph can keep referring
-// to them as bare identifiers, exactly as they could when this file was loaded
-// via a shared classic script / importScripts context. No-op change for the
-// existing classic-script content-script loading of this same file.
-globalThis.getNotificationSeconds = getNotificationSeconds;
-globalThis.setNotificationSeconds = setNotificationSeconds;
-globalThis.getLocale = getLocale;
-globalThis.setLocale = setLocale;
-globalThis.getAllElementsOutlineEnabled = getAllElementsOutlineEnabled;
-globalThis.setAllElementsOutlineEnabled = setAllElementsOutlineEnabled;
-globalThis.getAllElementsFillEnabled = getAllElementsFillEnabled;
-globalThis.setAllElementsFillEnabled = setAllElementsFillEnabled;
-globalThis.ensureLocaleInStorage = ensureLocaleInStorage;
+export { getNotificationSeconds, setNotificationSeconds, getLocale, setLocale, getAllElementsOutlineEnabled, setAllElementsOutlineEnabled, getAllElementsFillEnabled, setAllElementsFillEnabled, ensureLocaleInStorage };

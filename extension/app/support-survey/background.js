@@ -1,4 +1,7 @@
-"use strict";
+import { ext } from "../../lib/our/api.js";
+import { SUPPORT_SURVEY_PAGE } from "./constants.js";
+import { readSupportSurveyState, recordSupportSurveyActions, shouldShowSupportSurvey } from "./state.js";
+
 var supportSurveyActionQueue = Promise.resolve();
 export async function openSupportSurveyPopup(tabId, windowId) {
   const popup = SUPPORT_SURVEY_PAGE;

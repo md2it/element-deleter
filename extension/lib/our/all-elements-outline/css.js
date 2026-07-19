@@ -1,4 +1,3 @@
-"use strict";
 var DEFAULT_WIDTH_PX = 1;
 var DEFAULT_OFFSET_PX = -1;
 function assertRgba(value, label) {
@@ -22,3 +21,5 @@ function buildAllElementsOutlineCss(config) {
 }
 `.trim();
 }
+
+export { DEFAULT_WIDTH_PX, DEFAULT_OFFSET_PX, assertRgba, buildAllElementsOutlineCss };

@@ -1,4 +1,3 @@
-"use strict";
 var ToastStack = class {
   constructor(host, config) {
     this.host = host;
@@ -80,3 +79,5 @@ var ToastStack = class {
     return stack;
   }
 };
+
+export { ToastStack };

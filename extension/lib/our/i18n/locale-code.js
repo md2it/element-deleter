@@ -1,4 +1,3 @@
-"use strict";
 var CHINESE_UI_LOCALE = "zh_CN";
 var TRADITIONAL_CHINESE_RE = /^zh-(tw|hk|mo|hant)(-|$)|^zh-hant(-|$)/;
 function mapChineseUiLocale(tag) {
@@ -15,14 +14,4 @@ function localeToHtmlLang(locale) {
   return locale.replace(/_/g, "-");
 }
 
-/* background-module-bridge */
-// Exposes this file's top-level bindings on globalThis so other classic-style
-// modules in extension/app/background/main.js's import graph can keep referring
-// to them as bare identifiers, exactly as they could when this file was loaded
-// via a shared classic script / importScripts context. No-op change for the
-// existing classic-script content-script loading of this same file.
-globalThis.CHINESE_UI_LOCALE = CHINESE_UI_LOCALE;
-globalThis.TRADITIONAL_CHINESE_RE = TRADITIONAL_CHINESE_RE;
-globalThis.mapChineseUiLocale = mapChineseUiLocale;
-globalThis.normalizeLocaleCode = normalizeLocaleCode;
-globalThis.localeToHtmlLang = localeToHtmlLang;
+export { CHINESE_UI_LOCALE, TRADITIONAL_CHINESE_RE, mapChineseUiLocale, normalizeLocaleCode, localeToHtmlLang };

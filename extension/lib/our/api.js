@@ -1,10 +1,12 @@
-"use strict";
-var ext = typeof browser !== "undefined" ? browser : chrome;
+import { SAFE_EXTENSION_API_IGNORED_ERRORS } from "../../app/safe-extension-api-rules.js";
+import { createSafeExtensionApi } from "./safe-extension-api.js";
 
-/* background-module-bridge */
-// Exposes this file's top-level bindings on globalThis so other classic-style
-// modules in extension/app/background/main.js's import graph can keep referring
-// to them as bare identifiers, exactly as they could when this file was loaded
-// via a shared classic script / importScripts context. No-op change for the
-// existing classic-script content-script loading of this same file.
-globalThis.ext = ext;
+var ext = createSafeExtensionApi(
+  typeof browser !== "undefined" ? browser : chrome,
+  [
+    SAFE_EXTENSION_API_IGNORED_ERRORS,
+    globalThis.ELEMENT_DELETER_SAFE_EXTENSION_API_IGNORED_ERRORS,
+  ],
+);
+
+export { ext };

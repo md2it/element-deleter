@@ -1,4 +1,5 @@
-"use strict";
+import { ext } from "../api.js";
+
 export async function showBlockedNotice(tabId, config, payload, windowId) {
   const { popupHtml, sessionKey, logLabel } = config;
   void ext.storage.session.set({

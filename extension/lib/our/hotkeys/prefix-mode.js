@@ -1,4 +1,5 @@
-"use strict";
+import { isPrefixActionKeyEvent, isPrefixChordHeld, isPrefixChordKeyEvent, PREFIX_ACTION_TIMEOUT_MS, PREFIX_DOUBLE_ACTION_WINDOW_MS } from "./keys.js";
+
 function createPrefixModeController(options) {
   let armed = false;
   let timeoutId;
@@ -140,3 +141,5 @@ function createPrefixModeController(options) {
     disarm,
   };
 }
+
+export { createPrefixModeController };

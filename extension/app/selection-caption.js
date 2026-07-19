@@ -1,4 +1,6 @@
-"use strict";
+import { getCssSelector } from "../lib/our/copy/selector.js";
+import { getFullXPath } from "../lib/our/copy/xpath.js";
+
 function formatTagIdClassCaption(el) {
   const tag = el.tagName.toLowerCase();
   const id = el.id.trim();
@@ -51,3 +53,5 @@ function formatToastDescriptor(el, options) {
       return getFullXPath(el);
   }
 }
+
+export { formatTagIdClassCaption, formatSelectionCaption, shouldShowSelectionCaption, resolveElementDescriptor, TOAST_RESTORED_DESCRIPTOR, formatToastDescriptor };

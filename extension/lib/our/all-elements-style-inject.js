@@ -1,4 +1,3 @@
-"use strict";
 function setAllElementsStyleAtEnd(styleId, css) {
   const existing = document.getElementById(styleId);
   if (existing instanceof HTMLStyleElement) {
@@ -14,3 +13,5 @@ function setAllElementsStyleAtEnd(styleId, css) {
 function removeAllElementsStyle(styleId) {
   document.getElementById(styleId)?.remove();
 }
+
+export { setAllElementsStyleAtEnd, removeAllElementsStyle };

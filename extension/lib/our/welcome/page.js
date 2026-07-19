@@ -1,4 +1,7 @@
-"use strict";
+import { ext } from "../api.js";
+import { localeToHtmlLang } from "../i18n/locale-code.js";
+import { createPanelDivider, createPanelHeader } from "../panel-header/header.js";
+
 var WELCOME_BODY_MIN_VAR = "--welcome-body-min";
 var WELCOME_PROBE_WIDTH = "480px";
 var PANEL_HEADER_STYLE_ID = "dd-panel-header-styles";
@@ -315,3 +318,5 @@ async function bootstrapWelcomePage(config) {
   syncLangButtons(data, config);
   setupPinHint(data, config);
 }
+
+export { WELCOME_BODY_MIN_VAR, WELCOME_PROBE_WIDTH, PANEL_HEADER_STYLE_ID, ensurePanelHeaderStyles, welcomeHeaderEl, welcomeBodyMinPx, welcomePinHintRtl, stepIcon, stepWithIcon, stepWithExtension, createAboutItem, createAboutSection, createAboutFooter, mergeWelcomeLocale, mountWelcomeHeader, fillLangRow, populateWelcomeBody, renderWelcomeContent, syncLangButtons, switchWelcomeLocale, measureWelcomeBodyHeight, measureMaxWelcomeBodyHeight, applyWelcomeBodyMinHeight, PIN_HINT_EDGE_RATIO, positionPinHint, bindPinHintPosition, syncPinHintVariant, setupPinHint, bootstrapWelcomePage };
