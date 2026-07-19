@@ -1,4 +1,5 @@
-"use strict";
+import { INFO, KEYBOARD, SETTINGS } from "../../lib/vendor/icons/index.js";
+
 var MENU_ITEMS = [
   { tab: "settings", iconSvg: SETTINGS, label: (s) => s.tabSettings },
   { tab: "shortcuts", iconSvg: KEYBOARD, label: (s) => s.tabShortcuts },
@@ -43,3 +44,5 @@ function createPanelMenu(strings) {
   });
   return handle;
 }
+
+export { MENU_ITEMS, createPanelMenu };

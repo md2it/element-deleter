@@ -1,5 +1,11 @@
-"use strict";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { ARROW_UP, HEART, PIN, PUZZLE } from "../../lib/vendor/icons/index.js";
 import { welcomeStepIcon } from "../../lib/our/welcome/step-icon.js";
+import { buildAboutListItems } from "../about.js";
+import { PANEL_TITLE } from "../brand.js";
+import { t } from "../i18n/strings.js";
+import { LOCALE_BUTTON_LABELS, LOCALES } from "../i18n/types.js";
+import { ABOUT_SECTION_ICONS, toolbarWelcomeIconSvg } from "../icons.js";
 
 export function buildWelcomeLocalePayload(locale, extensionName) {
   const strings = t(locale);

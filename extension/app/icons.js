@@ -1,4 +1,19 @@
-"use strict";
+import { icon_default } from "../lib/our/icons/extension-logos.js";
+import {
+  chart_column_increasing_default,
+  chevron_left_default,
+  chevron_right_default,
+  chevrons_left_default,
+  chevrons_right_default,
+  info_default,
+  shield_check_default,
+  square_check_default,
+  terminal_default,
+  trash_2_default,
+  undo_2_default,
+} from "../lib/vendor/icons/lucide.js";
+import { md2it_default } from "../lib/our/icons/md2it.js";
+
 function stripComment2(svg) {
   return svg.replace(/<!--[\s\S]*?-->\s*/g, "").trim();
 }
@@ -63,11 +78,11 @@ function extensionMarkSvg(options) {
   }
 }
 var ABOUT_SECTION_ICONS = {
-  overview: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>',
-  capabilities: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  overview: lucideUiIcon2(info_default),
+  capabilities: lucideUiIcon2(square_check_default),
   privacy: lucideUiIcon2(shield_check_default),
-  code: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg>',
-  statistics: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17V9"/><path d="M18 17V5"/><path d="M8 17v-3"/><path d="M3 17v-1"/><path d="M3 21h18"/></svg>'
+  code: lucideUiIcon2(terminal_default),
+  statistics: lucideUiIcon2(chart_column_increasing_default),
 };
 function toolbarWelcomeIconSvg(bg = INACTIVE_BG, size = 16) {
   const r = TOOLBAR_VIEWBOX * TOOLBAR_RADIUS_RATIO;
@@ -76,31 +91,4 @@ function toolbarWelcomeIconSvg(bg = INACTIVE_BG, size = 16) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${TOOLBAR_VIEWBOX} ${TOOLBAR_VIEWBOX}" aria-hidden="true"><rect width="${TOOLBAR_VIEWBOX}" height="${TOOLBAR_VIEWBOX}" rx="${r}" fill="${bg}"/><g fill="#ffffff" transform="translate(${pad} ${pad}) scale(${scale})">${elementDeleterLogoInner}</g></svg>`;
 }
 
-/* background-module-bridge */
-// Exposes this file's top-level bindings on globalThis so other classic-style
-// modules in extension/app/background/main.js's import graph can keep referring
-// to them as bare identifiers, exactly as they could when this file was loaded
-// via a shared classic script / importScripts context. No-op change for the
-// existing classic-script content-script loading of this same file.
-globalThis.stripComment2 = stripComment2;
-globalThis.lucideUiIcon2 = lucideUiIcon2;
-globalThis.brandIcon2 = brandIcon2;
-globalThis.MD2IT = MD2IT;
-globalThis.UNDO_2 = UNDO_2;
-globalThis.CHEVRON_LEFT = CHEVRON_LEFT;
-globalThis.CHEVRON_RIGHT = CHEVRON_RIGHT;
-globalThis.CHEVRONS_LEFT = CHEVRONS_LEFT;
-globalThis.CHEVRONS_RIGHT = CHEVRONS_RIGHT;
-globalThis.INACTIVE_BG = INACTIVE_BG;
-globalThis.TOOLBAR_VIEWBOX = TOOLBAR_VIEWBOX;
-globalThis.TOOLBAR_RADIUS_RATIO = TOOLBAR_RADIUS_RATIO;
-globalThis.TOOLBAR_PAD_RATIO = TOOLBAR_PAD_RATIO;
-globalThis.elementDeleterLogoInner = elementDeleterLogoInner;
-globalThis.innerSvgMarkup = innerSvgMarkup;
-globalThis.stripFullBackgroundRect = stripFullBackgroundRect;
-globalThis.svgAttr = svgAttr;
-globalThis.trash2Inner = trash2Inner;
-globalThis.trashMarkGroup = trashMarkGroup;
-globalThis.extensionMarkSvg = extensionMarkSvg;
-globalThis.ABOUT_SECTION_ICONS = ABOUT_SECTION_ICONS;
-globalThis.toolbarWelcomeIconSvg = toolbarWelcomeIconSvg;
+export { stripComment2, lucideUiIcon2, brandIcon2, MD2IT, UNDO_2, CHEVRON_LEFT, CHEVRON_RIGHT, CHEVRONS_LEFT, CHEVRONS_RIGHT, INACTIVE_BG, TOOLBAR_VIEWBOX, TOOLBAR_RADIUS_RATIO, TOOLBAR_PAD_RATIO, elementDeleterLogoInner, innerSvgMarkup, stripFullBackgroundRect, svgAttr, trash2Inner, trashMarkGroup, extensionMarkSvg, ABOUT_SECTION_ICONS, toolbarWelcomeIconSvg };
