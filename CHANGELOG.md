@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.10
+- Fixed empty Settings panel (missing hotkey aria-label import)
+
 ### 1.2.9
 - Migrated the extension runtime and content entrypoint to ES modules with a shared content loader
 

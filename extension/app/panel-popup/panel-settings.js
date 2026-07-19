@@ -1,6 +1,6 @@
 import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
 import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
-import { ESC_HOTKEY_LABEL, getStartHotkeyActionLabel, getStartHotkeyChordLabel, getUndoHotkeyLabel } from "../hotkeys/keys.js";
+import { ESC_HOTKEY_LABEL, getStartHotkeyActionLabel, getStartHotkeyAriaLabel, getStartHotkeyChordLabel, getUndoHotkeyLabel } from "../hotkeys/keys.js";
 import { setEscHotkeyEnabled, setStartHotkeyEnabled, setUndoHotkeyEnabled } from "../hotkeys/settings.js";
 import { LOCALE_BUTTON_LABELS, LOCALES } from "../i18n/types.js";
 import { CHEVRON_LEFT, CHEVRON_RIGHT, CHEVRONS_LEFT, CHEVRONS_RIGHT } from "../icons.js";
