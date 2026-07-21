@@ -24,8 +24,8 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
 
 ### Stores
 
-- Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
-- Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
+- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
+- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/md2it-element-deleter/)
 
 ### Manuelle Installation
 

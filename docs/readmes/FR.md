@@ -25,8 +25,8 @@ Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
 
 ### Boutiques
 
-- Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
-- Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
+- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
+- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/md2it-element-deleter/)
 
 ### Installation manuelle
 

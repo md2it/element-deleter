@@ -24,8 +24,8 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
 
 ### Tiendas
 
-- Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
-- Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
+- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
+- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/md2it-element-deleter/)
 
 ### Instalación manual
 
