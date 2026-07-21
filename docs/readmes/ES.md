@@ -4,6 +4,14 @@
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../README.md">EN</a> | ES | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## DESCRIPCIÓN
+
+Element Deleter elimina rápidamente cualquier elemento que estorbe en una página: banners, ventanas emergentes, cabeceras fijas, widgets, bloques adicionales, iframes y otros elementos que distraen.
+
+Es útil para desarrolladores frontend, testers de QA y diseñadores: permite revisar una página sin bloques molestos, preparar una captura limpia, evaluar una idea de diseño o eliminar un elemento que cubre el contenido. En la navegación cotidiana, facilita la lectura, visualización y conservación de páginas.
+
+Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
+
 <p align="center">
   <a href="../publication/screenshots/ES-0.png"><img src="../publication/screenshots/ES-0.png" width="180" alt="Element Deleter screenshot 1"></a>
   <a href="../publication/screenshots/ES-1.png"><img src="../publication/screenshots/ES-1.png" width="180" alt="Element Deleter screenshot 2"></a>
@@ -19,22 +27,12 @@
 - Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
 - Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
 
-### Modo de desarrollo
+### Instalación manual
 
-Carga el directorio completo [`extension`](../extension) como una extensión descomprimida.
+- **GitHub Release.** Descarga la última extensión empaquetada:
+  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
 
-### GitHub Release
-
-Descarga la última extensión empaquetada:
-https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
-
-## DESCRIPCIÓN
-
-Element Deleter elimina rápidamente cualquier elemento que estorbe en una página: banners, ventanas emergentes, cabeceras fijas, widgets, bloques adicionales, iframes y otros elementos que distraen.
-
-Es útil para desarrolladores frontend, testers de QA y diseñadores: permite revisar una página sin bloques molestos, preparar una captura limpia, evaluar una idea de diseño o eliminar un elemento que cubre el contenido. En la navegación cotidiana, facilita la lectura, visualización y conservación de páginas.
-
-Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
+- **Modo de desarrollo.** Carga el directorio completo [`extension`](../extension) como una extensión descomprimida.
 
 ## FUNCIONES PRINCIPALES
 
@@ -46,24 +44,6 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
 - Notificación clara después de eliminar
 - Ligera y sencilla
 - Solo configuraciones locales
-
-## PRIVACIDAD
-
-- No se recopilan datos
-- Sin seguimiento
-- Sin solicitudes de red
-- Los cambios son locales para la página actual
-- Al recargar la página se restaura el contenido original
-
-## IDIOMAS DE LA INTERFAZ
-
-- Inglés
-- Ruso
-- Español
-- Francés
-- Alemán
-- Chino simplificado
-- Árabe
 
 ## USO
 
@@ -99,6 +79,24 @@ Consulta [todas las rutas de usuario](../spec/user-path.md) para conocer la elim
    - Es un error funcional
    - Los intentos de corregirlo han requerido mucho tiempo
    - Su impacto es bajo porque el escenario es poco frecuente
+
+## PRIVACIDAD
+
+- No se recopilan datos
+- Sin seguimiento
+- Sin solicitudes de red
+- Los cambios son locales para la página actual
+- Al recargar la página se restaura el contenido original
+
+## IDIOMAS DE LA INTERFAZ
+
+- Inglés
+- Francés
+- Alemán
+- Español
+- Ruso
+- Árabe
+- Chino simplificado
 
 ## LICENCIA
 

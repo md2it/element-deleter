@@ -4,6 +4,14 @@
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../README.md">EN</a> | <a href="./ES.md">ES</a> | FR | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## DESCRIPTION
+
+Element Deleter retire rapidement tout ce qui gêne sur une page : bannières, fenêtres contextuelles, en-têtes fixes, widgets, blocs supplémentaires, iframes et autres éléments distrayants.
+
+L'extension est utile aux développeurs frontend, testeurs QA et designers : elle permet de vérifier une page sans blocs parasites, de préparer une capture propre, d'évaluer une idée de mise en page ou de retirer un élément qui masque le contenu. Pour la navigation quotidienne, elle facilite la lecture, l'affichage et l'enregistrement des pages.
+
+Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
+
 <p align="center">
   <a href="../publication/screenshots/FR-0.png"><img src="../publication/screenshots/FR-0.png" width="180" alt="Element Deleter screenshot 1"></a>
   <a href="../publication/screenshots/FR-1.png"><img src="../publication/screenshots/FR-1.png" width="180" alt="Element Deleter screenshot 2"></a>
@@ -20,22 +28,12 @@
 - Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
 - Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
 
-### Mode développement
+### Installation manuelle
 
-Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
+- **GitHub Release.** Téléchargez la dernière extension empaquetée :
+  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
 
-### GitHub Release
-
-Téléchargez la dernière extension empaquetée :
-https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
-
-## DESCRIPTION
-
-Element Deleter retire rapidement tout ce qui gêne sur une page : bannières, fenêtres contextuelles, en-têtes fixes, widgets, blocs supplémentaires, iframes et autres éléments distrayants.
-
-L'extension est utile aux développeurs frontend, testeurs QA et designers : elle permet de vérifier une page sans blocs parasites, de préparer une capture propre, d'évaluer une idée de mise en page ou de retirer un élément qui masque le contenu. Pour la navigation quotidienne, elle facilite la lecture, l'affichage et l'enregistrement des pages.
-
-Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
+- **Mode développement.** Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
 
 ## FONCTIONNALITÉS PRINCIPALES
 
@@ -47,24 +45,6 @@ Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
 - Notification claire après la suppression
 - Légère et simple
 - Paramètres locaux uniquement
-
-## CONFIDENTIALITÉ
-
-- Aucune collecte de données
-- Aucun suivi
-- Aucune requête réseau
-- Les modifications sont limitées à la page actuelle
-- Le rechargement restaure le contenu d'origine
-
-## LANGUES DE L'INTERFACE
-
-- Anglais
-- Russe
-- Espagnol
-- Français
-- Allemand
-- Chinois simplifié
-- Arabe
 
 ## UTILISATION
 
@@ -100,6 +80,24 @@ Consultez [tous les parcours utilisateur](../spec/user-path.md) pour les suppres
    - Il s'agit d'un défaut fonctionnel
    - Les tentatives de correction ont demandé beaucoup de temps
    - Son impact est faible, car ce scénario est rare
+
+## CONFIDENTIALITÉ
+
+- Aucune collecte de données
+- Aucun suivi
+- Aucune requête réseau
+- Les modifications sont limitées à la page actuelle
+- Le rechargement restaure le contenu d'origine
+
+## LANGUES DE L'INTERFACE
+
+- Anglais
+- Français
+- Allemand
+- Espagnol
+- Russe
+- Arabe
+- Chinois simplifié
 
 ## LICENCE
 

@@ -4,6 +4,14 @@
 =-=-=-=-=-=-=-=-= | <a href="./docs/readmes/DE.md">DE</a> | EN | <a href="./docs/readmes/ES.md">ES</a> | <a href="./docs/readmes/FR.md">FR</a> | <a href="./docs/readmes/RU.md">RU</a> | <a href="./docs/readmes/ZH.md">中文</a> | <a href="./docs/readmes/AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## DESCRIPTION
+
+Element Deleter quickly clears the page from anything in the way: banners, popups, sticky headers, widgets, extra blocks, iframes, and other distracting elements.
+
+Useful for frontend developers, QA testers, and designers: check a page without noisy blocks, prepare a clean screenshot, review a layout idea, or remove an element that covers the content. For everyday browsing, it simply makes pages easier to read, view, and save.
+
+Hover, click, and the element is gone. Made a mistake? Restore it.
+
 <p align="center">
   <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Deleter screenshot 1"></a>
   <a href="./docs/publication/screenshots/EN-1.png"><img src="./docs/publication/screenshots/EN-1.png" width="180" alt="Element Deleter screenshot 2"></a>
@@ -19,22 +27,12 @@
 - Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
 - Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
 
-### Development mode
+### Manual installation
 
-Load the entire [`extension`](./extension) directory as an unpacked extension.
+- **GitHub Release.** Download the latest packaged extension:
+  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
 
-### GitHub Release
-
-Download the latest packaged extension:
-https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
-
-## DESCRIPTION
-
-Element Deleter quickly clears the page from anything in the way: banners, popups, sticky headers, widgets, extra blocks, iframes, and other distracting elements.
-
-Useful for frontend developers, QA testers, and designers: check a page without noisy blocks, prepare a clean screenshot, review a layout idea, or remove an element that covers the content. For everyday browsing, it simply makes pages easier to read, view, and save.
-
-Hover, click, and the element is gone. Made a mistake? Restore it.
+- **Development mode.** Load the entire [`extension`](./extension) directory as an unpacked extension.
 
 ## KEY FEATURES
 
@@ -46,24 +44,6 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
 - Clear notification after deletion
 - Lightweight and simple
 - Local settings only
-
-## PRIVACY
-
-- No data collection
-- No tracking
-- No network requests
-- Changes are local to the current page
-- Reloading the page restores the original content
-
-## INTERFACE LANGUAGES
-
-- English
-- Russian
-- Spanish
-- French
-- German
-- Simplified Chinese
-- Arabic
 
 ## USAGE
 
@@ -103,6 +83,24 @@ See [all user paths](./docs/spec/user-path.md) for repeated deletion, element re
    - This is a functional bug
    - Attempts to fix it have taken significant time
    - Its impact is low because the scenario is rare
+
+## PRIVACY
+
+- No data collection
+- No tracking
+- No network requests
+- Changes are local to the current page
+- Reloading the page restores the original content
+
+## INTERFACE LANGUAGES
+
+- English
+- French
+- German
+- Spanish
+- Russian
+- Arabic
+- Simplified Chinese
 
 ## LICENSE
 

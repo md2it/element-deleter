@@ -4,6 +4,14 @@
 =-=-=-=-=-=-=-=-= | DE | <a href="../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
+## BESCHREIBUNG
+
+Element Deleter entfernt schnell alles, was auf einer Seite stört: Banner, Pop-ups, fixierte Kopfzeilen, Widgets, zusätzliche Blöcke, Iframes und andere ablenkende Elemente.
+
+Die Erweiterung hilft Frontend-Entwicklern, QA-Testern und Designern, Seiten ohne störende Blöcke zu prüfen, saubere Screenshots zu erstellen, Layoutideen zu bewerten oder verdeckte Inhalte freizulegen. Beim alltäglichen Surfen erleichtert sie das Lesen, Anzeigen und Speichern von Seiten.
+
+Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird entfernt. Ein Fehler lässt sich rückgängig machen.
+
 <p align="center">
   <a href="../publication/screenshots/DE-0.png"><img src="../publication/screenshots/DE-0.png" width="180" alt="Element Deleter screenshot 1"></a>
   <a href="../publication/screenshots/DE-1.png"><img src="../publication/screenshots/DE-1.png" width="180" alt="Element Deleter screenshot 2"></a>
@@ -19,22 +27,12 @@
 - Chrome https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag
 - Firefox https://addons.mozilla.org/firefox/addon/md2it-element-deleter/
 
-### Entwicklungsmodus
+### Manuelle Installation
 
-Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
+- **GitHub Release.** Laden Sie die neueste gepackte Erweiterung herunter:
+  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
 
-### GitHub Release
-
-Laden Sie die neueste gepackte Erweiterung herunter:
-https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
-
-## BESCHREIBUNG
-
-Element Deleter entfernt schnell alles, was auf einer Seite stört: Banner, Pop-ups, fixierte Kopfzeilen, Widgets, zusätzliche Blöcke, Iframes und andere ablenkende Elemente.
-
-Die Erweiterung hilft Frontend-Entwicklern, QA-Testern und Designern, Seiten ohne störende Blöcke zu prüfen, saubere Screenshots zu erstellen, Layoutideen zu bewerten oder verdeckte Inhalte freizulegen. Beim alltäglichen Surfen erleichtert sie das Lesen, Anzeigen und Speichern von Seiten.
-
-Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird entfernt. Ein Fehler lässt sich rückgängig machen.
+- **Entwicklungsmodus.** Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
 
 ## HAUPTFUNKTIONEN
 
@@ -46,24 +44,6 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
 - Klare Benachrichtigung nach dem Löschen
 - Leichtgewichtig und einfach
 - Ausschließlich lokale Einstellungen
-
-## DATENSCHUTZ
-
-- Keine Datenerfassung
-- Kein Tracking
-- Keine Netzwerkanfragen
-- Änderungen gelten nur für die aktuelle Seite
-- Beim Neuladen wird der ursprüngliche Inhalt wiederhergestellt
-
-## OBERFLÄCHENSPRACHEN
-
-- Englisch
-- Russisch
-- Spanisch
-- Französisch
-- Deutsch
-- Vereinfachtes Chinesisch
-- Arabisch
 
 ## VERWENDUNG
 
@@ -99,6 +79,24 @@ Weitere Informationen zu wiederholtem Löschen, Wiederherstellen, Löschen über
    - Dies ist ein Funktionsfehler
    - Versuche zur Behebung waren sehr zeitaufwendig
    - Die Auswirkung ist gering, da dieses Szenario selten auftritt
+
+## DATENSCHUTZ
+
+- Keine Datenerfassung
+- Kein Tracking
+- Keine Netzwerkanfragen
+- Änderungen gelten nur für die aktuelle Seite
+- Beim Neuladen wird der ursprüngliche Inhalt wiederhergestellt
+
+## OBERFLÄCHENSPRACHEN
+
+- Englisch
+- Französisch
+- Deutsch
+- Spanisch
+- Russisch
+- Arabisch
+- Vereinfachtes Chinesisch
 
 ## LIZENZ
 

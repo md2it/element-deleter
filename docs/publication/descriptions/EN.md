@@ -23,3 +23,6 @@ PRIVACY
 - No network requests
 - Changes are local to the current page
 - Reloading the page restores the original content
+
+INTERFACE LANGUAGES
+English, French, German, Spanish, Russian, Arabic, Simplified Chinese.

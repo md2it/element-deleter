@@ -23,3 +23,6 @@ DATENSCHUTZ
 - Keine Netzwerkanfragen
 - Änderungen sind lokal auf der aktuellen Seite
 - Beim Neuladen der Seite wird der ursprüngliche Inhalt wiederhergestellt
+
+OBERFLÄCHENSPRACHEN
+Englisch, Französisch, Deutsch, Spanisch, Russisch, Arabisch, vereinfachtes Chinesisch.

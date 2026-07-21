@@ -23,3 +23,6 @@ PRIVACIDAD
 - Sin solicitudes de red
 - Los cambios son locales en la página actual
 - Al recargar la página, se restaura el contenido original
+
+IDIOMAS DE LA INTERFAZ
+Inglés, francés, alemán, español, ruso, árabe, chino simplificado.

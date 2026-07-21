@@ -23,3 +23,6 @@ CONFIDENTIALITÉ
 - Aucune requête réseau
 - Les modifications sont locales à la page actuelle
 - Le rechargement de la page restaure le contenu original
+
+LANGUES DE L'INTERFACE
+Anglais, français, allemand, espagnol, russe, arabe, chinois simplifié.
