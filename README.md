@@ -23,6 +23,10 @@
 
 Load the entire [`extension`](./extension) directory as an unpacked extension.
 
+### GitHub Release
+
+Pushing a version tag that matches `manifest.json` (for example, `v1.2.11`) creates a GitHub Release with the packaged extension.
+
 ## DESCRIPTION
 
 Element Deleter quickly clears the page from anything in the way: banners, popups, sticky headers, widgets, extra blocks, iframes, and other distracting elements.
