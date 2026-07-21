@@ -23,6 +23,11 @@
 
 将整个 [`extension`](../extension) 目录作为未打包的扩展程序加载。
 
+### GitHub Release
+
+下载最新打包的扩展：
+https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+
 ## 说明
 
 Element Deleter 可以快速清除页面上的干扰内容，包括横幅、弹出窗口、固定页眉、组件、多余区块、iframe 以及其他分散注意力的元素。

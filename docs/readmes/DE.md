@@ -23,6 +23,11 @@
 
 Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
 
+### GitHub Release
+
+Laden Sie die neueste gepackte Erweiterung herunter:
+https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+
 ## BESCHREIBUNG
 
 Element Deleter entfernt schnell alles, was auf einer Seite stört: Banner, Pop-ups, fixierte Kopfzeilen, Widgets, zusätzliche Blöcke, Iframes und andere ablenkende Elemente.

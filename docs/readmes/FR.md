@@ -24,6 +24,11 @@
 
 Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
 
+### GitHub Release
+
+Téléchargez la dernière extension empaquetée :
+https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+
 ## DESCRIPTION
 
 Element Deleter retire rapidement tout ce qui gêne sur une page : bannières, fenêtres contextuelles, en-têtes fixes, widgets, blocs supplémentaires, iframes et autres éléments distrayants.

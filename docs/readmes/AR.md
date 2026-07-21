@@ -23,6 +23,11 @@
 
 حمّل مجلد [`extension`](../extension) بالكامل كإضافة غير مضغوطة.
 
+### GitHub Release
+
+حمّل أحدث حزمة للإضافة:
+https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+
 ## الوصف
 
 تزيل Element Deleter بسرعة كل ما يعيق الصفحة، مثل اللافتات والنوافذ المنبثقة والرؤوس الثابتة والأدوات والكتل الإضافية وإطارات iframe والعناصر الأخرى المشتتة.

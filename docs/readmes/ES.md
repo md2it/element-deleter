@@ -23,6 +23,11 @@
 
 Carga el directorio completo [`extension`](../extension) como una extensión descomprimida.
 
+### GitHub Release
+
+Descarga la última extensión empaquetada:
+https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+
 ## DESCRIPCIÓN
 
 Element Deleter elimina rápidamente cualquier elemento que estorbe en una página: banners, ventanas emergentes, cabeceras fijas, widgets, bloques adicionales, iframes y otros elementos que distraen.

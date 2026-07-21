@@ -25,7 +25,8 @@ Load the entire [`extension`](./extension) directory as an unpacked extension.
 
 ### GitHub Release
 
-Pushing a version tag that matches `manifest.json` (for example, `v1.2.11`) creates a GitHub Release with the packaged extension.
+Download the latest packaged extension:
+https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
 
 ## DESCRIPTION
 
