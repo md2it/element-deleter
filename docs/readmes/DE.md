@@ -17,7 +17,6 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
   <a href="../publication/screenshots/DE-1.png"><img src="../publication/screenshots/DE-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="../publication/screenshots/DE-2.png"><img src="../publication/screenshots/DE-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="../publication/screenshots/DE-3.png"><img src="../publication/screenshots/DE-3.png" width="180" alt="Element Deleter screenshot 4"></a>
-  <a href="../publication/screenshots/DE-4.png"><img src="../publication/screenshots/DE-4.png" width="180" alt="Element Deleter screenshot 5"></a>
 </p>
 
 ## INSTALLATION
@@ -30,7 +29,7 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
 ### Manuelle Installation
 
 - **GitHub Release.** Laden Sie die neueste gepackte Erweiterung herunter:
-  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
 
 - **Entwicklungsmodus.** Laden Sie das gesamte Verzeichnis [`extension`](../extension) als entpackte Erweiterung.
 

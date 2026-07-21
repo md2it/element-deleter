@@ -17,7 +17,6 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
   <a href="../publication/screenshots/ES-1.png"><img src="../publication/screenshots/ES-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="../publication/screenshots/ES-2.png"><img src="../publication/screenshots/ES-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="../publication/screenshots/ES-3.png"><img src="../publication/screenshots/ES-3.png" width="180" alt="Element Deleter screenshot 4"></a>
-  <a href="../publication/screenshots/ES-4.png"><img src="../publication/screenshots/ES-4.png" width="180" alt="Element Deleter screenshot 5"></a>
 </p>
 
 ## INSTALACIÓN
@@ -30,7 +29,7 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
 ### Instalación manual
 
 - **GitHub Release.** Descarga la última extensión empaquetada:
-  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
 
 - **Modo de desarrollo.** Carga el directorio completo [`extension`](../extension) como una extensión descomprimida.
 

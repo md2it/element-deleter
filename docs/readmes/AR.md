@@ -17,7 +17,6 @@
   <a href="../publication/screenshots/AR-1.png"><img src="../publication/screenshots/AR-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="../publication/screenshots/AR-2.png"><img src="../publication/screenshots/AR-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="../publication/screenshots/AR-3.png"><img src="../publication/screenshots/AR-3.png" width="180" alt="Element Deleter screenshot 4"></a>
-  <a href="../publication/screenshots/AR-4.png"><img src="../publication/screenshots/AR-4.png" width="180" alt="Element Deleter screenshot 5"></a>
 </p>
 
 ## التثبيت
@@ -30,7 +29,7 @@
 ### التثبيت اليدوي
 
 - **GitHub Release.** حمّل أحدث حزمة للإضافة:
-  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
 
 - **وضع التطوير.** حمّل مجلد [`extension`](../extension) بالكامل كإضافة غير مضغوطة.
 

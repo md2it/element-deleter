@@ -17,7 +17,6 @@ Element Deleter быстро очищает страницу от всего, ч
   <a href="../publication/screenshots/RU-1.png"><img src="../publication/screenshots/RU-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="../publication/screenshots/RU-2.png"><img src="../publication/screenshots/RU-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="../publication/screenshots/RU-3.png"><img src="../publication/screenshots/RU-3.png" width="180" alt="Element Deleter screenshot 4"></a>
-  <a href="../publication/screenshots/RU-4.png"><img src="../publication/screenshots/RU-4.png" width="180" alt="Element Deleter screenshot 5"></a>
 </p>
 
 ## УСТАНОВКА
@@ -30,7 +29,7 @@ Element Deleter быстро очищает страницу от всего, ч
 ### Ручная установка
 
 - **GitHub Release.** Скачайте последнюю упакованную сборку расширения:
-  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
 
 - **Режим разработки.** Загрузите весь каталог [`extension`](../extension) как распакованное расширение.
 

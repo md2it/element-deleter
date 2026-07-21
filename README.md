@@ -17,7 +17,6 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
   <a href="./docs/publication/screenshots/EN-1.png"><img src="./docs/publication/screenshots/EN-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="./docs/publication/screenshots/EN-2.png"><img src="./docs/publication/screenshots/EN-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="./docs/publication/screenshots/EN-3.png"><img src="./docs/publication/screenshots/EN-3.png" width="180" alt="Element Deleter screenshot 4"></a>
-  <a href="./docs/publication/screenshots/EN-4.png"><img src="./docs/publication/screenshots/EN-4.png" width="180" alt="Element Deleter screenshot 5"></a>
 </p>
 
 ## INSTALLATION
@@ -30,7 +29,7 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
 ### Manual installation
 
 - **GitHub Release.** Download the latest packaged extension:
-  https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip
+  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
 
 - **Development mode.** Load the entire [`extension`](./extension) directory as an unpacked extension.
 
