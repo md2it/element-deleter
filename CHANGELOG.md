@@ -6,6 +6,9 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### 1.2.12
+- Prepared Chrome Web Store upload release
+
 ### 1.2.11
 - Reduced expected operational logs from warning level to debug level
 
