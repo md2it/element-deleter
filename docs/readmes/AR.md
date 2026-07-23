@@ -1,6 +1,30 @@
 # ELEMENT DELETER
 
-<p align="center">
+<p align="center" id="installation">
+  <a href="https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Chrome Web Store">
+    </picture>
+  </a>
+  <a href="https://addons.mozilla.org/firefox/addon/md2it-element-deleter/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=light">
+      <img src="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark" alt="Firefox Add-ons">
+    </picture>
+  </a>
+  <a href="https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Latest Release ZIP">
+    </picture>
+  </a>
+</p>
+
+<p align="center" id="language">
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../README.md">EN</a> | <a href="./ES.md">ES</a> | <a href="./FR.md">FR</a> | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | عربي | =-=-=-=-=-=-=-=-=
 </p>
 
@@ -12,26 +36,12 @@
 
 مرر المؤشر وانقر، فيختفي العنصر. وإذا كان ذلك بالخطأ، يمكنك استعادته.
 
-<p align="center">
+<p align="center" id="screenshots">
   <a href="../publication/screenshots/AR-0.png"><img src="../publication/screenshots/AR-0.png" width="180" alt="Element Deleter screenshot 1"></a>
   <a href="../publication/screenshots/AR-1.png"><img src="../publication/screenshots/AR-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="../publication/screenshots/AR-2.png"><img src="../publication/screenshots/AR-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="../publication/screenshots/AR-3.png"><img src="../publication/screenshots/AR-3.png" width="180" alt="Element Deleter screenshot 4"></a>
 </p>
-
-## التثبيت
-
-### المتاجر
-
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
-- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/md2it-element-deleter/)
-
-### التثبيت اليدوي
-
-- **GitHub Release.** حمّل أحدث حزمة للإضافة:
-  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
-
-- **وضع التطوير.** حمّل مجلد [`extension`](../extension) بالكامل كإضافة غير مضغوطة.
 
 ## الميزات الرئيسية
 
@@ -43,30 +53,15 @@
 - إشعار واضح بعد الحذف
 - خفيفة وبسيطة
 - إعدادات محلية فقط
+- الواجهة متاحة بالإنجليزية والفرنسية والألمانية والإسبانية والروسية والعربية والصينية المبسطة
 
-## الاستخدام
+## الخصوصية
 
-U = المستخدم
-E = الإضافة
-
-1. ينفذ U أحد الإجراءات التالية:
-   - ينقر بزر الفأرة الأيسر على أيقونة الإضافة
-   - يضغط `Ctrl+Shift+X`→`D` (على Mac، يضغط `Cmd+Shift+X`→`D`)
-2. تبدأ E
-3. يمرر U المؤشر فوق عنصر في الصفحة
-4. تميّز E عنصر DOM المقابل
-5. ينقر U على العنصر
-6. تنفذ E جميع الإجراءات التالية:
-   - تزيل العنصر وجميع العناصر التابعة له
-   - تعرض إشعارًا بالحذف
-   - تميّز عنصرًا آخر إذا كان موجودًا تحت المؤشر
-7. ينفذ U أحد الإجراءات التالية:
-   - ينقر مجددًا بزر الفأرة الأيسر على أيقونة الإضافة
-   - يضغط `Ctrl+Shift+X`→`D` (على Mac، يضغط `Cmd+Shift+X`→`D`)
-   - يضغط `Esc`
-8. تتوقف E
-
-راجع [جميع مسارات المستخدم](../spec/user-path.md) لمعرفة الحذف المتكرر واستعادة العناصر والحذف من قائمة السياق والإرشاد الأولي والوظائف الأخرى.
+- لا يتم جمع البيانات
+- لا يوجد تتبع
+- لا توجد طلبات شبكة
+- تقتصر التغييرات على الصفحة الحالية
+- تؤدي إعادة تحميل الصفحة إلى استعادة المحتوى الأصلي
 
 ## القيود
 
@@ -78,24 +73,6 @@ E = الإضافة
    - هذا خلل وظيفي
    - استغرقت محاولات إصلاحه وقتًا طويلًا
    - تأثيره منخفض لأن هذا السيناريو نادر
-
-## الخصوصية
-
-- لا يتم جمع البيانات
-- لا يوجد تتبع
-- لا توجد طلبات شبكة
-- تقتصر التغييرات على الصفحة الحالية
-- تؤدي إعادة تحميل الصفحة إلى استعادة المحتوى الأصلي
-
-## لغات الواجهة
-
-- الإنجليزية
-- الفرنسية
-- الألمانية
-- الإسبانية
-- الروسية
-- العربية
-- الصينية المبسطة
 
 ## الترخيص
 

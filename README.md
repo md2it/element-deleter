@@ -1,6 +1,30 @@
 # ELEMENT DELETER
 
-<p align="center">
+<p align="center" id="installation">
+  <a href="https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Chrome Web Store">
+    </picture>
+  </a>
+  <a href="https://addons.mozilla.org/firefox/addon/md2it-element-deleter/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=light">
+      <img src="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark" alt="Firefox Add-ons">
+    </picture>
+  </a>
+  <a href="https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Latest Release ZIP">
+    </picture>
+  </a>
+</p>
+
+<p align="center" id="language">
 =-=-=-=-=-=-=-=-= | <a href="./docs/readmes/DE.md">DE</a> | EN | <a href="./docs/readmes/ES.md">ES</a> | <a href="./docs/readmes/FR.md">FR</a> | <a href="./docs/readmes/RU.md">RU</a> | <a href="./docs/readmes/ZH.md">中文</a> | <a href="./docs/readmes/AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
@@ -12,26 +36,12 @@ Useful for frontend developers, QA testers, and designers: check a page without 
 
 Hover, click, and the element is gone. Made a mistake? Restore it.
 
-<p align="center">
+<p align="center" id="screenshots">
   <a href="./docs/publication/screenshots/EN-0.png"><img src="./docs/publication/screenshots/EN-0.png" width="180" alt="Element Deleter screenshot 1"></a>
   <a href="./docs/publication/screenshots/EN-1.png"><img src="./docs/publication/screenshots/EN-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="./docs/publication/screenshots/EN-2.png"><img src="./docs/publication/screenshots/EN-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="./docs/publication/screenshots/EN-3.png"><img src="./docs/publication/screenshots/EN-3.png" width="180" alt="Element Deleter screenshot 4"></a>
 </p>
-
-## INSTALLATION
-
-### Stores
-
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
-- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/md2it-element-deleter/)
-
-### Manual installation
-
-- **GitHub Release.** Download the latest packaged extension:
-  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
-
-- **Development mode.** Load the entire [`extension`](./extension) directory as an unpacked extension.
 
 ## KEY FEATURES
 
@@ -43,30 +53,15 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
 - Clear notification after deletion
 - Lightweight and simple
 - Local settings only
+- Interface available in English, French, German, Spanish, Russian, Arabic, and Simplified Chinese
 
-## USAGE
+## PRIVACY
 
-U = User
-E = Extension
-
-1. U performs one of the following:
-   - Clicks the extension icon with the left mouse button
-   - Presses `Ctrl+Shift+X`→`D` (on Mac, `Cmd+Shift+X`→`D`)
-2. E starts
-3. U hovers over a page element
-4. E highlights the corresponding DOM element
-5. U clicks the element
-6. E performs all of the following:
-   - Removes the element and all its children
-   - Shows a deletion notification
-   - Highlights another element, if one exists under the cursor
-7. U performs one of the following:
-   - Clicks the extension icon again with the left mouse button
-   - Presses `Ctrl+Shift+X`→`D` (on Mac, `Cmd+Shift+X`→`D`)
-   - Presses `Esc`
-8. E stops
-
-See [all user paths](./docs/spec/user-path.md) for repeated deletion, element restoration, context-menu deletion, onboarding, and other capabilities.
+- No data collection
+- No tracking
+- No network requests
+- Changes are local to the current page
+- Reloading the page restores the original content
 
 ## LIMITATIONS
 
@@ -82,24 +77,6 @@ See [all user paths](./docs/spec/user-path.md) for repeated deletion, element re
    - This is a functional bug
    - Attempts to fix it have taken significant time
    - Its impact is low because the scenario is rare
-
-## PRIVACY
-
-- No data collection
-- No tracking
-- No network requests
-- Changes are local to the current page
-- Reloading the page restores the original content
-
-## INTERFACE LANGUAGES
-
-- English
-- French
-- German
-- Spanish
-- Russian
-- Arabic
-- Simplified Chinese
 
 ## LICENSE
 

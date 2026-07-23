@@ -1,6 +1,30 @@
 # ELEMENT DELETER
 
-<p align="center">
+<p align="center" id="installation">
+  <a href="https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=light">
+      <img src="https://shieldcn.dev/badge/Chrome%20Web%20Store.svg?logo=googlechrome&logoColor=4285F4&mode=dark" alt="Chrome Web Store">
+    </picture>
+  </a>
+  <a href="https://addons.mozilla.org/firefox/addon/md2it-element-deleter/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=light">
+      <img src="https://shieldcn.dev/badge/Firefox%20Add%E2%80%91ons.svg?logo=firefoxbrowser&logoColor=FF7139&mode=dark" alt="Firefox Add-ons">
+    </picture>
+  </a>
+  <a href="https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark">
+      <source media="(prefers-color-scheme: light)" srcset="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=light">
+      <img src="https://shieldcn.dev/badge/Latest%20Release%20ZIP.svg?logo=lu:FileArchive&logoColor=CA8A04&mode=dark" alt="Latest Release ZIP">
+    </picture>
+  </a>
+</p>
+
+<p align="center" id="language">
 =-=-=-=-=-=-=-=-= | <a href="./DE.md">DE</a> | <a href="../README.md">EN</a> | <a href="./ES.md">ES</a> | FR | <a href="./RU.md">RU</a> | <a href="./ZH.md">中文</a> | <a href="./AR.md">عربي</a> | =-=-=-=-=-=-=-=-=
 </p>
 
@@ -12,26 +36,12 @@ L'extension est utile aux développeurs frontend, testeurs QA et designers : ell
 
 Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
 
-<p align="center">
+<p align="center" id="screenshots">
   <a href="../publication/screenshots/FR-0.png"><img src="../publication/screenshots/FR-0.png" width="180" alt="Element Deleter screenshot 1"></a>
   <a href="../publication/screenshots/FR-1.png"><img src="../publication/screenshots/FR-1.png" width="180" alt="Element Deleter screenshot 2"></a>
   <a href="../publication/screenshots/FR-2.png"><img src="../publication/screenshots/FR-2.png" width="180" alt="Element Deleter screenshot 3"></a>
   <a href="../publication/screenshots/FR-3.png"><img src="../publication/screenshots/FR-3.png" width="180" alt="Element Deleter screenshot 4"></a>
 </p>
-
-## INSTALLATION
-
-### Boutiques
-
-- [Chrome Web Store](https://chromewebstore.google.com/detail/element-deleter/dpgjhjgfbicnenmdknepflmdahmhlbag)
-- [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/md2it-element-deleter/)
-
-### Installation manuelle
-
-- **GitHub Release.** Téléchargez la dernière extension empaquetée :
-  [element-deleter.zip](https://github.com/md2it/element-deleter/releases/latest/download/element-deleter.zip)
-
-- **Mode développement.** Chargez l'intégralité du répertoire [`extension`](../extension) comme extension non empaquetée.
 
 ## FONCTIONNALITÉS PRINCIPALES
 
@@ -43,30 +53,15 @@ Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
 - Notification claire après la suppression
 - Légère et simple
 - Paramètres locaux uniquement
+- Interface disponible en anglais, français, allemand, espagnol, russe, arabe et chinois simplifié
 
-## UTILISATION
+## CONFIDENTIALITÉ
 
-U = Utilisateur
-E = Extension
-
-1. U effectue l'une des actions suivantes :
-   - Clique avec le bouton gauche sur l'icône de l'extension
-   - Appuie sur `Ctrl+Shift+X`→`D` (sur Mac, `Cmd+Shift+X`→`D`)
-2. E démarre
-3. U survole un élément de la page
-4. E met en évidence l'élément DOM correspondant
-5. U clique sur l'élément
-6. E effectue toutes les actions suivantes :
-   - Supprime l'élément et tous ses enfants
-   - Affiche une notification de suppression
-   - Met en évidence un autre élément s'il y en a un sous le curseur
-7. U effectue l'une des actions suivantes :
-   - Clique à nouveau avec le bouton gauche sur l'icône de l'extension
-   - Appuie sur `Ctrl+Shift+X`→`D` (sur Mac, `Cmd+Shift+X`→`D`)
-   - Appuie sur `Esc`
-8. E s'arrête
-
-Consultez [tous les parcours utilisateur](../spec/user-path.md) pour les suppressions répétées, la restauration, la suppression depuis le menu contextuel, l'accueil initial et les autres fonctions.
+- Aucune collecte de données
+- Aucun suivi
+- Aucune requête réseau
+- Les modifications sont limitées à la page actuelle
+- Le rechargement restaure le contenu d'origine
 
 ## LIMITATIONS
 
@@ -78,24 +73,6 @@ Consultez [tous les parcours utilisateur](../spec/user-path.md) pour les suppres
    - Il s'agit d'un défaut fonctionnel
    - Les tentatives de correction ont demandé beaucoup de temps
    - Son impact est faible, car ce scénario est rare
-
-## CONFIDENTIALITÉ
-
-- Aucune collecte de données
-- Aucun suivi
-- Aucune requête réseau
-- Les modifications sont limitées à la page actuelle
-- Le rechargement restaure le contenu d'origine
-
-## LANGUES DE L'INTERFACE
-
-- Anglais
-- Français
-- Allemand
-- Espagnol
-- Russe
-- Arabe
-- Chinois simplifié
 
 ## LICENCE
 
