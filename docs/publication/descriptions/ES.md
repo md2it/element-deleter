@@ -1,11 +1,12 @@
 ELEMENT DELETER
-Quita elementos molestos para pruebas, capturas, revisión visual o lectura limpia.
-
-Element Deleter limpia rápidamente la página de lo que estorba: banners, ventanas emergentes, cabeceras fijas, widgets, bloques extra, iframes y otros elementos que distraen.
-
-Es útil para frontend, QA y diseño: comprobar una página sin ruido visual, preparar una captura limpia, revisar una idea de diseño o quitar un elemento que tapa el contenido. Para el uso diario, hace que las páginas sean más cómodas de leer, ver y guardar.
 
 Pasa el cursor, haz clic y el elemento desaparece. ¿Te equivocaste? Restáuralo.
+
+Para la navegación diaria:
+Elimina elementos no deseados de la página, incluidos anuncios, ventanas emergentes y banners de cookies.
+
+Para desarrolladores, testers y diseñadores:
+Comprueba una página sin bloques molestos, prepara una captura limpia, revisa una idea de diseño o quita un elemento que tapa el contenido.
 
 FUNCIONES
 - Elimina elementos de la página con pocos clics
@@ -15,12 +16,12 @@ FUNCIONES
 - Funciona con iframes y contenido incrustado
 - Muestra una notificación clara después de eliminar
 - Ligera y sencilla
-- Solo usa ajustes locales
 
 PRIVACIDAD
 - No recopila datos
 - Sin seguimiento
 - Sin solicitudes de red
+- Solo usa ajustes locales
 - Los cambios son locales en la página actual
 - Al recargar la página, se restaura el contenido original
 
