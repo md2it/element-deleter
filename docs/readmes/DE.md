@@ -73,7 +73,6 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
    - Dies ist ein Funktionsfehler
    - Versuche zur Behebung waren sehr zeitaufwendig
    - Die Auswirkung ist gering, da dieses Szenario selten auftritt
-- **Page-side-Prefix** (`Ctrl+Shift+X` → `D`, Mac: `Cmd+Shift+X` → `D`) läuft in der Seite und braucht ein bereits injiziertes Content-Skript. Ohne dauerhaften Host-Zugriff kann es nicht die erste Aktion auf einem frischen Tab sein. Äquivalente ohne vorheriges Inject: Symbolleiste, Befehl `_execute_action` oder `activate-deactivate` in den Browser-Tastenkürzeln. Esc / Undo im Löschmodus funktionieren nach dem Inject weiterhin auf der Seite; die Befehle `deactivate-delete-mode` und `undo-delete` laufen im Background.
 - **Kontextmenü-Löschen in Chrome** für ein normales DOM-Element (kein image/link/editable) kann den Löschmodus starten statt sofort zu löschen, wenn das Skript noch nicht auf der Seite war. Chrome hat kein `menus.getTargetElement` und kein `contextMenus.onShown` mit `activeTab` vor der Auswahl. Firefox löst das Element über `menus.getTargetElement`. Sobald das Skript auf der Seite ist, löscht das Kontextmenü in Chrome ebenfalls beliebige Elemente sofort.
 
 ## LIZENZ

@@ -1,6 +1,5 @@
 import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
 import { mountPanelShadowHost } from "../../lib/our/panel-shell/shadow-host.js";
-import { getEscHotkeyEnabled, getStartHotkeyEnabled, getUndoHotkeyEnabled, setEscHotkeyEnabled, setStartHotkeyEnabled, setUndoHotkeyEnabled } from "../hotkeys/settings.js";
 import { t } from "../i18n/strings.js";
 import { getSelectionCaptionStyle, setSelectionCaptionStyle } from "../settings/selection-caption-style.js";
 import { getAllElementsFillEnabled, getAllElementsOutlineEnabled, getLocale, getNotificationSeconds, setAllElementsFillEnabled, setAllElementsOutlineEnabled, setLocale, setNotificationSeconds } from "../storage.js";
@@ -11,9 +10,6 @@ import { PanelWindowSystem } from "./window.js";
 async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   let locale = "en";
   let notificationSeconds = 4;
-  let startHotkeyEnabled = true;
-  let escHotkeyEnabled = true;
-  let undoHotkeyEnabled = true;
   let selectionCaptionStyle = "click-to-delete";
   let allElementsOutlineEnabled = false;
   let allElementsFillEnabled = false;
@@ -376,73 +372,8 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   text-align: left;
 }
 
-.dd-shortcuts-safety {
-  display: flex;
-  flex-direction: column;
-  gap: 0.05rem;
-  margin-top: 0.85rem;
-}
-
-.dd-shortcuts-note {
-  margin: 0;
-  font-size: 0.84rem;
-  line-height: 1.2;
-  color: #6b7280;
-  text-align: left;
-}
-
-.dd-shortcuts-step-release-bold {
-  font-weight: 600;
-}
-
 .dd-shortcuts-divider {
   margin: 0.55rem 0 0.35rem;
-}
-
-.dd-shortcuts-steps {
-  margin: 0.2rem 0 0.35rem;
-  padding-left: 1.15rem;
-  font-size: 0.84rem;
-  line-height: 1.45;
-  color: #374151;
-  text-align: left;
-}
-
-.dd-shortcuts-steps li {
-  margin-bottom: 0.2rem;
-}
-
-.dd-shortcuts-steps li:last-child {
-  margin-bottom: 0;
-}
-
-.dd-shortcuts-step-press-grid {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: 0.35em;
-  align-items: start;
-}
-
-.dd-shortcuts-step-press-label {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.dd-shortcuts-step-press-chords {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-}
-
-.dd-shortcuts-step-press-mac-label {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.dd-shortcuts-step-press-mac-chords {
-  grid-column: 2;
-  grid-row: 2;
-  min-width: 0;
 }
 
 .dd-about-icon {
@@ -1171,18 +1102,12 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   [
     notificationSeconds,
     locale,
-    startHotkeyEnabled,
-    escHotkeyEnabled,
-    undoHotkeyEnabled,
     selectionCaptionStyle,
     allElementsOutlineEnabled,
     allElementsFillEnabled,
   ] = await Promise.all([
     getNotificationSeconds(),
     getLocale(),
-    getStartHotkeyEnabled(),
-    getEscHotkeyEnabled(),
-    getUndoHotkeyEnabled(),
     getSelectionCaptionStyle(),
     getAllElementsOutlineEnabled(),
     getAllElementsFillEnabled(),
@@ -1207,18 +1132,6 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
     getNotificationSeconds: () => notificationSeconds,
     setNotificationSeconds: (seconds) => {
       notificationSeconds = seconds;
-    },
-    getStartHotkeyEnabled: () => startHotkeyEnabled,
-    setStartHotkeyEnabled: (enabled) => {
-      startHotkeyEnabled = enabled;
-    },
-    getEscHotkeyEnabled: () => escHotkeyEnabled,
-    setEscHotkeyEnabled: (enabled) => {
-      escHotkeyEnabled = enabled;
-    },
-    getUndoHotkeyEnabled: () => undoHotkeyEnabled,
-    setUndoHotkeyEnabled: (enabled) => {
-      undoHotkeyEnabled = enabled;
     },
     getSelectionCaptionStyle: () => selectionCaptionStyle,
     setSelectionCaptionStyle: (style) => {

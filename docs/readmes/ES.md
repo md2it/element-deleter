@@ -73,7 +73,6 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
    - Es un error funcional
    - Los intentos de corregirlo han requerido mucho tiempo
    - Su impacto es bajo porque el escenario es poco frecuente
-- **El atajo prefix en la página** (`Ctrl+Shift+X` → `D`, Mac: `Cmd+Shift+X` → `D`) se ejecuta en la página y necesita el content script ya inyectado. Sin acceso de host permanente no puede ser la primera acción en una pestaña limpia. Equivalentes sin inject previo: icono de la barra, comando `_execute_action` o `activate-deactivate` en los atajos del navegador. Esc / undo en modo eliminación siguen funcionando en la página tras el inject; los comandos `deactivate-delete-mode` y `undo-delete` se ejecutan desde el background.
 - **Eliminar desde el menú contextual en Chrome** para un elemento DOM genérico (no image/link/editable) puede activar el modo de eliminación en lugar de borrar de inmediato si el script aún no estaba en la página. Chrome no tiene `menus.getTargetElement` ni `contextMenus.onShown` con `activeTab` antes de elegir el ítem. Firefox resuelve el elemento con `menus.getTargetElement`. Cuando el script ya está en la página, el menú contextual de Chrome también elimina elementos arbitrarios de inmediato.
 
 ## LICENCIA

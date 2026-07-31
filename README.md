@@ -77,7 +77,6 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
    - This is a functional bug
    - Attempts to fix it have taken significant time
    - Its impact is low because the scenario is rare
-- **Page-side prefix shortcut** (`Ctrl+Shift+X` → `D`, Mac: `Cmd+Shift+X` → `D`) runs in the page and needs the content script already injected. Without site-wide host access it cannot be the first action on a fresh tab. Equivalent start actions without a prior inject: toolbar icon, browser command `_execute_action`, or `activate-deactivate` in the browser’s shortcut settings. Esc / undo while delete mode is on still work in the page after inject; browser commands `deactivate-delete-mode` and `undo-delete` work from the background without relying on the page-side listeners.
 - **Context menu delete in Chrome** for a generic page element (not image/link/editable) may start delete mode instead of removing the element immediately when the script was not yet on the page. Chrome has no `menus.getTargetElement` and no `contextMenus.onShown` that grants `activeTab` before the item is chosen, so the click target cannot be known until after inject. Firefox resolves the element via `menus.getTargetElement`. After the script is present on the page, Chrome context-menu delete works for arbitrary elements as well.
 
 ## LICENSE

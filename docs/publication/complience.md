@@ -12,7 +12,7 @@ Element Deleter lets you manually remove selected elements on the current page a
   Inject the content script into the active tab after the user clicks the toolbar icon, uses a keyboard command, or chooses a context menu item, so manual element removal and undo work on that page.
 
 - `storage`
-  Save tool preferences locally (language, hotkeys, toast duration, element labels, outline/fill helpers for picking nodes). Keep short-lived session state per tab. No data is uploaded or shared.
+  Save tool preferences locally (language, toast duration, element labels, outline/fill helpers for picking nodes). Keep short-lived session state per tab. No data is uploaded or shared.
 
 - `contextMenus`
   Offer “Delete element” on page right-click for quick removal (e.g. a banner or overlay), and “Settings” / “About” on the extension icon menu to open the control panel.
