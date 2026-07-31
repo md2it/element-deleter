@@ -48,7 +48,6 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
 - Remove page elements with a few clicks
 - Restore removed elements
 - Undo multiple deletions while delete mode is active
-- Delete elements from the context menu
 - Works with iframes and embedded content
 - Clear notification after deletion
 - Lightweight and simple
@@ -77,7 +76,6 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
    - This is a functional bug
    - Attempts to fix it have taken significant time
    - Its impact is low because the scenario is rare
-- **Context menu delete in Chrome** for a generic page element (not image/link/editable) may start delete mode instead of removing the element immediately when the script was not yet on the page. Chrome has no `menus.getTargetElement` and no `contextMenus.onShown` that grants `activeTab` before the item is chosen, so the click target cannot be known until after inject. Firefox resolves the element via `menus.getTargetElement`. After the script is present on the page, Chrome context-menu delete works for arbitrary elements as well.
 
 ## LICENSE
 

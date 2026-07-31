@@ -12,7 +12,6 @@ HAUPTFUNKTIONEN
 - Seitenelemente mit wenigen Klicks entfernen
 - Entfernte Elemente wiederherstellen
 - Mehrere Löschvorgänge rückgängig machen, solange der Löschmodus aktiv ist
-- Elemente über das Kontextmenü entfernen
 - Funktioniert mit iframes und eingebetteten Inhalten
 - Klare Benachrichtigung nach dem Löschen
 - Leichtgewichtig und einfach

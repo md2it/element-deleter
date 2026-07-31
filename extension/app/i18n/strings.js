@@ -37,7 +37,6 @@ var MESSAGES = {
     titleSettings: "Settings",
     titleShortcuts: "Shortcuts",
     titleAbout: "About",
-    contextMenuDeleteElement: "Delete this element",
     restrictedPageNotice:
       "Browser extensions don't work on system pages and protected sites. Try another site.",
     welcomePin: "To keep the extension handy:",
@@ -103,7 +102,6 @@ var MESSAGES = {
     titleSettings: "Ajustes",
     titleShortcuts: "Atajos",
     titleAbout: "Acerca de",
-    contextMenuDeleteElement: "Eliminar este elemento",
     restrictedPageNotice:
       "Las extensiones del navegador no funcionan en páginas del sistema y sitios protegidos. Prueba en otro sitio.",
     welcomePin: "Para tener la extensión siempre a mano:",
@@ -169,7 +167,6 @@ var MESSAGES = {
     titleSettings: "Paramètres",
     titleShortcuts: "Raccourcis",
     titleAbout: "À propos",
-    contextMenuDeleteElement: "Supprimer cet élément",
     restrictedPageNotice:
       "Les extensions du navigateur ne fonctionnent pas sur les pages système et les sites protégés. Essayez un autre site.",
     welcomePin: "Pour garder l'extension à portée de main :",
@@ -235,7 +232,6 @@ var MESSAGES = {
     titleSettings: "Einstellungen",
     titleShortcuts: "Tastenkürzel",
     titleAbout: "Info",
-    contextMenuDeleteElement: "Dieses Element löschen",
     restrictedPageNotice:
       "Browser-Erweiterungen funktionieren auf Systemseiten und geschützten Websites nicht. Versuche es auf einer anderen Website.",
     welcomePin: "Damit die Erweiterung immer griffbereit ist:",
@@ -302,7 +298,6 @@ var MESSAGES = {
     titleSettings: "Настройки",
     titleShortcuts: "Горячие клавиши",
     titleAbout: "О расширении",
-    contextMenuDeleteElement: "Удалить этот элемент",
     restrictedPageNotice:
       "На системных страницах и защищённых сайтах браузерные расширения не работают. Попробуй на другом сайте",
     welcomePin: "Чтобы расширение было всегда под рукой:",
@@ -368,7 +363,6 @@ var MESSAGES = {
     titleSettings: "设置",
     titleShortcuts: "快捷键",
     titleAbout: "关于",
-    contextMenuDeleteElement: "删除此元素",
     restrictedPageNotice:
       "浏览器扩展无法在系统页面和受保护网站上运行。请尝试其他网站。",
     welcomePin: "让扩展随时触手可及：",
@@ -434,7 +428,6 @@ var MESSAGES = {
     titleSettings: "الإعدادات",
     titleShortcuts: "اختصارات",
     titleAbout: "حول",
-    contextMenuDeleteElement: "حذف هذا العنصر",
     restrictedPageNotice:
       "لا تعمل إضافات المتصفح على صفحات النظام والمواقع المحمية. جرّب موقعًا آخر.",
     welcomePin: "لتبقى الإضافة دائمًا في متناول اليد:",

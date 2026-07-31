@@ -1347,9 +1347,6 @@ input:focus-visible {
       this.elementActionInFlight = false;
     }
   }
-  async deleteContextElement(element) {
-    return this.deleteElement(element);
-  }
   async handleClick(e) {
     const pickOptions = { isOurNode: (node) => this.isOurNode(node) };
     const iframeAtPoint = findIframeAtPoint(e.clientX, e.clientY, pickOptions);

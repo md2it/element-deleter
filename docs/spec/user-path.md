@@ -40,16 +40,6 @@ E = Extension
 
 - Steps 7b-8b can be repeated any number of times before the extension is stopped
 
-### Delete an element with the right mouse button
-
-> [!NOTE]
-> Numbering is not related to the flows above.
-
-0. E is not running
-1. U right-clicks an element
-2. U selects the extension from the context menu
-3. E removes the element
-
 ### Welcome window
 
 > [!NOTE]
@@ -67,5 +57,4 @@ E = Extension
 
 - Open settings and the "About" section:
    - From a button in the notification
-   - From the extension context menu
 - If U attempts to use the extension on a page where it is unavailable, E does not operate and clearly notifies U

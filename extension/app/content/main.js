@@ -49,98 +49,6 @@ function resetState(state2) {
   state2.sessionHadDeletion = false;
   document.getElementById("element-deleter-root")?.remove();
 }
-function isExtensionNode(node) {
-  if (!node) return true;
-  if (node instanceof Element && node.closest?.("[data-element-deleter-ui]")) {
-    return true;
-  }
-  return false;
-}
-function resolveContextMenuTarget(raw) {
-  if (!(raw instanceof Element)) return null;
-  if (isExtensionNode(raw)) return null;
-  if (raw === document.documentElement || raw === document.body) return null;
-  return raw;
-}
-function findElementByUrlAttr(tagNames, attr, url) {
-  if (!url) return null;
-  for (const tagName of tagNames) {
-    for (const el of document.getElementsByTagName(tagName)) {
-      try {
-        if (el[attr] === url) return el;
-      } catch {}
-      if (el.getAttribute?.(attr) === url) return el;
-    }
-  }
-  return null;
-}
-function resolveContextMenuTargetFromClickData(info) {
-  if (!info) return null;
-  if (info.srcUrl) {
-    const media = findElementByUrlAttr(
-      ["img", "video", "audio", "source", "embed", "object"],
-      "src",
-      info.srcUrl,
-    );
-    const resolved = resolveContextMenuTarget(media);
-    if (resolved) return resolved;
-  }
-  if (info.linkUrl) {
-    const link = findElementByUrlAttr(["a", "area"], "href", info.linkUrl);
-    const resolved = resolveContextMenuTarget(link);
-    if (resolved) return resolved;
-  }
-  if (info.editable && document.activeElement instanceof Element) {
-    return resolveContextMenuTarget(document.activeElement);
-  }
-  return null;
-}
-function resolveHoveredContextTarget() {
-  try {
-    const hovered = document.querySelectorAll(":hover");
-    for (let i = hovered.length - 1; i >= 0; i -= 1) {
-      const resolved = resolveContextMenuTarget(hovered[i]);
-      if (resolved) return resolved;
-    }
-  } catch {}
-  return null;
-}
-function resolveContextMenuTargetFromInfo(info) {
-  const targetElementId = info?.targetElementId;
-  if (typeof targetElementId === "number") {
-    try {
-      const menusApi = globalThis.browser?.menus;
-      const getTarget = menusApi?.getTargetElement;
-      if (typeof getTarget === "function") {
-        const el = getTarget.call(menusApi, targetElementId);
-        const resolved = resolveContextMenuTarget(el);
-        if (resolved) return resolved;
-      }
-    } catch {}
-  }
-  const captured = window.__elementDeleterContextMenuTarget;
-  window.__elementDeleterContextMenuTarget = null;
-  if (captured?.isConnected) {
-    const resolved = resolveContextMenuTarget(captured);
-    if (resolved) return resolved;
-  }
-  const fromClickData = resolveContextMenuTargetFromClickData(info);
-  if (fromClickData) return fromClickData;
-  return resolveHoveredContextTarget();
-}
-function attachContextMenuTargetListener() {
-  const prev = window.__elementDeleterContextMenuHandler;
-  if (prev) {
-    document.removeEventListener("contextmenu", prev, true);
-  }
-  const handler = (e) => {
-    window.__elementDeleterContextMenuTarget = resolveContextMenuTarget(
-      e.target,
-    );
-  };
-  window.__elementDeleterContextMenuHandler = handler;
-  document.addEventListener("contextmenu", handler, true);
-}
 function notifyBackgroundActive(isActive) {
   const msg = { type: "ACTIVE_CHANGED", active: isActive };
   void ext.runtime.sendMessage(msg).catch(() => {});
@@ -264,23 +172,6 @@ function attachMessageHandler(state2) {
       }
       return;
     }
-    if (message.type === "DELETE_CONTEXT_ELEMENT") {
-      void (async () => {
-        const target = resolveContextMenuTargetFromInfo(message.info);
-        if (!target?.isConnected || isExtensionNode(target)) {
-          sendResponse({ ok: false, reason: "no-target" });
-          return;
-        }
-        try {
-          const ui = await ensureUi();
-          await ui.deleteContextElement(target);
-          sendResponse({ ok: true });
-        } catch {
-          sendResponse({ ok: false, reason: "delete-failed" });
-        }
-      })();
-      return true;
-    }
     if (message.type === "UNDO_LAST") {
       void (async () => {
         if (!state2.active) {
@@ -315,7 +206,6 @@ if (
 }
 window.__elementDeleterRuntimeId = runtimeId;
 registerDocumentOperabilityProbeListener();
-attachContextMenuTargetListener();
 attachMessageHandler(state);
 registerDeleterStartHotkey(requestToggle);
 void bootstrapPanelTabPageIfNeeded();

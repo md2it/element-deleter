@@ -150,7 +150,6 @@ assert.deepEqual(manifest.permissions, [
   "storage",
   "scripting",
   "activeTab",
-  "contextMenus",
 ]);
 assert.ok(
   manifest.web_accessible_resources[0].matches.every(
@@ -167,8 +166,6 @@ assert.match(logicSource, /SUPPORT_SURVEY_ACTION/);
 assert.match(logicSource, /recordSupportSurveyAction\(\)/);
 assert.match(logicSource, /handleSupportSurveyScenarioComplete\(/);
 assert.match(logicSource, /app\/content\/loader\.js/);
-assert.match(logicSource, /requestWithInject/);
-assert.match(logicSource, /ensureTabActive/);
 assert.match(logicSource, /UNDO_LAST/);
 assert.match(logicSource, /deactivateTab/);
 assert.match(logicSource, /undoTab/);

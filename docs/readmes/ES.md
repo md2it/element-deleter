@@ -48,7 +48,6 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
 - Eliminar elementos de la página con pocos clics
 - Restaurar elementos eliminados
 - Deshacer varias eliminaciones mientras el modo de borrado está activo
-- Eliminar elementos desde el menú contextual
 - Funciona con iframes y contenido incrustado
 - Notificación clara después de eliminar
 - Ligera y sencilla
@@ -73,7 +72,6 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
    - Es un error funcional
    - Los intentos de corregirlo han requerido mucho tiempo
    - Su impacto es bajo porque el escenario es poco frecuente
-- **Eliminar desde el menú contextual en Chrome** para un elemento DOM genérico (no image/link/editable) puede activar el modo de eliminación en lugar de borrar de inmediato si el script aún no estaba en la página. Chrome no tiene `menus.getTargetElement` ni `contextMenus.onShown` con `activeTab` antes de elegir el ítem. Firefox resuelve el elemento con `menus.getTargetElement`. Cuando el script ya está en la página, el menú contextual de Chrome también elimina elementos arbitrarios de inmediato.
 
 ## LICENCIA
 

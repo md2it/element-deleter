@@ -48,7 +48,6 @@ Element Deleter 可以快速清除页面上的干扰内容，包括横幅、弹�
 - 通过几次点击移除页面元素
 - 恢复已移除的元素
 - 在删除模式启用期间撤销多次删除
-- 从上下文菜单删除元素
 - 支持 iframe 和嵌入内容
 - 删除后显示清晰通知
 - 轻量且简单
@@ -73,7 +72,6 @@ Element Deleter 可以快速清除页面上的干扰内容，包括横幅、弹�
    - 这是一个功能缺陷
    - 修复尝试已投入大量时间
    - 由于该场景很少出现，因此影响较低
-- **在 Chrome 中通过右键菜单删除**普通 DOM 元素（非 image/link/editable）时，若脚本尚未在页面上，可能会进入删除模式而不是立即删除。Chrome 没有 `menus.getTargetElement`，也没有在选择菜单项前授予 `activeTab` 的 `contextMenus.onShown`。Firefox 通过 `menus.getTargetElement` 解析元素。脚本已在页面上后，Chrome 右键菜单也可立即删除任意元素。
 
 ## 许可证
 

@@ -48,7 +48,6 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
 - Seitenelemente mit wenigen Klicks entfernen
 - Entfernte Elemente wiederherstellen
 - Mehrere Löschungen rückgängig machen, solange der Löschmodus aktiv ist
-- Elemente über das Kontextmenü löschen
 - Funktioniert mit Iframes und eingebetteten Inhalten
 - Klare Benachrichtigung nach dem Löschen
 - Leichtgewichtig und einfach
@@ -73,7 +72,6 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
    - Dies ist ein Funktionsfehler
    - Versuche zur Behebung waren sehr zeitaufwendig
    - Die Auswirkung ist gering, da dieses Szenario selten auftritt
-- **Kontextmenü-Löschen in Chrome** für ein normales DOM-Element (kein image/link/editable) kann den Löschmodus starten statt sofort zu löschen, wenn das Skript noch nicht auf der Seite war. Chrome hat kein `menus.getTargetElement` und kein `contextMenus.onShown` mit `activeTab` vor der Auswahl. Firefox löst das Element über `menus.getTargetElement`. Sobald das Skript auf der Seite ist, löscht das Kontextmenü in Chrome ebenfalls beliebige Elemente sofort.
 
 ## LIZENZ
 

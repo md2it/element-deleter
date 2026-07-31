@@ -48,7 +48,6 @@ Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
 - Supprimer des éléments de page en quelques clics
 - Restaurer les éléments supprimés
 - Annuler plusieurs suppressions tant que le mode de suppression est actif
-- Supprimer des éléments depuis le menu contextuel
 - Fonctionne avec les iframes et le contenu intégré
 - Notification claire après la suppression
 - Légère et simple
@@ -73,7 +72,6 @@ Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
    - Il s'agit d'un défaut fonctionnel
    - Les tentatives de correction ont demandé beaucoup de temps
    - Son impact est faible, car ce scénario est rare
-- **Suppression via menu contextuel dans Chrome** pour un élément DOM générique (pas image/lien/editable) peut activer le mode suppression au lieu de supprimer immédiatement si le script n'était pas encore sur la page. Chrome n'a ni `menus.getTargetElement` ni `contextMenus.onShown` avec `activeTab` avant le choix. Firefox résout l'élément via `menus.getTargetElement`. Une fois le script présent, le menu contextuel Chrome supprime aussi immédiatement les éléments arbitraires.
 
 ## LICENCE
 

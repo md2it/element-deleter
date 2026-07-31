@@ -3,13 +3,11 @@ import { createBadgeTextColorAnimation } from "../../lib/our/badge/text-color-an
 import { forEachActiveTabId, getTabActiveState, setTabActiveState } from "../../lib/our/extension-icon-state/tab-active-state.js";
 import { registerPrefixHintBadgeListeners } from "../../lib/our/hotkeys/prefix-hint-badge.js";
 import { registerPrefixHintOperabilityListeners } from "../../lib/our/hotkeys/prefix-operability.js";
-import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
 import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
 import { isBlockedNoticeDismissedMessage } from "../../lib/our/page-operability/messages.js";
 import { bootstrapToolbarIcons, onContentActiveChanged2, registerExtensionIconStateListeners2, syncIconForTab } from "../extension-icon-state/index.js";
 import { registerBackgroundHotkeys, shouldSuppressToolbarClickAfterHotkeyCommand } from "../hotkeys/background.js";
 import { DELETER_ACTIVE_COLOR } from "../hotkeys/commands.js";
-import { t } from "../i18n/strings.js";
 import { getRestrictedNoticeDismissMs, refreshRestrictedNoticeCache, showRestrictedNotice } from "../page-operability/notice.js";
 import { openPanelFromSender } from "../panel-popup/open.js";
 import { getSelectionCaptionStyle } from "../settings/selection-caption-style.js";
@@ -264,41 +262,6 @@ async function sendWithInject(tabId, message, frameId) {
   }
   return false;
 }
-async function requestWithInject(tabId, message, frameId) {
-  const trySend = async () => {
-    try {
-      return frameId !== void 0 && frameId !== 0
-        ? await ext.tabs.sendMessage(tabId, message, { frameId })
-        : await ext.tabs.sendMessage(tabId, message);
-    } catch (err) {
-      console.debug("[Element Deleter] requestWithInject send failed:", err);
-      return void 0;
-    }
-  };
-  let response = await trySend();
-  if (response !== void 0) return response;
-  if (!(await injectContent(tabId, frameId))) return void 0;
-  for (let attempt = 0; attempt < 10; attempt += 1) {
-    response = await trySend();
-    if (response !== void 0) return response;
-    await new Promise((resolve) => setTimeout(resolve, 25));
-  }
-  return void 0;
-}
-async function ensureTabActive(tabId, windowId) {
-  if (getTabActiveState(tabId)) return;
-  if (!(await canOperateOnTab(tabId))) {
-    setTabActiveState(tabId, false);
-    await syncIconForTab(tabId);
-    await showBlockedPageFeedback(tabId, windowId);
-    return;
-  }
-  setTabActiveState(tabId, true);
-  clearBlockedBadgeState(tabId);
-  await syncIconForTab(tabId);
-  await syncToolbarBadge(tabId);
-  await setTabActive(tabId, true, windowId);
-}
 async function deactivateTab(tabId, windowId) {
   if (tabId === void 0) return;
   if (!getTabActiveState(tabId)) return;
@@ -372,10 +335,6 @@ async function toggleTab(tabId, windowId) {
   await syncToolbarBadge(tabId);
   await setTabActive(tabId, true, windowId);
 }
-var CONTEXT_MENU_SETTINGS = "element-deleter-settings";
-var CONTEXT_MENU_SHORTCUTS = "element-deleter-shortcuts";
-var CONTEXT_MENU_ABOUT = "element-deleter-about";
-var CONTEXT_MENU_DELETE = "element-deleter-delete-element";
 function getActiveCommandTab() {
   return new Promise((resolve) => {
     ext.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -389,76 +348,6 @@ function getActiveCommandTab() {
       });
     });
   });
-}
-var PAGE_CONTEXT_MENU_CONTEXTS = [
-  "page",
-  "frame",
-  "selection",
-  "link",
-  "editable",
-  "image",
-  "video",
-  "audio",
-];
-var ACTION_MENU_EMOJI = {
-  settings: "⚙️",
-  shortcuts: "⌨️",
-  about: "ℹ️",
-};
-var ensureContextMenuChain = Promise.resolve();
-async function createContextMenuItem(props) {
-  try {
-    await ext.contextMenus.create(props);
-  } catch (err) {
-    console.error("[Element Deleter] contextMenus.create failed:", err, props);
-  }
-}
-function actionMenuTitle(title, emoji, locale) {
-  return isRtlLocale(locale) ? `${title} ${emoji}` : `${emoji} ${title}`;
-}
-async function ensureContextMenu() {
-  ensureContextMenuChain = ensureContextMenuChain.then(async () => {
-    const locale = await getLocale();
-    const strings = t(locale);
-    try {
-      await ext.contextMenus.removeAll();
-    } catch (err) {
-      console.error("[Element Deleter] contextMenus.removeAll failed:", err);
-    }
-    await createContextMenuItem({
-      id: CONTEXT_MENU_SETTINGS,
-      title: actionMenuTitle(
-        strings.titleSettings,
-        ACTION_MENU_EMOJI.settings,
-        locale,
-      ),
-      contexts: ["action"],
-    });
-    await createContextMenuItem({
-      id: CONTEXT_MENU_SHORTCUTS,
-      title: actionMenuTitle(
-        strings.titleShortcuts,
-        ACTION_MENU_EMOJI.shortcuts,
-        locale,
-      ),
-      contexts: ["action"],
-    });
-    await createContextMenuItem({
-      id: CONTEXT_MENU_ABOUT,
-      title: actionMenuTitle(
-        strings.titleAbout,
-        ACTION_MENU_EMOJI.about,
-        locale,
-      ),
-      contexts: ["action"],
-    });
-    await createContextMenuItem({
-      id: CONTEXT_MENU_DELETE,
-      title: strings.contextMenuDeleteElement,
-      contexts: [...PAGE_CONTEXT_MENU_CONTEXTS],
-    });
-  });
-  await ensureContextMenuChain;
 }
 async function pushSettingsToActiveTabs() {
   const settings = await loadAllSettings();
@@ -485,53 +374,6 @@ registerBackgroundHotkeys({
 registerPrefixHintOperabilityListeners({
   canOperateOnTab,
   onBlockedOnTab: showBlockedPageFeedback,
-});
-ext.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId === CONTEXT_MENU_SETTINGS) {
-    openPanelFromSender("settings", tab);
-    return;
-  }
-  if (info.menuItemId === CONTEXT_MENU_SHORTCUTS) {
-    openPanelFromSender("shortcuts", tab);
-    return;
-  }
-  if (info.menuItemId === CONTEXT_MENU_ABOUT) {
-    openPanelFromSender("info", tab);
-    return;
-  }
-  if (info.menuItemId === CONTEXT_MENU_DELETE) {
-    void (async () => {
-      const tabId = tab?.id;
-      if (tabId === void 0) return;
-      const frameId = info.frameId ?? 0;
-      if (!(await canOperateOnTab(tabId, frameId))) {
-        await showBlockedPageFeedback(tabId, tab?.windowId);
-        return;
-      }
-      const response = await requestWithInject(
-        tabId,
-        {
-          type: "DELETE_CONTEXT_ELEMENT",
-          info: {
-            targetElementId: info.targetElementId,
-            srcUrl: info.srcUrl,
-            linkUrl: info.linkUrl,
-            mediaType: info.mediaType,
-            editable: info.editable,
-          },
-        },
-        frameId,
-      );
-      if (response?.ok) return;
-      // Chrome has no getTargetElement / onShown+activeTab. If the target is
-      // unknown on first inject, fall back to delete mode so the user can click.
-      if (response?.reason === "no-target") {
-        await ensureTabActive(tabId, tab?.windowId);
-        return;
-      }
-      await showBlockedPageFeedback(tabId, tab?.windowId);
-    })();
-  }
 });
 ext.runtime.onMessage.addListener((message, sender) => {
   if (isBlockedNoticeDismissedMessage(message)) {
@@ -614,14 +456,10 @@ ext.storage.onChanged.addListener((changes, area) => {
   if (secondsChange || localeChange) {
     void refreshRestrictedNoticeCache();
   }
-  if (localeChange) {
-    void ensureContextMenu();
-  }
   void pushSettingsToActiveTabs();
 });
 var onBootstrap = async () => {
   await ensureLocaleInStorage();
-  await ensureContextMenu();
   await refreshRestrictedNoticeCache();
   await bootstrapToolbarIcons();
 };
