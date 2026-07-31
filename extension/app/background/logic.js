@@ -264,6 +264,56 @@ async function sendWithInject(tabId, message, frameId) {
   }
   return false;
 }
+async function requestWithInject(tabId, message, frameId) {
+  const trySend = async () => {
+    try {
+      return frameId !== void 0 && frameId !== 0
+        ? await ext.tabs.sendMessage(tabId, message, { frameId })
+        : await ext.tabs.sendMessage(tabId, message);
+    } catch (err) {
+      console.debug("[Element Deleter] requestWithInject send failed:", err);
+      return void 0;
+    }
+  };
+  let response = await trySend();
+  if (response !== void 0) return response;
+  if (!(await injectContent(tabId, frameId))) return void 0;
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    response = await trySend();
+    if (response !== void 0) return response;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  return void 0;
+}
+async function ensureTabActive(tabId, windowId) {
+  if (getTabActiveState(tabId)) return;
+  if (!(await canOperateOnTab(tabId))) {
+    setTabActiveState(tabId, false);
+    await syncIconForTab(tabId);
+    await showBlockedPageFeedback(tabId, windowId);
+    return;
+  }
+  setTabActiveState(tabId, true);
+  clearBlockedBadgeState(tabId);
+  await syncIconForTab(tabId);
+  await syncToolbarBadge(tabId);
+  await setTabActive(tabId, true, windowId);
+}
+async function deactivateTab(tabId, windowId) {
+  if (tabId === void 0) return;
+  if (!getTabActiveState(tabId)) return;
+  setTabActiveState(tabId, false);
+  clearBlockedBadgeState(tabId);
+  clearFlashBadgeState(tabId);
+  clearRunningBadgeAnimation(tabId);
+  await syncIconForTab(tabId);
+  await syncToolbarBadge(tabId);
+  await setTabActive(tabId, false, windowId);
+}
+async function undoTab(tabId, _windowId) {
+  if (!getTabActiveState(tabId)) return;
+  await sendWithInject(tabId, { type: "UNDO_LAST" });
+}
 async function setTabActive(tabId, active, windowId) {
   if (active && !(await canOperateOnTab(tabId))) {
     setTabActiveState(tabId, false);
@@ -429,6 +479,8 @@ ext.action.onClicked.addListener(async (tab) => {
 registerBackgroundHotkeys({
   getActiveCommandTab,
   toggleTab,
+  deactivateTab,
+  undoTab,
 });
 registerPrefixHintOperabilityListeners({
   canOperateOnTab,
@@ -456,14 +508,28 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
         await showBlockedPageFeedback(tabId, tab?.windowId);
         return;
       }
-      const ok = await sendWithInject(
+      const response = await requestWithInject(
         tabId,
-        { type: "DELETE_CONTEXT_ELEMENT" },
+        {
+          type: "DELETE_CONTEXT_ELEMENT",
+          info: {
+            targetElementId: info.targetElementId,
+            srcUrl: info.srcUrl,
+            linkUrl: info.linkUrl,
+            mediaType: info.mediaType,
+            editable: info.editable,
+          },
+        },
         frameId,
       );
-      if (!ok) {
-        await showBlockedPageFeedback(tabId, tab?.windowId);
+      if (response?.ok) return;
+      // Chrome has no getTargetElement / onShown+activeTab. If the target is
+      // unknown on first inject, fall back to delete mode so the user can click.
+      if (response?.reason === "no-target") {
+        await ensureTabActive(tabId, tab?.windowId);
+        return;
       }
+      await showBlockedPageFeedback(tabId, tab?.windowId);
     })();
   }
 });

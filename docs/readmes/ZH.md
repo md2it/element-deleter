@@ -73,6 +73,8 @@ Element Deleter 可以快速清除页面上的干扰内容，包括横幅、弹�
    - 这是一个功能缺陷
    - 修复尝试已投入大量时间
    - 由于该场景很少出现，因此影响较低
+- **页面内前缀快捷键**（`Ctrl+Shift+X` → `D`，Mac：`Cmd+Shift+X` → `D`）在页面中运行，需要内容脚本已注入。没有全站 host 权限时，它不能作为干净标签页上的第一个操作。无需预先注入的等效方式：工具栏图标、浏览器命令 `_execute_action`，或在浏览器快捷键设置中配置 `activate-deactivate`。删除模式下的 Esc / 撤销在注入后仍可在页面内使用；命令 `deactivate-delete-mode` 与 `undo-delete` 由 background 执行。
+- **在 Chrome 中通过右键菜单删除**普通 DOM 元素（非 image/link/editable）时，若脚本尚未在页面上，可能会进入删除模式而不是立即删除。Chrome 没有 `menus.getTargetElement`，也没有在选择菜单项前授予 `activeTab` 的 `contextMenus.onShown`。Firefox 通过 `menus.getTargetElement` 解析元素。脚本已在页面上后，Chrome 右键菜单也可立即删除任意元素。
 
 ## 许可证
 

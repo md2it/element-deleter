@@ -73,6 +73,8 @@ Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
    - Il s'agit d'un défaut fonctionnel
    - Les tentatives de correction ont demandé beaucoup de temps
    - Son impact est faible, car ce scénario est rare
+- **Le raccourci prefix côté page** (`Ctrl+Shift+X` → `D`, Mac : `Cmd+Shift+X` → `D`) s'exécute dans la page et nécessite le content script déjà injecté. Sans accès hôte permanent, il ne peut pas être la première action sur un onglet neuf. Équivalents sans inject préalable : icône de la barre d'outils, commande `_execute_action`, ou `activate-deactivate` dans les raccourcis du navigateur. Esc / undo en mode suppression fonctionnent toujours dans la page après inject ; les commandes `deactivate-delete-mode` et `undo-delete` s'exécutent depuis le background.
+- **Suppression via menu contextuel dans Chrome** pour un élément DOM générique (pas image/lien/editable) peut activer le mode suppression au lieu de supprimer immédiatement si le script n'était pas encore sur la page. Chrome n'a ni `menus.getTargetElement` ni `contextMenus.onShown` avec `activeTab` avant le choix. Firefox résout l'élément via `menus.getTargetElement`. Une fois le script présent, le menu contextuel Chrome supprime aussi immédiatement les éléments arbitraires.
 
 ## LICENCE
 
