@@ -1,4 +1,4 @@
-import { openPanelInActionPopup } from "../../lib/our/panel-popup/open-action-popup.js";
+import { openPanelInActionPopup } from "./open-action-popup.js";
 import { openPanelInTab } from "../panel-tab/open.js";
 import { PANEL_PAGE_CONFIG } from "./constants.js";
 

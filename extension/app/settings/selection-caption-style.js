@@ -1,4 +1,4 @@
-import { ext } from "../../lib/our/api.js";
+import { ext } from "../api.js";
 import { SELECTION_CAPTION_STYLE_KEY } from "../messages.js";
 
 var DEFAULT_SELECTION_CAPTION_STYLE = "click-to-delete";

@@ -1,4 +1,4 @@
-import { INFO, KEYBOARD, SETTINGS } from "../../lib/vendor/icons/index.js";
+import { INFO, KEYBOARD, SETTINGS } from "../../vendor/lucide.js";
 
 var MENU_ITEMS = [
   { tab: "settings", iconSvg: SETTINGS, label: (s) => s.tabSettings },

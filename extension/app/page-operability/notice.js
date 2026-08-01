@@ -1,4 +1,4 @@
-import { showBlockedNotice } from "../../lib/our/page-operability/show-notice.js";
+import { showBlockedNotice } from "./show-notice.js";
 import { t } from "../i18n/strings.js";
 import { getLocale, getNotificationSeconds } from "../storage.js";
 import { RESTRICTED_NOTICE_CONFIG, RESTRICTED_NOTICE_MIN_MS } from "./constants.js";

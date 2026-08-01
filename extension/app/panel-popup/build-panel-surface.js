@@ -1,5 +1,5 @@
-import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
-import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { localeToHtmlLang } from "../i18n/locale-code.js";
+import { isRtlLocale } from "../i18n/rtl.js";
 import { t } from "../i18n/strings.js";
 import { PANEL_POPUP_HOST_ATTR } from "./constants.js";
 import { createPanelMenu } from "./panel-menu.js";

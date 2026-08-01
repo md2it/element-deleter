@@ -41,7 +41,7 @@
       ],
       "resources": [
         "app/*",
-        "lib/*"
+        "vendor/*"
       ]
     }
   ],

@@ -1,6 +1,6 @@
-import { findIframeAtPoint, isPointInElement } from "../lib/our/element-under-cursor.js";
-import { HighlightSystem } from "../lib/our/highlight/selector.js";
-import { isRtlLocale } from "../lib/our/i18n/rtl.js";
+import { findIframeAtPoint, isPointInElement } from "./element-under-cursor.js";
+import { HighlightSystem } from "./highlight/selector.js";
+import { isRtlLocale } from "./i18n/rtl.js";
 import { runElementTransition } from "./highlight/delete-restore-visual.js";
 import { DELETER_HIGHLIGHT_PAGE_STYLE, HIGHLIGHT_UI } from "./highlight/page-styles.js";
 import { t } from "./i18n/strings.js";

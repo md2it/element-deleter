@@ -1,5 +1,5 @@
-import { disableAllElementsFill, enableAllElementsFill } from "../lib/our/all-elements-fill/lifecycle.js";
-import { disableAllElementsOutline, enableAllElementsOutline } from "../lib/our/all-elements-outline/lifecycle.js";
+import { disableAllElementsFill, enableAllElementsFill } from "./all-elements-fill/lifecycle.js";
+import { disableAllElementsOutline, enableAllElementsOutline } from "./all-elements-outline/lifecycle.js";
 
 var ALL_ELEMENTS_OUTLINE_STYLE_ID = "element-deleter-all-elements-outline";
 var ALL_ELEMENTS_FILL_STYLE_ID = "element-deleter-all-elements-fill";

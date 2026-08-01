@@ -1,4 +1,4 @@
-import { ext } from "../../lib/our/api.js";
+import { ext } from "../api.js";
 import { SUPPORT_SURVEY_PAGE } from "./constants.js";
 import { readSupportSurveyState, recordSupportSurveyActions, shouldShowSupportSurvey } from "./state.js";
 

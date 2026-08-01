@@ -1,5 +1,5 @@
-import { COG, INFO } from "../../lib/vendor/icons/index.js";
-import { ToastStack } from "../../lib/our/toast/stack.js";
+import { COG, INFO } from "../../vendor/lucide.js";
+import { ToastStack } from "./stack.js";
 import { extensionMarkSvg, UNDO_2 } from "../icons.js";
 import { TOAST_STACK_CONFIG, TOAST_UI } from "../ui-config.js";
 

@@ -1,6 +1,6 @@
-import { isEditableKeyboardTarget } from "../../lib/our/hotkeys/keys.js";
-import { registerPrefixStartHotkey } from "../../lib/our/hotkeys/prefix-content.js";
-import { notifyPrefixHintBlockedOnBackground, queryPrefixHintCanShowInContent } from "../../lib/our/hotkeys/prefix-operability.js";
+import { isEditableKeyboardTarget } from "./keys.js";
+import { registerPrefixStartHotkey } from "./prefix-content.js";
+import { notifyPrefixHintBlockedOnBackground, queryPrefixHintCanShowInContent } from "./prefix-operability.js";
 import { PREFIX_ACTION_KEY } from "./commands.js";
 import { isEscHotkeyEvent, isUndoHotkeyEvent } from "./keys.js";
 import { registerContentHotkey2, unregisterContentHotkey2 } from "./registry.js";

@@ -210,7 +210,7 @@ const stateSource = readFileSync(join(ext, "app/support-survey/state.js"), "utf8
 assert.match(stateSource, /moz-extension:/);
 assert.match(
   stateSource,
-  /from\s+"\.\.\/\.\.\/lib\/our\/support-survey\/logic\.js"/,
+  /from\s+"\.\/logic-core\.js"/,
 );
 assert.doesNotMatch(
   stateSource,

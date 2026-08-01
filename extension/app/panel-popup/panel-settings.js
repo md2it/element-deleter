@@ -1,5 +1,5 @@
-import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
-import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
+import { localeToHtmlLang } from "../i18n/locale-code.js";
+import { isRtlLocale } from "../i18n/rtl.js";
 import { LOCALE_BUTTON_LABELS, LOCALES } from "../i18n/types.js";
 import { CHEVRON_LEFT, CHEVRON_RIGHT, CHEVRONS_LEFT, CHEVRONS_RIGHT } from "../icons.js";
 import { SELECTION_CAPTION_STYLES, setSelectionCaptionStyle } from "../settings/selection-caption-style.js";

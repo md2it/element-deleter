@@ -1,4 +1,4 @@
-import { isPanelTabMode } from "../../lib/our/panel-tab/index.js";
+import { isPanelTabMode } from "./index.js";
 import { isPanelPopupPage, resolvePanelPageInitialTab2 } from "../panel-popup/page.js";
 import { mountPanelTab } from "./mount.js";
 

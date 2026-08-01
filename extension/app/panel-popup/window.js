@@ -1,5 +1,5 @@
-import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
-import { createPanelDivider, createPanelHeader } from "../../lib/our/panel-header/header.js";
+import { localeToHtmlLang } from "../i18n/locale-code.js";
+import { createPanelDivider, createPanelHeader } from "../panel-header/header.js";
 import { buildAboutListItems } from "../about.js";
 import { PANEL_TITLE } from "../brand.js";
 import { toolbarWelcomeIconSvg } from "../icons.js";
