@@ -6,16 +6,13 @@ Element Deleter lets you manually remove selected elements on the current page a
 
 ## Permission justification
 - `activeTab`
-  Access the tab the user is working in when they click the toolbar icon, use a keyboard shortcut, or choose a context menu item, so delete mode, undo, and settings run on that page only after an explicit action.
+  Access the tab the user is working in when they click the toolbar icon or use a keyboard shortcut, so delete mode, undo, and settings run on that page only after an explicit action.
 
 - `scripting`
-  Inject the content script into the active tab when it is not already available (after install, in iframes, or when auto-injection failed), so manual element removal and undo work on that page.
+  Inject the content script into the active tab after the user clicks the toolbar icon or uses a keyboard command, so manual element removal and undo work on that page.
 
 - `storage`
-  Save tool preferences locally (language, hotkeys, toast duration, element labels, outline/fill helpers for picking nodes). Keep short-lived session state per tab. No data is uploaded or shared.
+  Save tool preferences locally (language, toast duration, element labels, outline/fill helpers for picking nodes). Keep short-lived session state per tab. No data is uploaded or shared.
 
 - `contextMenus`
-  Offer “Delete element” on page right-click for quick removal (e.g. a banner or overlay), and “Settings” / “About” on the extension icon menu to open the control panel.
-
-- host permission (`<all_urls>` in `content_scripts`)
-  Users need this on any site they open—localhost and staging for dev/QA, or public pages when removing a chosen ad or blocking UI. The content script only hides or restores elements the user selects in the DOM; it does not block network requests, read credentials, or send page content to external servers.
+  Offer “Settings”, “Shortcuts”, and “About” on the extension icon menu to open the control panel.

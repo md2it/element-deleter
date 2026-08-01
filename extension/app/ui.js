@@ -404,73 +404,8 @@ var DeleterUI = class {
   text-align: left;
 }
 
-.dd-shortcuts-safety {
-  display: flex;
-  flex-direction: column;
-  gap: 0.05rem;
-  margin-top: 0.85rem;
-}
-
-.dd-shortcuts-note {
-  margin: 0;
-  font-size: 0.84rem;
-  line-height: 1.2;
-  color: #6b7280;
-  text-align: left;
-}
-
-.dd-shortcuts-step-release-bold {
-  font-weight: 600;
-}
-
 .dd-shortcuts-divider {
   margin: 0.55rem 0 0.35rem;
-}
-
-.dd-shortcuts-steps {
-  margin: 0.2rem 0 0.35rem;
-  padding-left: 1.15rem;
-  font-size: 0.84rem;
-  line-height: 1.45;
-  color: #374151;
-  text-align: left;
-}
-
-.dd-shortcuts-steps li {
-  margin-bottom: 0.2rem;
-}
-
-.dd-shortcuts-steps li:last-child {
-  margin-bottom: 0;
-}
-
-.dd-shortcuts-step-press-grid {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: 0.35em;
-  align-items: start;
-}
-
-.dd-shortcuts-step-press-label {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.dd-shortcuts-step-press-chords {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-}
-
-.dd-shortcuts-step-press-mac-label {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.dd-shortcuts-step-press-mac-chords {
-  grid-column: 2;
-  grid-row: 2;
-  min-width: 0;
 }
 
 .dd-about-icon {
@@ -1411,9 +1346,6 @@ input:focus-visible {
     } finally {
       this.elementActionInFlight = false;
     }
-  }
-  async deleteContextElement(element) {
-    return this.deleteElement(element);
   }
   async handleClick(e) {
     const pickOptions = { isOurNode: (node) => this.isOurNode(node) };

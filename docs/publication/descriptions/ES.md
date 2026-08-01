@@ -12,7 +12,6 @@ FUNCIONES
 - Elimina elementos de la página con pocos clics
 - Restaura elementos eliminados
 - Deshace varias eliminaciones mientras el modo de eliminación está activo
-- Elimina elementos desde el menú contextual
 - Funciona con iframes y contenido incrustado
 - Muestra una notificación clara después de eliminar
 - Ligera y sencilla

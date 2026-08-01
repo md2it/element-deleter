@@ -6,6 +6,12 @@ Regular SemVer logic.
 
 ## RELEASES
 
+### Unreleased
+- Asks for page access only when you start the extension, instead of all websites upfront
+- Removed hotkey toggles from Settings; shortcuts stay always on
+- Removed the complex prefix-hotkey from the Shortcuts page; undo and Esc remain
+- Removed page context menu (right-click) delete
+
 ### 1.2.12
 - Prepared Chrome Web Store upload release
 

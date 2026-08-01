@@ -48,7 +48,6 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
 - Seitenelemente mit wenigen Klicks entfernen
 - Entfernte Elemente wiederherstellen
 - Mehrere Löschungen rückgängig machen, solange der Löschmodus aktiv ist
-- Elemente über das Kontextmenü löschen
 - Funktioniert mit Iframes und eingebetteten Inhalten
 - Klare Benachrichtigung nach dem Löschen
 - Leichtgewichtig und einfach

@@ -1,7 +1,5 @@
 import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
 import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
-import { ESC_HOTKEY_LABEL, getStartHotkeyActionLabel, getStartHotkeyAriaLabel, getStartHotkeyChordLabel, getUndoHotkeyLabel } from "../hotkeys/keys.js";
-import { setEscHotkeyEnabled, setStartHotkeyEnabled, setUndoHotkeyEnabled } from "../hotkeys/settings.js";
 import { LOCALE_BUTTON_LABELS, LOCALES } from "../i18n/types.js";
 import { CHEVRON_LEFT, CHEVRON_RIGHT, CHEVRONS_LEFT, CHEVRONS_RIGHT } from "../icons.js";
 import { SELECTION_CAPTION_STYLES, setSelectionCaptionStyle } from "../settings/selection-caption-style.js";
@@ -67,14 +65,6 @@ function createPageTitle2(text) {
   title.textContent = text;
   return title;
 }
-function appendPrefixStartHotkeyMarkup(label) {
-  label.append(document.createTextNode(" "));
-  const chord = document.createElement("kbd");
-  chord.textContent = getStartHotkeyChordLabel();
-  const action = document.createElement("kbd");
-  action.textContent = getStartHotkeyActionLabel();
-  label.append(chord, document.createTextNode(" → "), action);
-}
 function createToggleRow(labelText, enabled, onChange) {
   const row = document.createElement("div");
   row.className = "dd-toggle-row";
@@ -99,58 +89,6 @@ function createToggleRow(labelText, enabled, onChange) {
   });
   row.append(toggle, label);
   return row;
-}
-function createPrefixStartHotkeyToggleRow(labelText, enabled, onChange) {
-  const row = createToggleRow(labelText, enabled, onChange);
-  const label = row.querySelector(".dd-toggle-label");
-  if (label) appendPrefixStartHotkeyMarkup(label);
-  const toggle = row.querySelector(".dd-toggle");
-  if (toggle instanceof HTMLButtonElement) {
-    toggle.setAttribute(
-      "aria-label",
-      `${labelText} ${getStartHotkeyAriaLabel()}`,
-    );
-  }
-  return row;
-}
-function createHotkeyToggleRow(labelText, hotkeyLabel, enabled, onChange) {
-  const row = createToggleRow(labelText, enabled, onChange);
-  const label = row.querySelector(".dd-toggle-label");
-  if (label) {
-    label.append(document.createTextNode(" "));
-    const kbd = document.createElement("kbd");
-    kbd.textContent = hotkeyLabel;
-    label.append(kbd);
-  }
-  const toggle = row.querySelector(".dd-toggle");
-  if (toggle instanceof HTMLButtonElement) {
-    toggle.setAttribute("aria-label", `${labelText} ${hotkeyLabel}`);
-  }
-  return row;
-}
-function syncPrefixStartHotkeyToggleRow(row, labelText) {
-  if (!row) return;
-  const label = row.querySelector(".dd-toggle-label");
-  const toggle = row.querySelector(".dd-toggle");
-  if (!label) return;
-  label.replaceChildren(document.createTextNode(labelText));
-  appendPrefixStartHotkeyMarkup(label);
-  toggle?.setAttribute(
-    "aria-label",
-    `${labelText} ${getStartHotkeyAriaLabel()}`,
-  );
-}
-function syncHotkeyToggleRow(row, labelText, hotkeyLabel) {
-  if (!row) return;
-  const label = row.querySelector(".dd-toggle-label");
-  const toggle = row.querySelector(".dd-toggle");
-  if (!label) return;
-  label.replaceChildren(document.createTextNode(labelText));
-  label.append(document.createTextNode(" "));
-  const kbd = document.createElement("kbd");
-  kbd.textContent = hotkeyLabel;
-  label.append(kbd);
-  toggle?.setAttribute("aria-label", `${labelText} ${hotkeyLabel}`);
 }
 function syncSettingsPanelCopy(host, panel) {
   const copy = host.getStrings();
@@ -179,21 +117,14 @@ function syncSettingsPanelCopy(host, panel) {
   const toggles = panel.querySelectorAll(
     ".dd-toggle-row:not(.dd-toggle-row--notification)",
   );
-  syncPrefixStartHotkeyToggleRow(toggles[0], copy.startHotkeyToggleLabel);
-  syncHotkeyToggleRow(toggles[1], copy.escHotkeyToggleLabel, ESC_HOTKEY_LABEL);
-  syncHotkeyToggleRow(
-    toggles[2],
-    copy.undoHotkeyToggleLabel,
-    getUndoHotkeyLabel(),
-  );
   const labelRows = panel.querySelectorAll(".dd-toggle-label");
-  if (labelRows[3])
-    labelRows[3].textContent = copy.allElementsOutlineToggleLabel;
-  if (labelRows[4]) labelRows[4].textContent = copy.allElementsFillToggleLabel;
-  toggles[3]
+  if (labelRows[0])
+    labelRows[0].textContent = copy.allElementsOutlineToggleLabel;
+  if (labelRows[1]) labelRows[1].textContent = copy.allElementsFillToggleLabel;
+  toggles[0]
     ?.querySelector(".dd-toggle")
     ?.setAttribute("aria-label", copy.allElementsOutlineToggleLabel);
-  toggles[4]
+  toggles[1]
     ?.querySelector(".dd-toggle")
     ?.setAttribute("aria-label", copy.allElementsFillToggleLabel);
   const title = panel
@@ -243,38 +174,6 @@ function populateSettingsPanel(
     langRow.appendChild(langBtn);
   }
   langField.appendChild(langRow);
-  const startHotkeyRow = createPrefixStartHotkeyToggleRow(
-    copy.startHotkeyToggleLabel,
-    host.getStartHotkeyEnabled(),
-    (next) => {
-      void (async () => {
-        host.setStartHotkeyEnabled(next);
-        await setStartHotkeyEnabled(next);
-      })();
-    },
-  );
-  const escHotkeyRow = createHotkeyToggleRow(
-    copy.escHotkeyToggleLabel,
-    ESC_HOTKEY_LABEL,
-    host.getEscHotkeyEnabled(),
-    (next) => {
-      void (async () => {
-        host.setEscHotkeyEnabled(next);
-        await setEscHotkeyEnabled(next);
-      })();
-    },
-  );
-  const undoHotkeyRow = createHotkeyToggleRow(
-    copy.undoHotkeyToggleLabel,
-    getUndoHotkeyLabel(),
-    host.getUndoHotkeyEnabled(),
-    (next) => {
-      void (async () => {
-        host.setUndoHotkeyEnabled(next);
-        await setUndoHotkeyEnabled(next);
-      })();
-    },
-  );
   const allElementsOutlineRow = createToggleRow(
     copy.allElementsOutlineToggleLabel,
     host.getAllElementsOutlineEnabled(),
@@ -397,9 +296,6 @@ function populateSettingsPanel(
     langField,
     notificationRow,
     captionStyleRow,
-    startHotkeyRow,
-    escHotkeyRow,
-    undoHotkeyRow,
     allElementsOutlineRow,
     allElementsFillRow,
   );
@@ -429,4 +325,4 @@ function measureGermanSettingsBodyHeight(host, shadow) {
   return height;
 }
 
-export { SELECTION_CAPTION_SELECT_ID, selectionCaptionOptionLabel, createSelectionCaptionStyleRow, syncSelectionCaptionStyleRow, createPageDivider2, createPageTitle2, appendPrefixStartHotkeyMarkup, createToggleRow, createPrefixStartHotkeyToggleRow, createHotkeyToggleRow, syncPrefixStartHotkeyToggleRow, syncHotkeyToggleRow, syncSettingsPanelCopy, populateSettingsPanel, measureGermanSettingsBodyHeight };
+export { SELECTION_CAPTION_SELECT_ID, selectionCaptionOptionLabel, createSelectionCaptionStyleRow, syncSelectionCaptionStyleRow, createPageDivider2, createPageTitle2, createToggleRow, syncSettingsPanelCopy, populateSettingsPanel, measureGermanSettingsBodyHeight };

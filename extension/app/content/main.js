@@ -49,32 +49,6 @@ function resetState(state2) {
   state2.sessionHadDeletion = false;
   document.getElementById("element-deleter-root")?.remove();
 }
-function isExtensionNode(node) {
-  if (!node) return true;
-  if (node instanceof Element && node.closest?.("[data-element-deleter-ui]")) {
-    return true;
-  }
-  return false;
-}
-function resolveContextMenuTarget(raw) {
-  if (!(raw instanceof Element)) return null;
-  if (isExtensionNode(raw)) return null;
-  if (raw === document.documentElement || raw === document.body) return null;
-  return raw;
-}
-function attachContextMenuTargetListener() {
-  const prev = window.__elementDeleterContextMenuHandler;
-  if (prev) {
-    document.removeEventListener("contextmenu", prev, true);
-  }
-  const handler = (e) => {
-    window.__elementDeleterContextMenuTarget = resolveContextMenuTarget(
-      e.target,
-    );
-  };
-  window.__elementDeleterContextMenuHandler = handler;
-  document.addEventListener("contextmenu", handler, true);
-}
 function notifyBackgroundActive(isActive) {
   const msg = { type: "ACTIVE_CHANGED", active: isActive };
   void ext.runtime.sendMessage(msg).catch(() => {});
@@ -198,15 +172,25 @@ function attachMessageHandler(state2) {
       }
       return;
     }
-    if (message.type === "DELETE_CONTEXT_ELEMENT") {
+    if (message.type === "UNDO_LAST") {
       void (async () => {
-        const target = window.__elementDeleterContextMenuTarget;
-        window.__elementDeleterContextMenuTarget = null;
-        if (!target?.isConnected || isExtensionNode(target)) return;
-        const ui = await ensureUi();
-        await ui.deleteContextElement(target);
+        if (!state2.active) {
+          sendResponse({ ok: false });
+          return;
+        }
+        try {
+          const ui = await ensureUi();
+          if (!ui.canUndo()) {
+            sendResponse({ ok: false });
+            return;
+          }
+          await ui.undoLast();
+          sendResponse({ ok: true });
+        } catch {
+          sendResponse({ ok: false });
+        }
       })();
-      return;
+      return true;
     }
   };
   window.__elementDeleterMessageHandler = handler;
@@ -222,7 +206,6 @@ if (
 }
 window.__elementDeleterRuntimeId = runtimeId;
 registerDocumentOperabilityProbeListener();
-attachContextMenuTargetListener();
 attachMessageHandler(state);
 registerDeleterStartHotkey(requestToggle);
 void bootstrapPanelTabPageIfNeeded();

@@ -40,16 +40,6 @@ E = Extension
 
 - Steps 7b-8b can be repeated any number of times before the extension is stopped
 
-### Delete an element with the right mouse button
-
-> [!NOTE]
-> Numbering is not related to the flows above.
-
-0. E is not running
-1. U right-clicks an element
-2. U selects the extension from the context menu
-3. E removes the element
-
 ### Welcome window
 
 > [!NOTE]

@@ -12,7 +12,6 @@ FEATURES
 - Remove page elements with a few clicks
 - Restore removed elements
 - Undo multiple deletions while delete mode is active
-- Delete elements from the context menu
 - Works with iframes and embedded content
 - Clear notification after deletion
 - Lightweight and simple

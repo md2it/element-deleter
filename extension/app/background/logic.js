@@ -264,6 +264,21 @@ async function sendWithInject(tabId, message, frameId) {
   }
   return false;
 }
+async function deactivateTab(tabId, windowId) {
+  if (tabId === void 0) return;
+  if (!getTabActiveState(tabId)) return;
+  setTabActiveState(tabId, false);
+  clearBlockedBadgeState(tabId);
+  clearFlashBadgeState(tabId);
+  clearRunningBadgeAnimation(tabId);
+  await syncIconForTab(tabId);
+  await syncToolbarBadge(tabId);
+  await setTabActive(tabId, false, windowId);
+}
+async function undoTab(tabId, _windowId) {
+  if (!getTabActiveState(tabId)) return;
+  await sendWithInject(tabId, { type: "UNDO_LAST" });
+}
 async function setTabActive(tabId, active, windowId) {
   if (active && !(await canOperateOnTab(tabId))) {
     setTabActiveState(tabId, false);
@@ -322,10 +337,6 @@ async function toggleTab(tabId, windowId) {
   await syncToolbarBadge(tabId);
   await setTabActive(tabId, true, windowId);
 }
-var CONTEXT_MENU_SETTINGS = "element-deleter-settings";
-var CONTEXT_MENU_SHORTCUTS = "element-deleter-shortcuts";
-var CONTEXT_MENU_ABOUT = "element-deleter-about";
-var CONTEXT_MENU_DELETE = "element-deleter-delete-element";
 function getActiveCommandTab() {
   return new Promise((resolve) => {
     ext.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -340,16 +351,9 @@ function getActiveCommandTab() {
     });
   });
 }
-var PAGE_CONTEXT_MENU_CONTEXTS = [
-  "page",
-  "frame",
-  "selection",
-  "link",
-  "editable",
-  "image",
-  "video",
-  "audio",
-];
+var CONTEXT_MENU_SETTINGS = "element-deleter-settings";
+var CONTEXT_MENU_SHORTCUTS = "element-deleter-shortcuts";
+var CONTEXT_MENU_ABOUT = "element-deleter-about";
 var ACTION_MENU_EMOJI = {
   settings: "⚙️",
   shortcuts: "⌨️",
@@ -402,11 +406,6 @@ async function ensureContextMenu() {
       ),
       contexts: ["action"],
     });
-    await createContextMenuItem({
-      id: CONTEXT_MENU_DELETE,
-      title: strings.contextMenuDeleteElement,
-      contexts: [...PAGE_CONTEXT_MENU_CONTEXTS],
-    });
   });
   await ensureContextMenuChain;
 }
@@ -429,6 +428,8 @@ ext.action.onClicked.addListener(async (tab) => {
 registerBackgroundHotkeys({
   getActiveCommandTab,
   toggleTab,
+  deactivateTab,
+  undoTab,
 });
 registerPrefixHintOperabilityListeners({
   canOperateOnTab,
@@ -445,26 +446,6 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
   }
   if (info.menuItemId === CONTEXT_MENU_ABOUT) {
     openPanelFromSender("info", tab);
-    return;
-  }
-  if (info.menuItemId === CONTEXT_MENU_DELETE) {
-    void (async () => {
-      const tabId = tab?.id;
-      if (tabId === void 0) return;
-      const frameId = info.frameId ?? 0;
-      if (!(await canOperateOnTab(tabId, frameId))) {
-        await showBlockedPageFeedback(tabId, tab?.windowId);
-        return;
-      }
-      const ok = await sendWithInject(
-        tabId,
-        { type: "DELETE_CONTEXT_ELEMENT" },
-        frameId,
-      );
-      if (!ok) {
-        await showBlockedPageFeedback(tabId, tab?.windowId);
-      }
-    })();
   }
 });
 ext.runtime.onMessage.addListener((message, sender) => {

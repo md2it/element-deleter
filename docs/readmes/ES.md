@@ -48,7 +48,6 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
 - Eliminar elementos de la página con pocos clics
 - Restaurar elementos eliminados
 - Deshacer varias eliminaciones mientras el modo de borrado está activo
-- Eliminar elementos desde el menú contextual
 - Funciona con iframes y contenido incrustado
 - Notificación clara después de eliminar
 - Ligera y sencilla

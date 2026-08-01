@@ -143,8 +143,20 @@ const manifest = JSON.parse(readFileSync(join(ext, "manifest.json"), "utf8"));
 assert.equal(manifest.background.service_worker, "app/background/main.js");
 assert.deepEqual(manifest.background.scripts, ["app/background/main.js"]);
 assert.equal(manifest.background.type, "module");
-assert.deepEqual(manifest.content_scripts[0].js, ["app/content/loader.js"]);
+assert.equal(manifest.content_scripts, undefined);
+assert.ok(!JSON.stringify(manifest).includes("<all_urls>"));
 assert.ok(manifest.web_accessible_resources?.length);
+assert.deepEqual(manifest.permissions, [
+  "storage",
+  "scripting",
+  "activeTab",
+  "contextMenus",
+]);
+assert.ok(
+  manifest.web_accessible_resources[0].matches.every(
+    (match) => match !== "<all_urls>",
+  ),
+);
 
 const backgroundMain = readFileSync(join(ext, "app/background/main.js"), "utf8");
 assert.match(backgroundMain, /import\s+"\.\/logic\.js"/);
@@ -155,6 +167,17 @@ assert.match(logicSource, /SUPPORT_SURVEY_ACTION/);
 assert.match(logicSource, /recordSupportSurveyAction\(\)/);
 assert.match(logicSource, /handleSupportSurveyScenarioComplete\(/);
 assert.match(logicSource, /app\/content\/loader\.js/);
+assert.match(logicSource, /UNDO_LAST/);
+assert.match(logicSource, /deactivateTab/);
+assert.match(logicSource, /undoTab/);
+
+const hotkeysBackground = readFileSync(
+  join(ext, "app/hotkeys/background.js"),
+  "utf8",
+);
+assert.match(hotkeysBackground, /activate-deactivate/);
+assert.match(hotkeysBackground, /undo-delete/);
+assert.match(hotkeysBackground, /deactivate-delete-mode/);
 
 const content = readFileSync(join(ext, "app/content/main.js"), "utf8");
 assert.match(content, /SCENARIO_COMPLETE/);

@@ -1,6 +1,5 @@
 import { ABOUT_AUTHOR_URL, buildAboutListItems, getSupportSurveyAboutText } from "../about.js";
-import { PREFIX_ACTION_KEY } from "../hotkeys/commands.js";
-import { SHORTCUTS_PREFIX_CHORD_MAC_DISPLAY, SHORTCUTS_PREFIX_CHORD_WIN_DISPLAY, SHORTCUTS_UNDO_MAC_DISPLAY, SHORTCUTS_UNDO_WIN_DISPLAY } from "../hotkeys/keys.js";
+import { SHORTCUTS_UNDO_MAC_DISPLAY, SHORTCUTS_UNDO_WIN_DISPLAY } from "../hotkeys/keys.js";
 import { ABOUT_SECTION_ICONS } from "../icons.js";
 
 function createPageDivider() {
@@ -31,43 +30,6 @@ function createAboutIcon(iconHtml) {
   mark.setAttribute("aria-hidden", "true");
   mark.innerHTML = iconHtml;
   return mark;
-}
-function buildShortcutsSteps(strings) {
-  const steps = document.createElement("ol");
-  steps.className = "dd-shortcuts-steps";
-  const step1 = document.createElement("li");
-  step1.className = "dd-shortcuts-step--press";
-  const pressGrid = document.createElement("div");
-  pressGrid.className = "dd-shortcuts-step-press-grid";
-  const pressLabel = document.createElement("span");
-  pressLabel.className = "dd-shortcuts-step-press-label";
-  pressLabel.textContent = strings.shortcutsStepPress;
-  const pressChords = document.createElement("div");
-  pressChords.className = "dd-shortcuts-step-press-chords";
-  pressChords.append(createKbd(SHORTCUTS_PREFIX_CHORD_WIN_DISPLAY));
-  const pressMacLabel = document.createElement("span");
-  pressMacLabel.className = "dd-shortcuts-step-press-mac-label";
-  pressMacLabel.textContent = strings.shortcutsStepOnMac;
-  const pressMacChords = document.createElement("div");
-  pressMacChords.className = "dd-shortcuts-step-press-mac-chords";
-  pressMacChords.append(createKbd(SHORTCUTS_PREFIX_CHORD_MAC_DISPLAY));
-  pressGrid.append(pressLabel, pressChords, pressMacLabel, pressMacChords);
-  step1.append(pressGrid);
-  const step2 = document.createElement("li");
-  const releaseBold = document.createElement("strong");
-  releaseBold.className = "dd-shortcuts-step-release-bold";
-  releaseBold.textContent = strings.shortcutsStepReleaseBold;
-  step2.append(
-    releaseBold,
-    document.createTextNode(strings.shortcutsStepReleaseRest),
-  );
-  const step3 = document.createElement("li");
-  step3.append(
-    document.createTextNode(`${strings.shortcutsStepThenPress} `),
-    createKbd(PREFIX_ACTION_KEY.toUpperCase()),
-  );
-  steps.append(step1, step2, step3);
-  return steps;
 }
 function buildUndoShortcutBlock(strings) {
   const block = document.createElement("div");
@@ -117,18 +79,6 @@ function buildShortcutsPanelBody(body, strings) {
   body.replaceChildren();
   const page = document.createElement("div");
   page.className = "dd-panel-page dd-panel-page--shortcuts";
-  const runStopHeading = document.createElement("p");
-  runStopHeading.className = "dd-shortcuts-heading";
-  runStopHeading.textContent = strings.shortcutsRunStopHeading;
-  const safety = document.createElement("div");
-  safety.className = "dd-shortcuts-safety";
-  const safetyLine1 = document.createElement("p");
-  safetyLine1.className = "dd-shortcuts-note";
-  safetyLine1.textContent = strings.shortcutsSafetyLine1;
-  const safetyLine2 = document.createElement("p");
-  safetyLine2.className = "dd-shortcuts-note";
-  safetyLine2.textContent = strings.shortcutsSafetyLine2;
-  safety.append(safetyLine1, safetyLine2);
   const stopHeading = document.createElement("p");
   stopHeading.className = "dd-shortcuts-heading";
   stopHeading.append(
@@ -138,10 +88,6 @@ function buildShortcutsPanelBody(body, strings) {
   page.append(
     createPageTitle(strings.tabShortcuts),
     createPageDivider(),
-    runStopHeading,
-    buildShortcutsSteps(strings),
-    safety,
-    createSectionDivider(),
     buildUndoShortcutBlock(strings),
     createSectionDivider(),
     stopHeading,
@@ -198,4 +144,4 @@ function buildAboutPanelBody(body, strings) {
   body.append(page);
 }
 
-export { createPageDivider, createPageTitle, createKbd, createSectionDivider, createAboutIcon, buildShortcutsSteps, buildUndoShortcutBlock, createAboutCredit, buildShortcutsPanelBody, buildAboutPanelBody };
+export { createPageDivider, createPageTitle, createKbd, createSectionDivider, createAboutIcon, buildUndoShortcutBlock, createAboutCredit, buildShortcutsPanelBody, buildAboutPanelBody };
