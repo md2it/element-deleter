@@ -29,7 +29,7 @@ Regular SemVer logic.
 - Migrated the extension runtime and content entrypoint to ES modules with a shared content loader
 
 ### 1.2.8
-- Unified Lucide UI icons via shared vendor copies (`lib/vendor/icons`)
+- Unified Lucide UI icons in the extension-local vendor modules (`extension/lib/vendor/icons`)
 
 ### 1.2.7
 - Welcome pin hint is positioned from the viewport edge (no fixed inset)

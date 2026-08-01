@@ -1,10 +1,8 @@
-# SCRIPTS
+# PUBLICATION ASSETS
 
-Shared scripts are located in [lib/scripts/](../../lib/scripts/). Run them from the project root (`element-deleter/`).
+Run the project-local generators from the `element-deleter` root:
 
-- Page screenshots
-   - `npm run screenshots:pages -- ru` → `capture-pages.mjs`
-   - welcome + settings + about
-- Image cropping
-   - `npm run screenshots:live` → `crop-live-screenshots.mjs`
-   - The project must provide its own `docs/publication/scripts/welcome-seed-entry.ts` (extension-specific welcome page data).
+- `node scripts/gen_cover_screenshot.mjs` creates localized gallery covers in `docs/publication/screenshots/`.
+- `node scripts/gen_promo_tiles.mjs` creates the Chrome Web Store promotional tiles in `docs/publication/`.
+
+The remaining gallery screenshots in `docs/publication/screenshots/` are maintained as publication assets; there is currently no automated capture command for them.

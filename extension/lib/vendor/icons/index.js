@@ -1,6 +1,6 @@
 import { arrow_up_default, circle_power_default, cog_default, copy_default, external_link_default, file_down_default, files_default, git_fork_default, heart_default, history_default, image_down_default, images_default, info_default, keyboard_default, pin_default, play_default, puzzle_default, rotate_cw_default, settings_default, shield_check_default } from "./lucide.js";
 
-// Generated from ../../lib/vendor/icons/index.ts
+// Extension-local Lucide icon exports.
 function stripComment(svg) {
   return svg.replace(/<!--[\s\S]*?-->\s*/g, "").trim();
 }
