@@ -3,11 +3,13 @@ import { createBadgeTextColorAnimation } from "../../lib/our/badge/text-color-an
 import { forEachActiveTabId, getTabActiveState, setTabActiveState } from "../../lib/our/extension-icon-state/tab-active-state.js";
 import { registerPrefixHintBadgeListeners } from "../../lib/our/hotkeys/prefix-hint-badge.js";
 import { registerPrefixHintOperabilityListeners } from "../../lib/our/hotkeys/prefix-operability.js";
+import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
 import { canOperateOnTab } from "../../lib/our/page-operability/can-operate.js";
 import { isBlockedNoticeDismissedMessage } from "../../lib/our/page-operability/messages.js";
 import { bootstrapToolbarIcons, onContentActiveChanged2, registerExtensionIconStateListeners2, syncIconForTab } from "../extension-icon-state/index.js";
 import { registerBackgroundHotkeys, shouldSuppressToolbarClickAfterHotkeyCommand } from "../hotkeys/background.js";
 import { DELETER_ACTIVE_COLOR } from "../hotkeys/commands.js";
+import { t } from "../i18n/strings.js";
 import { getRestrictedNoticeDismissMs, refreshRestrictedNoticeCache, showRestrictedNotice } from "../page-operability/notice.js";
 import { openPanelFromSender } from "../panel-popup/open.js";
 import { getSelectionCaptionStyle } from "../settings/selection-caption-style.js";
@@ -349,6 +351,64 @@ function getActiveCommandTab() {
     });
   });
 }
+var CONTEXT_MENU_SETTINGS = "element-deleter-settings";
+var CONTEXT_MENU_SHORTCUTS = "element-deleter-shortcuts";
+var CONTEXT_MENU_ABOUT = "element-deleter-about";
+var ACTION_MENU_EMOJI = {
+  settings: "⚙️",
+  shortcuts: "⌨️",
+  about: "ℹ️",
+};
+var ensureContextMenuChain = Promise.resolve();
+async function createContextMenuItem(props) {
+  try {
+    await ext.contextMenus.create(props);
+  } catch (err) {
+    console.error("[Element Deleter] contextMenus.create failed:", err, props);
+  }
+}
+function actionMenuTitle(title, emoji, locale) {
+  return isRtlLocale(locale) ? `${title} ${emoji}` : `${emoji} ${title}`;
+}
+async function ensureContextMenu() {
+  ensureContextMenuChain = ensureContextMenuChain.then(async () => {
+    const locale = await getLocale();
+    const strings = t(locale);
+    try {
+      await ext.contextMenus.removeAll();
+    } catch (err) {
+      console.error("[Element Deleter] contextMenus.removeAll failed:", err);
+    }
+    await createContextMenuItem({
+      id: CONTEXT_MENU_SETTINGS,
+      title: actionMenuTitle(
+        strings.titleSettings,
+        ACTION_MENU_EMOJI.settings,
+        locale,
+      ),
+      contexts: ["action"],
+    });
+    await createContextMenuItem({
+      id: CONTEXT_MENU_SHORTCUTS,
+      title: actionMenuTitle(
+        strings.titleShortcuts,
+        ACTION_MENU_EMOJI.shortcuts,
+        locale,
+      ),
+      contexts: ["action"],
+    });
+    await createContextMenuItem({
+      id: CONTEXT_MENU_ABOUT,
+      title: actionMenuTitle(
+        strings.titleAbout,
+        ACTION_MENU_EMOJI.about,
+        locale,
+      ),
+      contexts: ["action"],
+    });
+  });
+  await ensureContextMenuChain;
+}
 async function pushSettingsToActiveTabs() {
   const settings = await loadAllSettings();
   const message = settingsUpdatedMessage(settings);
@@ -374,6 +434,19 @@ registerBackgroundHotkeys({
 registerPrefixHintOperabilityListeners({
   canOperateOnTab,
   onBlockedOnTab: showBlockedPageFeedback,
+});
+ext.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId === CONTEXT_MENU_SETTINGS) {
+    openPanelFromSender("settings", tab);
+    return;
+  }
+  if (info.menuItemId === CONTEXT_MENU_SHORTCUTS) {
+    openPanelFromSender("shortcuts", tab);
+    return;
+  }
+  if (info.menuItemId === CONTEXT_MENU_ABOUT) {
+    openPanelFromSender("info", tab);
+  }
 });
 ext.runtime.onMessage.addListener((message, sender) => {
   if (isBlockedNoticeDismissedMessage(message)) {
@@ -456,10 +529,14 @@ ext.storage.onChanged.addListener((changes, area) => {
   if (secondsChange || localeChange) {
     void refreshRestrictedNoticeCache();
   }
+  if (localeChange) {
+    void ensureContextMenu();
+  }
   void pushSettingsToActiveTabs();
 });
 var onBootstrap = async () => {
   await ensureLocaleInStorage();
+  await ensureContextMenu();
   await refreshRestrictedNoticeCache();
   await bootstrapToolbarIcons();
 };

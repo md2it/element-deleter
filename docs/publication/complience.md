@@ -13,3 +13,6 @@ Element Deleter lets you manually remove selected elements on the current page a
 
 - `storage`
   Save tool preferences locally (language, toast duration, element labels, outline/fill helpers for picking nodes). Keep short-lived session state per tab. No data is uploaded or shared.
+
+- `contextMenus`
+  Offer “Settings”, “Shortcuts”, and “About” on the extension icon menu to open the control panel.

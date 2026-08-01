@@ -57,4 +57,5 @@ E = Extension
 
 - Open settings and the "About" section:
    - From a button in the notification
+   - From the extension context menu
 - If U attempts to use the extension on a page where it is unavailable, E does not operate and clearly notifies U

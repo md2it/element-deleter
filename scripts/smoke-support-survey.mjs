@@ -150,6 +150,7 @@ assert.deepEqual(manifest.permissions, [
   "storage",
   "scripting",
   "activeTab",
+  "contextMenus",
 ]);
 assert.ok(
   manifest.web_accessible_resources[0].matches.every(
