@@ -9,7 +9,7 @@ Pour les développeurs, testeurs et designers :
 Vérifiez une page sans blocs gênants, préparez une capture propre, revoyez une idée de mise en page ou retirez un élément qui masque le contenu.
 
 FONCTIONNALITÉS
-- Supprimer des éléments de page en quelques clics
+- Supprimer des éléments de page
 - Restaurer les éléments supprimés
 - Annuler plusieurs suppressions tant que le mode suppression est actif
 - Fonctionne avec les iframes et le contenu intégré

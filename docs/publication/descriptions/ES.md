@@ -9,7 +9,7 @@ Para desarrolladores, testers y diseñadores:
 Comprueba una página sin bloques molestos, prepara una captura limpia, revisa una idea de diseño o quita un elemento que tapa el contenido.
 
 FUNCIONES
-- Elimina elementos de la página con pocos clics
+- Elimina elementos de la página
 - Restaura elementos eliminados
 - Deshace varias eliminaciones mientras el modo de eliminación está activo
 - Funciona con iframes y contenido incrustado

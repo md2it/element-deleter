@@ -9,7 +9,7 @@ Für Entwickler, Tester und Designer:
 Prüfe eine Seite ohne störende Blöcke, bereite einen sauberen Screenshot vor, sieh dir eine Layoutidee an oder entferne ein Element, das den Inhalt verdeckt.
 
 HAUPTFUNKTIONEN
-- Seitenelemente mit wenigen Klicks entfernen
+- Seitenelemente entfernen
 - Entfernte Elemente wiederherstellen
 - Mehrere Löschvorgänge rückgängig machen, solange der Löschmodus aktiv ist
 - Funktioniert mit iframes und eingebetteten Inhalten

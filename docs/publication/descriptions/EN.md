@@ -9,7 +9,7 @@ For developers, testers, and designers:
 Check a page without noisy blocks, prepare a clean screenshot, review a layout idea, or remove an element that covers the content.
 
 FEATURES
-- Remove page elements with a few clicks
+- Remove page elements
 - Restore removed elements
 - Undo multiple deletions while delete mode is active
 - Works with iframes and embedded content
