@@ -1,9 +1,14 @@
 # THIRD-PARTY NOTICES
 
-### Lucide Icons
+## Lucide Icons
 
-- https://lucide.dev/license
-- https://github.com/lucide-icons/lucide/blob/main/LICENSE
+- Version: unversioned snapshot
+- Source: https://github.com/lucide-icons/lucide
+- License: ISC; selected icons derived from Feather are MIT
+- Bundled component: `extension/vendor/lucide/`
+- Integration entry point: `extension/vendor/lucide.js`
+- Status: project fork
+- Local changes: selected icon SVGs are packaged as JavaScript strings; SVG elements are unchanged
 
 ISC License
 

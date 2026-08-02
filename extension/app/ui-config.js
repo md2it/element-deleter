@@ -1,4 +1,4 @@
-import { createToastUiClasses } from "../lib/our/toast/index.js";
+import { createToastUiClasses } from "./toast/index.js";
 
 var UI_HOST_ATTR = "data-element-deleter-ui";
 var UI_CLASS_PREFIX = "dd";

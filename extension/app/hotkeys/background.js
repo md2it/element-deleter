@@ -1,5 +1,5 @@
-import { registerPrefixBackgroundHotkeys } from "../../lib/our/hotkeys/prefix-background.js";
-import { createToggleCommandSuppressTracker } from "../../lib/our/hotkeys/suppress.js";
+import { registerPrefixBackgroundHotkeys } from "./prefix-background.js";
+import { createToggleCommandSuppressTracker } from "./suppress.js";
 import { DELETER_ACTIVE_COLOR } from "./commands.js";
 import { getEscHotkeyEnabled, getStartHotkeyEnabled, getUndoHotkeyEnabled } from "./settings.js";
 

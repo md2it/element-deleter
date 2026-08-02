@@ -1,5 +1,5 @@
-import { createExtensionIconState } from "../../lib/our/extension-icon-state/create.js";
-import { onContentActiveChanged, registerExtensionIconStateListeners } from "../../lib/our/extension-icon-state/listeners.js";
+import { createExtensionIconState } from "./create.js";
+import { onContentActiveChanged, registerExtensionIconStateListeners } from "./listeners.js";
 import { TOOLBAR_ICON_PATHS } from "../icon-paths.js";
 import { ICON_STATE_LOG_LABEL, ICON_SYNCED_TAB_IDS_KEY } from "./constants.js";
 

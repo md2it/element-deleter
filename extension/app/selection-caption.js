@@ -1,5 +1,5 @@
-import { getCssSelector } from "../lib/our/copy/selector.js";
-import { getFullXPath } from "../lib/our/copy/xpath.js";
+import { getCssSelector } from "./copy/selector.js";
+import { getFullXPath } from "./copy/xpath.js";
 
 function formatTagIdClassCaption(el) {
   const tag = el.tagName.toLowerCase();

@@ -1,6 +1,6 @@
-import { ext } from "../../lib/our/api.js";
-import { isActionOnToolbar } from "../../lib/our/pin.js";
-import { openWelcomeTab, stopWelcomePinWatcher, watchWelcomePinStatus } from "../../lib/our/welcome/background.js";
+import { ext } from "../api.js";
+import { isActionOnToolbar } from "../pin.js";
+import { openWelcomeTab, stopWelcomePinWatcher, watchWelcomePinStatus } from "./tab.js";
 import { getLocale } from "../storage.js";
 import { WELCOME_PIN_WATCH_CONFIG, WELCOME_TAB_CONFIG } from "./constants.js";
 import { buildWelcomeData } from "./data.js";

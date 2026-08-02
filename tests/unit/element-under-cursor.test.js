@@ -1,6 +1,6 @@
 "use strict";
 
-import { pickElementUnderCursor } from "../../extension/lib/our/element-under-cursor.js";
+import { pickElementUnderCursor } from "../../extension/app/element-under-cursor.js";
 
 const { assert, assertEqual, test } = TestHarness;
 

@@ -1,5 +1,5 @@
-import { createSupportSurveyLogic } from "../../lib/our/support-survey/logic.js";
-import { ext } from "../../lib/our/api.js";
+import { createSupportSurveyLogic } from "./logic-core.js";
+import { ext } from "../api.js";
 import { SUPPORT_SURVEY_CHROME_STORE_URL, SUPPORT_SURVEY_COOLDOWN_MS, SUPPORT_SURVEY_FIREFOX_STORE_URL, SUPPORT_SURVEY_STORAGE_KEY, SUPPORT_SURVEY_THRESHOLD } from "./constants.js";
 
 var supportSurveyLogic = createSupportSurveyLogic({

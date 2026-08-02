@@ -1,6 +1,6 @@
-import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
-import { ARROW_UP, HEART, PIN, PUZZLE } from "../../lib/vendor/icons/index.js";
-import { welcomeStepIcon } from "../../lib/our/welcome/step-icon.js";
+import { isRtlLocale } from "../i18n/rtl.js";
+import { ARROW_UP, HEART, PIN, PUZZLE } from "../../vendor/lucide.js";
+import { welcomeStepIcon } from "./step-icon.js";
 import { buildAboutListItems } from "../about.js";
 import { PANEL_TITLE } from "../brand.js";
 import { t } from "../i18n/strings.js";

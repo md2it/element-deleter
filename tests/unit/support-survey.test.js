@@ -1,6 +1,6 @@
 "use strict";
 
-import { createSupportSurveyLogic } from "../../extension/lib/our/support-survey/logic.js";
+import { createSupportSurveyLogic } from "../../extension/app/support-survey/logic-core.js";
 import {
   SUPPORT_SURVEY_THRESHOLD,
   SUPPORT_SURVEY_COOLDOWN_MS,

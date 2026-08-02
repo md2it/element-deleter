@@ -1,6 +1,6 @@
-import { localeToHtmlLang } from "../../lib/our/i18n/locale-code.js";
-import { isRtlLocale } from "../../lib/our/i18n/rtl.js";
-import { createPanelDivider, createPanelHeader } from "../../lib/our/panel-header/header.js";
+import { localeToHtmlLang } from "../i18n/locale-code.js";
+import { isRtlLocale } from "../i18n/rtl.js";
+import { createPanelDivider, createPanelHeader } from "../panel-header/header.js";
 import { PANEL_TITLE } from "../brand.js";
 import { t } from "../i18n/strings.js";
 import { extensionMarkSvg } from "../icons.js";

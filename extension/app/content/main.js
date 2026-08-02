@@ -1,5 +1,5 @@
-import { ext } from "../../lib/our/api.js";
-import { registerDocumentOperabilityProbeListener } from "../../lib/our/page-operability/content-probe.js";
+import { ext } from "../api.js";
+import { registerDocumentOperabilityProbeListener } from "../page-operability/content-probe.js";
 import { applyAllElementsPageStyles, removeAllElementsPageStyles } from "../all-elements-page.js";
 import { mountDeleterContentHotkeys, registerDeleterStartHotkey, unmountDeleterContentHotkeys } from "../hotkeys/deleter-content.js";
 import { bootstrapPanelPopupPageIfNeeded } from "../panel-popup/page.js";

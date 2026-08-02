@@ -9,9 +9,9 @@ Object.defineProperty(globalThis, "navigator", {
 });
 
 const { createPrefixModeController } = await import(
-  "../../extension/lib/our/hotkeys/prefix-mode.js"
+  "../../extension/app/hotkeys/prefix-mode.js"
 );
-const { isPrefixChordKeyEvent } = await import("../../extension/lib/our/hotkeys/keys.js");
+const { isPrefixChordKeyEvent } = await import("../../extension/app/hotkeys/keys.js");
 const { PREFIX_ACTION_KEY } = await import("../../extension/app/hotkeys/commands.js");
 
 const { assert, assertEqual, test } = TestHarness;

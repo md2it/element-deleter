@@ -1,5 +1,5 @@
-import { ext } from "../lib/our/api.js";
-import { normalizeLocaleCode } from "../lib/our/i18n/locale-code.js";
+import { ext } from "./api.js";
+import { normalizeLocaleCode } from "./i18n/locale-code.js";
 import { detectLocale2 } from "./i18n/detect.js";
 import { isLocale } from "./i18n/types.js";
 import { ALL_ELEMENTS_FILL_ENABLED_KEY, ALL_ELEMENTS_OUTLINE_ENABLED_KEY, DEFAULT_NOTIFICATION_SECONDS, LOCALE_DETECT_VERSION, LOCALE_DETECT_VERSION_KEY, LOCALE_STORAGE_KEY, LOCALE_USER_SELECTED_KEY, STORAGE_KEY } from "./messages.js";
