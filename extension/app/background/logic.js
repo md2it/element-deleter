@@ -337,19 +337,12 @@ async function toggleTab(tabId, windowId) {
   await syncToolbarBadge(tabId);
   await setTabActive(tabId, true, windowId);
 }
-function getActiveCommandTab() {
-  return new Promise((resolve) => {
-    ext.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-      const tab = tabs[0];
-      if (tab?.id !== void 0) {
-        resolve(tab);
-        return;
-      }
-      ext.tabs.query({ active: true, currentWindow: true }, (fallback) => {
-        resolve(fallback[0]);
-      });
-    });
-  });
+async function getActiveCommandTab() {
+  const tabs = await ext.tabs.query({ active: true, lastFocusedWindow: true });
+  const tab = tabs[0];
+  if (tab?.id !== void 0) return tab;
+  const fallback = await ext.tabs.query({ active: true, currentWindow: true });
+  return fallback[0];
 }
 var CONTEXT_MENU_SETTINGS = "element-deleter-settings";
 var CONTEXT_MENU_SHORTCUTS = "element-deleter-shortcuts";

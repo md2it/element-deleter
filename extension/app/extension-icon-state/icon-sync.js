@@ -77,6 +77,8 @@ export function createIconSync(config) {
     const tabIds = await getIconSyncedTabIds();
     const alive = [];
     for (const tabId of tabIds) {
+      const tab = await ext.tabs.get(tabId);
+      if (!tab) continue;
       try {
         await applyToolbarIcon({ tabId }, resolveToolbarIconMode(tabId));
         alive.push(tabId);
