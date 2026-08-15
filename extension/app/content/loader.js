@@ -10,7 +10,13 @@
 (() => {
   const api = typeof browser !== "undefined" ? browser : chrome;
   const CONTENT_MAIN = "app/content/main.js";
-  import(api.runtime.getURL(CONTENT_MAIN)).catch((error) => {
-    console.error("[Element Deleter] failed to load content module", error);
-  });
+  // Firefox returns the completion value of an injected script to the background.
+  // A dynamic import resolves to a module namespace object, which Firefox 140
+  // cannot structured-clone. Always resolve this chain to null instead.
+  import(api.runtime.getURL(CONTENT_MAIN))
+    .then(() => null)
+    .catch((error) => {
+      console.error("[Element Deleter] failed to load content module", error);
+      return null;
+    });
 })();

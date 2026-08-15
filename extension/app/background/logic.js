@@ -20,19 +20,19 @@ import { showWelcome, stopWelcomePinWatcher2, watchWelcomePinStatus2 } from "../
 var TOGGLE_DEBOUNCE_MS = 80;
 var lastToggleTabId;
 var lastToggleAt = 0;
-var BADGE_TEXT_COLOR = "#ffffff";
+var BADGE_TEXT_COLOR = [255, 255, 255, 255];
 var BADGE_RUNNING_TEXT = "◉";
 var BADGE_RUNNING_BG_COLOR = "#dc2626";
-var BADGE_RUNNING_TEXT_COLOR_WHITE = [255, 255, 255];
-var BADGE_RUNNING_TEXT_COLOR_YELLOW = [250, 204, 21];
-var BADGE_RUNNING_TEXT_COLOR_RED = [185, 28, 28];
+var BADGE_RUNNING_TEXT_COLOR_WHITE = [255, 255, 255, 255];
+var BADGE_RUNNING_TEXT_COLOR_YELLOW = [250, 204, 21, 255];
+var BADGE_RUNNING_TEXT_COLOR_RED = [185, 28, 28, 255];
 var BADGE_BLOCKED_TEXT = "✕";
 var BADGE_DELETED_TEXT = "✓";
 var BADGE_RESTORED_TEXT = "✓";
-var BADGE_PREFIX_TEXT_COLOR = "#012292";
+var BADGE_PREFIX_TEXT_COLOR = [1, 34, 146, 255];
 var BADGE_PREFIX_BG_COLOR = "#ffffff";
 var BADGE_BLOCKED_BG_COLOR = "#e5e7eb";
-var BADGE_BLOCKED_TEXT_COLOR = "#374151";
+var BADGE_BLOCKED_TEXT_COLOR = [55, 65, 81, 255];
 var BADGE_RESTORED_BG_COLOR = "#1d4ed8";
 var BADGE_FLASH_MS = 1e3;
 var BADGE_RUNNING_ANIMATION_STEPS = 40;
@@ -143,10 +143,14 @@ async function setToolbarBadge(tabId, visuals) {
         color: visuals.backgroundColor ?? DELETER_ACTIVE_COLOR,
       });
       const setBadgeTextColor = ext.action.setBadgeTextColor;
-      await setBadgeTextColor?.({
-        tabId,
-        color: visuals.textColor ?? BADGE_TEXT_COLOR,
-      });
+      try {
+        await setBadgeTextColor?.({
+          tabId,
+          color: visuals.textColor ?? BADGE_TEXT_COLOR,
+        });
+      } catch (err) {
+        console.debug("[Element Deleter] setBadgeTextColor failed:", err);
+      }
     }
     await ext.action.setBadgeText({ tabId, text: visuals.text });
   } catch (err) {

@@ -26,7 +26,8 @@ export async function canOperateOnTab(tabId, frameId) {
       func: probeDocumentOperability,
     });
     return result?.result === true;
-  } catch {
+  } catch (error) {
+    console.debug("[Element Deleter] page operability probe failed:", error);
     return false;
   }
 }

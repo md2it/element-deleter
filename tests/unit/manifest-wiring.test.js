@@ -48,6 +48,12 @@ test("background logic wires support survey, undo, and content loader", async ()
   assert(/UNDO_LAST/.test(logicSource));
   assert(/deactivateTab/.test(logicSource));
   assert(/undoTab/.test(logicSource));
+
+  const loaderSource = await readExtensionText("app/content/loader.js");
+  assert(
+    /\.then\(\(\) => null\)/.test(loaderSource),
+    "content loader must not return a module namespace from scripting.executeScript in Firefox.",
+  );
 });
 
 test("content script records deletions for support survey on scenario complete", async () => {
