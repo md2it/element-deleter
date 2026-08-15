@@ -64,6 +64,7 @@ Pasa el cursor, haz clic y el elemento desaparece. Si fue un error, restáuralo.
 
 ## LIMITACIONES
 
+- Se requiere Firefox 140+ porque esta extensión usa la propiedad de manifiesto `data_collection_permissions`; Firefox 121–139 no es compatible.
 - **La selección de iframes es diferente** a la de otros elementos:
    - El iframe se selecciona como un todo
    - Esto se debe a una limitación de la plataforma; no se considera conveniente inyectar código dentro del iframe

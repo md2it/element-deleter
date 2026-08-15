@@ -64,6 +64,7 @@ Bewegen Sie den Mauszeiger über ein Element und klicken Sie: Das Element wird e
 
 ## EINSCHRÄNKUNGEN
 
+- Firefox 140+ ist erforderlich, weil diese Erweiterung die Manifest-Eigenschaft `data_collection_permissions` verwendet; Firefox 121–139 werden nicht unterstützt.
 - **Die Auswahl von Iframes unterscheidet sich** von der Auswahl anderer Elemente:
    - Das Iframe wird als Ganzes ausgewählt
    - Ursache ist eine Plattformbeschränkung; eine Injektion in das Iframe ist unerwünscht

@@ -64,6 +64,7 @@ Hover, click, and the element is gone. Made a mistake? Restore it.
 
 ## LIMITATIONS
 
+- Firefox 140+ is required because this extension uses the `data_collection_permissions` manifest property; Firefox 121–139 are unsupported.
 - **Iframe selection differs** from the selection of other elements:
    - The iframe is selected as a whole
       - This is due to a platform limitation

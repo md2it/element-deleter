@@ -64,6 +64,7 @@ Element Deleter 可以快速清除页面上的干扰内容，包括横幅、弹�
 
 ## 限制
 
+- 此扩展程序使用 `data_collection_permissions` 清单属性，因此需要 Firefox 140+；不支持 Firefox 121–139。
 - **iframe 的选择方式与其他元素不同：**
    - iframe 会作为一个整体被选择
    - 这是平台限制所致；不建议向 iframe 内部注入代码

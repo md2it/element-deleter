@@ -6,10 +6,10 @@ Regular SemVer logic. Review the [release requirements](RELEASE.md).
 
 ## RELEASES
 
-### 1.2.14
-- Fixed the first activation on Firefox 121–140 by making dynamic content loading return a Firefox-compatible result
+### 1.3.0
+- Raised the minimum supported Firefox version to 140 because `data_collection_permissions` is supported from Firefox 140 (released June 24, 2025).
+- Fixed the first activation and toolbar badge updates on Firefox 140.
 - Kept Element Deleter panels in the action popup instead of opening an outdated fallback tab
-- Fixed Firefox 140 toolbar badge updates
 
 ### 1.2.13
 - Asks for page access only when you start the extension, instead of all websites upfront

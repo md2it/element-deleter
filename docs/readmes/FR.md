@@ -64,6 +64,7 @@ Survolez un élément et cliquez : il disparaît. En cas d'erreur, restaurez-le.
 
 ## LIMITATIONS
 
+- Firefox 140+ est requis, car cette extension utilise la propriété de manifeste `data_collection_permissions` ; Firefox 121–139 n’est pas pris en charge.
 - **La sélection d'une iframe diffère** de celle des autres éléments :
    - L'iframe est sélectionnée dans son ensemble
    - Cette différence vient d'une limitation de la plateforme ; l'injection dans l'iframe n'est pas souhaitable

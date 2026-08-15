@@ -142,14 +142,13 @@ async function setToolbarBadge(tabId, visuals) {
         tabId,
         color: visuals.backgroundColor ?? DELETER_ACTIVE_COLOR,
       });
-      const setBadgeTextColor = ext.action.setBadgeTextColor;
-      try {
-        await setBadgeTextColor?.({
+      // Firefox rejects this API despite accepting other action badge updates.
+      // Its automatic contrast keeps the badge text readable.
+      if (typeof browser === "undefined") {
+        await ext.action.setBadgeTextColor?.({
           tabId,
           color: visuals.textColor ?? BADGE_TEXT_COLOR,
         });
-      } catch (err) {
-        console.debug("[Element Deleter] setBadgeTextColor failed:", err);
       }
     }
     await ext.action.setBadgeText({ tabId, text: visuals.text });
