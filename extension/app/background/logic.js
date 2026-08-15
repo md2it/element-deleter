@@ -52,6 +52,8 @@ var blockedBadgeClearTimers = /* @__PURE__ */ new Map();
 var flashBadgeClearTimers = /* @__PURE__ */ new Map();
 var runningBadgeAnimationIntervals = /* @__PURE__ */ new Map();
 var runningBadgeAnimationFrame = /* @__PURE__ */ new Map();
+var runningBadgeAnimationUpdates = /* @__PURE__ */ new Map();
+var badgeTextColorSupported = typeof ext.action.setBadgeTextColor === "function";
 function clearBlockedBadgeTimer(tabId) {
   const timer = blockedBadgeClearTimers.get(tabId);
   if (timer === void 0) return;
@@ -79,25 +81,35 @@ function clearRunningBadgeAnimation(tabId) {
     runningBadgeAnimationIntervals.delete(tabId);
   }
   runningBadgeAnimationFrame.delete(tabId);
+  runningBadgeAnimationUpdates.delete(tabId);
 }
 function ensureRunningBadgeAnimation(tabId) {
   if (runningBadgeAnimationIntervals.has(tabId)) return;
   runningBadgeAnimationFrame.set(tabId, 0);
   runningBadgeAnimationIntervals.set(
     tabId,
-    setInterval(() => {
+    setInterval(async () => {
       if (!getTabActiveState(tabId)) {
         clearRunningBadgeAnimation(tabId);
         return;
       }
+      if (runningBadgeAnimationUpdates.has(tabId)) return;
       const currentFrame = runningBadgeAnimationFrame.get(tabId) ?? 0;
       runningBadgeAnimationFrame.set(
         tabId,
         runningBadgeTextAnimation.nextFrame(currentFrame),
       );
-      void syncToolbarBadge(tabId);
+      await syncToolbarBadge(tabId);
     }, runningBadgeTextAnimation.stepIntervalMs),
   );
+}
+async function setBadgeTextColor(tabId, color) {
+  if (!badgeTextColorSupported) return;
+  try {
+    await ext.action.setBadgeTextColor({ tabId, color });
+  } catch {
+    badgeTextColorSupported = false;
+  }
 }
 function scheduleClearFlashBadge(tabId) {
   clearFlashBadgeTimer(tabId);
@@ -142,14 +154,10 @@ async function setToolbarBadge(tabId, visuals) {
         tabId,
         color: visuals.backgroundColor ?? DELETER_ACTIVE_COLOR,
       });
-      // Firefox rejects this API despite accepting other action badge updates.
-      // Its automatic contrast keeps the badge text readable.
-      if (typeof browser === "undefined") {
-        await ext.action.setBadgeTextColor?.({
-          tabId,
-          color: visuals.textColor ?? BADGE_TEXT_COLOR,
-        });
-      }
+      await setBadgeTextColor(
+        tabId,
+        visuals.textColor ?? BADGE_TEXT_COLOR,
+      );
     }
     await ext.action.setBadgeText({ tabId, text: visuals.text });
   } catch (err) {
@@ -186,12 +194,21 @@ async function syncToolbarBadge(tabId) {
   }
   if (getTabActiveState(tabId)) {
     ensureRunningBadgeAnimation(tabId);
+    if (runningBadgeAnimationUpdates.has(tabId)) return;
+    const update = Symbol();
+    runningBadgeAnimationUpdates.set(tabId, update);
     const frame = runningBadgeAnimationFrame.get(tabId) ?? 0;
-    await setToolbarBadge(tabId, {
-      text: BADGE_RUNNING_TEXT,
-      backgroundColor: BADGE_RUNNING_BG_COLOR,
-      textColor: runningBadgeTextAnimation.getColor(frame),
-    });
+    try {
+      await setToolbarBadge(tabId, {
+        text: BADGE_RUNNING_TEXT,
+        backgroundColor: BADGE_RUNNING_BG_COLOR,
+        textColor: runningBadgeTextAnimation.getColor(frame),
+      });
+    } finally {
+      if (runningBadgeAnimationUpdates.get(tabId) === update) {
+        runningBadgeAnimationUpdates.delete(tabId);
+      }
+    }
     return;
   }
   clearRunningBadgeAnimation(tabId);

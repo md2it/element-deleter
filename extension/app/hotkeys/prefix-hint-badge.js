@@ -3,6 +3,15 @@ import { isPrefixHintHideMessage, isPrefixHintShowMessage } from "./prefix-hint-
 
 var PREFIX_BADGE_BACKGROUND_COLOR = "#012292";
 var PREFIX_BADGE_TEXT_COLOR = [255, 255, 255, 255];
+var badgeTextColorSupported = typeof ext.action.setBadgeTextColor === "function";
+async function setBadgeTextColor(details) {
+  if (!badgeTextColorSupported) return;
+  try {
+    await ext.action.setBadgeTextColor(details);
+  } catch {
+    badgeTextColorSupported = false;
+  }
+}
 async function showPrefixBadge(
   letter,
   tabId,
@@ -16,8 +25,7 @@ async function showPrefixBadge(
       ...tabDetails,
       color: backgroundColor,
     });
-    const setBadgeTextColor = ext.action.setBadgeTextColor;
-    await setBadgeTextColor?.({ ...tabDetails, color: textColor });
+    await setBadgeTextColor({ ...tabDetails, color: textColor });
     await ext.action.setBadgeText({ ...tabDetails, text });
   } catch (err) {
     console.debug("[prefix-hint] setBadgeText failed:", err);
