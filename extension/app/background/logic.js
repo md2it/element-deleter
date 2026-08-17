@@ -13,7 +13,7 @@ import { t } from "../i18n/strings.js";
 import { getRestrictedNoticeDismissMs, refreshRestrictedNoticeCache, showRestrictedNotice } from "../page-operability/notice.js";
 import { openPanelFromSender } from "../panel-popup/open.js";
 import { getSelectionCaptionStyle } from "../settings/selection-caption-style.js";
-import { ensureLocaleInStorage, getAllElementsFillEnabled, getAllElementsOutlineEnabled, getLocale, getNotificationSeconds } from "../storage.js";
+import { ensureLocaleInStorage, getAllElementsOutlineEnabled, getLocale, getNotificationSeconds } from "../storage.js";
 import { handleSupportSurveyScenarioComplete, recordSupportSurveyAction } from "../support-survey/background.js";
 import { showWelcome, stopWelcomePinWatcher2, watchWelcomePinStatus2 } from "../welcome/background.js";
 
@@ -254,20 +254,17 @@ async function loadAllSettings() {
     locale,
     selectionCaptionStyle,
     allElementsOutlineEnabled,
-    allElementsFillEnabled,
   ] = await Promise.all([
     getNotificationSeconds(),
     getLocale(),
     getSelectionCaptionStyle(),
     getAllElementsOutlineEnabled(),
-    getAllElementsFillEnabled(),
   ]);
   return {
     notificationSeconds,
     locale,
     selectionCaptionStyle,
     allElementsOutlineEnabled,
-    allElementsFillEnabled,
   };
 }
 function settingsUpdatedMessage(settings) {
@@ -529,13 +526,11 @@ ext.storage.onChanged.addListener((changes, area) => {
   const localeChange = changes.locale;
   const selectionCaptionChange = changes.selectionCaptionStyle;
   const outlineChange = changes.allElementsOutlineEnabled;
-  const fillChange = changes.allElementsFillEnabled;
   if (
     !secondsChange &&
     !localeChange &&
     !selectionCaptionChange &&
-    !outlineChange &&
-    !fillChange
+    !outlineChange
   ) {
     return;
   }

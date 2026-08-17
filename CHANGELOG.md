@@ -6,6 +6,9 @@ Regular SemVer logic. Review the [release requirements](RELEASE.md).
 
 ## RELEASES
 
+### 1.3.1
+- Removed the “Tint for all elements” setting and its implementation.
+
 ### 1.3.0
 - Raised the minimum supported Firefox version to 140 because `data_collection_permissions` is supported from Firefox 140 (released June 24, 2025).
 - Fixed the first activation on Firefox 140 and restored animated toolbar badge colors in Chrome and Firefox.

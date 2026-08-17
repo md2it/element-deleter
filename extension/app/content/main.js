@@ -6,7 +6,7 @@ import { bootstrapPanelPopupPageIfNeeded } from "../panel-popup/page.js";
 import { bootstrapPanelTabPageIfNeeded } from "../panel-tab/bootstrap.js";
 import { resolveUndoEntryParent } from "../restore.js";
 import { getSelectionCaptionStyle } from "../settings/selection-caption-style.js";
-import { getAllElementsFillEnabled, getAllElementsOutlineEnabled } from "../storage.js";
+import { getAllElementsOutlineEnabled } from "../storage.js";
 import { DeleterUI } from "../ui.js";
 
 function getState() {
@@ -162,7 +162,6 @@ function attachMessageHandler(state2) {
       if (state2.active) {
         applyAllElementsPageStyles({
           outline: message.allElementsOutlineEnabled,
-          fill: message.allElementsFillEnabled,
         });
       }
       if (state2.ui) {
@@ -212,11 +211,8 @@ void bootstrapPanelTabPageIfNeeded();
 void bootstrapPanelPopupPageIfNeeded();
 async function syncAllElementsPageStylesFromStorage(state2) {
   if (!state2.active) return;
-  const [outline, fill] = await Promise.all([
-    getAllElementsOutlineEnabled(),
-    getAllElementsFillEnabled(),
-  ]);
-  applyAllElementsPageStyles({ outline, fill });
+  const outline = await getAllElementsOutlineEnabled();
+  applyAllElementsPageStyles({ outline });
 }
 async function syncSelectionCaptionFromStorage(state2) {
   if (!state2.ui) return;
@@ -225,12 +221,11 @@ async function syncSelectionCaptionFromStorage(state2) {
 }
 ext.storage.onChanged.addListener((changes, area) => {
   if (area !== "local") return;
-  const outlineOrFillChanged =
-    changes.allElementsOutlineEnabled || changes.allElementsFillEnabled;
-  if (!outlineOrFillChanged && !changes.selectionCaptionStyle) {
+  const outlineChanged = changes.allElementsOutlineEnabled;
+  if (!outlineChanged && !changes.selectionCaptionStyle) {
     return;
   }
-  if (outlineOrFillChanged) {
+  if (outlineChanged) {
     void syncAllElementsPageStylesFromStorage(state);
   }
   if (changes.selectionCaptionStyle) {

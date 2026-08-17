@@ -3,7 +3,7 @@ import { isRtlLocale } from "../i18n/rtl.js";
 import { LOCALE_BUTTON_LABELS, LOCALES } from "../i18n/types.js";
 import { CHEVRON_LEFT, CHEVRON_RIGHT, CHEVRONS_LEFT, CHEVRONS_RIGHT } from "../icons.js";
 import { SELECTION_CAPTION_STYLES, setSelectionCaptionStyle } from "../settings/selection-caption-style.js";
-import { setAllElementsFillEnabled, setAllElementsOutlineEnabled, setLocale, setNotificationSeconds } from "../storage.js";
+import { setAllElementsOutlineEnabled, setLocale, setNotificationSeconds } from "../storage.js";
 
 var SELECTION_CAPTION_SELECT_ID = "dd-selection-caption-style";
 function selectionCaptionOptionLabel(style, strings) {
@@ -120,13 +120,9 @@ function syncSettingsPanelCopy(host, panel) {
   const labelRows = panel.querySelectorAll(".dd-toggle-label");
   if (labelRows[0])
     labelRows[0].textContent = copy.allElementsOutlineToggleLabel;
-  if (labelRows[1]) labelRows[1].textContent = copy.allElementsFillToggleLabel;
   toggles[0]
     ?.querySelector(".dd-toggle")
     ?.setAttribute("aria-label", copy.allElementsOutlineToggleLabel);
-  toggles[1]
-    ?.querySelector(".dd-toggle")
-    ?.setAttribute("aria-label", copy.allElementsFillToggleLabel);
   const title = panel
     .closest(".dd-panel-page")
     ?.querySelector(".dd-panel-page-title");
@@ -181,16 +177,6 @@ function populateSettingsPanel(
       void (async () => {
         host.setAllElementsOutlineEnabled(next);
         await setAllElementsOutlineEnabled(next);
-      })();
-    },
-  );
-  const allElementsFillRow = createToggleRow(
-    copy.allElementsFillToggleLabel,
-    host.getAllElementsFillEnabled(),
-    (next) => {
-      void (async () => {
-        host.setAllElementsFillEnabled(next);
-        await setAllElementsFillEnabled(next);
       })();
     },
   );
@@ -297,7 +283,6 @@ function populateSettingsPanel(
     notificationRow,
     captionStyleRow,
     allElementsOutlineRow,
-    allElementsFillRow,
   );
   if (surfacePopup) {
     const page = document.createElement("div");

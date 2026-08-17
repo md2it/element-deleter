@@ -2,7 +2,7 @@ import { isRtlLocale } from "../i18n/rtl.js";
 import { mountPanelShadowHost } from "../panel-shell/shadow-host.js";
 import { t } from "../i18n/strings.js";
 import { getSelectionCaptionStyle, setSelectionCaptionStyle } from "../settings/selection-caption-style.js";
-import { getAllElementsFillEnabled, getAllElementsOutlineEnabled, getLocale, getNotificationSeconds, setAllElementsFillEnabled, setAllElementsOutlineEnabled, setLocale, setNotificationSeconds } from "../storage.js";
+import { getAllElementsOutlineEnabled, getLocale, getNotificationSeconds, setAllElementsOutlineEnabled, setLocale, setNotificationSeconds } from "../storage.js";
 import { ToastSystem } from "../toast/deleter.js";
 import { PANEL_POPUP_HOST_ATTR, PANEL_POPUP_ROOT_ID } from "./constants.js";
 import { PanelWindowSystem } from "./window.js";
@@ -12,7 +12,6 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
   let notificationSeconds = 4;
   let selectionCaptionStyle = "click-to-delete";
   let allElementsOutlineEnabled = false;
-  let allElementsFillEnabled = false;
   const { shadow } = mountPanelShadowHost({
     rootId: PANEL_POPUP_ROOT_ID,
     hostClassName: "dd-panel-popup",
@@ -1104,13 +1103,11 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
     locale,
     selectionCaptionStyle,
     allElementsOutlineEnabled,
-    allElementsFillEnabled,
   ] = await Promise.all([
     getNotificationSeconds(),
     getLocale(),
     getSelectionCaptionStyle(),
     getAllElementsOutlineEnabled(),
-    getAllElementsFillEnabled(),
   ]);
   let panelWindow;
   const toast = new ToastSystem({
@@ -1140,10 +1137,6 @@ async function mountPanelSurface(initialTab, { hostStyle, surface }) {
     getAllElementsOutlineEnabled: () => allElementsOutlineEnabled,
     setAllElementsOutlineEnabled: (enabled) => {
       allElementsOutlineEnabled = enabled;
-    },
-    getAllElementsFillEnabled: () => allElementsFillEnabled,
-    setAllElementsFillEnabled: (enabled) => {
-      allElementsFillEnabled = enabled;
     },
     getStrings: () => t(locale),
     isRtl: () => isRtlLocale(locale),

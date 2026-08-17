@@ -1,11 +1,9 @@
-import { disableAllElementsFill, enableAllElementsFill } from "./all-elements-fill/lifecycle.js";
 import { disableAllElementsOutline, enableAllElementsOutline } from "./all-elements-outline/lifecycle.js";
 
 var ALL_ELEMENTS_OUTLINE_STYLE_ID = "element-deleter-all-elements-outline";
-var ALL_ELEMENTS_FILL_STYLE_ID = "element-deleter-all-elements-fill";
 var OUTLINE_RGBA = "rgba(185, 28, 28, 0.48)";
 function removeAllElementsPageStyles() {
-  applyAllElementsPageStyles({ outline: false, fill: false });
+  applyAllElementsPageStyles({ outline: false });
 }
 function applyAllElementsPageStyles(options) {
   if (options.outline) {
@@ -17,13 +15,6 @@ function applyAllElementsPageStyles(options) {
   } else {
     disableAllElementsOutline(ALL_ELEMENTS_OUTLINE_STYLE_ID);
   }
-  if (options.fill) {
-    enableAllElementsFill({
-      styleId: ALL_ELEMENTS_FILL_STYLE_ID,
-    });
-  } else {
-    disableAllElementsFill(ALL_ELEMENTS_FILL_STYLE_ID);
-  }
 }
 
-export { ALL_ELEMENTS_OUTLINE_STYLE_ID, ALL_ELEMENTS_FILL_STYLE_ID, OUTLINE_RGBA, removeAllElementsPageStyles, applyAllElementsPageStyles };
+export { ALL_ELEMENTS_OUTLINE_STYLE_ID, OUTLINE_RGBA, removeAllElementsPageStyles, applyAllElementsPageStyles };
