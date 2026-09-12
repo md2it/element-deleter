@@ -383,13 +383,11 @@ var DeleterUI = class {
 }
 
 .dd-panel-page--recommend {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
+  width: 100%;
 }
 
-.dd-recommend-intro {
-  margin: 0;
+.dd-panel-body .dd-recommend-intro {
+  margin: 0 0 0.9rem;
   color: #4b5563;
 }
 
@@ -479,6 +477,7 @@ var DeleterUI = class {
 
 .dd-recommend-status {
   min-height: 1.1em;
+  margin-top: 0.9rem;
   color: #166534;
   font-size: 0.82rem;
 }
