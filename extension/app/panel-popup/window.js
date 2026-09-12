@@ -132,12 +132,18 @@ var PanelWindowSystem = class {
     refreshPanels();
     setActiveTab(tab === "shortcuts" ? "settings" : tab);
   }
+  applyLocaleToPanelChrome() {
+    if (!this.panelRoot) return;
+    const strings = this.host.getStrings();
+    this.panelRoot.lang = localeToHtmlLang(this.host.getLocale());
+    this.panelRoot.dir = this.host.isRtl() ? "rtl" : "ltr";
+    this.menu?.syncStrings(strings);
+  }
   showTab(tab) {
     if (!this.body) return;
     this.activeTab = tab;
     const strings = this.host.getStrings();
-    this.panelRoot.lang = localeToHtmlLang(this.host.getLocale());
-    this.panelRoot.dir = this.host.isRtl() ? "rtl" : "ltr";
+    this.applyLocaleToPanelChrome();
     switch (tab) {
       case "settings":
         populateSettingsPanel(

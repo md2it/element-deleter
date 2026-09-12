@@ -22,6 +22,15 @@ function createPanelMenu(strings) {
     buttons.set(item.tab, button);
     nav.append(button);
   }
+  function syncStrings(nextStrings) {
+    for (const item of MENU_ITEMS) {
+      const button = buttons.get(item.tab);
+      if (!button) continue;
+      const label = item.label(nextStrings);
+      button.setAttribute("aria-label", label);
+      button.dataset.tooltip = label;
+    }
+  }
   const handle = {
     root: nav,
     setActive(tab) {
@@ -31,6 +40,7 @@ function createPanelMenu(strings) {
         button.setAttribute("aria-current", active ? "page" : "false");
       }
     },
+    syncStrings,
     onSelect: () => {},
   };
   nav.addEventListener("click", (event) => {
