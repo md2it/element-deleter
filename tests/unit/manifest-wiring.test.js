@@ -79,3 +79,28 @@ test("support survey background serializes action increments", async () => {
   assert(/await supportSurveyActionQueue/.test(surveyBackground));
   assert(/shouldShowSupportSurvey\(state\)/.test(surveyBackground));
 });
+
+test("recommend page is wired into the panel and action context menu", async () => {
+  const constants = await readExtensionText("app/panel-popup/constants.js");
+  assert(/\["settings", "shortcuts", "info", "recommend"\]/.test(constants));
+
+  const menu = await readExtensionText("app/panel-popup/panel-menu.js");
+  assert(menu.includes("HEART_HANDSHAKE"));
+  assert(menu.includes('tab: "recommend"'));
+  assert(menu.indexOf('tab: "recommend"') > menu.indexOf('tab: "info"'));
+
+  const background = await readExtensionText("app/background/logic.js");
+  assert(background.includes('CONTEXT_MENU_RECOMMEND'));
+  assert(background.includes('recommend: "❤️"'));
+  assert(background.includes('openPanelFromSender("recommend", tab)'));
+
+  const recommend = await readExtensionText("app/recommend.js");
+  assert(recommend.includes("navigator.share"));
+  assert(recommend.includes("navigator.clipboard.writeText"));
+  assert(recommend.includes("EXTERNAL_LINK"));
+  assert(recommend.includes("COPY"));
+  assert(recommend.includes("SHARE"));
+  assert(recommend.includes("dataset.tooltip"));
+  assert(recommend.includes("SUPPORT_SURVEY_CHROME_STORE_URL"));
+  assert(recommend.includes("SUPPORT_SURVEY_FIREFOX_STORE_URL"));
+});

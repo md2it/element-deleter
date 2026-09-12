@@ -5,8 +5,9 @@ import { PANEL_TITLE } from "../brand.js";
 import { toolbarWelcomeIconSvg } from "../icons.js";
 import { createPanelSurface } from "./build-panel-surface.js";
 import { PANEL_POPUP_HOST_ATTR } from "./constants.js";
-import { buildAboutPanelBody, buildShortcutsPanelBody } from "./panel-body.js";
+import { buildAboutPanelBody, buildShortcutsPanelBody, createPageDivider, createPageTitle } from "./panel-body.js";
 import { measureGermanSettingsBodyHeight, populateSettingsPanel } from "./panel-settings.js";
+import { buildRecommendPanelBody } from "../recommend.js";
 
 var PANEL_BODY_MIN_VAR = "--dd-panel-body-min";
 var panelBodyMinPx = null;
@@ -149,6 +150,9 @@ var PanelWindowSystem = class {
         break;
       case "shortcuts":
         buildShortcutsPanelBody(this.body, strings);
+        break;
+      case "recommend":
+        buildRecommendPanelBody(this.body, strings, createPageTitle, createPageDivider);
         break;
       case "info":
         buildAboutPanelBody(this.body, strings);

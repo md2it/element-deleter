@@ -363,10 +363,12 @@ async function getActiveCommandTab() {
 }
 var CONTEXT_MENU_SETTINGS = "element-deleter-settings";
 var CONTEXT_MENU_SHORTCUTS = "element-deleter-shortcuts";
+var CONTEXT_MENU_RECOMMEND = "element-deleter-recommend";
 var CONTEXT_MENU_ABOUT = "element-deleter-about";
 var ACTION_MENU_EMOJI = {
   settings: "⚙️",
   shortcuts: "⌨️",
+  recommend: "❤️",
   about: "ℹ️",
 };
 var ensureContextMenuChain = Promise.resolve();
@@ -416,6 +418,15 @@ async function ensureContextMenu() {
       ),
       contexts: ["action"],
     });
+    await createContextMenuItem({
+      id: CONTEXT_MENU_RECOMMEND,
+      title: actionMenuTitle(
+        strings.titleRecommend,
+        ACTION_MENU_EMOJI.recommend,
+        locale,
+      ),
+      contexts: ["action"],
+    });
   });
   await ensureContextMenuChain;
 }
@@ -452,6 +463,10 @@ ext.contextMenus.onClicked.addListener((info, tab) => {
   }
   if (info.menuItemId === CONTEXT_MENU_SHORTCUTS) {
     openPanelFromSender("shortcuts", tab);
+    return;
+  }
+  if (info.menuItemId === CONTEXT_MENU_RECOMMEND) {
+    openPanelFromSender("recommend", tab);
     return;
   }
   if (info.menuItemId === CONTEXT_MENU_ABOUT) {

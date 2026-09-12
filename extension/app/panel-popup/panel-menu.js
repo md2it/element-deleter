@@ -1,9 +1,10 @@
-import { INFO, KEYBOARD, SETTINGS } from "../../vendor/lucide.js";
+import { HEART_HANDSHAKE, INFO, KEYBOARD, SETTINGS } from "../../vendor/lucide.js";
 
 var MENU_ITEMS = [
   { tab: "settings", iconSvg: SETTINGS, label: (s) => s.tabSettings },
   { tab: "shortcuts", iconSvg: KEYBOARD, label: (s) => s.tabShortcuts },
   { tab: "info", iconSvg: INFO, label: (s) => s.tabAbout },
+  { tab: "recommend", iconSvg: HEART_HANDSHAKE, label: (s) => s.tabRecommend },
 ];
 function createPanelMenu(strings) {
   const nav = document.createElement("nav");

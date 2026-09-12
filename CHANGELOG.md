@@ -6,6 +6,10 @@ Regular SemVer logic. Review the [release requirements](RELEASE.md).
 
 ## RELEASES
 
+### 1.4.0
+- Added a Recommend page with direct Chrome and Firefox store actions to open, copy, or share the extension link.
+- Added Recommend as the last item in the extension panel and toolbar context menus.
+
 ### 1.3.1
 - Removed the “Tint for all elements” setting and its implementation.
 

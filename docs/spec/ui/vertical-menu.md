@@ -11,6 +11,7 @@
       - settings // SETTINGS
       - keyboard // SHORTCUTS
       - info // ABOUT
+      - heart-handshake // RECOMMEND, always last
    - Each menu item has an immediate tooltip. Tooltip text matches the page name
    - Spacing between items is equal
    - Spacing from the menu element's edges is equal

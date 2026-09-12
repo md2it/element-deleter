@@ -382,6 +382,107 @@ var DeleterUI = class {
   width: 100%;
 }
 
+.dd-panel-page--recommend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.dd-recommend-intro {
+  margin: 0;
+  color: #4b5563;
+}
+
+.dd-recommend-store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dd-recommend-store-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 3.35rem;
+  padding: 0.55rem 0.65rem 0.55rem 0.85rem;
+  border: 1px solid rgba(185, 28, 28, 0.14);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.dd-recommend-store-name {
+  font-weight: 600;
+  color: #374151;
+}
+
+.dd-recommend-store-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.dd-recommend-icon-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0.4rem;
+  color: #4b5563;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dd-recommend-icon-button svg {
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.dd-recommend-icon-button:hover,
+.dd-recommend-icon-button:focus-visible {
+  color: #b91c1c;
+  background: rgba(185, 28, 28, 0.09);
+}
+
+.dd-recommend-icon-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  z-index: 10;
+  inset-inline-end: 0;
+  bottom: calc(100% + 0.35rem);
+  width: max-content;
+  max-width: 12rem;
+  padding: 0.3rem 0.45rem;
+  border-radius: 0.3rem;
+  color: #fff;
+  background: #1f2937;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(0.15rem);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.dd-recommend-icon-button:hover::after,
+.dd-recommend-icon-button:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dd-recommend-status {
+  min-height: 1.1em;
+  color: #166534;
+  font-size: 0.82rem;
+}
+
 .dd-shortcuts-heading {
   margin: 0.5rem 0 0;
   font-size: 0.84rem;
