@@ -128,7 +128,7 @@ function buildAboutPanelBody(body, strings) {
     return block;
   }
   page.append(
-    createPageTitle(strings.aboutPageTitle ?? "ELEMENT DELETER"),
+    createPageTitle(strings.tabAbout),
     createPageDivider(),
     section(strings.aboutOverviewHeading ?? "Overview", ABOUT_SECTION_ICONS.overview, [{ text: strings.aboutOverview ?? "Remove unwanted elements from a web page." }]),
     section(strings.aboutCapabilitiesHeading ?? "Capabilities", ABOUT_SECTION_ICONS.capabilities, items.slice(0, 4)),
